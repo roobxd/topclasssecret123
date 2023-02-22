@@ -9,9 +9,10 @@
 
 import { SessionManager } from "./framework/utils/sessionManager.js"
 import { LoginController } from "./controllers/loginController.js"
-import { NavbarController }  from "./controllers/navbarController.js"
-import { UploadController }  from "./controllers/uploadController.js"
-import { WelcomeController }  from "./controllers/welcomeController.js"
+import { NavbarController } from "./controllers/navbarController.js"
+import { UploadController } from "./controllers/uploadController.js"
+import { WelcomeController } from "./controllers/welcomeController.js"
+import { PostsController } from "./controllers/postsController.js"
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -23,6 +24,7 @@ export class App {
     static CONTROLLER_LOGIN = "login";
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_WELCOME = "welcome";
+    static CONTROLLER_POSTS = "posts";
     static CONTROLLER_UPLOAD = "upload";
 
     constructor() {
@@ -48,7 +50,7 @@ export class App {
         }
 
         //Check for a special controller that shouldn't modify the URL
-        switch(name) {
+        switch (name) {
             case App.CONTROLLER_NAVBAR:
                 new NavbarController();
                 return true;
@@ -60,7 +62,7 @@ export class App {
 
         //Otherwise, load any of the other controllers
         App.setCurrentController(name, controllerData);
-        
+
         switch (name) {
             case App.CONTROLLER_LOGIN:
                 App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
@@ -68,6 +70,10 @@ export class App {
 
             case App.CONTROLLER_WELCOME:
                 App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                break;
+
+            case App.CONTROLLER_POSTS:
+                App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_UPLOAD:
@@ -104,16 +110,16 @@ export class App {
     static getCurrentController() {
         const fullPath = location.hash.slice(1);
 
-        if(!fullPath) {
+        if (!fullPath) {
             return undefined;
         }
 
         const queryStringIndex = fullPath.indexOf("?");
-        
+
         let path;
         let queryString;
 
-        if(queryStringIndex >= 0) {
+        if (queryStringIndex >= 0) {
             path = fullPath.substring(0, queryStringIndex);
             queryString = Object.fromEntries(new URLSearchParams(fullPath.substring(queryStringIndex + 1)));
         }
@@ -133,15 +139,14 @@ export class App {
      * @param name
      */
     static setCurrentController(name, controllerData) {
-        if(App.dontSetCurrentController) {
+        if (App.dontSetCurrentController) {
             return;
         }
 
-        if(controllerData) {
-            history.pushState(undefined, undefined, `#${name}?${new URLSearchParams(controllerData)}`);    
+        if (controllerData) {
+            history.pushState(undefined, undefined, `#${name}?${new URLSearchParams(controllerData)}`);
         }
-        else
-        {
+        else {
             history.pushState(undefined, undefined, `#${name}`);
         }
     }
@@ -170,7 +175,7 @@ export class App {
     }
 }
 
-window.addEventListener("hashchange", function() {
+window.addEventListener("hashchange", function () {
     App.dontSetCurrentController = true;
     App.loadControllerFromUrl(App.CONTROLLER_WELCOME);
     App.dontSetCurrentController = false;
