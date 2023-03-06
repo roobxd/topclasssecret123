@@ -168,7 +168,25 @@ export class App {
      * Removes username via sessionManager and loads the login screen
      */
     static handleLogout() {
+
+        const loggedins = document.querySelectorAll('.loggedin');
+        const loggedouts = document.querySelectorAll('.loggedout');
+
+        // Loop through each <a> element and add "nav-link" class name
+        loggedouts.forEach(link => {
+            link.classList.remove('loggedout');
+            link.classList.add('loggedin');
+        });
+
+        // Loop through each <a> element and add "nav-link" class name
+        loggedins.forEach(link => {
+            link.classList.remove('loggedin');
+            link.classList.add('loggedout');
+        });
+
+
         App.sessionManager.remove("username");
+        App.sessionManager.remove("email");
 
         //go to login screen
         App.loadController(App.CONTROLLER_LOGIN);

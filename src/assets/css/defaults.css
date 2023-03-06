@@ -9,7 +9,7 @@ footer {
     background-color: #2F72B9;
 }
 
-.bd-navbar .navbar-nav .nav-link {
+.bd-navbar .navbar-nav .nav-link .loggedout {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: #cbbde2;
@@ -17,4 +17,12 @@ footer {
 
 button {
     margin-top: 25px;
+}
+
+.loggedout {
+    display: none;
+}
+
+.loggedin {
+    display: block;
 }

@@ -5,9 +5,9 @@
  */
 
 import { App } from "../app.js";
-import {Controller} from "./controller.js";
+import { Controller } from "./controller.js";
 
-export class NavbarController extends Controller{
+export class NavbarController extends Controller {
     #navbarView
 
     constructor() {
@@ -39,12 +39,12 @@ export class NavbarController extends Controller{
      */
     #handleClickNavigationItem(event) {
         event.preventDefault();
-        
+
         //Get the data-controller from the clicked element (this)
         const clickedAnchor = event.target;
         const controller = clickedAnchor.dataset.controller;
 
-        if(typeof controller === "undefined") {
+        if (typeof controller === "undefined") {
             console.error("No data-controller attribute defined in anchor HTML tag, don't know which controller to load!")
             return false;
         }
