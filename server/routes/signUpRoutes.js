@@ -1,4 +1,4 @@
-class signInRoutes {
+class signUpRoutes {
 
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
@@ -35,4 +35,4 @@ class signInRoutes {
     
 }
 
-module.exports = signInRoutes;
+module.exports = signUpRoutes;
