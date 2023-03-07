@@ -11,6 +11,7 @@ body {
 }
 
 .login-container input {
+
     width: 350px;
     height: 60px;
     margin-bottom: 25px;
@@ -18,6 +19,8 @@ body {
     background-color: #343434;
     color: white;
     border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
 
     padding-left: 75px;
 }
@@ -28,6 +31,8 @@ body {
 }
 
 .login-container input::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
     color: white;
 }
 
