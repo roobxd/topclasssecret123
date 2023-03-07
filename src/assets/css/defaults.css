@@ -7,6 +7,7 @@ footer {
 
 .navbar {
     background-color: #2F72B9;
+    margin-bottom: 60px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {
@@ -25,4 +26,8 @@ button {
 
 .loggedin {
     display: block;
+}
+
+body {
+    background-image: url("/src/assets/images/background.png");
 }
