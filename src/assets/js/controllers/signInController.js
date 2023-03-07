@@ -13,8 +13,11 @@ export class signInController extends Controller {
         this.#setupView();
     }
 
-    #setupView() {
-        this.#createSingInView = super.loadHtmlIntoContent("html_views/signIn.html");
+    async #setupView() {
+        this.#createSingInView = await super.loadHtmlIntoContent("html_views/signIn.html");
 
+
+       
+        console.log(this.#createSingInView)
     }
 }
