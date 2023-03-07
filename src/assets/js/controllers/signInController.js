@@ -17,7 +17,20 @@ export class signInController extends Controller {
         this.#createSingInView = await super.loadHtmlIntoContent("html_views/signIn.html");
 
 
-       
-        console.log(this.#createSingInView)
+        
+        this.#createSingInView.querySelector(".register-button").addEventListener("click", (event) => {
+
+            event.preventDefault()
+            const name = this.#createSingInView.querySelector("#fullname").value
+            const email = this.#createSingInView.querySelector("#email").value
+            const password = this.#createSingInView.querySelector("#password").value
+            const confirmPassword = this.#createSingInView.querySelector("#confirm_password").value
+
+
+            console.log(name + email + password + confirmPassword)
+        })
+
     }
+
+
 }
