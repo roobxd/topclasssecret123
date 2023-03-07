@@ -65,7 +65,7 @@ export class App {
 
         switch (name) {
             case App.CONTROLLER_LOGIN:
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                App.isLoggedIn(() => new LoginController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_WELCOME:
