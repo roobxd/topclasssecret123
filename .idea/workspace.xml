@@ -2,64 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/cypress.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/cypress.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/extract-zip.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/extract-zip.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/is-ci.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/is-ci.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/mime.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/mime.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/mkdirp.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/mkdirp.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/node-which.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/node-which.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/nodemon.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/nodemon.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/nodetouch.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/nodetouch.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/nopt.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/nopt.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/rimraf.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/rimraf.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/semver.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/semver.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-conv.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-conv.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-sign.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-sign.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-verify.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-verify.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/uuid.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/.bin/uuid.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/node_modules/.bin/semver.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/nodemon/node_modules/.bin/semver.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/simple-update-notifier/node_modules/.bin/semver.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/node_modules/simple-update-notifier/node_modules/.bin/semver.ps1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/cypress" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/cypress" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/extract-zip" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/extract-zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/is-ci" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/is-ci" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/mime" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/mime" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/mkdirp" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/mkdirp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/node-which" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/node-which" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/nodemon" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/nodemon" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/nodetouch" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/nodetouch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/nopt" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/nopt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/rimraf" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/rimraf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-conv" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-conv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-sign" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-sign" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-verify" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/sshpk-verify" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.bin/uuid" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.bin/uuid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/nodemon/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/nodemon/node_modules/.bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/simple-update-notifier/node_modules/.bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/simple-update-notifier/node_modules/.bin/semver" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,14 +31,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
