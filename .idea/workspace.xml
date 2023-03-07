@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/routes/signInRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/testAli.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/testAli.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
