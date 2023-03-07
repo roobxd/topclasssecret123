@@ -1,12 +1,30 @@
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+/*Body Content*/
+body{
+    background-image: url("../img/bodyImage.png");
+    background-color: cornflowerblue;
+    padding: 0;
+    margin: 0;
 }
 
+/*Scrollbar*/
+body::-webkit-scrollbar{
+    width: 0.25rem;
+}
+body::-webkit-scrollbar-track{
+    background-color: powderblue;
+}
+
+/*Main*/
+main{
+    margin-left: 5rem;
+    padding: 1rem;
+}
+
+
+
+/* Navbar begint hier */
 .navbar {
-    background-color: #2F72B9;
+    background-color: rgb(26, 30, 61);
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {
@@ -15,9 +33,37 @@ footer {
     color: #cbbde2;
 }
 
+.navbar-brand:active, .nav-link:hover {
+    background-color: darkseagreen;
+}
+
+.navbar-brand{
+    position: fixed;
+    right: 900px;
+    border: 2px #1A1E3DFF solid;
+    border-radius: 15px;
+}
+/*Nav eindigt*/
+
+/* Footer begint hier */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(26, 30, 61, 1);
+}
+/*Footer eindigt*/
+
+/*Buttons*/
 button {
     margin-top: 25px;
+    border: 5px blanchedalmond solid;
+    color: cyan;
 }
+
+/*Buttons eindigt*/
+
 
 .loggedout {
     display: none;
