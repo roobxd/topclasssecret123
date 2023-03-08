@@ -82,4 +82,13 @@ button {
 
 .loggedin {
     display: block;
+
+}
+
+/*error laten zien*/
+
+.error{
+    color: red;
+    font-size: small;
+
 }
