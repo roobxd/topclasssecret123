@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="../assets/css/defaults.css">
+
+
 <nav class="navbar navbar-expand-lg navbar-dark static-top border-bottom">
     <div class="container">
         <i class="fa-regular fa-house-heart" src="../assets/img/logo.png"></i>
@@ -8,18 +11,33 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+
+<!--                Home pagina -->
                 <li class="nav-item active">
                     <a class="nav-link" href="#" data-controller="welcome">Welcome</a>
                 </li>
+
+<!--             Verhalen pagina   -->
                 <li class="nav-item">
                     <a class="nav-link" data-controller="posts" href="#">Posts</a>
                 </li>
+
+<!--               Nav voor verhalen uploaden -->
                 <li class="nav-item">
                     <a class="nav-link" data-controller="upload" href="#">Upload</a>
                 </li>
-                <li class="register">
-                    <a class="nav-link" data-controller="register" href="#">Register</a>
+
+<!--                Instelling pagina -->
+                <li class="nav-item">
+                    <a class="nav-link" data-controller="settings" href="#">Settings</a>
                 </li>
+
+<!--              Support Pagina  -->
+                <li class="nav-item">
+                    <a class="nav-link" data-controller="support" href="#">Support</a>
+                </li>
+
+<!--                Account -->
                 <li class="loggedin">
                     <a class="nav-link" data-controller="login" href="#">Login</a>
                 </li>
@@ -27,7 +45,7 @@
                     <a class="nav-link" data-controller="logout" href="#">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-controller="signUp" href="#">signup</a>
+                    <a class="nav-link" data-controller="signIn" href="#">Sign in</a>
                 </li>
 
             </ul>
