@@ -3,7 +3,7 @@
  * this file is automatically loaded in app.js
  *
  * @author Pim Meijer
- *//* test */
+ */
 class UsersRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")

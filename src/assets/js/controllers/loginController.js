@@ -1,7 +1,7 @@
 /**
  * Controller responsible for all events in login view
  * @author Pim Meijer
- *//* test */
+ */
 
 import { UsersRepository } from "../repositories/usersRepository.js";
 import { App } from "../app.js";

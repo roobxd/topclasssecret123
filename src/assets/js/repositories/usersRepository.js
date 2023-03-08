@@ -5,7 +5,7 @@
  * @author Pim Meijer
  */
 
-import {NetworkManager} from "../framework/utils/networkManager.js";
+import { NetworkManager } from "../framework/utils/networkManager.js";
 
 export class UsersRepository {
     //# is a private field in Javascript
@@ -40,14 +40,7 @@ export class UsersRepository {
     }
 
     //example endpoint would be: /users/register
-    async register(email, fullname, username, password) {
-        return await this.#networkManager.doRequest(`${this.#route}/register`, "POST", {
-            "email": email,
-            "fullname": fullname,
-            "username": username,
-            "password": password
-        });
-    }
+    async register(username, password) {
 
     }
 

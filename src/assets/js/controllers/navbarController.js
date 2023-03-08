@@ -2,7 +2,7 @@
  * Responsible for handling the actions happening on the navigation
  *
  * @author Lennard Fonteijn & Pim Meijer
- *//* test */
+ */
 
 import { App } from "../app.js";
 import { Controller } from "./controller.js";

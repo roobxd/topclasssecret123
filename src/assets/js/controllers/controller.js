@@ -2,7 +2,7 @@
  * Base controller with helper functions, mostly to load html into a given container
  *
  * @author Pim Meijer
- *//* test */
+ */
 export class Controller {
     //# is a private field in Javascript
     #contentViewHtml
@@ -52,11 +52,11 @@ export class Controller {
      * @returns {Promise<void>}
      * @private
      */
-    async #fetchHtmlView(htmlFile, loadIntoNavigation = false, customElement) {
+    async #fetchHtmlView(htmlFile, loadIntoNavigation = false, customElement ) {
         let loadInto = loadIntoNavigation ? this.#navigationViewHtml : this.#contentViewHtml
 
         //if a HTML DOM element to load the content into is passed, load it into there and give that back
-        if (customElement instanceof Element) {
+        if(customElement instanceof Element) {
             console.log("load html into custom element instead of index.html")
             loadInto = customElement
         }
@@ -64,7 +64,7 @@ export class Controller {
         try {
             const response = await fetch(htmlFile);
 
-            if (response.ok) {
+            if(response.ok) {
                 const htmlData = await response.text();
 
                 //clear html and load htmlData from file
@@ -75,7 +75,7 @@ export class Controller {
                 console.error(response.statusText);
                 loadInto.innerHTML = "<p>Failed to load HTML file</p>";
             }
-        } catch (e) {
+        } catch(e) {
             console.error(e);
             loadInto.innerHTML = "<p>Failed to load HTML file</p>";
         }

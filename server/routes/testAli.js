@@ -1,4 +1,4 @@
-class testAli {/* test */
+class testAli{
 
 
     #errorCodes = require("../framework/utils/httpErrorCodes")
@@ -14,11 +14,11 @@ class testAli {/* test */
     }
 
 
-    #testapi() {
+     #testapi(){
 
         this.#app.get("/testlezen", async (req, res) => {
 
-            try {
+            try{
                 const data = await this.#databaseHelper.handleQuery({
                     query: "SELECT bericht from posts where id = ?",
                     values: [9]
@@ -32,11 +32,11 @@ class testAli {/* test */
         });
     }
 
-    #testapipost() {
+    #testapipost(){
 
         this.#app.post("/testtoevoegen", async (req, res) => {
 
-            try {
+            try{
                 const data = await this.#databaseHelper.handleQuery({
                     query: "insert into posts(id, bericht) values (?,?)",
                     values: [req.body.id, req.body.bericht]
@@ -50,8 +50,8 @@ class testAli {/* test */
         });
 
     }
-
-
+    
+    
 }
 
 module.exports = testAli;
