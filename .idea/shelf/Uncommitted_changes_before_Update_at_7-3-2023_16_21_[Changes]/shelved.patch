@@ -1,0 +1,140 @@
+Index: src/html_views/navbar.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><nav class=\"navbar navbar-expand-lg navbar-dark static-top border-bottom\">\r\n    <div class=\"container\">\r\n        <a class=\"navbar-brand\" href=\"#\">PAD Framework 2.0</a>\r\n        <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarResponsive\"\r\n            aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\r\n            <ul class=\"navbar-nav ml-auto\">\r\n                <li class=\"nav-item active\">\r\n                    <a class=\"nav-link\" href=\"#\" data-controller=\"welcome\">Welcome</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" data-controller=\"posts\" href=\"#\">Posts</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" data-controller=\"upload\" href=\"#\">Upload</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" data-controller=\"login\" href=\"#\">Login</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" data-controller=\"logout\" href=\"#\">Logout</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/html_views/navbar.html b/src/html_views/navbar.html
+--- a/src/html_views/navbar.html	(revision d90b9fcf626953fab6b47db6eea7bc92b1ee185d)
++++ b/src/html_views/navbar.html	(date 1678190583499)
+@@ -20,6 +20,9 @@
+                     <a class="nav-link" data-controller="login" href="#">Login</a>
+                 </li>
+                 <li class="nav-item">
++                    <a class="nav-link" data-controller="register" href="#">Register</a>
++                </li>
++                <li class="nav-item">
+                     <a class="nav-link" data-controller="logout" href="#">Logout</a>
+                 </li>
+             </ul>
+Index: src/assets/js/controllers/registerController.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/controllers/registerController.js b/src/assets/js/controllers/registerController.js
+new file mode 100644
+--- /dev/null	(date 1678192417677)
++++ b/src/assets/js/controllers/registerController.js	(date 1678192417677)
+@@ -0,0 +1,65 @@
++/**
++ * Controller responsible for all events in login view
++ * @author Aaron Agyeman-Prempeh
++ */
++
++import {UsersRepository} from "../repositories/usersRepository.js";
++import {App} from "../app.js";
++import {Controller} from "./controller.js";
++
++export class LoginController extends Controller {
++    //# is a private field in Javascript
++    #usersRepository
++    #registerView
++
++    constructor() {
++        super();
++        this.#usersRepository = new UsersRepository();
++
++        this.#setupView()
++    }
++
++    /**
++     * Loads contents of desired HTML file into the index.html .content div
++     * @returns {Promise<void>}
++     */
++    async #setupView() {
++        //await for when HTML is loaded, never skip this method call in a controller
++        this.#registerView = await super.loadHtmlIntoContent("html_views/register.html")
++
++        //from here we can safely get elements from the view via the right getter
++        this.#registerView.querySelector(".btn").addEventListener("click", event => this.#handleLogin(event));
++
++    }
++
++    /**
++     * Async function that does a login request via repository
++     * @param event
++     */
++    async #handleRegister(event) {
++        //prevent actual submit and page refresh
++        event.preventDefault();
++
++        //get the input field elements from the view and retrieve the value
++        const email = this.#loginView.querySelector("#inputEmail").value;
++        const name = this.#loginView.querySelector("#inputName").value;
++        const username = this.#loginView.querySelector("#exampleInputUsername").value;
++        const password = this.#loginView.querySelector("#exampleInputPassword").value;
++
++        try {
++            const user = await this.#usersRepository.register(email, name, username, password);
++
++            //let the session manager know we are logged in by setting the username, never set the password in localstorage
++            App.sessionManager.set("username", user.username);
++            App.sessionManager.set("email", user.email);
++            App.loadController(App.CONTROLLER_WELCOME);
++        } catch (error) {
++            //if unauthorized error code, show error message to the user
++            if (error.code === 401) {
++                this.#loginView.querySelector(".error").innerHTML = error.reason
++            } else {
++                console.error(error);
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: src/html_views/register.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/html_views/register.html b/src/html_views/register.html
+new file mode 100644
+--- /dev/null	(date 1678192092609)
++++ b/src/html_views/register.html	(date 1678192092609)
+@@ -0,0 +1,33 @@
++<div class="container">
++  <div class="row justify-content-md-center">
++    <div class="col-md-5">
++      <h2 class="mb-3 mt-4">Aanmelden</h2>
++
++      <form class="register-form">
++        <div class="mb-3">
++          <label for="inputEmail">Email</label>
++          <input type="text" name="email" class="form-control" id="inputEmail" aria-describedby="email" placeholder="Vul email in">
++          <div id="email" class="form-text"></div>
++        </div>
++        <div class="mb-3">
++          <label for="inputName">Naam</label>
++          <input type="text" name="name" class="form-control" id="inputName" aria-describedby="name" placeholder="Vul Naam in">
++          <div id="naam" class="form-text"></div>
++        </div>
++        <div class="mb-3">
++          <label for="exampleInputUsername">Gebruikersnaam</label>
++          <input type="text" name="username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Vul gebruikersnaam in">
++          <div id="usernameHelp" class="form-text"></div>
++        </div>
++        <div class="mb-3">
++          <label for="exampleInputPassword" class="form-label">Wachtwoord</label>
++          <input type="password" class="form-control" id="exampleInputPassword" placeholder="Vul wachtwoord in">
++        </div>
++
++        <div class="error mb-3 text-danger"></div>
++
++        <button type="submit" class="btn btn-primary">Aanmelden</button>
++      </form>
++    </div>
++  </div>
++</div>
+\ No newline at end of file
