@@ -50,7 +50,7 @@ export class signUpController extends Controller {
 
         } else {
             //user data opvragen database
-            this.#setSuccesfor(name);
+
             let data;
 
             try {
@@ -80,7 +80,7 @@ export class signUpController extends Controller {
             this.#setErrorfor(email, "email moet een mail zijn!")
         } else {
             // database opvragen gegevens en checken of mail al bestaat
-            this.#setSuccesfor(email)
+            // this.#setSuccesfor(email)
 
             let data;
             try {
