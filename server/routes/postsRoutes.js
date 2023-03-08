@@ -4,7 +4,7 @@
  *
  * @author Pim Meijer
  */
-
+/* test */
 class PostsRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")

@@ -1,8 +1,8 @@
 /**
  *
  * controller for sign in screen
- */
-import {Controller} from "./controller.js";
+ *//* test */
+import { Controller } from "./controller.js";
 
 export class signInController extends Controller {
     #createSingInView;
@@ -17,7 +17,7 @@ export class signInController extends Controller {
         this.#createSingInView = await super.loadHtmlIntoContent("html_views/signIn.html");
 
 
-        
+
         this.#createSingInView.querySelector(".register-button").addEventListener("click", (event) => {
 
             event.preventDefault()

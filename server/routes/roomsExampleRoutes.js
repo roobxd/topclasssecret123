@@ -4,7 +4,7 @@
  *
  * @author Pim Meijer
  */
-
+/* test */
 class RoomsExampleRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
@@ -37,8 +37,8 @@ class RoomsExampleRoutes {
 
                 //just give all data back as json, could also be empty
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
-            } catch(e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e })
             }
         });
     }

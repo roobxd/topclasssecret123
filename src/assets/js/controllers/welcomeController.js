@@ -3,7 +3,7 @@
  * For now it uses the roomExampleRepository to get some example data from server
  *
  * @author Lennard Fonteijn & Pim Meijer
- */
+ *//* test */
 
 import { RoomsExampleRepository } from "../repositories/roomsExampleRepository.js";
 import { App } from "../app.js";

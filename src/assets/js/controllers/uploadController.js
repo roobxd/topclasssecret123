@@ -2,10 +2,10 @@
  * Responsible for uploading files
  *
  * @author Lennard Fonteijn & Pim Meijer
- */
+ *//* test */
 
-import {Controller} from "./controller.js";
-import {NetworkManager} from "../framework/utils/networkManager.js";
+import { Controller } from "./controller.js";
+import { NetworkManager } from "../framework/utils/networkManager.js";
 
 export class UploadController extends Controller {
     #uploadView

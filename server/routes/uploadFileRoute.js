@@ -3,7 +3,7 @@
  * this file is automatically loaded in app.js
  * multer is used for parsing formdata
  * @author Pim Meijer
- */
+ *//* test */
 const fs = require("fs");
 
 class UploadFileRoute {
@@ -28,7 +28,7 @@ class UploadFileRoute {
         this.#app.post("/upload", this.#multer().single("sampleFile"), (req, res) => {
 
             if (!req.file) {
-                return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: "No file was uploaded."});
+                return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: "No file was uploaded." });
             }
 
             //get the buffer of the file
@@ -38,7 +38,7 @@ class UploadFileRoute {
             fs.writeFile(wwwrootPath + "/uploads/test.jpg", sampleFile, (err) => {
                 if (err) {
                     console.log(err)
-                    return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: err});
+                    return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: err });
                 }
 
                 return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
