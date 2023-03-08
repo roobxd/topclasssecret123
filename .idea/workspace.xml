@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/html_views/signIn.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="Gewerkt aan registreren">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7-3-2023_12_34__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7-3-2023_12_34__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7-3-2023_12_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7-3-2023_12_43__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7-3-2023_16_21__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7-3-2023_16_21__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PAD-framework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PAD-framework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/usersRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/usersRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/signIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/signIn.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +18,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -29,6 +28,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2M6w2whrWWc6ocfZZBrZ3VK4KA8" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -38,11 +40,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm"
+    "last_opened_file_path": "C:/Users/aaron/Documents/HvA/PAD groep 8",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -55,6 +58,14 @@
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
     </task>
+    <task id="LOCAL-00001" summary="signIn.html pagina en navbar">
+      <created>1678205156139</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678205156140</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -70,5 +81,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="signIn.html pagina en navbar" />
+    <MESSAGE value="Gewerkt aan registreren" />
+    <option name="LAST_COMMIT_MESSAGE" value="Gewerkt aan registreren" />
   </component>
 </project>
