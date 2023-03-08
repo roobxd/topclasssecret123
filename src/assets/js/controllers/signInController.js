@@ -31,7 +31,8 @@ export class signInController extends Controller {
         const name = this.#signInView.querySelector("#inputFullname").value;
         const username = this.#signInView.querySelector("#inputUsername").value;
         const password = this.#signInView.querySelector("#inputPassword").value;
-        console.log(email, name, username, password)
+
+        console.log(name + email + password + confirmPassword)
         // Validate input fields
         if (!email || !username || !password) {
             this.#signInView.querySelector(".error").innerHTML = "Please fill in all fields.";
@@ -56,7 +57,7 @@ export class signInController extends Controller {
             await this.#usersRepository.saveUser(user);
 
             // Redirect to welcome page
-            window.location.replace("index.html");
+            // window.location.replace("index.html");
         } catch (error) {
             console.error(error);
         }
