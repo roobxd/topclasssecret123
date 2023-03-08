@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/signIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/signIn.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/defaults.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/defaults.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/img/bodyImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/images/bodyImage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/img/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,15 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/OneDrive/Documents/School/HvA- Software engineering/2022-2023/Blok 3/PAD/Project/team-7&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Documents\School\HvA- Software engineering\2022-2023\Blok 3\PAD\Project\team-7\src\assets\images" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="login.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -60,6 +75,8 @@
       <option name="presentableId" value="Default" />
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
+      <workItem from="1678207926347" duration="470000" />
+      <workItem from="1678258227479" duration="5072000" />
     </task>
     <servers />
   </component>
