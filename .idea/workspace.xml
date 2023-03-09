@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/signInRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/signUpRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/defaults.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/defaults.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/signIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/signUp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

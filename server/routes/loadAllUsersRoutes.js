@@ -13,13 +13,13 @@ class loadAllUsersRoutes {
 
     #loadAllUsers() {
 
-        this.#app.get("/loadUsers", async (req, res) => {
+        this.#app.get("/loadUsers/:username/:email", async (req, res) => {
 
             try {
 
                 const data = await this.#databaseHelper.handleQuery({
                     query: "SELECT username, email from users where username = ? or email = ?",
-                    values: [req.body.username, req.body.email]
+                    values: [req.params.username, req.params.email]
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
