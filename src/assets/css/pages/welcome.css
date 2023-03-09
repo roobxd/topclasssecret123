@@ -109,12 +109,22 @@ span.name {
     margin-left: -15px;
 }
 
-.container {
+.main-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    justify-content: center;
 }
 
-.filler {}
+.other-container {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.filler {
+    width: 25%;
+}
 
 .bulletinboard {
     width: 500px;

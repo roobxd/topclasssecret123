@@ -1,10 +1,6 @@
-body {
-    background-image: url("./background.png");
-}
-
 .login-container {
     margin: 0 auto;
-    width: 925px;
+    width: 825px;
     height: 550px;
     background-color: rgba(30, 30, 30, 95%);
     border-radius: 25px;
@@ -154,7 +150,7 @@ body {
     margin-top: 25px;
     background-color: rgba(30, 30, 30, 95%);
     border-radius: 25px;
-    width: 950px;
+    width: 825px;
     height: 90px;
     text-decoration: none;
 }
@@ -182,7 +178,7 @@ body {
     align-items: center;
     background-color: #1E1E1E;
     border-radius: 25px;
-    width: 925px;
+    width: 825;
     height: 65px;
     padding: 0;
     margin-bottom: 70px;
