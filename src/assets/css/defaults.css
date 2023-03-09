@@ -97,9 +97,11 @@ a {
     text-decoration: none;
     transition: color 200ms;
     transform-style: preserve-3d;
+
 }
 a:hover {
     color: #343e48;
+
 }
 a:after {
     content: attr(data-title);
