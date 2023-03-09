@@ -5,8 +5,8 @@
 
 /*Body Content*/
 body {
-    background-image: url("../img/bodyImage.png");
-    background-color: cornflowerblue;
+    background-repeat: no-repeat;
+    background-size: cover;
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -33,6 +33,7 @@ main {
 /* Navbar begint hier */
 .navbar {
     background-color: rgb(26, 30, 61);
+    margin-bottom: 30px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {
@@ -87,7 +88,7 @@ button {
 
 /*error laten zien*/
 
-.error{
+.error {
     color: red;
     font-size: small;
 
