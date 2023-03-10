@@ -24,6 +24,10 @@
 
 }
 
+* {
+    transition: 200ms;
+}
+
 
 
 /*Body Content*/
