@@ -13,7 +13,7 @@ import { NavbarController } from "./controllers/navbarController.js"
 import { UploadController } from "./controllers/uploadController.js"
 import { WelcomeController } from "./controllers/welcomeController.js"
 import { PostsController } from "./controllers/postsController.js"
-import {signUpController} from "./controllers/signUpController.js";
+import { signUpController } from "./controllers/signUpController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here

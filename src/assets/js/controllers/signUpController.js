@@ -6,10 +6,12 @@ import {Controller} from "./controller.js";
 import {signUpRepository} from "../repositories/signUpRepository.js";
 import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
 
+
 export class signUpController extends Controller {
     #createSingInView;
     #signUpRepository;
     #loadAllUsersRepository;
+
 
     constructor() {
         super();
@@ -37,11 +39,12 @@ export class signUpController extends Controller {
         const confirmPassword = this.#createSingInView.querySelector("#confirm_password")
 
 
-        console.log(name + email + password + confirmPassword)
+        console.log(name.value + " " + email.value)
 
 
         //naamcheck--------------------
         let namecheck = false;
+
         if (name.value.length === 0) {
             this.#setErrorfor(name, "Gebruikersnaam mag niet leeg zijn!")
         } else if (name.value.length > 10) {
@@ -51,20 +54,20 @@ export class signUpController extends Controller {
         } else {
             //user data opvragen database
             this.#setSuccesfor(name);
-            let data;
 
             try {
-                data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+                console.log(data)
+
+                if (data.length === 0) {
+                    // als naam niet bestaat
+                    namecheck = true;
+                    this.#setSuccesfor(name)
+                } else {
+                    this.#setErrorfor(name, "Gebruikersnaam of email is al in gebruik")
+                }
             } catch (e) {
                 console.log(e)
-            }
-
-            console.log(data)
-            if (data.length === 0) {
-                namecheck = true;
-                this.#setSuccesfor(name)
-            } else {
-                this.#setErrorfor(name, "Gebruikersnaam of email is al in gebruik")
             }
 
         }
@@ -82,19 +85,20 @@ export class signUpController extends Controller {
             // database opvragen gegevens en checken of mail al bestaat
             this.#setSuccesfor(email)
 
-            let data;
             try {
-                data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+
+                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+
+                if (data.length === 0) {
+                    this.#setSuccesfor(email)
+                    emailcheck = true;
+                } else {
+                    this.#setErrorfor(email, "gebruikersnaam of Mail is al in gebruik")
+                }
             } catch (e) {
                 console.log(e)
             }
 
-            if (data.length === 0) {
-                this.#setSuccesfor(email)
-                emailcheck = true;
-            } else {
-                this.#setErrorfor(email, "gebruikersnaam of Mail is al in gebruik")
-            }
 
         }
 
@@ -139,7 +143,6 @@ export class signUpController extends Controller {
             this.#signUpRepository.signUpUser(name.value, password.value, email.value)
 
         }
-
 
     }
 

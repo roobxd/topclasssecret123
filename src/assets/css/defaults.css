@@ -5,8 +5,9 @@
 
 /*Body Content*/
 body {
-    background-image: url("../images/bodyImage.png");
-    background-color: cornflowerblue;
+    background: url("/assets/img/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -23,16 +24,14 @@ body::-webkit-scrollbar-track {
 }
 
 /*Main*/
-main {
-    margin-left: 5rem;
-    padding: 1rem;
-}
+main {}
 
 
 
 /* Navbar begint hier */
 .navbar {
     background-color: rgb(26, 30, 61);
+    margin-bottom: 30px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {
@@ -41,98 +40,17 @@ main {
     color: #cbbde2;
 }
 
-/*.navbar-brand:active,*/
-/*.nav-link:hover {*/
-/*    background-color: darkseagreen;*/
-/*}*/
+.navbar-brand:active,
+.nav-link:hover {
+    background-color: darkseagreen;
+}
 
 .navbar-brand {
     position: fixed;
-    top: 15px;
-    right: 850px;
+    right: 900px;
     border: 2px #1A1E3DFF solid;
     border-radius: 15px;
-    padding: 5px;
 }
-
-/*new */
-ul {
-    display: flex;
-    text-align: center;
-    margin: 0 auto;
-    padding: 0;
-    width: 100%;
-    min-width: 535px;
-    background-color: #1a1e3d;
-    position: relative;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-}
-ul:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: .5;
-    /*background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAB9JREFUeNpiZmBg6AZiDiBWZ4YyQMCOCcYA4kMAAQYAHyYCCUdxidgAAAAASUVORK5CYII=");*/
-}
-
-li {
-    margin: 0 auto;
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-}
-
-a {
-    display: block;
-    padding: 25px;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 2;
-    text-shadow: 1px 0px rgba(0, 0, 0, 0.4);
-    color: #686f77;
-    letter-spacing: .2em;
-    text-decoration: none;
-    transition: color 200ms;
-    transform-style: preserve-3d;
-
-}
-a:hover {
-    color: #343e48;
-
-}
-a:after {
-    content: attr(data-title);
-    position: absolute;
-    display: block;
-    text-shadow: none;
-    top: 29%;
-    left: 18px;
-    padding: 5px 7px;
-    color: transparent;
-    background: #4795c3;
-    transform-origin: 50% 0%;
-    backface-visibility: hidden;
-    transform: translate3d(0px, 105%, 0px) rotateX(-112deg);
-    transform-style: preserve-3d;
-    transition: all 200ms ease;
-    z-index: -1;
-}
-li:nth-child(2) a:after {
-    background-color: #ecc64b;
-}
-li:nth-child(3) a:after {
-    background: #0b9ea6;
-}
-li:nth-child(4) a:after {
-    background: #f26667;
-}
-a:hover:after {
-    transform: rotateX(0deg) translateZ(0px);
-}
-
 
 /*Nav eindigt*/
 
@@ -168,7 +86,7 @@ button {
 
 /*error laten zien*/
 
-.error{
+.error {
     color: red;
     font-size: small;
 

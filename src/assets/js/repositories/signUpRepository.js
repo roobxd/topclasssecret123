@@ -10,7 +10,7 @@ export class signUpRepository {
 
     constructor() {
 
-        this.route = "/postUser";
+        this.#route = "/postUser";
         this.#networkManager = new NetworkManager();
     }
 
