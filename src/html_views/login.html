@@ -1,23 +1,40 @@
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-5">
-            <h2 class="mb-3 mt-4">Inloggen</h2>
+<link href="assets/css/pages/login.css" rel="stylesheet" />
 
-            <form class="login-form">
-                <div class="mb-3">
-                    <label for="exampleInputUsername">Gebruikersnaam</label>
-                    <input type="text" name="username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Vul gebruikersnaam in">
-                    <div id="usernameHelp" class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword" class="form-label">Wachtwoord</label>
-                    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Vul wachtwoord in">
-                </div>
-
-                <div class="error mb-3 text-danger"></div>
-
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
+<div class="main-wrapper">
+    <div class="login-container">
+        <div class="loginheader">
+            <h2>Login</h2>
         </div>
+        <form class="login-form">
+            <div class="input-container">
+                <input type="text" name="username" class="inputfield" id="exampleInputUsername"
+                    aria-describedby="usernameHelp" placeholder="Email...">
+                <i class="bi bi-person-fill inputicon"></i>
+            </div>
+            <div class="input-container">
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="Wachtwoord...">
+
+                <i class="bi bi-key-fill inputicon"></i>
+            </div>
+            <div class="button-container">
+                <a href="www.test.nl" class="wwvergetenbutton">
+                    <button type="submit" class="wwvergeten">wachtwoord <br> vergeten</button>
+                </a>
+                <div class="submitbutton">
+                    <p>submit</p>
+                    <i class="bi bi-box-arrow-in-right inputicon"></i>
+                </div>
+            </div>
+            <a href="www.google.com" class="google-container">
+                <img class="googleimage" src="/assets/images/google-icon.png">
+                <p>Sign in with Google</p>
+            </a>
+
+        </form>
     </div>
+    <a class="registreren-container">
+        <button class="registrerenbutton">
+            <p>Account Registren</p>
+        </button>
+    </a>
 </div>

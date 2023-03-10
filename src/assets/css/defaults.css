@@ -1,20 +1,93 @@
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+/*Fonts and Colors*/
+@import url('https://fonts.cdnfonts.com/css/roboto');
+
+
+
+/*Body Content*/
+body {
+    background: url("/assets/img/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
 }
 
+/*Scrollbar*/
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: powderblue;
+}
+
+/*Main*/
+main {}
+
+
+
+/* Navbar begint hier */
 .navbar {
-    background-color: #2F72B9;
+    background-color: rgb(26, 30, 61);
+    margin-bottom: 30px;
 }
 
-.bd-navbar .navbar-nav .nav-link {
+.bd-navbar .navbar-nav .nav-link .loggedout {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: #cbbde2;
 }
 
+.navbar-brand:active,
+.nav-link:hover {
+    background-color: darkseagreen;
+}
+
+.navbar-brand {
+    position: fixed;
+    right: 900px;
+    border: 2px #1A1E3DFF solid;
+    border-radius: 15px;
+}
+
+/*Nav eindigt*/
+
+/* Footer begint hier */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(26, 30, 61, 1);
+}
+
+/*Footer eindigt*/
+
+/*Buttons*/
 button {
     margin-top: 25px;
+    border: 5px blanchedalmond solid;
+    color: cyan;
+}
+
+/*Buttons eindigt*/
+
+
+.loggedout {
+    display: none;
+}
+
+.loggedin {
+    display: block;
+
+}
+
+/*error laten zien*/
+
+.error {
+    color: red;
+    font-size: small;
+
 }

@@ -13,6 +13,7 @@ import { NavbarController } from "./controllers/navbarController.js"
 import { UploadController } from "./controllers/uploadController.js"
 import { WelcomeController } from "./controllers/welcomeController.js"
 import { PostsController } from "./controllers/postsController.js"
+import { signUpController } from "./controllers/signUpController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -26,6 +27,7 @@ export class App {
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_POSTS = "posts";
     static CONTROLLER_UPLOAD = "upload";
+    static CONTROLLER_SIGNUP = "signUp";
 
     constructor() {
         //Always load the navigation
@@ -65,13 +67,16 @@ export class App {
 
         switch (name) {
             case App.CONTROLLER_LOGIN:
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                App.isLoggedIn(() => new LoginController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_WELCOME:
                 App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_SIGNUP:
+                App.isLoggedIn(() => new signUpController(), () => new LoginController());
 
+                break;
             case App.CONTROLLER_POSTS:
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
@@ -168,7 +173,25 @@ export class App {
      * Removes username via sessionManager and loads the login screen
      */
     static handleLogout() {
+
+        const loggedins = document.querySelectorAll('.loggedin');
+        const loggedouts = document.querySelectorAll('.loggedout');
+
+        // Loop through each <a> element and add "nav-link" class name
+        loggedouts.forEach(link => {
+            link.classList.remove('loggedout');
+            link.classList.add('loggedin');
+        });
+
+        // Loop through each <a> element and add "nav-link" class name
+        loggedins.forEach(link => {
+            link.classList.remove('loggedin');
+            link.classList.add('loggedout');
+        });
+
+
         App.sessionManager.remove("username");
+        App.sessionManager.remove("email");
 
         //go to login screen
         App.loadController(App.CONTROLLER_LOGIN);

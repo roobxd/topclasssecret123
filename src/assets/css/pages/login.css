@@ -1,0 +1,192 @@
+.login-container {
+    margin: 0 auto;
+    width: 825px;
+    height: 550px;
+    background-color: rgba(30, 30, 30, 95%);
+    border-radius: 25px;
+}
+
+.login-container input {
+
+    width: 350px;
+    height: 60px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    color: white;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+
+    padding-left: 75px;
+}
+
+.login-container input:focus {
+    background-color: #343434;
+    color: white;
+}
+
+.login-container input::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    color: white;
+}
+
+.inputicon {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 40px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 425px;
+    height: 60px;
+    margin: 0 auto;
+    background-color: #343434;
+    border-radius: 25px;
+    margin-top: 25px;
+}
+
+.button-container {
+    font-size: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    width: 425px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.button-container button {
+    width: 100%;
+    height: 60px;
+    background-color: #343434;
+    border-style: none;
+    color: white;
+    border-radius: 25px;
+}
+
+.submitbutton {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 60px;
+    width: 100%;
+    background-color: #343434;
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.submitbutton:hover {
+    cursor: pointer;
+}
+
+.wwvergeten,
+.submitbutton {
+    margin: 0;
+    margin-top: 25px;
+    padding: 0;
+}
+
+.submitbutton p,
+.submitbutton i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+
+.submitbutton p {
+    padding-left: 45px;
+}
+
+.submitbutton i {
+    margin-right: 25px;
+}
+
+.google-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 60px;
+    width: 425px;
+    border-radius: 25px;
+    margin: 0 auto;
+    margin-top: 50px;
+    background-color: #343434;
+    gap: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.google-container img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+.google-container p {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.registreren-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 auto;
+    margin-top: 25px;
+    background-color: rgba(30, 30, 30, 95%);
+    border-radius: 25px;
+    width: 825px;
+    height: 90px;
+    text-decoration: none;
+}
+
+.registrerenbutton {
+    background-color: #343434;
+    margin: 0 auto;
+    border-style: none;
+    border-radius: 25px;
+    width: 425px;
+    height: 60px;
+}
+
+.registrerenbutton p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    color: white;
+}
+
+.loginheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E1E1E;
+    border-radius: 25px;
+    width: 825;
+    height: 65px;
+    padding: 0;
+    margin-bottom: 70px;
+}
+
+.loginheader h2 {
+    width: 80px;
+    height: 38px;
+    margin: auto;
+    color: white;
+}

@@ -8,6 +8,7 @@
 import { RoomsExampleRepository } from "../repositories/roomsExampleRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
+import { PostsRepository } from "../repositories/postsRepository.js";
 
 export class PostsController extends Controller {
     #roomExampleRepository
@@ -15,7 +16,7 @@ export class PostsController extends Controller {
 
     constructor() {
         super();
-        this.#roomExampleRepository = new RoomsExampleRepository();
+        this.#roomExampleRepository = new PostsRepository();
 
         this.#setupView();
     }
