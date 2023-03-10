@@ -3,6 +3,7 @@
 
 
 
+
 /*Body Content*/
 body {
     background: url("/assets/img/background.png");
@@ -22,11 +23,6 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-track {
     background-color: powderblue;
 }
-
-/*Main*/
-main {}
-
-
 
 /* Navbar begint hier */
 .navbar {
