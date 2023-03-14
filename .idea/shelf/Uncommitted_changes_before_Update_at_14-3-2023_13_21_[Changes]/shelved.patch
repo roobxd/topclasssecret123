@@ -1,0 +1,442 @@
+Index: server/routes/usersRoutes.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n * This class contains ExpressJS routes specific for the users entity\r\n * this file is automatically loaded in app.js\r\n *\r\n * @author Pim Meijer\r\n */\r\nclass UsersRoutes {\r\n    #errorCodes = require(\"../framework/utils/httpErrorCodes\")\r\n    #databaseHelper = require(\"../framework/utils/databaseHelper\")\r\n    #cryptoHelper = require(\"../framework/utils/cryptoHelper\");\r\n    #app\r\n\r\n    /**\r\n     * @param app - ExpressJS instance(web application) we get passed automatically via app.js\r\n     * Important: always make sure there is an app parameter in your constructor!\r\n     */\r\n    constructor(app) {\r\n        this.#app = app;\r\n\r\n        //call method per route for the users entity\r\n        this.#login()\r\n    }\r\n\r\n    /**\r\n     * Checks if passed username and password are found in db, if so let the front-end know\r\n     * @private\r\n     */\r\n    #login() {\r\n        this.#app.post(\"/users/login\", async (req, res) => {\r\n            const username = req.body.username;\r\n\r\n            //TODO: You shouldn't save a password unencrypted!! Improve this by using this.#cryptoHelper functions :)\r\n            const password = req.body.password;\r\n\r\n            try {\r\n                const data = await this.#databaseHelper.handleQuery({\r\n                    query: \"SELECT username, email, password FROM users WHERE username = ? AND password = ?\",\r\n                    values: [username, password]\r\n                });\r\n\r\n                //if we founnd one record we know the user exists in users table\r\n                if (data.length === 1) {\r\n                    //return just the username for now, never send password back! let me be\r\n                    res.status(this.#errorCodes.HTTP_OK_CODE).json({ \"username\": data[0].username, \"email\": data[0].email });\r\n                } else {\r\n                    //wrong username\r\n                    res.status(this.#errorCodes.AUTHORIZATION_ERROR_CODE).json({ reason: \"Wrong username or password\" });\r\n                }\r\n            } catch (e) {\r\n                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e });\r\n            }\r\n        });\r\n    }\r\n}\r\n\r\nmodule.exports = UsersRoutes
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/routes/usersRoutes.js b/server/routes/usersRoutes.js
+--- a/server/routes/usersRoutes.js	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/server/routes/usersRoutes.js	(date 1678634004651)
+@@ -38,7 +38,7 @@
+                     values: [username, password]
+                 });
+ 
+-                //if we founnd one record we know the user exists in users table
++                //if we found one record we know the user exists in users table
+                 if (data.length === 1) {
+                     //return just the username for now, never send password back! let me be
+                     res.status(this.#errorCodes.HTTP_OK_CODE).json({ "username": data[0].username, "email": data[0].email });
+@@ -51,6 +51,10 @@
+             }
+         });
+     }
++
++    #getUser() {
++        this
++    }
+ }
+ 
+ module.exports = UsersRoutes
+\ No newline at end of file
+Index: src/assets/js/app.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n * Entry point front end application - there is also an app.js for the backend (server folder)!\r\n *\r\n * All methods are static in this class because we only want one instance of this class\r\n * Available via a static reference(no object): `App.sessionManager.<..>` or `App.networkManager.<..>` or `App.loadController(..)`\r\n *\r\n * @author Lennard Fonteijn & Pim Meijer\r\n */\r\n\r\nimport { SessionManager } from \"./framework/utils/sessionManager.js\"\r\nimport { LoginController } from \"./controllers/loginController.js\"\r\nimport { NavbarController } from \"./controllers/navbarController.js\"\r\nimport { UploadController } from \"./controllers/uploadController.js\"\r\nimport { WelcomeController } from \"./controllers/welcomeController.js\"\r\nimport { PostsController } from \"./controllers/postsController.js\"\r\nimport { signUpController } from \"./controllers/signUpController.js\";\r\n\r\nexport class App {\r\n    //we only need one instance of the sessionManager, thus static use here\r\n    // all classes should use this instance of sessionManager\r\n    static sessionManager = new SessionManager();\r\n\r\n    //controller identifiers, add new controllers here\r\n    static CONTROLLER_NAVBAR = \"navbar\";\r\n    static CONTROLLER_LOGIN = \"login\";\r\n    static CONTROLLER_LOGOUT = \"logout\";\r\n    static CONTROLLER_WELCOME = \"welcome\";\r\n    static CONTROLLER_POSTS = \"posts\";\r\n    static CONTROLLER_UPLOAD = \"upload\";\r\n    static CONTROLLER_SIGNUP = \"signUp\";\r\n\r\n    constructor() {\r\n        //Always load the navigation\r\n        App.loadController(App.CONTROLLER_NAVBAR);\r\n\r\n        //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.\r\n        App.loadControllerFromUrl(App.CONTROLLER_WELCOME);\r\n    }\r\n\r\n    /**\r\n     * Loads a controller\r\n     * @param name - name of controller - see static attributes for all the controller names\r\n     * @param controllerData - data to pass from on controller to another - default empty object\r\n     * @returns {boolean} - successful controller change\r\n     */\r\n    static loadController(name, controllerData) {\r\n        console.log(\"loadController: \" + name);\r\n\r\n        //log the data if data is being passed via controllers\r\n        if (controllerData && Object.entries(controllerData).length !== 0) {\r\n            console.log(controllerData);\r\n        }\r\n\r\n        //Check for a special controller that shouldn't modify the URL\r\n        switch (name) {\r\n            case App.CONTROLLER_NAVBAR:\r\n                new NavbarController();\r\n                return true;\r\n\r\n            case App.CONTROLLER_LOGOUT:\r\n                App.handleLogout();\r\n                return true;\r\n        }\r\n\r\n        //Otherwise, load any of the other controllers\r\n        App.setCurrentController(name, controllerData);\r\n\r\n        switch (name) {\r\n            case App.CONTROLLER_LOGIN:\r\n                App.isLoggedIn(() => new LoginController(), () => new LoginController());\r\n                break;\r\n\r\n            case App.CONTROLLER_WELCOME:\r\n                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());\r\n                break;\r\n            case App.CONTROLLER_SIGNUP:\r\n                App.isLoggedIn(() => new signUpController(), () => new LoginController());\r\n\r\n                break;\r\n            case App.CONTROLLER_POSTS:\r\n                App.isLoggedIn(() => new PostsController(), () => new LoginController());\r\n                break;\r\n\r\n            case App.CONTROLLER_UPLOAD:\r\n                App.isLoggedIn(() => new UploadController(), () => new LoginController());\r\n                break;\r\n\r\n            default:\r\n                return false;\r\n        }\r\n\r\n        return true;\r\n    }\r\n\r\n    /**\r\n     * Alternative way of loading controller by url\r\n     * @param fallbackController\r\n     */\r\n    static loadControllerFromUrl(fallbackController) {\r\n        const currentController = App.getCurrentController();\r\n\r\n        if (currentController) {\r\n            if (!App.loadController(currentController.name, currentController.data)) {\r\n                App.loadController(fallbackController);\r\n            }\r\n        } else {\r\n            App.loadController(fallbackController);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Looks at current URL in the browser to get current controller name\r\n     * @returns {string}\r\n     */\r\n    static getCurrentController() {\r\n        const fullPath = location.hash.slice(1);\r\n\r\n        if (!fullPath) {\r\n            return undefined;\r\n        }\r\n\r\n        const queryStringIndex = fullPath.indexOf(\"?\");\r\n\r\n        let path;\r\n        let queryString;\r\n\r\n        if (queryStringIndex >= 0) {\r\n            path = fullPath.substring(0, queryStringIndex);\r\n            queryString = Object.fromEntries(new URLSearchParams(fullPath.substring(queryStringIndex + 1)));\r\n        }\r\n        else {\r\n            path = fullPath;\r\n            queryString = undefined\r\n        }\r\n\r\n        return {\r\n            name: path,\r\n            data: queryString\r\n        };\r\n    }\r\n\r\n    /**\r\n     * Sets current controller name in URL of the browser\r\n     * @param name\r\n     */\r\n    static setCurrentController(name, controllerData) {\r\n        if (App.dontSetCurrentController) {\r\n            return;\r\n        }\r\n\r\n        if (controllerData) {\r\n            history.pushState(undefined, undefined, `#${name}?${new URLSearchParams(controllerData)}`);\r\n        }\r\n        else {\r\n            history.pushState(undefined, undefined, `#${name}`);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Convenience functions to handle logged-in states\r\n     * @param whenYes - function to execute when user is logged in\r\n     * @param whenNo - function to execute when user is logged in\r\n     */\r\n    static isLoggedIn(whenYes, whenNo) {\r\n        if (App.sessionManager.get(\"username\")) {\r\n            whenYes();\r\n        } else {\r\n            whenNo();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Removes username via sessionManager and loads the login screen\r\n     */\r\n    static handleLogout() {\r\n\r\n        const loggedins = document.querySelectorAll('.loggedin');\r\n        const loggedouts = document.querySelectorAll('.loggedout');\r\n\r\n        // Loop through each <a> element and add \"nav-link\" class name\r\n        loggedouts.forEach(link => {\r\n            link.classList.remove('loggedout');\r\n            link.classList.add('loggedin');\r\n        });\r\n\r\n        // Loop through each <a> element and add \"nav-link\" class name\r\n        loggedins.forEach(link => {\r\n            link.classList.remove('loggedin');\r\n            link.classList.add('loggedout');\r\n        });\r\n\r\n\r\n        App.sessionManager.remove(\"username\");\r\n        App.sessionManager.remove(\"email\");\r\n\r\n        //go to login screen\r\n        App.loadController(App.CONTROLLER_LOGIN);\r\n    }\r\n}\r\n\r\nwindow.addEventListener(\"hashchange\", function () {\r\n    App.dontSetCurrentController = true;\r\n    App.loadControllerFromUrl(App.CONTROLLER_WELCOME);\r\n    App.dontSetCurrentController = false;\r\n});\r\n\r\n//When the DOM is ready, kick off our application.\r\nwindow.addEventListener(\"DOMContentLoaded\", _ => {\r\n    new App();\r\n});
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/app.js b/src/assets/js/app.js
+--- a/src/assets/js/app.js	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/src/assets/js/app.js	(date 1678632856451)
+@@ -7,13 +7,14 @@
+  * @author Lennard Fonteijn & Pim Meijer
+  */
+ 
+-import { SessionManager } from "./framework/utils/sessionManager.js"
+-import { LoginController } from "./controllers/loginController.js"
+-import { NavbarController } from "./controllers/navbarController.js"
+-import { UploadController } from "./controllers/uploadController.js"
+-import { WelcomeController } from "./controllers/welcomeController.js"
+-import { PostsController } from "./controllers/postsController.js"
+-import { signUpController } from "./controllers/signUpController.js";
++import {SessionManager} from "./framework/utils/sessionManager.js"
++import {LoginController} from "./controllers/loginController.js"
++import {NavbarController} from "./controllers/navbarController.js"
++import {UploadController} from "./controllers/uploadController.js"
++import {WelcomeController} from "./controllers/welcomeController.js"
++import {PostsController} from "./controllers/postsController.js"
++import {signUpController} from "./controllers/signUpController.js"
++import {profilePageController} from "./controllers/profilePageController"
+ 
+ export class App {
+     //we only need one instance of the sessionManager, thus static use here
+@@ -28,6 +29,7 @@
+     static CONTROLLER_POSTS = "posts";
+     static CONTROLLER_UPLOAD = "upload";
+     static CONTROLLER_SIGNUP = "signUp";
++    static CONTROLLER_PROFILEPAGE = "profilePage";
+ 
+     constructor() {
+         //Always load the navigation
+@@ -84,6 +86,7 @@
+             case App.CONTROLLER_UPLOAD:
+                 App.isLoggedIn(() => new UploadController(), () => new LoginController());
+                 break;
++            case App.
+ 
+             default:
+                 return false;
+@@ -127,8 +130,7 @@
+         if (queryStringIndex >= 0) {
+             path = fullPath.substring(0, queryStringIndex);
+             queryString = Object.fromEntries(new URLSearchParams(fullPath.substring(queryStringIndex + 1)));
+-        }
+-        else {
++        } else {
+             path = fullPath;
+             queryString = undefined
+         }
+@@ -150,8 +152,7 @@
+ 
+         if (controllerData) {
+             history.pushState(undefined, undefined, `#${name}?${new URLSearchParams(controllerData)}`);
+-        }
+-        else {
++        } else {
+             history.pushState(undefined, undefined, `#${name}`);
+         }
+     }
+Index: src/html_views/navbar.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><nav class=\"navbar navbar-expand-lg navbar-dark static-top border-bottom\">\r\n    <div class=\"container\">\r\n        <i class=\"fa-regular fa-house-heart\" src=\"../assets/img/logo.png\"></i>\r\n        <a class=\"navbar-brand\" href=\"#\">De Buurt Poster</a>\r\n        <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarResponsive\"\r\n            aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\r\n            <ul class=\"navbar-nav ml-auto\">\r\n                <li class=\"nav-item active\">\r\n                    <a class=\"nav-link\" href=\"#\" data-controller=\"welcome\">Welcome</a>\r\n                </li>\r\n                <li class=\"loggedout\">\r\n                    <a class=\"nav-link\" data-controller=\"posts\" href=\"#\">Posts</a>\r\n                </li>\r\n                <li class=\"loggedout\">\r\n                    <a class=\"nav-link\" data-controller=\"upload\" href=\"#\">Upload</a>\r\n                </li>\r\n                <li class=\"loggedin\">\r\n                    <a class=\"nav-link\" data-controller=\"login\" href=\"#\">Login</a>\r\n                </li>\r\n                <li class=\"loggedout\">\r\n                    <a class=\"nav-link\" data-controller=\"logout\" href=\"#\">Logout</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" data-controller=\"signUp\" href=\"#\">signup</a>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/html_views/navbar.html b/src/html_views/navbar.html
+--- a/src/html_views/navbar.html	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/src/html_views/navbar.html	(date 1678630049781)
+@@ -1,3 +1,6 @@
++<link rel="stylesheet" href="../assets/css/defaults.css">
++
++
+ <nav class="navbar navbar-expand-lg navbar-dark static-top border-bottom">
+     <div class="container">
+         <i class="fa-regular fa-house-heart" src="../assets/img/logo.png"></i>
+@@ -8,15 +11,33 @@
+         </button>
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+             <ul class="navbar-nav ml-auto">
++
++<!--                Home pagina -->
+                 <li class="nav-item active">
+                     <a class="nav-link" href="#" data-controller="welcome">Welcome</a>
+                 </li>
+-                <li class="loggedout">
++
++<!--             Verhalen pagina   -->
++                <li class="nav-item">
+                     <a class="nav-link" data-controller="posts" href="#">Posts</a>
+                 </li>
+-                <li class="loggedout">
++
++<!--               Nav voor verhalen uploaden -->
++                <li class="nav-item">
+                     <a class="nav-link" data-controller="upload" href="#">Upload</a>
+                 </li>
++
++<!--                Instelling pagina -->
++                <li class="nav-item">
++                    <a class="nav-link" data-controller="settings" href="#">Settings</a>
++                </li>
++
++<!--              Support Pagina  -->
++                <li class="nav-item">
++                    <a class="nav-link" data-controller="support" href="#">Support</a>
++                </li>
++
++<!--                Account -->
+                 <li class="loggedin">
+                     <a class="nav-link" data-controller="login" href="#">Login</a>
+                 </li>
+@@ -24,7 +45,7 @@
+                     <a class="nav-link" data-controller="logout" href="#">Logout</a>
+                 </li>
+                 <li class="nav-item">
+-                    <a class="nav-link" data-controller="signUp" href="#">signup</a>
++                    <a class="nav-link" data-controller="signIn" href="#">Sign in</a>
+                 </li>
+ 
+             </ul>
+Index: src/assets/js/repositories/signUpRepository.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n *\r\n * repository for entity signups\r\n */\r\nimport {NetworkManager} from \"../framework/utils/networkManager.js\";\r\n\r\nexport class signUpRepository {\r\n    #networkManager;\r\n    #route;\r\n\r\n    constructor() {\r\n\r\n        this.#route = \"/postUser\";\r\n        this.#networkManager = new NetworkManager();\r\n    }\r\n\r\n\r\n    signUpUser(username, password, email) {\r\n\r\n        this.#networkManager.doRequest(this.#route,\"POST\", { username: username, password: password, email: email})\r\n\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/repositories/signUpRepository.js b/src/assets/js/repositories/signUpRepository.js
+--- a/src/assets/js/repositories/signUpRepository.js	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/src/assets/js/repositories/signUpRepository.js	(date 1678632856463)
+@@ -20,6 +20,4 @@
+         this.#networkManager.doRequest(this.#route,"POST", { username: username, password: password, email: email})
+ 
+     }
+-
+-
+ }
+\ No newline at end of file
+Index: server/routes/signUpRoutes.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class signUpRoutes {\r\n\r\n    #errorCodes = require(\"../framework/utils/httpErrorCodes\")\r\n    #databaseHelper = require(\"../framework/utils/databaseHelper\")\r\n    #app\r\n\r\n\r\n    constructor(app) {\r\n        this.#app = app;\r\n\r\n        this.#postUser()\r\n    }\r\n    \r\n    \r\n    #postUser(){\r\n\r\n        this.#app.post(\"/postuser\", async (req, res) => {\r\n            \r\n            try{\r\n                const data = await this.#databaseHelper.handleQuery({\r\n                    query: \"INSERT INTO users(username,password,email) values(?,?,?)\",\r\n                    values: [req.body.username, req.body.password,req.body.email]\r\n                });\r\n\r\n                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);\r\n\r\n            } catch (e) {\r\n                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e});\r\n            }\r\n            \r\n            \r\n        });\r\n        \r\n    }\r\n    \r\n}\r\n\r\nmodule.exports = signUpRoutes;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/routes/signUpRoutes.js b/server/routes/signUpRoutes.js
+--- a/server/routes/signUpRoutes.js	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/server/routes/signUpRoutes.js	(date 1678630049806)
+@@ -18,8 +18,8 @@
+             
+             try{
+                 const data = await this.#databaseHelper.handleQuery({
+-                    query: "INSERT INTO users(username,password,email) values(?,?,?)",
+-                    values: [req.body.username, req.body.password,req.body.email]
++                    query: "INSERT INTO users(username, password, email) values(?,?,?)",
++                    values: [req.body.username, req.body.password, req.body.email]
+                 });
+ 
+                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+Index: src/assets/js/repositories/profilePageRepository.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/repositories/profilePageRepository.js b/src/assets/js/repositories/profilePageRepository.js
+new file mode 100644
+--- /dev/null	(date 1678633024838)
++++ b/src/assets/js/repositories/profilePageRepository.js	(date 1678633024838)
+@@ -0,0 +1,21 @@
++/**
++ *
++ * @author: Aaron Agyeman-Prempeh
++ */
++import {NetworkManager} from "../framework/utils/networkManager.js";
++
++export class profilePageRepository{
++    #networkManager;
++    #route;
++
++    constructor() {
++
++        this.#route = "/getUsers";
++        this.#networkManager = new NetworkManager();
++    }
++
++    getUserData(email, password) {
++        this.#networkManager.doRequest(`${this.#route}/${email}/${password}`,
++            "GET")
++    }
++}
+\ No newline at end of file
+Index: src/assets/js/controllers/profilePageController.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/controllers/profilePageController.js b/src/assets/js/controllers/profilePageController.js
+new file mode 100644
+--- /dev/null	(date 1678632482463)
++++ b/src/assets/js/controllers/profilePageController.js	(date 1678632482463)
+@@ -0,0 +1,17 @@
++/**
++ *controller for profilePage
++ *@author: Aaron Agyeman-Prempeh
++ */
++
++import {Controller} from "./controller.js";
++import {profilePageRepository} from "../repositories/profilePageRepository.js";
++
++export class profilePageController extends Controller {
++
++    #profilePageRepository;
++
++    constructor() {
++        super();
++        this.#profilePageRepository = new profilePageRepository();
++    }
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d30f73d1-1e9b-456a-a095-42b814371f9f\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/assets/js/controllers/signUpController.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/assets/js/controllers/signUpController.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2M6w2whrWWc6ocfZZBrZ3VK4KA8\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"autoscrollToSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"login.html\" type=\"JavascriptDebugType\" temporary=\"true\" nameIsGenerated=\"true\" uri=\"http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html\" useBuiltInWebServerPort=\"true\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JavaScript Debug.login.html\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d30f73d1-1e9b-456a-a095-42b814371f9f\" name=\"Changes\" comment=\"\" />\r\n      <created>1677101140746</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1677101140746</updated>\r\n      <workItem from=\"1677101143517\" duration=\"1334000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"COLUMN_ID_ORDER\">\r\n      <list>\r\n        <option value=\"Default.Root\" />\r\n        <option value=\"Default.Author\" />\r\n        <option value=\"Default.Date\" />\r\n        <option value=\"Default.Subject\" />\r\n        <option value=\"Space.CommitStatus\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/.idea/workspace.xml	(date 1678793388153)
+@@ -2,11 +2,17 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/src/assets/js/controllers/profilePageController.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/profilePageRepository.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/assets/js/test.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/html_views/profilePage.html" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/server/routes/signUpRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/signUpRoutes.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/server/routes/usersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/usersRoutes.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -43,12 +49,23 @@
+     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+   }
+ }</component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="npm.cy:open">
+     <configuration name="login.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html" useBuiltInWebServerPort="true">
++      <method v="2" />
++    </configuration>
++    <configuration name="cy:open" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
++      <package-json value="$PROJECT_DIR$/server/package.json" />
++      <command value="run" />
++      <scripts>
++        <script value="cy:open" />
++      </scripts>
++      <node-interpreter value="project" />
++      <envs />
+       <method v="2" />
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="npm.cy:open" />
+         <item itemvalue="JavaScript Debug.login.html" />
+       </list>
+     </recent_temporary>
+Index: src/html_views/profilePage.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/html_views/profilePage.html b/src/html_views/profilePage.html
+new file mode 100644
+--- /dev/null	(date 1678630995902)
++++ b/src/html_views/profilePage.html	(date 1678630995902)
+@@ -0,0 +1,54 @@
++<h1>Welcome to your Profile Page</h1>
++
++<!-- Edit Profile Picture -->
++<form action="#" method="POST">
++    <label for="profilePic">Profile Picture:</label>
++    <input type="file" id="profilePic" name="profilePic"><br><br>
++    <input type="submit" value="Upload Picture">
++</form>
++
++<!-- Edit Email and Password -->
++<form id="editProfileForm">
++    <label for="email">Email:</label>
++    <input type="email" id="email" name="email"><br><br>
++
++    <label for="password">Password:</label>
++    <input type="password" id="password" name="password"><br><br>
++
++    <input type="submit" value="Save Changes">
++</form>
++
++<!-- Person or Company -->
++<form id="personOrCompanyForm">
++    <label for="personOrCompany">Ben je een persoon of een organisatie:</label>
++    <select id="personOrCompany" name="personOrCompany">
++        <option value="person">Persoon</option>
++        <option value="company">Organisatie</option>
++    </select><br><br>
++
++    <input type="submit" value="Save Changes">
++</form>
++
++<!-- Dit is nog een schets en word dus nog aan gewerkt -->
++<h2>Your Posts</h2>
++<ul>
++    <li>
++        <p>Post Title 1</p>
++        <p>Post Content 1</p>
++        <img src="post-image-1.jpg" alt="Post Image 1">
++        <a href="#">Edit</a>
++    </li>
++    <li>
++        <p>Post Title 2</p>
++        <p>Post Content 2</p>
++        <a href="#">Edit</a>
++    </li>
++    <li>
++        <p>Post Title 3</p>
++        <p>Post Content 3</p>
++        <img src="post-image-3.jpg" alt="Post Image 3">
++        <a href="#">Edit</a>
++    </li>
++</ul>
++</body>
++</html>
+Index: src/assets/js/controllers/signUpController.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n *\r\n * controller for sign in screen\r\n */\r\nimport {Controller} from \"./controller.js\";\r\nimport {signUpRepository} from \"../repositories/signUpRepository.js\";\r\nimport {loadAllUsersRepository} from \"../repositories/loadAllUsersRepository.js\";\r\n\r\n\r\nexport class signUpController extends Controller {\r\n    #createSingInView;\r\n    #signUpRepository;\r\n    #loadAllUsersRepository;\r\n\r\n\r\n    constructor() {\r\n        super();\r\n        this.#signUpRepository = new signUpRepository();\r\n        this.#loadAllUsersRepository = new loadAllUsersRepository();\r\n        this.#setupView();\r\n    }\r\n\r\n    async #setupView() {\r\n        this.#createSingInView = await super.loadHtmlIntoContent(\"html_views/signUp.html\");\r\n\r\n\r\n        this.#createSingInView.querySelector(\".register-button\").addEventListener(\"click\",\r\n            (event) => this.#saveUser(event))\r\n\r\n    }\r\n\r\n\r\n    async #saveUser(event) {\r\n\r\n        event.preventDefault()\r\n        const name = this.#createSingInView.querySelector(\"#fullname\")\r\n        const email = this.#createSingInView.querySelector(\"#email\")\r\n        const password = this.#createSingInView.querySelector(\"#password\")\r\n        const confirmPassword = this.#createSingInView.querySelector(\"#confirm_password\")\r\n\r\n\r\n        console.log(name.value + \" \" + email.value)\r\n\r\n\r\n        //naamcheck--------------------\r\n        let namecheck = false;\r\n\r\n        if (name.value.length === 0) {\r\n            this.#setErrorfor(name, \"Gebruikersnaam mag niet leeg zijn!\")\r\n        } else if (name.value.length > 10) {\r\n            //show error\r\n            this.#setErrorfor(name, \"Gebruikersnaam mag maximaal 10 characters hebben!\")\r\n\r\n        } else {\r\n            //user data opvragen database\r\n            this.#setSuccesfor(name);\r\n\r\n            try {\r\n                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);\r\n                console.log(data)\r\n\r\n                if (data.length === 0) {\r\n                    // als naam niet bestaat\r\n                    namecheck = true;\r\n                    this.#setSuccesfor(name)\r\n                } else {\r\n                    this.#setErrorfor(name, \"Gebruikersnaam of email is al in gebruik\")\r\n                }\r\n            } catch (e) {\r\n                console.log(e)\r\n            }\r\n\r\n        }\r\n\r\n\r\n        //emailcheck----------\r\n\r\n        let emailcheck = false;\r\n\r\n        if (email.value.length === 0) {\r\n            this.#setErrorfor(email, \"email mag niet leeg zijn!\")\r\n        } else if (!this.#isEmail(email.value)) {\r\n            this.#setErrorfor(email, \"email moet een mail zijn!\")\r\n        } else {\r\n            // database opvragen gegevens en checken of mail al bestaat\r\n            this.#setSuccesfor(email)\r\n\r\n            try {\r\n\r\n                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);\r\n\r\n                if (data.length === 0) {\r\n                    this.#setSuccesfor(email)\r\n                    emailcheck = true;\r\n                } else {\r\n                    this.#setErrorfor(email, \"gebruikersnaam of Mail is al in gebruik\")\r\n                }\r\n            } catch (e) {\r\n                console.log(e)\r\n            }\r\n\r\n\r\n        }\r\n\r\n\r\n//password check\r\n        let passwordCheck = false;\r\n\r\n        if (password.value === \"\") {\r\n            this.#setErrorfor(password, \"Wachtwoord mag niet leeg zijn!\")\r\n        } else if (!this.#paswordPatternCheck(password.value)) {\r\n            this.#setErrorfor(password, \"Wachtwoord moet minimaal 1 hoofdletter,1 kleine letter, 1 leesteken en een cijfer hebben. \")\r\n        } else if (password.value > 8) {\r\n            this.#setErrorfor(password, \"Wachtwoord mag niet langer dan 8 characters zijn!\")\r\n\r\n        } else {\r\n            this.#setSuccesfor(password)\r\n            passwordCheck = true;\r\n        }\r\n\r\n\r\n        //confirm password check\r\n        let confirmPasswordCheck = false;\r\n\r\n\r\n        if (confirmPassword.value === \"\") {\r\n            this.#setErrorfor(confirmPassword, \"Verificatie wachtwoord mag niet leeg zijn!\")\r\n        } else if (confirmPassword.value > 8) {\r\n            this.#setErrorfor(confirmPassword, \"Wachtwoord mag niet langer dan 8 characters zijn!\")\r\n        } else if (password.value !== confirmPassword.value) {\r\n            this.#setErrorfor(confirmPassword, \"Wachtwoord komt niet overeen!\")\r\n        } else {\r\n            this.#setSuccesfor(confirmPassword)\r\n            confirmPasswordCheck = true;\r\n        }\r\n\r\n\r\n        // checkt of alle checkt true zijn en insert alles in de database\r\n        if (namecheck && emailcheck && passwordCheck && confirmPasswordCheck) {\r\n            alert(\"aanmelding is gelukt\")\r\n\r\n            // toevoegen aan database --------------------------\r\n            this.#signUpRepository.signUpUser(name.value, password.value, email.value)\r\n\r\n        }\r\n\r\n    }\r\n\r\n    //minimaal 1 hoofdletter,1 kleine letter, 1 leesteken en een cijfer\r\n    #paswordPatternCheck(password) {\r\n        return /[A-Z]/.test(password) &&\r\n            /[a-z]/.test(password) &&\r\n            /[0-9]/.test(password) &&\r\n            /[^A-Za-z0-9]/.test(password) &&\r\n            password.length > 4;\r\n    }\r\n\r\n    #isEmail(email) {\r\n        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/.test(email);\r\n    }\r\n\r\n    #setErrorfor(input, message) {\r\n\r\n        const parentElementInput = input.parentElement;  // pakt parentelement\r\n        const small = parentElementInput.querySelector('.error')\r\n\r\n        small.innerText = message;\r\n\r\n    }\r\n\r\n    #setSuccesfor(input) {\r\n\r\n        const parentElementInput = input.parentElement;  // pakt parentelement\r\n        const small = parentElementInput.querySelector('.error')\r\n\r\n        small.innerText = \"\";\r\n\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/controllers/signUpController.js b/src/assets/js/controllers/signUpController.js
+--- a/src/assets/js/controllers/signUpController.js	(revision b56edb0ae2d6ee1c1ec87c4573fb7127f72a5fba)
++++ b/src/assets/js/controllers/signUpController.js	(date 1678630049770)
+@@ -23,9 +23,8 @@
+     async #setupView() {
+         this.#createSingInView = await super.loadHtmlIntoContent("html_views/signUp.html");
+ 
+-
+         this.#createSingInView.querySelector(".register-button").addEventListener("click",
+-            (event) => this.#saveUser(event))
++            (event) => this.#saveUser(event));
+ 
+     }
+ 
+@@ -53,7 +52,7 @@
+ 
+         } else {
+             //user data opvragen database
+-            this.#setSuccesfor(name);
++
+ 
+             try {
+                 let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+@@ -83,7 +82,7 @@
+             this.#setErrorfor(email, "email moet een mail zijn!")
+         } else {
+             // database opvragen gegevens en checken of mail al bestaat
+-            this.#setSuccesfor(email)
++            // this.#setSuccesfor(email)
+ 
+             try {
+ 
+@@ -140,7 +139,12 @@
+             alert("aanmelding is gelukt")
+ 
+             // toevoegen aan database --------------------------
+-            this.#signUpRepository.signUpUser(name.value, password.value, email.value)
++            const user = {
++                email: email,
++                username: username,
++                password: password
++            };
++            this.#signUpRepository.signUpUser(user)
+ 
+         }
+ 
+@@ -177,4 +181,5 @@
+ 
+     }
+ 
+-}
+\ No newline at end of file
++}
++
+diff --git a/src/assets/js/test.js b/src/assets/js/test.js
+new file mode 100644
