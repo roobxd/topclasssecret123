@@ -1,5 +1,5 @@
 //Context: Login
-describe("Login",  () => {
+describe("Login", () => {
     const endpoint = "/users/login";
 
     //Run before each test in this context
@@ -17,15 +17,15 @@ describe("Login",  () => {
         cy.get("#exampleInputPassword").should("exist");
 
         //Find the button to login, check if it exists.
-        cy.get(".login-form button").should("exist");
+        cy.get(".submitbutton").should("exist");
     });
 
     //Test: Successful login
-    it("Successful login",  () => {
+    it("Successful login", () => {
         //Start a fake server
         cy.server();
 
-        const mockedResponse = {"username": "test"};
+        const mockedResponse = { "username": "test" };
 
         //Add a stub with the URL /users/login as a POST
         //Respond with a JSON-object when requested
@@ -42,8 +42,8 @@ describe("Login",  () => {
         cy.get("#exampleInputPassword").type("test");
 
         //Find the button to login and click it
-        console.log(cy.get(".login-form button"));
-        cy.get(".login-form button").click();
+        console.log(cy.get(".submitbutton"));
+        cy.get(".submitbutton").click();
 
         //Wait for the @login-stub to be called by the click-event.
         cy.wait("@login");
@@ -63,7 +63,7 @@ describe("Login",  () => {
     });
 
     //Test: Failed login
-    it("Failed login",  () => {
+    it("Failed login", () => {
         //Start a fake server
         cy.server();
 
@@ -88,7 +88,7 @@ describe("Login",  () => {
         cy.get("#exampleInputPassword").type("test");
 
         //Find the button to login and click it.
-        cy.get(".login-form button").click();
+        cy.get(".submitbutton").click();
 
         //Wait for the @login-stub to be called by the click-event.
         cy.wait("@login");

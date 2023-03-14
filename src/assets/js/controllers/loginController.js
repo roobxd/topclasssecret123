@@ -71,7 +71,7 @@ export class LoginController extends Controller {
         } catch (error) {
             //if unauthorized error code, show error message to the user
             if (error.code === 401) {
-                this.#loginView.querySelector(".error").innerHTML = error.reason
+                this.#loginView.querySelector(".error").innerHTML = "ERROR: " + error.reason
             } else {
                 console.error(error);
             }
