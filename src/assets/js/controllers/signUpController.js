@@ -43,6 +43,7 @@ export class signUpController extends Controller {
 
 
         //naamcheck--------------------
+        // / mag niet
         let namecheck = false;
 
         if (name.value.length === 0) {

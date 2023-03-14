@@ -11,7 +11,10 @@ class signUpRoutes {
         this.#postUser()
     }
     
-    
+    // Hier word een HTTP post route gedefinieert op "/postuser". Wanneer een verzoek wordt gedaan naar de route word
+    // er geprobeerd om gegevens op te slaan in de database. Als het succesvol is wordt er een JSON gestuurd met de
+    // response. Als het niet lukt wordt er een JSON gestuurd met de reden. Bij de repository word de endpoint aageroepen
+    // waarbij de input wordt doorgegeven, die dan in de body komt.
     #postUser(){
 
         this.#app.post("/postuser", async (req, res) => {
