@@ -185,10 +185,11 @@
 }
 
 .loginheader h2 {
-    width: 80px;
+    width: 150px;
     height: 38px;
     margin: auto;
     color: white;
+    text-align: center;
 }
 
 .error {
