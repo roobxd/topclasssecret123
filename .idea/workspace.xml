@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="navbar">
-      <change afterPath="$PROJECT_DIR$/src/assets/css/pages/support.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/html_views/support.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/pages/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
-    </list>
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +70,7 @@
       <workItem from="1678793612090" duration="6957000" />
       <workItem from="1678812122916" duration="596000" />
       <workItem from="1678827685283" duration="23000" />
-      <workItem from="1678862985761" duration="5913000" />
+      <workItem from="1678862985761" duration="6240000" />
     </task>
     <task id="LOCAL-00001" summary="test Commit">
       <created>1678406691398</created>
@@ -85,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678406691398</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="support page aangemaakt">
+      <created>1678870653027</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1678870653027</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,7 +116,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="test Commit" />
+    <MESSAGE value="support page aangemaakt" />
+    <option name="LAST_COMMIT_MESSAGE" value="support page aangemaakt" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
