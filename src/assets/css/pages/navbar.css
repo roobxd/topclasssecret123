@@ -5,7 +5,7 @@
 
 /*Body Content*/
 body {
-    background-image: url("../images/bodyImage.png");
+    background-image: url("../../img/background.png");
     background-color: cornflowerblue;
     padding: 0;
     margin: 0;
@@ -31,33 +31,37 @@ main {
 
 
 /* Navbar begint hier */
-.navbar {
-    background-color: rgb(26, 30, 61);
-}
-
-.bd-navbar .navbar-nav .nav-link .loggedout {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-    color: #cbbde2;
-}
-
-/*.navbar-brand:active,*/
-/*.nav-link:hover {*/
-/*    background-color: darkseagreen;*/
+/*.navbar {*/
+/*    background-color: rgb(26, 30, 61);*/
 /*}*/
 
-.navbar-brand {
-    position: fixed;
-    top: 15px;
-    right: 850px;
-    border: 2px #1A1E3DFF solid;
-    border-radius: 15px;
-    padding: 5px;
-}
+/*.bd-navbar .navbar-nav .nav-link .loggedout {*/
+/*    padding-right: 0.5rem;*/
+/*    padding-left: 0.5rem;*/
+/*    color: #cbbde2;*/
+/*}*/
+
+/*!*.navbar-brand:active,*!*/
+/*!*.nav-link:hover {*!*/
+/*!*    background-color: darkseagreen;*!*/
+/*!*}*!*/
+
+/*.navbar-brand {*/
+/*    position: fixed;*/
+/*    top: 15px;*/
+/*    right: 850px;*/
+/*    border: 2px #1A1E3DFF solid;*/
+/*    border-radius: 15px;*/
+/*    padding: 5px;*/
+/*}*/
 
 /*new */
 ul {
-    display: flex;
+    /*display: flex;*/
+    /*justify-content: space-evenly;*/
+    /*flex-:*/
+    display: grid;
+    grid-template-areas: "nav1 nav2 nav3 nav4 nav5";
     text-align: center;
     margin: 0 auto;
     padding: 0;
@@ -67,6 +71,10 @@ ul {
     position: relative;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
 }
+/*li {*/
+/*    !*flex: 2;*!*/
+/*    grid-area: topbar;*/
+/*}*/
 ul:after {
     content: "";
     position: absolute;
@@ -102,9 +110,9 @@ a:hover {
     color: #343e48;
 }
 a:after {
-    content: attr(data-title);
+    /*content: attr(data-title);*/
     position: absolute;
-    display: block;
+    display: flex;
     text-shadow: none;
     top: 29%;
     left: 18px;
@@ -118,15 +126,26 @@ a:after {
     transition: all 200ms ease;
     z-index: -1;
 }
+
 li:nth-child(2) a:after {
     background-color: #ecc64b;
 }
-li:nth-child(3) a:after {
+li:nth-child(4) a:after {
     background: #0b9ea6;
 }
-li:nth-child(4) a:after {
+.navUpload a:after {
     background: #f26667;
 }
+.navLogin a:after {
+    background: #66f29e;
+}
+.navLogout a:after {
+    background: #cf66f2;
+}
+.navSignup a:after {
+    background: #66d1f2;
+}
+
 a:hover:after {
     transform: rotateX(0deg) translateZ(0px);
 }
@@ -148,8 +167,8 @@ footer {
 /*Buttons*/
 button {
     margin-top: 25px;
-    border: 5px blanchedalmond solid;
-    color: cyan;
+    /*border: 5px blanchedalmond solid;*/
+    /*color: cyan;*/
 }
 
 /*Buttons eindigt*/
