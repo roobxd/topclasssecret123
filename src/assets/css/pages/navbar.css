@@ -56,7 +56,7 @@ main {
 /*}*/
 
 /*new */
-ul {
+nav ul {
     /*display: flex;*/
     /*justify-content: space-evenly;*/
     /*flex-:*/
@@ -76,7 +76,7 @@ ul {
 /*    !*flex: 2;*!*/
 /*    grid-area: topbar;*/
 /*}*/
-ul:after {
+nav ul:after {
     content: "";
     position: absolute;
     top: 0;
@@ -87,7 +87,7 @@ ul:after {
     /*background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAB9JREFUeNpiZmBg6AZiDiBWZ4YyQMCOCcYA4kMAAQYAHyYCCUdxidgAAAAASUVORK5CYII=");*/
 }
 
-li {
+nav li {
     margin: 0 auto;
     display: inline-block;
     list-style: none;
@@ -108,11 +108,11 @@ nav a {
     transform-style: preserve-3d;
 }
 
-a:hover {
+nav a:hover {
     color: #343e48;
 }
 
-a:after {
+nav a:after {
     /*content: attr(data-title);*/
     position: absolute;
     display: flex;
@@ -130,11 +130,11 @@ a:after {
     z-index: -1;
 }
 
-li:nth-child(2) a:after {
+nav li:nth-child(2) a:after {
     background-color: #ecc64b;
 }
 
-li:nth-child(4) a:after {
+nav li:nth-child(4) a:after {
     background: #0b9ea6;
 }
 
@@ -154,7 +154,7 @@ li:nth-child(4) a:after {
     background: #66d1f2;
 }
 
-a:hover:after {
+nav a:hover:after {
     transform: rotateX(0deg) translateZ(0px);
 }
 

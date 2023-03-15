@@ -34,7 +34,7 @@ class UsersRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT username, email, password FROM users WHERE username = ? AND password = ?",
+                    query: "SELECT email, password FROM users WHERE email = ? AND password = ?",
                     values: [username, password]
                 });
 
