@@ -35,51 +35,51 @@ export class signUpController extends Controller {
     async #saveUser(event) {
 
         event.preventDefault()
-        const name = this.#createSingInView.querySelector("#fullname")
+        // const name = this.#createSingInView.querySelector("#fullname")
         const email = this.#createSingInView.querySelector("#email")
         const password = this.#createSingInView.querySelector("#password")
         const confirmPassword = this.#createSingInView.querySelector("#confirm_password")
 
 
-        console.log(name.value + " " + email.value + " " + password.value + " " + confirmPassword.value)
+        console.log(email.value + " " + password.value + " " + confirmPassword.value)
 
 
         //naamcheck--------------------
         // / mag niet
-        let namecheck = false;
+        // let namecheck = false;
+        //
+        // if (name.value.length === 0) {
+        //     this.#setErrorfor(name, "Gebruikersnaam mag niet leeg zijn!")
+        // } else if (name.value.length > 10) {
+        //     //show error
+        //     this.#setErrorfor(name, "Gebruikersnaam mag maximaal 10 characters hebben!")
+        //
+        // } else {
+        //     //user data opvragen database
+        //     this.#setSuccesfor(name);
+        //
+        //     try {
+        //         let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+        //         console.log(data)
+        //
+        //         if (data.length === 0) {
+        //             // als naam niet bestaat
+        //             namecheck = true;
+        //             this.#setSuccesfor(name)
+        //         } else {
+        //             this.#setErrorfor(name, "Gebruikersnaam of email is al in gebruik")
+        //         }
+        //     } catch (e) {
+        //         console.log(e)
+        //     }
 
-        if (name.value.length === 0) {
-            this.#setErrorfor(name, "Gebruikersnaam mag niet leeg zijn!")
-        } else if (name.value.length > 10) {
-            //show error
-            this.#setErrorfor(name, "Gebruikersnaam mag maximaal 10 characters hebben!")
-
-        } else {
-            //user data opvragen database
-            this.#setSuccesfor(name);
-
-            try {
-                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
-                console.log(data)
-
-                if (data.length === 0) {
-                    // als naam niet bestaat
-                    namecheck = true;
-                    this.#setSuccesfor(name)
-                } else {
-                    this.#setErrorfor(name, "Gebruikersnaam of email is al in gebruik")
-                }
-            } catch (e) {
-                console.log(e)
-            }
-
-        }
+        // }
 
 
         //emailcheck----------
 
         let emailcheck = false;
-
+        // email mag geen / bevatten moet ik nog regelen
         if (email.value.length === 0) {
             this.#setErrorfor(email, "email mag niet leeg zijn!")
         } else if (!this.#isEmail(email.value)) {
@@ -90,7 +90,7 @@ export class signUpController extends Controller {
 
             try {
 
-                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+                let data = await this.#loadAllUsersRepository.loadUsers( email.value);
 
                 if (data.length === 0) {
                     this.#setSuccesfor(email)
@@ -139,10 +139,10 @@ export class signUpController extends Controller {
 
 
         // checkt of alle checkt true zijn en insert alles in de database
-        if (namecheck && emailcheck && passwordCheck && confirmPasswordCheck) {
+        if (emailcheck && passwordCheck && confirmPasswordCheck) {
             alert("aanmelding is gelukt");
             // toevoegen aan database --------------------------
-            this.#signUpRepository.signUpUser(name.value, password.value, email.value);
+            this.#signUpRepository.signUpUser( password.value, email.value);
             App.loadController(App.CONTROLLER_LOGIN);
 
         }
@@ -165,7 +165,7 @@ export class signUpController extends Controller {
     #setErrorfor(input, message) {
 
         const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = document.querySelector('.error')
+        const small = parentElementInput.querySelector('.error')
 
         small.innerText = message;
 
@@ -174,7 +174,7 @@ export class signUpController extends Controller {
     #setSuccesfor(input) {
 
         const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = document.querySelector('.error')
+        const small = parentElementInput.querySelector('.error')
 
         small.innerText = "";
 

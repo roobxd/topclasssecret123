@@ -5,8 +5,24 @@ export class UpdatePasswordRepository {
     #route
 
     constructor() {
-        this.#route = "/posts"
+        this.#route = "/updateUser"
         this.#networkManager = new NetworkManager();
+
+    }
+
+    async updatePassword(password, email) {
+            return await this.#networkManager.doRequest(this.#route, "POST",{password:password,email:email});
+    }
+
+    async create() {
+
+    }
+
+    async delete() {
+
+    }
+
+    async update(id, values = {}) {
 
     }
 
