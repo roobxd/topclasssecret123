@@ -4,7 +4,7 @@ class UpdatePasswordRoutes {
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
 
-    constructor() {
+    constructor(app) {
         this.#app = app
 
         this.#updatePassword()
@@ -18,14 +18,13 @@ class UpdatePasswordRoutes {
 
             try{
                 const data = await this.#databaseHelper.handleQuery({
-
-                    query:"UPDATE users set password = ? WHERE email = ?",
+                    query:"UPDATE users set password = ? where email = ? ",
                     values: [req.body.password, req.body.email]
-                })
+                });
 
-                res.status(req.#errorCodes.HTTP_OK_CODE).json(data)
+                res.status(this.#errorCodes.HTTP_OK_CODE).json(data)
             } catch (e) {
-                res.status(req.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
             }
 
         });
@@ -34,4 +33,4 @@ class UpdatePasswordRoutes {
 
 }
 
-module.exports = updatePasswordRoutes
+module.exports = UpdatePasswordRoutes

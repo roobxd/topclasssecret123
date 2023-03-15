@@ -19,7 +19,7 @@ class loadAllUsersRoutes {
 
                 const data = await this.#databaseHelper.handleQuery({
                     query: "SELECT username, email from users where username = ? or email = ?",
-                    values: [req.params.username, req.params.email]
+                    values:[req.params.username, req.params.email]
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
