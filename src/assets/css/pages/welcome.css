@@ -7,7 +7,7 @@ span.name {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 500px;
     height: 150px;
-    background-color: rgba(30, 30, 30, 95%);
+    background-color: var(--pill-main);
     border-radius: 25px;
     margin-bottom: 35px;
 }
@@ -37,7 +37,7 @@ span.name {
 .story p {
     margin: 0;
     padding: 0;
-    color: white;
+    color: var(--white);
 }
 
 .story-titel {
@@ -66,34 +66,34 @@ span.name {
 }
 
 .trending {
-    color: orange;
+    color: var(--trending);
 }
 
 .trendingimage {
-    border: solid orange 4px;
+    border: solid var(--trending) 4px;
 }
 
 .heartimage {
-    border: solid red 4px;
+    border: solid var(--heart) 4px;
 }
 
 .trashimage {
-    border: solid rgb(59, 41, 0) 4px;
+    border: solid var(--trash-color) 4px;
 }
 
 
 .heart {
-    color: red;
-    border-color: red;
+    color: var(--heart);
+    border-color: var(--heart);
 }
 
 .trash {
-    color: rgb(99, 69, 0);
-    border-color: solid rgb(99, 69, 0) 4px;
+    color: var(--trash-color);
+    border-color: solid var(--trash-color) 4px;
 }
 
 .readme {
-    color: white;
+    color: var(--white);
 }
 
 .story img {
@@ -114,6 +114,7 @@ span.name {
     grid-template-columns: 1fr 1fr 1fr;
     display: flex;
     justify-content: center;
+
 }
 
 .other-container {
@@ -129,7 +130,7 @@ span.name {
 .bulletinboard {
     width: 500px;
     height: 250px;
-    background-color: rgba(49, 49, 49, 95%);
+    background-color: var(--pill-secondary);
     border-radius: 25px;
 }
 
@@ -137,7 +138,7 @@ span.name {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1E1E1E;
+    background-color: var(--pill-main-solid);
     border-radius: 25px;
     width: 500px;
     height: 65px;
@@ -147,11 +148,11 @@ span.name {
 
 .bulletinheader h2 {
     font-size: 25px;
-    color: white;
+    color: var(--white);
 }
 
 .bulletpoints li {
-    color: white;
+    color: var(--white);
 }
 
 .bulletins {
@@ -161,7 +162,7 @@ span.name {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: cyan;
+    color: var(--bulletinboard-bulletin);
 }
 
 .dates {
@@ -173,20 +174,20 @@ span.name {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--white);
     width: 100%;
 }
 
 .timeline {
     width: 500px;
     height: 175px;
-    background-color: rgba(49, 49, 49, 95%);
+    background-color: var(--pill-secondary);
     border-radius: 25px;
     margin-top: 200px;
 }
 
 .timelineheader {
-    background-color: #1E1E1E;
+    background-color: var(--pill-main-solid);
     border-radius: 25px;
     width: 500px;
     height: 65px;
@@ -198,7 +199,7 @@ span.name {
     text-align: center;
     width: 100%;
     font-size: 25px;
-    color: white;
+    color: var(--white);
 }
 
 .timelineheader h3 {
@@ -206,7 +207,7 @@ span.name {
     text-align: center;
     width: 100%;
     font-size: 18px;
-    color: white;
+    color: var(--white);
 }
 
 .timestripe {
@@ -220,6 +221,6 @@ span.name {
 .stripe {
     width: 450px;
     height: 10px;
-    background-color: white;
+    background-color: var(--white);
     margin-bottom: 25px;
 }

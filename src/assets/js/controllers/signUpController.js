@@ -4,6 +4,7 @@
  */
 import {Controller} from "./controller.js";
 import {signUpRepository} from "../repositories/signUpRepository.js";
+import { App } from "../app.js";
 import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
 
 
@@ -24,8 +25,9 @@ export class signUpController extends Controller {
         this.#createSingInView = await super.loadHtmlIntoContent("html_views/signUp.html");
 
 
-        this.#createSingInView.querySelector(".register-button").addEventListener("click",
-            (event) => this.#saveUser(event))
+        this.#createSingInView.querySelector(".submitbutton").addEventListener("click", (event) => this.#saveUser(event));
+
+        this.#createSingInView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
 
     }
 
@@ -39,10 +41,11 @@ export class signUpController extends Controller {
         const confirmPassword = this.#createSingInView.querySelector("#confirm_password")
 
 
-        console.log(name.value + " " + email.value)
+        console.log(name.value + " " + email.value + " " + password.value + " " + confirmPassword.value)
 
 
         //naamcheck--------------------
+        // / mag niet
         let namecheck = false;
 
         if (name.value.length === 0) {
@@ -137,10 +140,10 @@ export class signUpController extends Controller {
 
         // checkt of alle checkt true zijn en insert alles in de database
         if (namecheck && emailcheck && passwordCheck && confirmPasswordCheck) {
-            alert("aanmelding is gelukt")
-
+            alert("aanmelding is gelukt");
             // toevoegen aan database --------------------------
-            this.#signUpRepository.signUpUser(name.value, password.value, email.value)
+            this.#signUpRepository.signUpUser(name.value, password.value, email.value);
+            App.loadController(App.CONTROLLER_LOGIN);
 
         }
 
@@ -162,7 +165,7 @@ export class signUpController extends Controller {
     #setErrorfor(input, message) {
 
         const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = document.querySelector('.error')
 
         small.innerText = message;
 
@@ -171,7 +174,7 @@ export class signUpController extends Controller {
     #setSuccesfor(input) {
 
         const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = document.querySelector('.error')
 
         small.innerText = "";
 

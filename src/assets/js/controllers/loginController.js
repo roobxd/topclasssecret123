@@ -30,6 +30,8 @@ export class LoginController extends Controller {
         //from here we can safely get elements from the view via the right getter
         this.#loginView.querySelector(".submitbutton").addEventListener("click", event => this.#handleLogin(event));
 
+
+        this.#loginView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_SIGNUP));
     }
     /**
      * Async function that does a login request via repository
@@ -71,7 +73,7 @@ export class LoginController extends Controller {
         } catch (error) {
             //if unauthorized error code, show error message to the user
             if (error.code === 401) {
-                this.#loginView.querySelector(".error").innerHTML = error.reason
+                this.#loginView.querySelector(".error").innerHTML = "ERROR: " + error.reason
             } else {
                 console.error(error);
             }
