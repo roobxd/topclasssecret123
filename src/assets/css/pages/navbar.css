@@ -71,6 +71,7 @@ ul {
     position: relative;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
 }
+
 /*li {*/
 /*    !*flex: 2;*!*/
 /*    grid-area: topbar;*/
@@ -93,7 +94,7 @@ li {
     padding: 0;
 }
 
-a {
+nav a {
     display: block;
     padding: 25px;
     text-transform: uppercase;
@@ -106,9 +107,11 @@ a {
     transition: color 200ms;
     transform-style: preserve-3d;
 }
+
 a:hover {
     color: #343e48;
 }
+
 a:after {
     /*content: attr(data-title);*/
     position: absolute;
@@ -130,18 +133,23 @@ a:after {
 li:nth-child(2) a:after {
     background-color: #ecc64b;
 }
+
 li:nth-child(4) a:after {
     background: #0b9ea6;
 }
+
 .navUpload a:after {
     background: #f26667;
 }
+
 .navLogin a:after {
     background: #66f29e;
 }
+
 .navLogout a:after {
     background: #cf66f2;
 }
+
 .navSignup a:after {
     background: #66d1f2;
 }
@@ -185,7 +193,7 @@ button {
 
 /*error laten zien*/
 
-.error{
+.error {
     color: red;
     font-size: small;
 
