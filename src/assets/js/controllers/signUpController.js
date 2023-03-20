@@ -27,7 +27,9 @@ export class signUpController extends Controller {
 
         this.#createSingInView.querySelector(".submitbutton").addEventListener("click", (event) => this.#saveUser(event));
 
-        this.#createSingInView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
+        this.#createSingInView.querySelector(".login-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
+
+        this.#createSingInView.querySelector(".gaterug").addEventListener("click", event => window.history.back());
 
     }
 

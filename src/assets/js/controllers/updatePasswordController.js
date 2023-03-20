@@ -18,11 +18,13 @@ export class UpdatePasswordController extends Controller {
     }
 
     async #setupview() {
-        this.#PasswordView = super.loadHtmlIntoContent("html_views/updatePassword.html")
+        this.#PasswordView = await super.loadHtmlIntoContent("html_views/updatePassword.html")
 
         const email = this.#PasswordView.querySelector("#gebruikersnaam")
         const password = this.#PasswordView.querySelector("#password")
         const confirmpassword = this.#PasswordView.querySelector("#confirm_password")
+
+        this.#PasswordView.querySelector(".gaterug").addEventListener("click", event => window.history.back());
 
         let passwordcheck;
         let emailcheck;
