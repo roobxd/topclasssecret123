@@ -1,8 +1,8 @@
-<link href="assets/css/pages/login.css" rel="stylesheet" />
+<link href="assets/css/pages/signup.css" rel="stylesheet" />
 
 <div class="main-wrapper">
-    <div class="login-container">
-        <div class="loginheader">
+    <div class="signup-container">
+        <div class="signupheader">
             <h2>Registreren</h2>
         </div>
         <form class="login-form">
@@ -14,21 +14,20 @@
 <!--            </div>-->
             <div class="input-container">
                 <input type="text" class="form-control" id="email" placeholder="Email...">
-                    <small class ="error"> </small>
                 <i class="bi bi-key-fill inputicon"></i>
             </div>
             <div class="input-container">
                 <input type="password" class="form-control" id="password" placeholder="Wachtwoord...">
-                <small class ="error"> </small>
                 <i class="bi bi-key-fill inputicon"></i>
             </div>
             <div class="input-container">
                 <input type="password" class="form-control" id="confirm_password" placeholder="Wachtwoord Herhalen...">
-                <small class ="error"> </small>
                 <i class="bi bi-key-fill inputicon"></i>
             </div>
             <div class="button-container">
-                <div class="empty"></div>
+                <a href="#" class="gaterug" data-controller="login">
+                    <button type="submit" class="gaterug">Ga terug</button>
+                </a>
                 <div class="submitbutton">
                     <p>submit</p>
                     <i class="bi bi-box-arrow-in-right inputicon"></i>
@@ -38,8 +37,8 @@
 
         </form>
     </div>
-    <a class="registreren-container">
-        <button class="registrerenbutton">
+    <a class="login-container">
+        <button class="loginbutton">
             <p>U heeft al een account?</p>
         </button>
     </a>

@@ -32,6 +32,8 @@ export class LoginController extends Controller {
 
 
         this.#loginView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_SIGNUP));
+
+        this.#loginView.querySelector(".wwvergeten").addEventListener("click", event => App.loadController(App.CONTROLLER_UPDATEPASSWORD));
     }
     /**
      * Async function that does a login request via repository
