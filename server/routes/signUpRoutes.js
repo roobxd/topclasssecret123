@@ -21,7 +21,7 @@ class signUpRoutes {
             
             try{
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO users(username,password,email) values(?,?,?)",
+                    query: "INSERT INTO users(voornaam, tussenvoegsel, achternaam, password, email) values('','','',?,?)",
                     values: [req.body.username, req.body.password,req.body.email]
                 });
 

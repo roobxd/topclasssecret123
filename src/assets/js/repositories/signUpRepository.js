@@ -15,9 +15,9 @@ export class signUpRepository {
     }
 
 
-    signUpUser(username, password, email) {
+    signUpUser(password, email) {
 
-        this.#networkManager.doRequest(this.#route,"POST", { username: username, password: password, email: email})
+        this.#networkManager.doRequest(this.#route,"POST", { password: password, email: email})
 
     }
 

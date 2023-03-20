@@ -164,21 +164,19 @@ export class signUpController extends Controller {
         return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
     }
 
-    #setErrorfor(input, message) {
+    #setErrorfor(message) {
 
-        const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = this.#createSingInView.querySelector(".error");
 
-        small.innerText = message;
+        small.innerHTML = message;
 
     }
 
-    #setSuccesfor(input) {
+    #setSuccesfor() {
 
-        const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = this.#createSingInView.querySelector(".error");
 
-        small.innerText = "";
+        small.innerHTML = "";
 
     }
 
