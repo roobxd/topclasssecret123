@@ -1,0 +1,197 @@
+Index: src/assets/js/controllers/signUpController.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n *\r\n * controller for sign in screen\r\n */\r\nimport {Controller} from \"./controller.js\";\r\nimport {signUpRepository} from \"../repositories/signUpRepository.js\";\r\nimport {loadAllUsersRepository} from \"../repositories/loadAllUsersRepository.js\";\r\n\r\n\r\nexport class signUpController extends Controller {\r\n    #createSingInView;\r\n    #signUpRepository;\r\n    #loadAllUsersRepository;\r\n\r\n\r\n    constructor() {\r\n        super();\r\n        this.#signUpRepository = new signUpRepository();\r\n        this.#loadAllUsersRepository = new loadAllUsersRepository();\r\n        this.#setupView();\r\n    }\r\n\r\n    async #setupView() {\r\n        this.#createSingInView = await super.loadHtmlIntoContent(\"html_views/signUp.html\");\r\n\r\n\r\n        this.#createSingInView.querySelector(\".register-button\").addEventListener(\"click\",\r\n            (event) => this.#saveUser(event))\r\n\r\n    }\r\n\r\n\r\n    async #saveUser(event) {\r\n\r\n        event.preventDefault()\r\n        const name = this.#createSingInView.querySelector(\"#fullname\")\r\n        const email = this.#createSingInView.querySelector(\"#email\")\r\n        const password = this.#createSingInView.querySelector(\"#password\")\r\n        const confirmPassword = this.#createSingInView.querySelector(\"#confirm_password\")\r\n\r\n\r\n        console.log(name.value + \" \" + email.value)\r\n\r\n\r\n        //naamcheck--------------------\r\n        let namecheck = false;\r\n\r\n        if (name.value.length === 0) {\r\n            this.#setErrorfor(name, \"Gebruikersnaam mag niet leeg zijn!\")\r\n        } else if (name.value.length > 10) {\r\n            //show error\r\n            this.#setErrorfor(name, \"Gebruikersnaam mag maximaal 10 characters hebben!\")\r\n\r\n        } else {\r\n            //user data opvragen database\r\n            this.#setSuccesfor(name);\r\n\r\n            try {\r\n                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);\r\n                console.log(data)\r\n\r\n                if (data.length === 0) {\r\n                    // als naam niet bestaat\r\n                    namecheck = true;\r\n                    this.#setSuccesfor(name)\r\n                } else {\r\n                    this.#setErrorfor(name, \"Gebruikersnaam of email is al in gebruik\")\r\n                }\r\n            } catch (e) {\r\n                console.log(e)\r\n            }\r\n\r\n        }\r\n\r\n\r\n        //emailcheck----------\r\n\r\n        let emailcheck = false;\r\n\r\n        if (email.value.length === 0) {\r\n            this.#setErrorfor(email, \"email mag niet leeg zijn!\")\r\n        } else if (!this.#isEmail(email.value)) {\r\n            this.#setErrorfor(email, \"email moet een mail zijn!\")\r\n        } else {\r\n            // database opvragen gegevens en checken of mail al bestaat\r\n            this.#setSuccesfor(email)\r\n\r\n            try {\r\n\r\n                let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);\r\n\r\n                if (data.length === 0) {\r\n                    this.#setSuccesfor(email)\r\n                    emailcheck = true;\r\n                } else {\r\n                    this.#setErrorfor(email, \"gebruikersnaam of Mail is al in gebruik\")\r\n                }\r\n            } catch (e) {\r\n                console.log(e)\r\n            }\r\n\r\n\r\n        }\r\n\r\n\r\n//password check\r\n        let passwordCheck = false;\r\n\r\n        if (password.value === \"\") {\r\n            this.#setErrorfor(password, \"Wachtwoord mag niet leeg zijn!\")\r\n        } else if (!this.#paswordPatternCheck(password.value)) {\r\n            this.#setErrorfor(password, \"Wachtwoord moet minimaal 1 hoofdletter,1 kleine letter, 1 leesteken en een cijfer hebben. \")\r\n        } else if (password.value > 8) {\r\n            this.#setErrorfor(password, \"Wachtwoord mag niet langer dan 8 characters zijn!\")\r\n\r\n        } else {\r\n            this.#setSuccesfor(password)\r\n            passwordCheck = true;\r\n        }\r\n\r\n\r\n        //confirm password check\r\n        let confirmPasswordCheck = false;\r\n\r\n\r\n        if (confirmPassword.value === \"\") {\r\n            this.#setErrorfor(confirmPassword, \"Verificatie wachtwoord mag niet leeg zijn!\")\r\n        } else if (confirmPassword.value > 8) {\r\n            this.#setErrorfor(confirmPassword, \"Wachtwoord mag niet langer dan 8 characters zijn!\")\r\n        } else if (password.value !== confirmPassword.value) {\r\n            this.#setErrorfor(confirmPassword, \"Wachtwoord komt niet overeen!\")\r\n        } else {\r\n            this.#setSuccesfor(confirmPassword)\r\n            confirmPasswordCheck = true;\r\n        }\r\n\r\n\r\n        // checkt of alle checkt true zijn en insert alles in de database\r\n        if (namecheck && emailcheck && passwordCheck && confirmPasswordCheck) {\r\n            alert(\"aanmelding is gelukt\")\r\n\r\n            // toevoegen aan database --------------------------\r\n            this.#signUpRepository.signUpUser(name.value, password.value, email.value)\r\n\r\n        }\r\n\r\n    }\r\n\r\n    //minimaal 1 hoofdletter,1 kleine letter, 1 leesteken en een cijfer\r\n    #paswordPatternCheck(password) {\r\n        return /[A-Z]/.test(password) &&\r\n            /[a-z]/.test(password) &&\r\n            /[0-9]/.test(password) &&\r\n            /[^A-Za-z0-9]/.test(password) &&\r\n            password.length > 4;\r\n    }\r\n\r\n    #isEmail(email) {\r\n        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/.test(email);\r\n    }\r\n\r\n    #setErrorfor(input, message) {\r\n\r\n        const parentElementInput = input.parentElement;  // pakt parentelement\r\n        const small = parentElementInput.querySelector('.error')\r\n\r\n        small.innerText = message;\r\n\r\n    }\r\n\r\n    #setSuccesfor(input) {\r\n\r\n        const parentElementInput = input.parentElement;  // pakt parentelement\r\n        const small = parentElementInput.querySelector('.error')\r\n\r\n        small.innerText = \"\";\r\n\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/controllers/signUpController.js b/src/assets/js/controllers/signUpController.js
+--- a/src/assets/js/controllers/signUpController.js	(revision de320ace30beefd2626b09b2cc0003127f997f8b)
++++ b/src/assets/js/controllers/signUpController.js	(date 1678450757696)
+@@ -23,9 +23,8 @@
+     async #setupView() {
+         this.#createSingInView = await super.loadHtmlIntoContent("html_views/signUp.html");
+ 
+-
+         this.#createSingInView.querySelector(".register-button").addEventListener("click",
+-            (event) => this.#saveUser(event))
++            (event) => this.#saveUser(event));
+ 
+     }
+ 
+@@ -53,7 +52,7 @@
+ 
+         } else {
+             //user data opvragen database
+-            this.#setSuccesfor(name);
++
+ 
+             try {
+                 let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
+@@ -83,7 +82,7 @@
+             this.#setErrorfor(email, "email moet een mail zijn!")
+         } else {
+             // database opvragen gegevens en checken of mail al bestaat
+-            this.#setSuccesfor(email)
++            // this.#setSuccesfor(email)
+ 
+             try {
+ 
+@@ -140,7 +139,12 @@
+             alert("aanmelding is gelukt")
+ 
+             // toevoegen aan database --------------------------
+-            this.#signUpRepository.signUpUser(name.value, password.value, email.value)
++            const user = {
++                email: email,
++                username: username,
++                password: password
++            };
++            this.#signUpRepository.signUpUser(user)
+ 
+         }
+ 
+@@ -177,4 +181,5 @@
+ 
+     }
+ 
+-}
+\ No newline at end of file
++}
++
+Index: src/html_views/navbar.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><nav class=\"navbar navbar-expand-lg navbar-dark static-top border-bottom\">\r\n    <div class=\"container\">\r\n        <i class=\"fa-regular fa-house-heart\" src=\"../assets/img/logo.png\"></i>\r\n        <a class=\"navbar-brand\" href=\"#\">De Buurt Poster</a>\r\n        <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarResponsive\"\r\n            aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\r\n            <ul class=\"navbar-nav ml-auto\">\r\n                <li class=\"nav-item active\">\r\n                    <a class=\"nav-link\" href=\"#\" data-controller=\"welcome\">Welcome</a>\r\n                </li>\r\n                <li class=\"loggedout\">\r\n                    <a class=\"nav-link\" data-controller=\"posts\" href=\"#\">Posts</a>\r\n                </li>\r\n                <li class=\"loggedout\">\r\n                    <a class=\"nav-link\" data-controller=\"upload\" href=\"#\">Upload</a>\r\n                </li>\r\n                <li class=\"loggedin\">\r\n                    <a class=\"nav-link\" data-controller=\"login\" href=\"#\">Login</a>\r\n                </li>\r\n                <li class=\"loggedout\">\r\n                    <a class=\"nav-link\" data-controller=\"logout\" href=\"#\">Logout</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" data-controller=\"signUp\" href=\"#\">signup</a>\r\n                </li>\r\n\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/html_views/navbar.html b/src/html_views/navbar.html
+--- a/src/html_views/navbar.html	(revision de320ace30beefd2626b09b2cc0003127f997f8b)
++++ b/src/html_views/navbar.html	(date 1678394596252)
+@@ -1,3 +1,6 @@
++<link rel="stylesheet" href="../assets/css/defaults.css">
++
++
+ <nav class="navbar navbar-expand-lg navbar-dark static-top border-bottom">
+     <div class="container">
+         <i class="fa-regular fa-house-heart" src="../assets/img/logo.png"></i>
+@@ -8,15 +11,33 @@
+         </button>
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+             <ul class="navbar-nav ml-auto">
++
++<!--                Home pagina -->
+                 <li class="nav-item active">
+                     <a class="nav-link" href="#" data-controller="welcome">Welcome</a>
+                 </li>
+-                <li class="loggedout">
++
++<!--             Verhalen pagina   -->
++                <li class="nav-item">
+                     <a class="nav-link" data-controller="posts" href="#">Posts</a>
+                 </li>
+-                <li class="loggedout">
++
++<!--               Nav voor verhalen uploaden -->
++                <li class="nav-item">
+                     <a class="nav-link" data-controller="upload" href="#">Upload</a>
+                 </li>
++
++<!--                Instelling pagina -->
++                <li class="nav-item">
++                    <a class="nav-link" data-controller="settings" href="#">Settings</a>
++                </li>
++
++<!--              Support Pagina  -->
++                <li class="nav-item">
++                    <a class="nav-link" data-controller="support" href="#">Support</a>
++                </li>
++
++<!--                Account -->
+                 <li class="loggedin">
+                     <a class="nav-link" data-controller="login" href="#">Login</a>
+                 </li>
+@@ -24,7 +45,7 @@
+                     <a class="nav-link" data-controller="logout" href="#">Logout</a>
+                 </li>
+                 <li class="nav-item">
+-                    <a class="nav-link" data-controller="signUp" href="#">signup</a>
++                    <a class="nav-link" data-controller="signIn" href="#">Sign in</a>
+                 </li>
+ 
+             </ul>
+Index: src/assets/js/repositories/signUpRepository.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n *\r\n * repository for entity signups\r\n */\r\nimport {NetworkManager} from \"../framework/utils/networkManager.js\";\r\n\r\nexport class signUpRepository {\r\n    #networkManager;\r\n    #route;\r\n\r\n    constructor() {\r\n\r\n        this.#route = \"/postUser\";\r\n        this.#networkManager = new NetworkManager();\r\n    }\r\n\r\n\r\n    signUpUser(username, password, email) {\r\n\r\n        this.#networkManager.doRequest(this.#route,\"POST\", { username: username, password: password, email: email})\r\n\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/repositories/signUpRepository.js b/src/assets/js/repositories/signUpRepository.js
+--- a/src/assets/js/repositories/signUpRepository.js	(revision de320ace30beefd2626b09b2cc0003127f997f8b)
++++ b/src/assets/js/repositories/signUpRepository.js	(date 1678394596262)
+@@ -20,6 +20,13 @@
+         this.#networkManager.doRequest(this.#route,"POST", { username: username, password: password, email: email})
+ 
+     }
+-
++//     async signUpUser(username, email, password) {
++//         return await this.#networkManager.doRequest(${this.#route}/register, "POST", {
++//         "email": email,
++//             // "name": fullname,
++//             "username": username,
++//             "password": password
++//     });
++// // }
+ 
+ }
+\ No newline at end of file
+Index: server/routes/signUpRoutes.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class signUpRoutes {\r\n\r\n    #errorCodes = require(\"../framework/utils/httpErrorCodes\")\r\n    #databaseHelper = require(\"../framework/utils/databaseHelper\")\r\n    #app\r\n\r\n\r\n    constructor(app) {\r\n        this.#app = app;\r\n\r\n        this.#postUser()\r\n    }\r\n    \r\n    \r\n    #postUser(){\r\n\r\n        this.#app.post(\"/postuser\", async (req, res) => {\r\n            \r\n            try{\r\n                const data = await this.#databaseHelper.handleQuery({\r\n                    query: \"INSERT INTO users(username,password,email) values(?,?,?)\",\r\n                    values: [req.body.username, req.body.password,req.body.email]\r\n                });\r\n\r\n                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);\r\n\r\n            } catch (e) {\r\n                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e});\r\n            }\r\n            \r\n            \r\n        });\r\n        \r\n    }\r\n    \r\n}\r\n\r\nmodule.exports = signUpRoutes;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/routes/signUpRoutes.js b/server/routes/signUpRoutes.js
+--- a/server/routes/signUpRoutes.js	(revision de320ace30beefd2626b09b2cc0003127f997f8b)
++++ b/server/routes/signUpRoutes.js	(date 1678394596279)
+@@ -18,8 +18,8 @@
+             
+             try{
+                 const data = await this.#databaseHelper.handleQuery({
+-                    query: "INSERT INTO users(username,password,email) values(?,?,?)",
+-                    values: [req.body.username, req.body.password,req.body.email]
++                    query: "INSERT INTO users(username, password, email) values(?,?,?)",
++                    values: [req.body.username, req.body.password, req.body.email]
+                 });
+ 
+                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d30f73d1-1e9b-456a-a095-42b814371f9f\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/assets/js/controllers/signUpController.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/assets/js/controllers/signUpController.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2M6w2whrWWc6ocfZZBrZ3VK4KA8\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"autoscrollToSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"login.html\" type=\"JavascriptDebugType\" temporary=\"true\" nameIsGenerated=\"true\" uri=\"http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html\" useBuiltInWebServerPort=\"true\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JavaScript Debug.login.html\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d30f73d1-1e9b-456a-a095-42b814371f9f\" name=\"Changes\" comment=\"\" />\r\n      <created>1677101140746</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1677101140746</updated>\r\n      <workItem from=\"1677101143517\" duration=\"1334000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"COLUMN_ID_ORDER\">\r\n      <list>\r\n        <option value=\"Default.Root\" />\r\n        <option value=\"Default.Author\" />\r\n        <option value=\"Default.Date\" />\r\n        <option value=\"Default.Subject\" />\r\n        <option value=\"Space.CommitStatus\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision de320ace30beefd2626b09b2cc0003127f997f8b)
++++ b/.idea/workspace.xml	(date 1678630046115)
+@@ -2,11 +2,11 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/assets/js/test.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/server/routes/signUpRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/signUpRoutes.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+diff --git a/src/assets/js/test.js b/src/assets/js/test.js
+new file mode 100644

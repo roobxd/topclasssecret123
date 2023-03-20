@@ -1,38 +1,39 @@
-<div class="container">
-    <div class="register-container">
-        <div class="register-header">
-            <h2>Account Registreren</h2>
+<link href="assets/css/pages/signup.css" rel="stylesheet" />
+
+<div class="main-wrapper">
+    <div class="signup-container">
+        <div class="signupheader">
+            <h2>Registreren</h2>
         </div>
-        <form class="register-form" method="post" action="register.php">
+        <form class="login-form">
             <div class="input-container">
-                <label for="fullname">Volledige naam</label>
-                <input type="text" name="fullname" class="inputfield" id="fullname" placeholder="Volledige naam...">
-                <small class="error"></small>
+                <input type="text" class="form-control" id="email" placeholder="Email...">
+                <i class="bi bi-person-fill inputicon"></i>
             </div>
-
-
             <div class="input-container">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" class="inputfield" id="email" placeholder="E-mail...">
-                <small class="error"></small>
+                <input type="password" class="form-control" id="password" placeholder="Wachtwoord...">
+                <i class="bi bi-key-fill inputicon"></i>
             </div>
-
             <div class="input-container">
-                <label for="password">Wachtwoord</label>
-                <input type="password" name="password" class="inputfield" id="password" placeholder="Wachtwoord...">
-                <small class="error"></small>
+                <input type="password" class="form-control" id="confirm_password" placeholder="Wachtwoord Herhalen...">
+                <i class="bi bi-check-all inputicon"></i>
             </div>
-
-            <div class="input-container">
-                <label for="confirm_password">Bevestig wachtwoord</label>
-                <input type="password" name="confirm_password" class="inputfield" id="confirm_password"
-                       placeholder="Bevestig wachtwoord...">
-                <small class="error"></small>
-            </div>
-
             <div class="button-container">
-                <button type="submit" class="register-button">Registreren</button>
+                <a href="#" class="gaterug" data-controller="login">
+                    <button type="submit" class="gaterug">Ga terug</button>
+                </a>
+                <div class="submitbutton">
+                    <p>Registreer</p>
+                    <i class="bi bi-box-arrow-in-right inputicon"></i>
+                </div>
             </div>
+            <p class="error"></p>
+
         </form>
     </div>
+    <a class="login-container">
+        <button class="loginbutton">
+            <p>U heeft al een account?</p>
+        </button>
+    </a>
 </div>

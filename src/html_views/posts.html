@@ -1,14 +1,45 @@
-<div class="container">
-    <div class="row justify-content-md-center">
-        <section class="col text-center gx-2">
-            <h1 class="mt-4">Welkom <span class="name"></span> hier kan je straks een story posten.</h1>
-            <p class="lead">Schrijf een kort berichtje om mee te testen</p>
-            <div class="row justify-content-center">
-                <div class="form-group col-sm-6">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <button type="button" class="btn btn-success btn-lg">Submit</button>
+<link href="assets/css/pages/post.css" rel="stylesheet" />
+
+<div class="main-wrapper">
+    <div class="post-container">
+        <div class="postheader">
+            <h2>Bulletin Post Creation</h2>
+        </div>
+
+        <div class="input-container">
+            <div class="buttons">
+                <div class="typeicon">
+                    <i class="bi bi-type-bold"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-type-italic"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-type-underline"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-type-strikethrough"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-fonts"></i>
+                </div>
+                <div class="typeselector">
+                    <p>test</p>
+                    <p>test2</p>
                 </div>
             </div>
-        </section>
-    </div>
+            <textarea name="" id="" cols="30" rows="10" placeholder="Type here..."></textarea>
+        </div>
+
+        <div class="button-container">
+            <a href="#" class="gaterug" data-controller="login">
+                <button type="submit" class="gaterug">Ga terug</button>
+            </a>
+            <div class="submitbutton">
+                <p>submit</p>
+                <i class="bi bi-box-arrow-in-right inputicon"></i>
+            </div>
+        </div>
+        <p class="error"></p>
+    </div>    
 </div>

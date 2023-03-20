@@ -1,7 +1,9 @@
+<link rel="stylesheet" href="../assets/css/pages/navbar.css">
+
 <nav class="navbar navbar-expand-lg navbar-dark static-top border-bottom">
     <div class="container">
         <i class="fa-regular fa-house-heart" src="../assets/img/logo.png"></i>
-        <a class="navbar-brand" href="#">De Buurt Poster</a>
+        <!-- <a class="navbar-brand" href="#">De Buurt Poster</a> -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,20 +13,25 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#" data-controller="welcome">Welcome</a>
                 </li>
-                <li class="loggedout">
+                <li>
                     <a class="nav-link" data-controller="posts" href="#">Posts</a>
                 </li>
-                <li class="loggedout">
+                <li class="whenLoggedIn">
                     <a class="nav-link" data-controller="upload" href="#">Upload</a>
                 </li>
-                <li class="loggedin">
+<!--                support page -->
+                <li>
+                    <a class="nav-link" data-controller="upload" href="#">Support</a>
+                </li>
+
+                <li class="whenLoggedOut">
                     <a class="nav-link" data-controller="login" href="#">Login</a>
                 </li>
-                <li class="loggedout">
+                <li class="whenLoggedIn">
                     <a class="nav-link" data-controller="logout" href="#">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-controller="signUp" href="#">signup</a>
+                <li class="whenLoggedOut">
+                    <a class="nav-link" data-controller="signUp" href="#">Signup</a>
                 </li>
 
             </ul>
