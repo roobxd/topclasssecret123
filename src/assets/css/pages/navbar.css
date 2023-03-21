@@ -106,6 +106,7 @@ a {
     transition: color 200ms;
     transform-style: preserve-3d;
 }
+
 a:hover {
     color: #343e48;
 }
