@@ -1,0 +1,109 @@
+.post-container {
+    margin: 0 auto;
+    width: 1000px;
+    height: 1100px;
+    background-color: rgba(30, 30, 30, 95%);
+    border-radius: 25px;
+}
+
+.post-container input {
+    display: inline-block;
+    width: 825px;
+    height: 60px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    color: white;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+}
+
+.post-container input:focus {
+    background-color: #343434;
+    color: white;
+}
+
+.post-container input::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+
+.post-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E1E1E;
+    border-radius: 25px;
+    width: 1000px;
+    height: 65px;
+    padding: 0;
+}
+
+.post-header h2 {
+    width: 331px;
+    height: 38px;
+    margin: auto;
+    color: white;
+}
+
+.post-container p {
+    color: white;
+}
+
+textarea {
+    width: 825px;
+    height: 600px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    color: white;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    height: 1050px;
+}
+
+.post-form label {
+    text-indent: -406px;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 18px;
+
+}
+
+.post-form select {
+    width: 825px;
+    height: 60px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+    color: white;
+    font-size: 18px;
+}
+
+.post-container {
+    overflow-y: auto;
+}
+
+
+
