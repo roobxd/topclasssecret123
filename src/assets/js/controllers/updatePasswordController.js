@@ -15,24 +15,36 @@ export class UpdatePasswordController extends Controller {
         this.#updatePasswordRepository = new UpdatePasswordRepository();
         this.#loadAllUsersRepository = new loadAllUsersRepository();
         this.#setupview()
+
+        // this.#PasswordView.querySelector("#updatePassword").addEventListener((event) => this.#updatePassword(event))
     }
 
     async #setupview() {
-        this.#PasswordView = super.loadHtmlIntoContent("html_views/updatePassword.html")
+        this.#PasswordView = await super.loadHtmlIntoContent("html_views/updatePassword.html");
 
-        const email = this.#PasswordView.querySelector("#gebruikersnaam")
-        const password = this.#PasswordView.querySelector("#password")
-        const confirmpassword = this.#PasswordView.querySelector("#confirm_password")
+        this.#PasswordView.querySelector("#updatePassword").addEventListener("click",(event) => this.#updatePassword(event));
 
+
+
+    }
+
+    async #updatePassword(event) {
+
+        event.preventDefault()
         let passwordcheck;
         let emailcheck;
 
+        const email = this.#PasswordView.querySelector("#email")
+        const password = this.#PasswordView.querySelector("#new-password")
+        const confirmpassword = this.#PasswordView.querySelector("#confirm-password")
+
 
         emailcheck = false;
+
         if (email.value === "" || email.value === null) {
             this.#setErrorfor(email, "email kan niet leeg zijn")
         } else {
-            const data = await this.#loadAllUsersRepository.loadUsers(email)
+            const data = await this.#loadAllUsersRepository.loadUsers(email.value)
 
             if (data.length === 0) {
                 this.#setErrorfor(email, "Email bestaat niet")
@@ -43,6 +55,7 @@ export class UpdatePasswordController extends Controller {
         }
 
         passwordcheck = false;
+
         if (password.value === "" || password.value === null) {
             this.#setErrorfor(password, "wachtwoord mag niet leeg zijn")
         } else if (!this.#paswordPatternCheck(password.value)) {
@@ -59,11 +72,12 @@ export class UpdatePasswordController extends Controller {
         if (emailcheck && passwordcheck) {
             try {
                 const data = await this.#updatePasswordRepository.updatePassword(password.value, email.value)
+                alert("Het is gelukt!")
+                location.reload()
             } catch (e) {
 
             }
         }
-
     }
 
 

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-3-2023_15_07_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-3-2023_15_07__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8-3-2023_20_58_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8-3-2023_20_58__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9-3-2023_21_43_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9-3-2023_21_43__Changes_1.xml" beforeDir="false" />
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="regristreer pagina edits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/loginController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/loginController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/updatePasswordController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/updatePasswordController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/updatePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/updatePassword.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +62,14 @@
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
     </task>
+    <task id="LOCAL-00001" summary="regristreer pagina edits">
+      <created>1679394135020</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679394135020</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,5 +96,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="regristreer pagina edits" />
+    <option name="LAST_COMMIT_MESSAGE" value="regristreer pagina edits" />
   </component>
 </project>
