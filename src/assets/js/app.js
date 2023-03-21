@@ -73,10 +73,11 @@ export class App {
             case App.CONTROLLER_WELCOME:
                 App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
                 break;
+
             case App.CONTROLLER_SIGNUP:
                 App.isLoggedIn(() => new signUpController(), () => new LoginController());
-
                 break;
+
             case App.CONTROLLER_POSTS:
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
