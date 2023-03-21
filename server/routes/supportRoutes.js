@@ -7,7 +7,7 @@
 class SupportRoutes{
     #app
     #databaseHelper = require("../framework/utils/databaseHelper");
-    #httpErrorCodes = require("../framework/utils/httpErrorCodes")
+    #httpErrorCodes = require("../framework/utils/httpErrorCodes");
 
 
 
@@ -28,8 +28,8 @@ class SupportRoutes{
             // res.json({"message":"API endpoints called support", "Formulier: " : req.body})
             try{
                const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT * FROM faq;",
-                    values: [req.insertId, req.body.name, req.body.email, req.body.question]
+                    query: "INSERT INTO faq(name, email, question) VALUES (?,?,?);",
+                    values: [req.body.name, req.body.email, req.body.question]
                 });
 
                if (data.insertId){
