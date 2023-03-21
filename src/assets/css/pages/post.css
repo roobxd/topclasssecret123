@@ -190,4 +190,5 @@
     border-style: none;
     border-radius: 25px;
     padding-left: 65px;
+    color: var(--white);
 }
