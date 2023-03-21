@@ -83,7 +83,7 @@ export class App {
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
-                App.isLoggedIn(() => new UpdatePasswordController(), () => new LoginController());
+                App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
                 break;
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(), () => new LoginController());
@@ -164,10 +164,35 @@ export class App {
      * @param whenNo - function to execute when user is logged in
      */
     static isLoggedIn(whenYes, whenNo) {
-        if (App.sessionManager.get("username")) {
+        if (App.sessionManager.get("email")) {
             whenYes();
+            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
+            for (let i = 0; i < loggedInElements.length; i++) {
+                loggedInElements[i].style.display = 'flex';
+            }
+            console.log("Showing elements that should be shown when loggedin.");
+
+            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
+            for (let i = 0; i < loggedOutElements.length; i++) {
+                loggedOutElements[i].style.display = 'none';
+            }
+            console.log("Hiding elements that should be hidden when loggedin.");
+        
         } else {
             whenNo();
+            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
+            for (let i = 0; i < loggedInElements.length; i++) {
+                loggedInElements[i].style.display = 'none';
+            }
+
+            console.log("Hidding elements that shouldn't be shown when loggedout.");
+            
+            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
+            for (let i = 0; i < loggedOutElements.length; i++) {
+                loggedOutElements[i].style.display = 'flex';
+            }
+            console.log("Showing elements that should be hidden when loggedout.");
+            
         }
     }
 
@@ -175,23 +200,6 @@ export class App {
      * Removes username via sessionManager and loads the login screen
      */
     static handleLogout() {
-
-        const loggedins = document.querySelectorAll('.loggedin');
-        const loggedouts = document.querySelectorAll('.loggedout');
-
-        // Loop through each <a> element and add "nav-link" class name
-        loggedouts.forEach(link => {
-            link.classList.remove('loggedout');
-            link.classList.add('loggedin');
-        });
-
-        // Loop through each <a> element and add "nav-link" class name
-        loggedins.forEach(link => {
-            link.classList.remove('loggedin');
-            link.classList.add('loggedout');
-        });
-
-
         App.sessionManager.remove("username");
         App.sessionManager.remove("email");
 

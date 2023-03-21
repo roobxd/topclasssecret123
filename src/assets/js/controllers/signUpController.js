@@ -27,7 +27,9 @@ export class signUpController extends Controller {
 
         this.#createSingInView.querySelector(".submitbutton").addEventListener("click", (event) => this.#saveUser(event));
 
-        this.#createSingInView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
+        this.#createSingInView.querySelector(".login-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
+
+        this.#createSingInView.querySelector(".gaterug").addEventListener("click", event => window.history.back());
 
     }
 
@@ -162,21 +164,19 @@ export class signUpController extends Controller {
         return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
     }
 
-    #setErrorfor(input, message) {
+    #setErrorfor(message) {
 
-        const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = this.#createSingInView.querySelector(".error");
 
-        small.innerText = message;
+        small.innerHTML = message;
 
     }
 
-    #setSuccesfor(input) {
+    #setSuccesfor() {
 
-        const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = this.#createSingInView.querySelector(".error");
 
-        small.innerText = "";
+        small.innerHTML = "";
 
     }
 

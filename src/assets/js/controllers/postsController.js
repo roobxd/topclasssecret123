@@ -5,19 +5,20 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { RoomsExampleRepository } from "../repositories/roomsExampleRepository.js";
-import { App } from "../app.js";
-import { Controller } from "./controller.js";
-import { PostsRepository } from "../repositories/postsRepository.js";
+//import {roomExampleRepository} from "../repositories/roomsExampleRepository.js";
+import {App} from "../app.js";
+import {Controller} from "./controller.js";
+import {PostsRepository} from "../repositories/postsRepository.js";
 
 export class PostsController extends Controller {
     #roomExampleRepository
-    #welcomeView
+    #postsView
+    #welcomeView;
 
     constructor() {
         super();
         this.#roomExampleRepository = new PostsRepository();
-
+        this.#fetchRooms();
         this.#setupView();
     }
 
@@ -28,13 +29,13 @@ export class PostsController extends Controller {
      */
     async #setupView() {
         //await for when HTML is loaded
-        this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
+        this.#postsView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         //from here we can safely get elements from the view via the right getter
-        this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
+        this.#postsView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
-        this.#fetchRooms(1256);
+        //this.#fetchRooms(1256);
     }
 
     /**
