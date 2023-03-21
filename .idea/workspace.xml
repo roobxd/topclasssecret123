@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="regristreer pagina edits">
+      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/supportRepository.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/loginController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/loginController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/updatePasswordController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/updatePasswordController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/updatePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/updatePassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/supportRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/supportRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/pages/support.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/support.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/support.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/support.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -42,6 +45,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
   }
@@ -65,6 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
+      <workItem from="1679431062532" duration="662000" />
     </task>
     <task id="LOCAL-00001" summary="regristreer pagina edits">
       <created>1679394135020</created>
