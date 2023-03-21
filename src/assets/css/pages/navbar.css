@@ -198,3 +198,7 @@ button {
     font-size: small;
 
 }
+
+.whenLoggedIn{
+    display: none;
+}

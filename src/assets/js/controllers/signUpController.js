@@ -2,10 +2,10 @@
  *
  * controller for sign in screen
  */
-import {Controller} from "./controller.js";
-import {signUpRepository} from "../repositories/signUpRepository.js";
+import { Controller } from "./controller.js";
+import { signUpRepository } from "../repositories/signUpRepository.js";
 import { App } from "../app.js";
-import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
+import { loadAllUsersRepository } from "../repositories/loadAllUsersRepository.js";
 
 
 export class signUpController extends Controller {
@@ -27,7 +27,9 @@ export class signUpController extends Controller {
 
         this.#createSingInView.querySelector(".submitbutton").addEventListener("click", (event) => this.#saveUser(event));
 
-        this.#createSingInView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
+        this.#createSingInView.querySelector(".login-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
+
+        this.#createSingInView.querySelector(".gaterug").addEventListener("click", event => window.history.back());
 
     }
 
@@ -90,7 +92,7 @@ export class signUpController extends Controller {
 
             try {
 
-                let data = await this.#loadAllUsersRepository.loadUsers( email.value);
+                let data = await this.#loadAllUsersRepository.loadUsers(email.value);
 
                 if (data.length === 0) {
                     this.#setSuccesfor(email)
@@ -106,7 +108,7 @@ export class signUpController extends Controller {
         }
 
 
-//password check
+        //password check
         let passwordCheck = false;
 
         if (password.value === "") {
@@ -142,7 +144,7 @@ export class signUpController extends Controller {
         if (emailcheck && passwordCheck && confirmPasswordCheck) {
             alert("aanmelding is gelukt");
             // toevoegen aan database --------------------------
-            this.#signUpRepository.signUpUser( password.value, email.value);
+            this.#signUpRepository.signUpUser(password.value, email.value);
             App.loadController(App.CONTROLLER_LOGIN);
 
         }
@@ -162,21 +164,19 @@ export class signUpController extends Controller {
         return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
     }
 
-    #setErrorfor(input, message) {
+    #setErrorfor(message) {
 
-        const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = this.#createSingInView.querySelector(".error");
 
-        small.innerText = message;
+        small.innerHTML = message;
 
     }
 
-    #setSuccesfor(input) {
+    #setSuccesfor() {
 
-        const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = this.#createSingInView.querySelector(".error");
 
-        small.innerText = "";
+        small.innerHTML = "";
 
     }
 

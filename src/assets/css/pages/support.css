@@ -1,57 +1,58 @@
 /* HTML */
-html{
 
-}
 
 /*Body*/
-body{
-    display: grid;
-    grid-template-areas:
-            "s1 s2 s3"
-            "s4 s5 s6"
-            "s7 s8 s9" ;
-    grid-template-columns: 1fr 3fr 1fr;
-}
+/*body{*/
+/*    display: grid;*/
+/*    grid-template-areas:*/
+/*            "s1 s2 s3"*/
+/*            "s4 s5 s6"*/
+/*            "s7 s8 s9" ;*/
+/*    grid-template-columns: 2fr 6fr 2fr;*/
+/*    grid-template-rows: 2fr 5fr 2fr;*/
+/*}*/
 
 /*Main*/
 main{
-    grid-area: s5;
+
     display: grid;
     grid-template-areas:
             "sec1 sec2 sec3"
             "sec4 sec5 sec6"
             "sec7 sec8 sec9";
-    grid-template-columns: 1fr ;
+    grid-template-rows: 8fr 10fr 0fr ;
+    grid-template-columns: 1fr 10fr 1fr  ;
 }
 
 /* Other tags*/
 .container{
-    grid-area: sec5;
-    grid-template-areas:
-            "sec1"
-            "sec2"
-            "sec3"
-            "sec4";
-    grid-template-columns: 2fr;
-
-}
-
-
-.home{
-    grid-area: sec1;
-}
-
-.post{
     grid-area: sec2;
+    margin-top: 50px;
+
+    /*grid-template-areas:*/
+    /*        "sec1"*/
+    /*        "sec2"*/
+    /*        "sec3"*/
+    /*        "sec4";*/
+    /*grid-template-columns: 2fr;*/
+
 }
 
-.upload{
-    grid-area: sec3;
+.contact{
+    color: white;
+    grid-area: sec5;
+    max-width: 1320px;
+    background-color: rgba(0,0,0, 0.5);
+    border: lightskyblue 2px solid;
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 50px;
 }
 
-.account{
-    grid-area: sec4;
+.btn{
+    margin: 20px ;
 }
+
 
 
 

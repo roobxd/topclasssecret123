@@ -7,15 +7,16 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import {SessionManager} from "./framework/utils/sessionManager.js"
-import {LoginController} from "./controllers/loginController.js"
-import {NavbarController} from "./controllers/navbarController.js"
-import {UploadController} from "./controllers/uploadController.js"
-import {WelcomeController} from "./controllers/welcomeController.js"
-import {PostsController} from "./controllers/postsController.js"
-import {signUpController} from "./controllers/signUpController.js"
-import {UpdatePasswordController} from "./controllers/updatePasswordController.js"
-import {AccountSettingsController} from "./controllers/accountSettingsController.js"
+import { SessionManager } from "./framework/utils/sessionManager.js"
+import { LoginController } from "./controllers/loginController.js"
+import { NavbarController } from "./controllers/navbarController.js"
+import { UploadController } from "./controllers/uploadController.js"
+import { WelcomeController } from "./controllers/welcomeController.js"
+import { PostsController } from "./controllers/postsController.js"
+import { signUpController } from "./controllers/signUpController.js"
+import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
+import { BulletinController } from "./controllers/bulletinController.js"
+import {SupportController} from "./controllers/supportController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -28,10 +29,11 @@ export class App {
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_POSTS = "posts";
+    static CONTROLLER_BULLETIN = "bulletin";
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SIGNUP = "signUp";
     static CONTROLLER_UPDATEPASSWORD = "updatePassword";
-    static CONTROLLER_ACCOUNTSETTINGS = "accountSettings";
+    static CONTROLLER_SUPPORT = "support";
 
     constructor() {
         //Always load the navigation
@@ -79,16 +81,22 @@ export class App {
                 break;
             case App.CONTROLLER_SIGNUP:
                 App.isLoggedIn(() => new signUpController(), () => new signUpController());
-
+                break;
+            case App.CONTROLLER_BULLETIN:
+                App.isLoggedIn(() => new BulletinController(), () => new LoginController());
                 break;
             case App.CONTROLLER_POSTS:
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
-                App.isLoggedIn(() => new UpdatePasswordController(), () => new LoginController());
+                App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
                 break;
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(), () => new LoginController());
+                break;
+
+            case App.CONTROLLER_SUPPORT:
+                App.isLoggedIn(() => new SupportController(), () => new LoginController())
                 break;
 
             default:
@@ -166,10 +174,35 @@ export class App {
      * @param whenNo - function to execute when user is logged in
      */
     static isLoggedIn(whenYes, whenNo) {
-        if (App.sessionManager.get("username")) {
+        if (App.sessionManager.get("email")) {
             whenYes();
+            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
+            for (let i = 0; i < loggedInElements.length; i++) {
+                loggedInElements[i].style.display = 'flex';
+            }
+            console.log("Showing elements that should be shown when loggedin.");
+
+            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
+            for (let i = 0; i < loggedOutElements.length; i++) {
+                loggedOutElements[i].style.display = 'none';
+            }
+            console.log("Hiding elements that should be hidden when loggedin.");
+
         } else {
             whenNo();
+            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
+            for (let i = 0; i < loggedInElements.length; i++) {
+                loggedInElements[i].style.display = 'none';
+            }
+
+            console.log("Hidding elements that shouldn't be shown when loggedout.");
+
+            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
+            for (let i = 0; i < loggedOutElements.length; i++) {
+                loggedOutElements[i].style.display = 'flex';
+            }
+            console.log("Showing elements that should be hidden when loggedout.");
+
         }
     }
 
@@ -177,23 +210,6 @@ export class App {
      * Removes username via sessionManager and loads the login screen
      */
     static handleLogout() {
-
-        const loggedins = document.querySelectorAll('.loggedin');
-        const loggedouts = document.querySelectorAll('.loggedout');
-
-        // Loop through each <a> element and add "nav-link" class name
-        loggedouts.forEach(link => {
-            link.classList.remove('loggedout');
-            link.classList.add('loggedin');
-        });
-
-        // Loop through each <a> element and add "nav-link" class name
-        loggedins.forEach(link => {
-            link.classList.remove('loggedin');
-            link.classList.add('loggedout');
-        });
-
-
         App.sessionManager.remove("username");
         App.sessionManager.remove("email");
 

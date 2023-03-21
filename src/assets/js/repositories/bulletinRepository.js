@@ -7,7 +7,7 @@
  */
 import { NetworkManager } from "../framework/utils/networkManager.js";
 
-export class PostsRepository {
+export class BulletinRepository {
     //# is a private field in Javascript
     #route
     #networkManager

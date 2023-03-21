@@ -32,6 +32,7 @@ export class LoginController extends Controller {
 
 
         this.#loginView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_SIGNUP));
+        this.#loginView.querySelector(".wwvergeten").addEventListener("click", event => App.loadController(App.CONTROLLER_UPDATEPASSWORD));
     }
     /**
      * Async function that does a login request via repository
@@ -42,8 +43,8 @@ export class LoginController extends Controller {
         event.preventDefault();
 
         //get the input field elements from the view and retrieve the value
-        const username = this.#loginView.querySelector("#exampleInputUsername").value;
-        const password = this.#loginView.querySelector("#exampleInputPassword").value;
+        const username = this.#loginView.querySelector("#email").value;
+        const password = this.#loginView.querySelector("#password").value;
 
         try {
             const user = await this.#usersRepository.login(username, password);
@@ -78,5 +79,13 @@ export class LoginController extends Controller {
                 console.error(error);
             }
         }
+
+
+    }
+
+    #SendEmail() {
+
+
+
     }
 }
