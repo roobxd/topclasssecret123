@@ -1,0 +1,126 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -2,18 +2,12 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/server/routes/loadAllUsersRoutes.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/loadAllUsersRepository.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/assets/js/test.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/server/routes/signInRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/signUpRoutes.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/assets/css/defaults.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/defaults.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signInController.js" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/server/routes/signUpRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/signUpRoutes.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/signUpController.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/signUpRepository.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/html_views/signIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/signUp.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -69,6 +63,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1677101140746</updated>
+       <workItem from="1677101143517" duration="1334000" />
++      <workItem from="1678319976436" duration="2232000" />
+     </task>
+     <servers />
+   </component>
+Index: src/assets/js/test.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/js/test.js b/src/assets/js/test.js
+new file mode 100644
+--- /dev/null	
++++ b/src/assets/js/test.js	
+@@ -0,0 +1,76 @@
++/**
++ * Controller for sign in View
++ * @author Aaron Agyeman-Prempeh
++ */
++
++import {UsersRepository} from "../repositories/usersRepository.js";
++import {App} from "../app.js";
++import {Controller} from "./controller.js";
++
++export class signInController extends Controller {
++    //# is a private field in Javascript
++    #usersRepository
++    #signInView
++
++    constructor() {
++        super();
++        this.#usersRepository = new UsersRepository();
++
++        this.#setupView()
++    }
++
++
++    /**
++     * Async function that does a login request via repository
++     * @param event
++     */
++    async #handleRegistration(event) {
++        event.preventDefault();
++
++        const email = this.#signInView.querySelector("#inputEmail").value;
++        const name = this.#signInView.querySelector("#inputFullname").value;
++        const username = this.#signInView.querySelector("#inputUsername").value;
++        const password = this.#signInView.querySelector("#inputPassword").value;
++        console.log(email, name, username, password)
++        // Validate input fields
++        if (!email || !username || !password) {
++            this.#signInView.querySelector(".error").innerHTML = "Please fill in all fields.";
++            return;
++        }
++
++        try {
++            // Check if user already exists with provided email
++            const existingUser = await this.#usersRepository.getUserByEmail(email);
++            if (existingUser) {
++                this.#signInView.querySelector(".error").innerHTML = "Email already registered.";
++                return;
++            }
++
++            // Create new user object and save to database
++            const user = {
++                email: email,
++                fullname: fullname,
++                username: username,
++                password: password
++            };
++            await this.#usersRepository.saveUser(user);
++
++            // Redirect to welcome page
++            window.location.replace("index.html");
++        } catch (error) {
++            console.error(error);
++        }
++    }
++
++    /**
++     * Loads contents of desired HTML file into the index.html .content div
++     * @returns {Promise<void>}
++     */
++    async #setupView() {
++        // this.#signInView = await super.loadHtmlIntoContent("html_views/signIn.html");
++
++        // Add event listeners to buttons
++        this.#signInView.querySelector(".submit-button").addEventListener("click", event => this.#handleLogin(event));
++        this.#signInView.querySelector(".register-button").addEventListener("click", event => this.#handleRegistration(event));
++    }
++}
+\ No newline at end of file

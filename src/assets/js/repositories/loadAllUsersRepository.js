@@ -13,9 +13,9 @@ export class loadAllUsersRepository {
     }
 
 
-    loadUsers(username, email) {
+    loadUsers( email) {
 
-        return this.#networkManager.doRequest(`${this.#route}/${username}/${email}`,
+        return this.#networkManager.doRequest(`${this.#route}/${email}`,
             "GET")
 
     }
