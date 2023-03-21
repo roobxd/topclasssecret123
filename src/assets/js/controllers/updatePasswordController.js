@@ -1,6 +1,7 @@
-import {Controller} from "./controller.js";
-import {UpdatePasswordRepository} from "../repositories/updatePasswordRepository.js";
-import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
+import { Controller } from "./controller.js";
+import { App } from "../app.js";
+import { UpdatePasswordRepository } from "../repositories/updatePasswordRepository.js";
+import { loadAllUsersRepository } from "../repositories/loadAllUsersRepository.js";
 
 export class UpdatePasswordController extends Controller {
 
@@ -21,9 +22,9 @@ export class UpdatePasswordController extends Controller {
 
     async #setupview() {
         this.#PasswordView = await super.loadHtmlIntoContent("html_views/updatePassword.html");
+        this.#PasswordView.querySelector(".gaterug").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
 
-        this.#PasswordView.querySelector("#updatePassword").addEventListener("click",(event) => this.#updatePassword(event));
-
+        this.#PasswordView.querySelector(".submitbutton").addEventListener("click", (event) => this.#updatePassword(event));
 
 
     }
