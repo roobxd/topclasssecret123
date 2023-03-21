@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="regristreer pagina edits">
-      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/supportRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/supportRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/supportRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/pages/support.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/support.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/support.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/support.html" afterDir="false" />
-    </list>
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="regristreer pagina edits" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,18 +31,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="login.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -70,7 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
-      <workItem from="1679431062532" duration="662000" />
+      <workItem from="1679431062532" duration="1307000" />
     </task>
     <task id="LOCAL-00001" summary="regristreer pagina edits">
       <created>1679394135020</created>
