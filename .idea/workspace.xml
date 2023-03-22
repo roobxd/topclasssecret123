@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="error gefixt">
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/accountSettingsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/accountSettingsRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/accountSettingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/accountSettingsController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/accountSettingsRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/accountSettingsRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/accountSettings.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/accountSettings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/pages/support.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/support.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/supportController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/supportController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/supportRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/supportRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/support.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/support.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +28,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2M6w2whrWWc6ocfZZBrZ3VK4KA8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
@@ -43,9 +43,6 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
@@ -68,7 +65,8 @@
       <option name="presentableId" value="Default" />
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
-      <workItem from="1679431062532" duration="1307000" />
+      <workItem from="1679431062532" duration="2016000" />
+      <workItem from="1679469826952" duration="3132000" />
     </task>
     <task id="LOCAL-00001" summary="regristreer pagina edits">
       <created>1679394135020</created>
@@ -77,12 +75,12 @@
       <option name="project" value="LOCAL" />
       <updated>1679394135020</updated>
     </task>
-    <task id="LOCAL-00002" summary="Error accountSettings">
-      <created>1679448577535</created>
+    <task id="LOCAL-00002" summary="support pagina aangepast">
+      <created>1679432566714</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1679448577535</updated>
+      <updated>1679432566714</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -114,8 +112,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="regristreer pagina edits" />
-    <MESSAGE value="Error accountSettings" />
-    <MESSAGE value="error gefixt" />
-    <option name="LAST_COMMIT_MESSAGE" value="error gefixt" />
+    <MESSAGE value="support pagina aangepast" />
+    <option name="LAST_COMMIT_MESSAGE" value="support pagina aangepast" />
   </component>
 </project>

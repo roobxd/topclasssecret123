@@ -56,7 +56,7 @@ class PostsRoutes {
         this.#app.get("/welcome", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT * FROM posts"
+                    query: "SELECT * FROM posts ORDER BY ID DESC LIMIT 1"
                 });
 
                 //just give all data back as json, could also be empty
