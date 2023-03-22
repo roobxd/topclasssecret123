@@ -4,8 +4,8 @@ span.name {
 
 .story {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    width: 500px;
+    grid-template-columns: 40% 45.5% 7.5% 4.5%;
+    width: 450px;
     height: 150px;
     background-color: var(--pill-main);
     border-radius: 25px;
@@ -131,9 +131,6 @@ span.name {
               transform: translateX(-100px);
     }
   }
-  
-  
-  
 
 .image {
     display: flex;
@@ -144,8 +141,8 @@ span.name {
 }
 
 .image img {
-    width: 100px;
-    height: 100px;
+    width: 105px;
+    height: 105px;
     background-position: center;
     border-radius: 25px;
     -webkit-animation: scale-up-center 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
@@ -154,9 +151,7 @@ span.name {
 
 .text {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 235px;
 }
 
 .story p {
@@ -166,7 +161,6 @@ span.name {
 }
 
 .story-titel {
-    width: 175px;
     font-size: 18px;
 }
 
@@ -183,7 +177,7 @@ span.name {
 .readme {
     margin: 0;
     padding: 0;
-    font-size: 35px;
+    font-size: 28px;
     height: 50%;
     display: flex;
     justify-content: center;
@@ -206,7 +200,6 @@ span.name {
     border: solid var(--trash-color) 4px;
 }
 
-
 .heart {
     color: var(--heart);
     border-color: var(--heart);
@@ -227,11 +220,11 @@ span.name {
 
 .iconnumber {
     display: flex;
-    justify-content: center;
     align-items: center;
     height: 50%;
-    font-size: 18px;
-    margin-left: -15px;
+    font-size: 14px;
+    margin-top: 4px;
+    /* margin-left: -2px; */
 }
 
 .main-wrapper {
@@ -253,7 +246,7 @@ span.name {
 }
 
 .bulletinboard {
-    width: 500px;
+    width: 450px;
     height: 250px;
     background-color: var(--pill-secondary);
     border-radius: 25px;
@@ -267,7 +260,7 @@ span.name {
     align-items: center;
     background-color: var(--pill-main-solid);
     border-radius: 25px;
-    width: 500px;
+    width:  450px;
     height: 65px;
     padding: 0;
     margin-bottom: 35px;
@@ -306,7 +299,7 @@ span.name {
 }
 
 .timeline {
-    width: 500px;
+    width:  450px;
     height: 175px;
     background-color: var(--pill-secondary);
     border-radius: 25px;
@@ -318,7 +311,7 @@ span.name {
 .timelineheader {
     background-color: var(--pill-main-solid);
     border-radius: 25px;
-    width: 500px;
+    width:  450px;
     height: 65px;
     padding: 0;
 }
@@ -343,12 +336,12 @@ span.name {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 500px;
+    width: 450px;
     height: 100%;
 }
 
 .stripe {
-    width: 450px;
+    width: 400px;
     height: 10px;
     background-color: var(--white);
     margin-bottom: 25px;
