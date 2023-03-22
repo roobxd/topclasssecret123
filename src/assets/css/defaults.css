@@ -53,7 +53,7 @@ body::-webkit-scrollbar-track {
 /* Navbar begint hier */
 .navbar {
     background-color: var(--navbar-main);
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {

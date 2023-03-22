@@ -85,18 +85,18 @@ export class UpdatePasswordController extends Controller {
     #setErrorfor(input, message) {
 
         const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = document.querySelector('.error')
 
-        small.innerText = message;
+        small.innerHTML = message;
 
     }
 
     #setSuccesfor(input) {
 
         const parentElementInput = input.parentElement;  // pakt parentelement
-        const small = parentElementInput.querySelector('.error')
+        const small = document.querySelector('.error')
 
-        small.innerText = "";
+        small.innerHTML = "";
 
     }
 
