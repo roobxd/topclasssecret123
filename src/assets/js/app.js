@@ -17,6 +17,8 @@ import { signUpController } from "./controllers/signUpController.js"
 import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
 import { BulletinController } from "./controllers/bulletinController.js"
 import {SupportController} from "./controllers/supportController.js";
+import { AccountSettingsController } from "./controllers/accountSettingsController.js";
+
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -34,6 +36,7 @@ export class App {
     static CONTROLLER_SIGNUP = "signUp";
     static CONTROLLER_UPDATEPASSWORD = "updatePassword";
     static CONTROLLER_SUPPORT = "support";
+    static CONTROLLER_ACCOUNT_SETTINGS = "accountSettings";
 
     constructor() {
         //Always load the navigation
@@ -98,6 +101,10 @@ export class App {
             case App.CONTROLLER_SUPPORT:
                 App.isLoggedIn(() => new SupportController(), () => new LoginController())
                 break;
+            case App.CONTROLLER_ACCOUNT_SETTINGS:
+                App.isLoggedIn(() => new AccountSettingsController(), () => new LoginController());
+                break;
+
 
             default:
                 return false;

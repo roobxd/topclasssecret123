@@ -41,7 +41,7 @@ class AccountSettingsRoutes {
 
                             res.status(this.#errorCodes.HTTP_OK_CODE).json({ data });
                         } catch (e) {
-                            res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Database was not queried correctly: " + { reason: e });
+                            res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Database was not queried correctly", error: e });
                         }
                     } else {
                         res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Passwords do not match");

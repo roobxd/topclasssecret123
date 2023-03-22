@@ -5,7 +5,7 @@
 import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
-import { UsersRepository } from "../repositories/usersRepository";
+import { UsersRepository } from "../repositories/usersRepository.js";
 
 export class AccountSettingsController extends Controller {
     #usersRepository;
@@ -44,7 +44,7 @@ export class AccountSettingsController extends Controller {
                 })
                 .catch(error => {
                     console.error("Error updating password:", error);
-                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error;
+                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error.message;
                 });
         } else {
             this.#accountSettingsView.querySelector(".password-update-message").textContent = "Passwords do not match!";
