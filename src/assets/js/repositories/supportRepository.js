@@ -13,13 +13,20 @@ export class SupportRepository{
     }
 
     support(nameInput, emailInput, qeustionInput){
-        this.#networkManager.doRequest(this.#route, "POST", {
+        return this.#networkManager.doRequest(this.#route, "POST", {
             name: nameInput,
             email: emailInput,
              question: qeustionInput
         }).then(r =>{
-            console.log(r.insertId);
+            console.log(r);
             console.log("Het gelukt om data te sturen");
         })
     }
+
+
+    // getUser(id){
+    //     this.#networkManager.doRequest(this.#route, "GET", {
+    //
+    //     })
+    // }
 }
