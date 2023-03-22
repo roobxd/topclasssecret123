@@ -24,7 +24,7 @@ body::-webkit-scrollbar-track {
 
 /*Main*/
 main {
-    margin-left: 5rem;
+    /* margin-left: 5rem; */
     padding: 1rem;
 }
 
@@ -199,6 +199,6 @@ button {
 
 }
 
-.whenLoggedIn{
+.whenLoggedIn {
     display: none;
 }
