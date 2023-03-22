@@ -18,7 +18,8 @@ export class SupportRepository{
             email: emailInput,
              question: qeustionInput
         }).then(r =>{
-            console.log("Het gelukt om data te sturen")
+            console.log(r.insertId);
+            console.log("Het gelukt om data te sturen");
         })
     }
 }
