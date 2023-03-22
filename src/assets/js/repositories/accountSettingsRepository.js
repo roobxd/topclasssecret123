@@ -10,19 +10,22 @@ export class AccountSettingsRepository {
     #networkManager;
 
     constructor() {
-        this.#networkManager = new NetworkManager();
         this.#route = "/updatePassword";
+        this.#networkManager = new NetworkManager();
 
     }
 
+
     getUsers() {
+        const getUsersRoute = "/getUsers";
         return this.#networkManager
-            .doRequest(this.#route, "GET", {})
+            .doRequest(getUsersRoute, "GET", {})
             .catch(error => {
                 console.error("Error fetching users:", error);
                 throw error;
             });
     }
+
 
     updatePassword(email, newPassword, confirmPassword) {
         // Get user ID from the email

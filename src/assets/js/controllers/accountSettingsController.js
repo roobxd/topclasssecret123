@@ -23,8 +23,8 @@ export class AccountSettingsController extends Controller {
     async #setupView() {
         this.#accountSettingsView = await super.loadHtmlIntoContent("html_views/accountSettings.html");
 
-        const userEmail = App.sessionManager.get("email");
-        this.#accountSettingsView.querySelector("#currentEmail").textContent = userEmail;
+        // const userEmail = App.sessionManager.get("email");
+        // this.#accountSettingsView.querySelector("#currentEmail").textContent = userEmail;
 
         this.#accountSettingsView.querySelector("#editLoginForm").addEventListener("submit", event => this.#handlePasswordUpdate(event));
     }
@@ -38,7 +38,7 @@ export class AccountSettingsController extends Controller {
 
         if (newPassword === confirmPassword) {
             this.#accountSettingsRepository
-                .updatePassword(email, newPassword)
+                .updatePassword(email, newPassword, confirmPassword)
                 .then(() => {
                     this.#accountSettingsView.querySelector(".password-update-message").textContent = "Password updated successfully!";
                 })

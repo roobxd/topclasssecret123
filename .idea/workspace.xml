@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="regristreer pagina edits" />
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="error gefixt">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/accountSettingsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/accountSettingsRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/accountSettingsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/accountSettingsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/accountSettingsRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/accountSettingsRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/accountSettings.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/accountSettings.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679394135020</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Error accountSettings">
+      <created>1679448577535</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679448577535</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,6 +114,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="regristreer pagina edits" />
-    <option name="LAST_COMMIT_MESSAGE" value="regristreer pagina edits" />
+    <MESSAGE value="Error accountSettings" />
+    <MESSAGE value="error gefixt" />
+    <option name="LAST_COMMIT_MESSAGE" value="error gefixt" />
   </component>
 </project>

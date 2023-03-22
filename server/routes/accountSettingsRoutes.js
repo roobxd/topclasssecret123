@@ -47,10 +47,10 @@ class AccountSettingsRoutes {
                         res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Passwords do not match");
                     }
                 } else {
-                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Input is NaN or missing" + { reason: e });
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Input is NaN or missing", reason: e });
                 }
             } catch (e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Error processing request: " + { reason: e });
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Error processing request", reason: e });
             }
         });
     }
