@@ -25,15 +25,15 @@ body::-webkit-scrollbar-track {
 /*Main*/
 main {
     /* margin-left: 5rem; */
-    padding: 1rem;
+    padding: 2.5rem;
 }
 
 
 
 /* Navbar begint hier */
-/*.navbar {*/
-/*    background-color: rgb(26, 30, 61);*/
-/*}*/
+nav {
+    height: 65px;
+}
 
 /*.bd-navbar .navbar-nav .nav-link .loggedout {*/
 /*    padding-right: 0.5rem;*/

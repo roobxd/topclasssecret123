@@ -3,7 +3,7 @@
  * @author Kifle
  */
 import {Controller} from "./controller.js";
-import {SupportRepository} from "../repositories/supportRepository.JS";
+import {SupportRepository} from "../repositories/supportRepository.js";
 
 
 export class SupportController extends Controller{
@@ -41,12 +41,15 @@ export class SupportController extends Controller{
 
         console.log(email + name + question);
 
-        const  errorBox = this.#supportView.querySelector(".error");
+        const  reactie = this.#supportView.querySelector(".formReactie");
         if (email.length === 0 || name.length === 0 || question.length === 0 ){
-            errorBox.innerHTML = "Email en naam mogen niet leeg zijn";
+            reactie.style.color = "Red";
+            reactie.innerHTML = "Email en naam mogen niet leeg zijn";
         } else{
-             errorBox.style.display = "none";
-             // this.#supportRepository.support(name, email, question);
+             this.#supportRepository.support(name, email, question);
+             
+            reactie.innerHTML = "Bedankt voor je vraag. We hebben je vraag ontvangen!";
+
         }
 
     }

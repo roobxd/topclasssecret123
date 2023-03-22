@@ -6,8 +6,8 @@
 
     --white: #FFFFFF;
 
-    --navbar-main: rgb(26, 30, 61);
-    --navbar-brand: rgba(26, 30, 61, 1);
+    --navbar-main: #292E5C;
+    --navbar-brand: #222754;
 
     --pill-main: rgba(30, 30, 30, 95%);
     --pill-secondary: rgba(49, 49, 49, 95%);
@@ -53,7 +53,7 @@ body::-webkit-scrollbar-track {
 /* Navbar begint hier */
 .navbar {
     background-color: var(--navbar-main);
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {
