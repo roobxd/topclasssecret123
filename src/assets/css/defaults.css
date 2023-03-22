@@ -28,6 +28,14 @@
     transition: 200ms;
 }
 
+/* .background-image{
+    position: absolute;
+    background-color: #000000;
+    opacity: 25%;
+    margin-top: -50px;
+    width: 100%;
+    height: 100%;
+} */
 
 /*Body Content*/
 body {
@@ -52,7 +60,6 @@ body::-webkit-scrollbar-track {
 /* Navbar begint hier */
 .navbar {
     background-color: var(--navbar-main);
-    margin-bottom: 10px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {
