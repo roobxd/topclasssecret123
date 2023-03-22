@@ -13,7 +13,7 @@
 /*}*/
 
 /*Main*/
-main{
+.main{
 
     display: grid;
     grid-template-areas:
