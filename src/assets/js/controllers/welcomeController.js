@@ -49,8 +49,9 @@ export class WelcomeController extends Controller {
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
-            storyTitel.innerHTML = data[2].onderwerp;
-            storyTekst.innerHTML = data[2].bericht;
+            let length = data.length - 1;
+            storyTitel.innerHTML = data[length].onderwerp;
+            storyTekst.innerHTML = data[length].bericht;
             console.log(data);
         } catch (e) {
             console.log("error while fetching rooms", e);

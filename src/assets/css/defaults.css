@@ -20,7 +20,7 @@
 
     --trending: #ffa500;
     --heart: #ff0000;
-    --trash-color: rgb(99, 69, 0);
+    --trash-color: #3A1D09;
 
 }
 
@@ -28,7 +28,14 @@
     transition: 200ms;
 }
 
-
+/* .background-image{
+    position: absolute;
+    background-color: #000000;
+    opacity: 25%;
+    margin-top: -50px;
+    width: 100%;
+    height: 100%;
+} */
 
 /*Body Content*/
 body {
@@ -53,7 +60,6 @@ body::-webkit-scrollbar-track {
 /* Navbar begint hier */
 .navbar {
     background-color: var(--navbar-main);
-    margin-bottom: 30px;
 }
 
 .bd-navbar .navbar-nav .nav-link .loggedout {

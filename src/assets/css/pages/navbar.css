@@ -1,12 +1,12 @@
 /*Fonts and Colors*/
 @import url('https://fonts.cdnfonts.com/css/roboto');
 
-
+.navbar{
+    margin-bottom: 50px;
+}
 
 /*Body Content*/
 body {
-    background-image: url("../../img/background.png");
-    background-color: cornflowerblue;
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -22,18 +22,10 @@ body::-webkit-scrollbar-track {
     background-color: powderblue;
 }
 
-/*Main*/
-main {
-    /* margin-left: 5rem; */
-    padding: 1rem;
-}
-
-
-
 /* Navbar begint hier */
-/*.navbar {*/
-/*    background-color: rgb(26, 30, 61);*/
-/*}*/
+nav {
+    height: 65px;
+}
 
 /*.bd-navbar .navbar-nav .nav-link .loggedout {*/
 /*    padding-right: 0.5rem;*/
