@@ -2,10 +2,10 @@
  *
  * controller for sign in screen
  */
-import {Controller} from "./controller.js";
-import {signUpRepository} from "../repositories/signUpRepository.js";
+import { Controller } from "./controller.js";
+import { signUpRepository } from "../repositories/signUpRepository.js";
 import { App } from "../app.js";
-import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
+import { loadAllUsersRepository } from "../repositories/loadAllUsersRepository.js";
 
 
 export class signUpController extends Controller {
@@ -92,7 +92,7 @@ export class signUpController extends Controller {
 
             try {
 
-                let data = await this.#loadAllUsersRepository.loadUsers( email.value);
+                let data = await this.#loadAllUsersRepository.loadUsers(email.value);
 
                 if (data.length === 0) {
                     this.#setSuccesfor(email)
@@ -108,7 +108,7 @@ export class signUpController extends Controller {
         }
 
 
-//password check
+        //password check
         let passwordCheck = false;
 
         if (password.value === "") {
@@ -144,7 +144,7 @@ export class signUpController extends Controller {
         if (emailcheck && passwordCheck && confirmPasswordCheck) {
             alert("aanmelding is gelukt");
             // toevoegen aan database --------------------------
-            this.#signUpRepository.signUpUser( password.value, email.value);
+            this.#signUpRepository.signUpUser(password.value, email.value);
             App.loadController(App.CONTROLLER_LOGIN);
 
         }

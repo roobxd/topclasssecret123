@@ -5,7 +5,7 @@
  * @author Pim Meijer
  */
 
-class PostsRoutes {
+class BulletinRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
@@ -68,4 +68,4 @@ class PostsRoutes {
     }
 }
 
-module.exports = PostsRoutes
+module.exports = BulletinRoutes
