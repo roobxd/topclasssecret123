@@ -1,0 +1,22 @@
+.editLoginForm {
+    margin: 0 auto;
+    width: 825px;
+    height: 550px;
+    background-color: rgba(30, 30, 30, 95%);
+    border-radius: 25px;
+}
+
+.email{
+
+    width: 350px;
+    height: 60px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    color: white;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+
+    padding-left: 75px;
+}
