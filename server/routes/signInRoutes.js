@@ -10,29 +10,29 @@ class signInRoutes {
 
         this.#postUser()
     }
-    
-    
-    #postUser(){
+
+
+    #postUser() {
 
         this.#app.post("/postuser", async (req, res) => {
-            
-            try{
+
+            try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO users(username,password,email) values(?,?,?)",
-                    values: [req.body.username, req.body.password,req.body.email]
+                    query: "INSERT INTO users(voornaam, tussenvoegsel, achternaam, password, email) values('','','',?,?)",
+                    values: [req.body.password, req.body.email]
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
 
             } catch (e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e});
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e });
             }
-            
-            
+
+
         });
-        
+
     }
-    
+
 }
 
 module.exports = signInRoutes;
