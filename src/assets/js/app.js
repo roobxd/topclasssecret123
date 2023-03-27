@@ -17,7 +17,7 @@ import { signUpController } from "./controllers/signUpController.js"
 import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
 import { BulletinController } from "./controllers/bulletinController.js"
 import {SupportController} from "./controllers/supportController.js";
-import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController";
+import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
 import {VerhalenController} from "./controllers/verhalenController.js";
 
 export class App {
