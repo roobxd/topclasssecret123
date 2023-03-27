@@ -2,15 +2,7 @@
 
 
 /*Body*/
-/*body{*/
-/*    display: grid;*/
-/*    grid-template-areas:*/
-/*            "s1 s2 s3"*/
-/*            "s4 s5 s6"*/
-/*            "s7 s8 s9" ;*/
-/*    grid-template-columns: 2fr 6fr 2fr;*/
-/*    grid-template-rows: 2fr 5fr 2fr;*/
-/*}*/
+
 
 /*Main*/
 .main{
@@ -27,26 +19,20 @@
 /* Other tags*/
 .container{
     grid-area: sec2;
-    margin-top: 50px;
-
-    /*grid-template-areas:*/
-    /*        "sec1"*/
-    /*        "sec2"*/
-    /*        "sec3"*/
-    /*        "sec4";*/
-    /*grid-template-columns: 2fr;*/
 
 }
 
 .contact{
+
     color: white;
-    grid-area: sec5;
     max-width: 1320px;
     background-color: rgba(0,0,0, 0.5);
     border: lightskyblue 2px solid;
     border-radius: 15px;
     padding: 5px;
     margin-top: 50px;
+    margin-left: 180px;
+
 }
 
 .btn{

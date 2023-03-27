@@ -4,6 +4,7 @@
  */
 import {Controller} from "./controller.js";
 import {SupportRepository} from "../repositories/supportRepository.js";
+import {App as APP} from "../app.js";
 
 
 export class SupportController extends Controller{
@@ -30,7 +31,7 @@ export class SupportController extends Controller{
      * This method sends name, email and question to database
      * @param evt: prevents default
      */
-    #sendData(evt){
+    async #sendData(evt){
 
         evt.preventDefault();
         console.log("Dit werkt");
@@ -41,17 +42,23 @@ export class SupportController extends Controller{
 
         console.log(email + name + question);
 
-        const  reactie = this.#supportView.querySelector(".formReactie");
+        const  reactieBox = this.#supportView.querySelector(".formReactie");
         if (email.length === 0 || name.length === 0 || question.length === 0 ){
-            reactie.style.color = "Red";
-            reactie.innerHTML = "Email en naam mogen niet leeg zijn";
-        } else{
-             this.#supportRepository.support(name, email, question);
-             
-            reactie.innerHTML = "Bedankt voor je vraag. We hebben je vraag ontvangen!";
-
+            reactieBox.style.color = "Red";
+            reactieBox.innerHTML = "Email, naam en vraag moeten ingevuld worden.";
+            return;
         }
-
+           try {
+               const data = await this.#supportRepository.support(name, email, question);
+               console.log(data);
+               reactieBox.innerHTML = "Bedankt voor jouw vraag. We hebben jouw reactie ontvangen!"
+               // if (data.id){
+               //     APP.loadController(APP.CONTROLLER_WELCOME);
+               // }
+           }catch (error){
+            reactieBox.innerHTML = "Er is iets fout gegaan bij het indienen."
+            console.log(error);
+           }
     }
 
 

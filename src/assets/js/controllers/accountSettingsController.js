@@ -23,6 +23,9 @@ export class AccountSettingsController extends Controller {
     async #setupView() {
         this.#accountSettingsView = await super.loadHtmlIntoContent("html_views/accountSettings.html");
 
+        // const userEmail = App.sessionManager.get("email");
+        // this.#accountSettingsView.querySelector("#currentEmail").textContent = userEmail;
+        this.#accountSettingsView.querySelector(".resetPassword").addEventListener("click",event => App.loadController(App.CONTROLLER_INGELOGDUPDATEPASSWORD));
         // Add event listener for profile picture input change
         // this.#accountSettingsView.querySelector("#profilePic").addEventListener("change", event => this.#handleProfilePicturePreview(event));
 
@@ -81,18 +84,18 @@ export class AccountSettingsController extends Controller {
         const confirmPassword = this.#accountSettingsView.querySelector("#confirmPassword").value;
         const email = App.sessionManager.get("email");
 
-        if (newPassword === confirmPassword) {
-            this.#accountSettingsRepository
-                .updatePassword(email, newPassword, confirmPassword)
-                .then(() => {
-                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Password updated successfully!";
-                })
-                .catch(error => {
-                    console.error("Error updating password:", error);
-                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error.message;
-                });
-        } else {
-            this.#accountSettingsView.querySelector(".password-update-message").textContent = "Passwords do not match!";
-        }
+        // if (newPassword === confirmPassword) {
+        //     this.#accountSettingsRepository
+        //         .updatePassword(email, newPassword, confirmPassword)
+        //         .then(() => {
+        //             this.#accountSettingsView.querySelector(".password-update-message").textContent = "Password updated successfully!";
+        //         })
+        //         .catch(error => {
+        //             console.error("Error updating password:", error);
+        //             this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error.message;
+        //         });
+        // } else {
+        //     this.#accountSettingsView.querySelector(".password-update-message").textContent = "Passwords do not match!";
+        // }
     }
 }

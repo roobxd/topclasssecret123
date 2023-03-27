@@ -33,8 +33,8 @@ class SupportRoutes{
                 });
 
                if (data.insertId){
-
-                   res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({result: data.insertId})
+                   res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId});
+                   console.log(res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId}));
                }
             } catch (e) {
                 console.log(e);
