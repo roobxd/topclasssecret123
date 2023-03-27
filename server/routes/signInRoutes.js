@@ -15,7 +15,6 @@ class signInRoutes {
     #postUser() {
 
         this.#app.post("/postuser", async (req, res) => {
-
             try {
                 const data = await this.#databaseHelper.handleQuery({
                     query: "INSERT INTO users(voornaam, tussenvoegsel, achternaam, password, email) values('','','',?,?)",
