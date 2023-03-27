@@ -57,6 +57,7 @@ export class IngelogdUpdatePasswordController extends Controller {
                const email = await App.sessionManager.get("email");
                 const data = await this.#updatePasswordRepository.updatePassword(password.value, email)
                 alert("Het is gelukt!")
+                App.loadController(App.CONTROLLER_ACCOUNT_SETTINGS)
                 console.log(data)
                 // location.reload()
             } catch (e) {
