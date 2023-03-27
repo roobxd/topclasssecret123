@@ -5,18 +5,17 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { PostsRepository } from "../repositories/postsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
+import { PostsRepository } from "../repositories/postsRepository.js";
 
-export class WelcomeController extends Controller {
-    #PostsRepository
+export class PostsController extends Controller {
+    #PostsRepository;
     #welcomeView
 
     constructor() {
         super();
         this.#PostsRepository = new PostsRepository();
-
         this.#setupView();
     }
 
@@ -27,13 +26,32 @@ export class WelcomeController extends Controller {
      */
     async #setupView() {
         //await for when HTML is loaded
-        this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
+        this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
+
+        this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
+
+    }
+
+    async #savePost(event) {
+        const titel = this.#welcomeView.querySelector(".titleinput");
+        const verhaal = this.#welcomeView.querySelector(".verhaal");
+
+        try {
+            await this.#PostsRepository.create(titel.value, verhaal.value);
+            alert("Uw verhaal is geplaatst!");
+        } catch (error) {
+            console.log(error);
+        }
+
+        // console.log("Jouw post bevat de volgende titel: " + titel + " en de volgende tekst: " + verhaal);
+
+
     }
 
     /**
@@ -41,17 +59,13 @@ export class WelcomeController extends Controller {
      * @param roomId the room id to retrieve
      * @private
      */
-
     async #fetchPosts() {
         const storyTitel = this.#welcomeView.querySelector(".story-titel");
-        const storyTekst = this.#welcomeView.querySelector(".story-text");
+        const storyTekst = this.#welcomeView.querySelector(".story-tekst");
 
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
-            let length = data.length - 1;
-            storyTitel.innerHTML = data[length].onderwerp;
-            storyTekst.innerHTML = data[length].bericht;
             console.log(data);
         } catch (e) {
             console.log("error while fetching rooms", e);

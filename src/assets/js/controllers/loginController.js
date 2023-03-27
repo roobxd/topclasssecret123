@@ -32,7 +32,6 @@ export class LoginController extends Controller {
 
 
         this.#loginView.querySelector(".registreren-container").addEventListener("click", event => App.loadController(App.CONTROLLER_SIGNUP));
-
         this.#loginView.querySelector(".wwvergeten").addEventListener("click", event => App.loadController(App.CONTROLLER_UPDATEPASSWORD));
     }
     /**
@@ -44,14 +43,32 @@ export class LoginController extends Controller {
         event.preventDefault();
 
         //get the input field elements from the view and retrieve the value
-        const email = this.#loginView.querySelector("#email").value;
+        const username = this.#loginView.querySelector("#email").value;
         const password = this.#loginView.querySelector("#password").value;
 
         try {
-            const user = await this.#usersRepository.login(email, password);
+            const user = await this.#usersRepository.login(username, password);
 
             //let the session manager know we are logged in by setting the username, never set the password in localstorage
+            App.sessionManager.set("username", user.username);
             App.sessionManager.set("email", user.email);
+
+            if (App.sessionManager.get("username")) {
+                const loggedins = document.querySelectorAll('.loggedin');
+                const loggedouts = document.querySelectorAll('.loggedout');
+
+                // Loop through each <a> element and add "nav-link" class name
+                loggedouts.forEach(link => {
+                    link.classList.remove('loggedout');
+                    link.classList.add('loggedin');
+                });
+
+                // Loop through each <a> element and add "nav-link" class name
+                loggedins.forEach(link => {
+                    link.classList.remove('loggedin');
+                    link.classList.add('loggedout');
+                });
+            }
 
             App.loadController(App.CONTROLLER_WELCOME);
         } catch (error) {
@@ -62,5 +79,13 @@ export class LoginController extends Controller {
                 console.error(error);
             }
         }
+
+
+    }
+
+    #SendEmail() {
+
+
+
     }
 }

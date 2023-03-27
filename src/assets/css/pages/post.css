@@ -1,7 +1,7 @@
 .post-container {
     margin: 0 auto;
     width: 825px;
-    height: 550px;
+    height: 625px;
     background-color: rgba(30, 30, 30, 95%);
     border-radius: 25px;
 }
@@ -26,7 +26,7 @@
     text-align: center;
 }
 
-.input-container{
+.input-container {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -41,10 +41,10 @@
     border-radius: 25px;
 
     padding: 25px;
-    
+
 }
 
-.buttons{
+.buttons {
     height: 42px;
     width: 500px;
     display: grid;
@@ -52,11 +52,11 @@
 
     display: flex;
     align-items: center;
-    
+
     margin-bottom: 25px;
 }
 
-.typeicon{
+.typeicon {
     height: 42px;
     font-size: 25px;
     color: white;
@@ -65,7 +65,7 @@
     margin: 0 auto;
 }
 
-.typeselector{
+.typeselector {
     height: 42px;
     width: 250px;
     display: grid;
@@ -74,10 +74,10 @@
 
 }
 
-.typeselector p{
+.typeselector p {
     height: 24px;
-    color: black;
-    border: solid red 2px;
+    color: var(--white);
+    border: solid var(--white) 2px;
     border-radius: 15px;
     width: 100px;
     line-height: 18px;
@@ -88,10 +88,10 @@
     margin: 0 auto;
 
     text-align: center;
-    background-color: var(--white);
+
 }
 
-.input-container textarea{
+.input-container textarea {
     width: 500px;
     background-color: var(--pill-secondary);
     border-style: none;
@@ -100,17 +100,9 @@
     padding: 15px;
 }
 
-.input-container textarea:focus{
+.input-container textarea:focus {
     outline: none;
 }
-
-
-
-
-
-
-
-
 
 .inputicon {
     margin: 0;
@@ -174,9 +166,29 @@
 
 
 .submitbutton p {
-    padding-left: 45px;
+    margin-left: 45px;
+    width: 150px;
 }
 
 .submitbutton i {
-    margin-right: 25px;
+    margin-right: 50px;
+    font-size: 30px;
+}
+
+.title {
+    width: 600px;
+    background-color: var(--pill-secondary);
+    margin: auto;
+    margin-bottom: 25px;
+    border-radius: 25px;
+}
+
+.titleinput {
+    width: 600px;
+    height: 60px;
+    background-color: var(--pill-secondary);
+    border-style: none;
+    border-radius: 25px;
+    padding-left: 65px;
+    color: var(--white);
 }
