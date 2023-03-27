@@ -20,6 +20,7 @@ import {SupportController} from "./controllers/supportController.js";
 import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
 import { AccountSettingsController } from "./controllers/accountSettingsController.js";
 import {VerhalenController} from "./controllers/verhalenController.js";
+import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -39,6 +40,7 @@ export class App {
     static CONTROLLER_SUPPORT = "support";
     static CONTROLLER_ACCOUNT_SETTINGS = "accountSettings";
     static CONTROLLER_PASSWORDUPDATEMAIL = "passwordUpdateMail";
+    static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
 
     constructor() {
@@ -98,6 +100,9 @@ export class App {
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
+                break;
+            case App.CONTROLLER_INGELOGDUPDATEPASSWORD:
+                App.isLoggedIn(()=> new IngelogdUpdatePasswordController(), ()=> new LoginController())
                 break;
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(), () => new LoginController());

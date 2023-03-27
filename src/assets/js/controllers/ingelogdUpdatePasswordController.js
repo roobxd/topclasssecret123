@@ -1,7 +1,7 @@
 import {UpdatePasswordRepository} from "../repositories/updatePasswordRepository.js";
 import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
 import {Controller} from "./controller.js";
-import {App} from "../app";
+import {App} from "../app.js";
 
 
 export class IngelogdUpdatePasswordController extends Controller {
