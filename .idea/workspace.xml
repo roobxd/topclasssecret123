@@ -4,6 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="regristreer pagina edits">
+      <change afterPath="$PROJECT_DIR$/server/routes/mailRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/js/repositories/sendMailRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/signInRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/signInRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/loginController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/loginController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/passwordUpdateMailController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/passwordUpdateMailController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/PasswordUpdateMail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/PasswordUpdateMail.html" afterDir="false" />
+    <list default="true" id="f2ffdf1d-b529-434b-9b65-4dc38d455bde" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/postsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/postsRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/pages/posts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/posts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/postsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/postsController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/uploadController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/uploadController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/postsRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/postsRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html_views/posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/posts.html" afterDir="false" />
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/supportRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/supportRoutes.js" afterDir="false" />
@@ -57,6 +75,19 @@
     <configuration name="login.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="PAD-framework" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="PAD-framework" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.login.html" />
@@ -66,12 +97,21 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="" />
+      <changelist id="f2ffdf1d-b529-434b-9b65-4dc38d455bde" name="Changes" comment="" />
       <created>1677101140746</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677101140746</updated>
       <workItem from="1677101143517" duration="1334000" />
+      <workItem from="1678717445444" duration="4233000" />
+      <workItem from="1678736177304" duration="2176000" />
+      <workItem from="1678792717444" duration="3885000" />
+      <workItem from="1678818487314" duration="5877000" />
+      <workItem from="1678865466710" duration="7561000" />
+      <workItem from="1679393805039" duration="1306000" />
+      <workItem from="1679470170091" duration="4567000" />
+      <workItem from="1679655891183" duration="9174000" />
+      <workItem from="1679921756347" duration="5188000" />
       <workItem from="1679431062532" duration="2016000" />
       <workItem from="1679469826952" duration="15802000" />
       <workItem from="1679521661434" duration="599000" />
