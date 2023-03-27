@@ -18,7 +18,32 @@ class PostsRoutes {
         this.#app = app;
 
         //call method per route for the rooms entity
-        this.#getPostsAll()
+        this.#create();
+
+        this.#getAll();
+    }
+
+    /**
+     * dummy data example endpoint - rooms (welcome screen)
+     * get request, data is sent by client via url - req.params
+     * @private
+     */
+    #create() {
+        this.#app.post("/posts", async (req, res) => {
+
+            try {
+                const data = await this.#databaseHelper.handleQuery({
+                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values('test', ?, ?, ?, ?, ?, CURRENT_TIMESTAMP) ",
+                    values: [req.body.subject, req.body.typeOfPost, req.body.post, req.body.jaartal, req.body.sampleFile]
+                });
+
+                //just give all data back as json, could also be empty
+                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e })
+            }
+        });
     }
 
 
@@ -27,17 +52,15 @@ class PostsRoutes {
      * get request, data is sent by client via url - req.params
      * @private
      */
-    #getPostsAll() {
-        this.#app.get("/posts", async (req, res) => {
+    #getAll() {
+        this.#app.get("/welcome", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT bericht FROM rooms_example WHERE id = ?",
-                    values: [1]
+                    query: "SELECT * FROM posts ORDER BY ID DESC LIMIT 1"
                 });
 
                 //just give all data back as json, could also be empty
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
-                console.log(data);
             } catch (e) {
                 res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e })
             }

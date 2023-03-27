@@ -18,7 +18,7 @@ export class PostsRepository {
     }
 
     async getAll() {
-
+        return this.#networkManager.doRequest('/welcome', "GET");
     }
 
     /**
@@ -29,11 +29,12 @@ export class PostsRepository {
      * @param roomId
      * @returns {Promise<>}
      */
-    async get(roomId) {
-        return await this.#networkManager.doRequest(`${this.#route}/${roomId}`, "GET");
+    async get() {
+
     }
 
-    async create() {
+    async create(subject, jaartal, typeOfPost, post, sampleFile) {
+        this.#networkManager.doRequest(this.#route, "POST", { subject: subject, jaartal: jaartal, typeOfPost: typeOfPost, post: post, sampleFile: sampleFile})
 
     }
 

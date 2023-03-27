@@ -1,7 +1,7 @@
 .post-container {
     margin: 0 auto;
     width: 1000px;
-    height: 1100px;
+    height: 100%;
     background-color: rgba(30, 30, 30, 95%);
     border-radius: 25px;
 }
@@ -79,12 +79,11 @@ textarea {
     height: 1050px;
 }
 
-.post-form label {
+.test {
     text-indent: -406px;
     margin-bottom: 10px;
     color: white;
     font-size: 18px;
-
 }
 
 .post-form select {
@@ -101,9 +100,27 @@ textarea {
     font-size: 18px;
 }
 
-.post-container {
-    overflow-y: auto;
+input[type="file"] {
+    display: none;
 }
 
+.custom-file-upload {
+    width: 825px;
+    height: 60px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    color: white;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 11px;
+    font-size: 18px;
+    text-align: center;
+}
 
-
+.space {
+    padding-right: 5px;
+}
