@@ -5,28 +5,32 @@
         <div class="post-header">
             <h2>Plaats hier een bericht!</h2>
         </div>
-        <form class="post-form">
-            <label for="subject">Onderwerp:</label>
+        <form class="post-form" encType="multipart/form-data">
+            <label for="subject" class="test">Onderwerp:</label>
             <input type="text" id="subject" name="subject" placeholder="Vul hier het onderwerp in...">
 
-            <label for="year">In welk jaar heeft je bericht plaatsgevonden?</label>
-            <input type="number" id="year" name="year" min="1930" max="2023" placeholder="Bijv. 2013">
+            <label for="jaartal" class="test">In welk jaar heeft je bericht plaatsgevonden?</label>
+            <input type="number" id="jaartal" name="year" min="1930" max="2023" placeholder="Bijv. 2013">
 
-            <label for="typeOfPost">Geef hieronder aan wat voor bericht je wilt plaatsen:</label>
+            <label for="typeOfPost" class="test">Geef hieronder aan wat voor bericht je wilt plaatsen:</label>
             <select id="typeOfPost" name="typeOfPost">
                 <option value="disabledOption" disabled selected>Kies een van de opties</option>
                 <option value="Story">Verhaal</option>
                 <option value="Event">Evenement</option>
                 <option value="Announcement">Mededeling</option>
-                <option value="Announcement">Test</option>
             </select>
 
-            <label for="post">Voeg hier je verhaal toe:</label>
+            <label for="post" class="test">Voeg hier je verhaal toe:</label>
             <textarea id="post" name="post" placeholder="Vul hier je bericht in..."></textarea>
 
+            <label for="sampleFile" class="custom-file-upload">
+                <i class="bi bi-image space"></i>Klik hier om een plaatje toe te voegen
+            </label>
+            <input id="sampleFile" type="file" name="sampleFile"/>
 
 
-            <input type="submit" value="Verzend">
+            <input type="submit" class="submitbutton" value="Verzend">
+
         </form>
     </div>
 </div>
