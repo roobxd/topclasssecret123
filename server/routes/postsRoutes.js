@@ -24,17 +24,17 @@ class PostsRoutes {
     }
 
     /**
- * dummy data example endpoint - rooms (welcome screen)
- * get request, data is sent by client via url - req.params
- * @private
- */
+     * dummy data example endpoint - rooms (welcome screen)
+     * get request, data is sent by client via url - req.params
+     * @private
+     */
     #create() {
         this.#app.post("/posts", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values('test', ?, 'Bulletin', ?, 2023, 'geen', CURRENT_TIMESTAMP) ",
-                    values: [req.body.titel, req.body.verhaal]
+                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values('test', ?, ?, ?, ?, ?, CURRENT_TIMESTAMP) ",
+                    values: [req.body.subject, req.body.typeOfPost, req.body.post, req.body.jaartal, req.body.sampleFile]
                 });
 
                 //just give all data back as json, could also be empty

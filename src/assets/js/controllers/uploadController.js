@@ -24,10 +24,10 @@ export class UploadController extends Controller {
      */
     async #setupView() {
         //await for when HTML is loaded
-        this.#uploadView = await super.loadHtmlIntoContent("html_views/upload.html")
+        this.#uploadView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         //from here we can safely get elements from the view via the right getter
-        this.#uploadView.querySelector(".upload").addEventListener("click", async (event) => {
+        this.#uploadView.querySelector(".submitbutton").addEventListener("click", async (event) => {
             event.preventDefault()
 
             const fileInput = this.#uploadView.querySelector("#sampleFile");

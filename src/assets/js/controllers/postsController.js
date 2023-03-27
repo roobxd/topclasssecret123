@@ -5,20 +5,17 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-//import {roomExampleRepository} from "../repositories/roomsExampleRepository.js";
-import {App} from "../app.js";
-import {Controller} from "./controller.js";
-import {PostsRepository} from "../repositories/postsRepository.js";
+import { App } from "../app.js";
+import { Controller } from "./controller.js";
+import { PostsRepository } from "../repositories/postsRepository.js";
 
 export class PostsController extends Controller {
-    #roomExampleRepository
-    #postsView
+    #postsRepository;
     #welcomeView;
 
     constructor() {
         super();
-        this.#roomExampleRepository = new PostsRepository();
-        this.#fetchRooms();
+        this.#postsRepository = new PostsRepository();
         this.#setupView();
     }
 
@@ -29,13 +26,34 @@ export class PostsController extends Controller {
      */
     async #setupView() {
         //await for when HTML is loaded
-        this.#postsView = await super.loadHtmlIntoContent("html_views/posts.html")
+        this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         //from here we can safely get elements from the view via the right getter
-        this.#postsView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
+        //this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
-        //this.#fetchRooms(1256);
+        this.#fetchPosts();
+
+        this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
+    }
+
+
+    async #savePost(event) {
+        const subject = this.#welcomeView.querySelector("#subject");
+        const jaartal = this.#welcomeView.querySelector("#jaartal");
+        const typeOfPost = this.#welcomeView.querySelector("#typeOfPost");
+        const post = this.#welcomeView.querySelector("#post");
+        const sampleFile = this.#welcomeView.querySelector("#sampleFile");
+
+        //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
+
+        try {
+            await this.#postsRepository.create(subject.value, jaartal.value, typeOfPost.value, post.value, sampleFile.value );
+            alert("Uw verhaal is geplaatst!");
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     /**
@@ -43,19 +61,20 @@ export class PostsController extends Controller {
      * @param roomId the room id to retrieve
      * @private
      */
-    async #fetchRooms(roomId) {
-        const exampleResponse = this.#welcomeView.querySelector(".example-response")
+    async #fetchPosts() {
+        const storyTitel = this.#welcomeView.querySelector(".story-titel");
+        const storyTekst = this.#welcomeView.querySelector(".story-tekst");
 
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
-            const roomData = await this.#roomExampleRepository.get(roomId);
-
-            exampleResponse.innerHTML = JSON.stringify(roomData, null, 4);
+            let data = await this.#postsRepository.getAll();
+            console.log(data);
         } catch (e) {
             console.log("error while fetching rooms", e);
 
+
             //for now just show every error on page, normally not all errors are appropriate for user
-            exampleResponse.innerHTML = e;
+            //exampleResponse.innerHTML = e;
         }
     }
 }
