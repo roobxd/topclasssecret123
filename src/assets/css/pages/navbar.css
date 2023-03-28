@@ -1,7 +1,7 @@
 /*Fonts and Colors*/
 @import url('https://fonts.cdnfonts.com/css/roboto');
 
-.navbar{
+.navbar {
     margin-bottom: 50px;
 }
 
@@ -193,4 +193,9 @@ button {
 
 .whenLoggedIn {
     display: none;
+}
+
+.profileimage {
+    height: 40px;
+    border-radius: 25px;
 }
