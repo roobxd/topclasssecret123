@@ -28,7 +28,7 @@ export class AccountSettingsController extends Controller {
 
 
         ///// MORGEN MET ALI BESPREKEN
-        
+
         // this.#accountSettingsView.querySelector(".resetPassword").addEventListener("click",event => App.loadController(App.CONTROLLER_INGELOGDUPDATEPASSWORD));
         // Add event listener for profile picture input change
         // this.#accountSettingsView.querySelector("#profilePic").addEventListener("change", event => this.#handleProfilePicturePreview(event));
@@ -37,7 +37,7 @@ export class AccountSettingsController extends Controller {
         this.#accountSettingsView.querySelector("#confirmEmail").addEventListener("click", event => this.#handleEmailUpdate(event));
 
 
-        this.#accountSettingsView.querySelector("#editLoginForm").addEventListener("submit", event => this.#handlePasswordUpdate(event));
+        this.#accountSettingsView.querySelector("#confirm-password").addEventListener("click", event => this.#handlePasswordUpdate(event));
     }
 
     #handleProfilePicturePreview(event) {
@@ -88,18 +88,18 @@ export class AccountSettingsController extends Controller {
         const confirmPassword = this.#accountSettingsView.querySelector("#confirmPassword").value;
         const email = App.sessionManager.get("email");
 
-        // if (newPassword === confirmPassword) {
-        //     this.#accountSettingsRepository
-        //         .updatePassword(email, newPassword, confirmPassword)
-        //         .then(() => {
-        //             this.#accountSettingsView.querySelector(".password-update-message").textContent = "Password updated successfully!";
-        //         })
-        //         .catch(error => {
-        //             console.error("Error updating password:", error);
-        //             this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error.message;
-        //         });
-        // } else {
-        //     this.#accountSettingsView.querySelector(".password-update-message").textContent = "Passwords do not match!";
-        // }
+        if (newPassword === confirmPassword) {
+            this.#accountSettingsRepository
+                .updatePassword(email, newPassword, confirmPassword)
+                .then(() => {
+                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Password updated successfully!";
+                })
+                .catch(error => {
+                    console.error("Error updating password:", error);
+                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error.message;
+                });
+        } else {
+            this.#accountSettingsView.querySelector(".password-update-message").textContent = "Passwords do not match!";
+        }
     }
 }
