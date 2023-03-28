@@ -32,6 +32,8 @@ export class WelcomeController extends Controller {
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
+        this.#welcomeView.querySelector(".toonmeer").addEventListener("click", event => App.loadController(App.CONTROLLER_BULLETIN));
+
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
     }
