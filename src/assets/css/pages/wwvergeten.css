@@ -167,3 +167,9 @@
     border-radius: 25px;
     margin-top: 25px;
 }
+.errorP{
+    display: flex;
+    padding-top: 35px;
+    text-align: center;
+
+}
