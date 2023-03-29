@@ -1,6 +1,6 @@
 {
   "database": {
-    "host": "db.hbo-ict.cloud:3366",
+    "host": "db.hbo-ict.cloud",
     "port": 3366,
     "timeout": 30000,
     "username": "pad_flo_7",
