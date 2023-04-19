@@ -14,7 +14,7 @@ class AccountSettingsRoutes {
         this.#updateEmail();
         this.#updatePassword();
         this.#uploadProfilePicture();
-
+        this.#updateIdentity();
     }
 
     #getUsers() {
@@ -44,15 +44,40 @@ class AccountSettingsRoutes {
                             values: [newEmail, userId],
                         });
 
-                        res.status(this.#errorCodes.HTTP_OK_CODE).json({ data });
+                        res.status(this.#errorCodes.HTTP_OK_CODE).json({data});
                     } catch (e) {
-                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Database was not queried correctly", error: e });
+                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({
+                            message: "Database was not queried correctly",
+                            error: e
+                        });
                     }
                 } else {
-                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Input is NaN or missing" + { reason: e });
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Input is NaN or missing" + {reason: e});
                 }
             } catch (e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Error processing request: " + { reason: e });
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Error processing request: " + {reason: e});
+            }
+        });
+    }
+
+    #updateIdentity() {
+        this.#app.post("/updateIdentity", async (req, res) => {
+            try {
+                const isPersoon = req.body.isPersoon;
+                const userId = req.body.userId;
+
+                if (typeof isPersoon !== "undefined" && userId) {
+                    const data = await this.#databaseHelper.handleQuery({
+                        query: "UPDATE `users` SET `persoon` = ? WHERE `id` = ?",
+                        values: [isPersoon, userId],
+                    });
+
+                    res.status(this.#errorCodes.HTTP_OK_CODE).json({ data });
+                } else {
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Input is NaN or missing" });
+                }
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Error processing request", reason: e });
             }
         });
     }

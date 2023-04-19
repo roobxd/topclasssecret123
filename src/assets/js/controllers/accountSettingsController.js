@@ -18,6 +18,7 @@ export class AccountSettingsController extends Controller {
         this.#accountSettingsRepository = new AccountSettingsRepository();
 
         this.#setupView();
+
     }
 
     async #setupView() {
@@ -38,6 +39,9 @@ export class AccountSettingsController extends Controller {
 
         // gebruik ik niet
         // this.#accountSettingsView.querySelector("#confirm-password").addEventListener("click", event => this.#handlePasswordUpdate(event));
+
+        //event listener for identity veranderen knop
+        this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));
     }
 
     #handleProfilePicturePreview(event) {
@@ -78,6 +82,22 @@ export class AccountSettingsController extends Controller {
             .catch(error => {
                 console.error("Error updating email:", error);
                 this.#accountSettingsView.querySelector(".email-update-message").textContent = "Error updating email: " + error.message;
+            });
+    }
+    #handleIdentityUpdate(event) {
+        event.preventDefault();
+
+        const identity = this.#accountSettingsView.querySelector("#identiteit").value;
+        const userId = App.sessionManager.get("userId");
+
+        this.#accountSettingsRepository
+            .updateIdentity(userId, identity)
+            .then(() => {
+                this.#accountSettingsView.querySelector(".identity-update-message").textContent = "Identity updated successfully!";
+            })
+            .catch(error => {
+                console.error("Error updating identity:", error);
+                this.#accountSettingsView.querySelector(".identity-update-message").textContent = "Error updating identity: " + error.message;
             });
     }
 
