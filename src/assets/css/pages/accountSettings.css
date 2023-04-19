@@ -35,10 +35,11 @@ label {
     margin-bottom: 0.5rem;
 }
 
+#identiteit,
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-    width: 350px;
+    width: calc(100% - 210px); /* Subtract the width of the button and the margin */
     height: 60px;
     margin-bottom: 1.5rem;
     border-radius: 25px;
@@ -59,8 +60,19 @@ input::placeholder {
 }
 
 button[type="submit"] {
-    width: 200px;
-    height: 60px;
+    width: 150px;
+    height: 30px;
+    margin-bottom: 0;
+    background-color: #343434;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+.resetPassword{
+    width: 150px;
+    height: 30px;
     margin-bottom: 0;
     background-color: #343434;
     color: white;
@@ -76,11 +88,27 @@ button[type="submit"] {
     margin-bottom: 1.5rem;
 }
 
-.submitButton {
+.email-input-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-top: -50px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.identity-input-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.submitButton {
+    margin-left: 1rem; /* Add some space between the input and the button */
+    margin-bottom: 45px;
+}
+#confirmIdentity{
+    margin-left: 1rem;
+    margin-bottom: 45px;
 }
 
 .inputIcon {
@@ -95,6 +123,7 @@ button[type="submit"] {
 
 
 @media screen and (max-width: 768px) {
+    #identiteit,
     input[type="text"],
     input[type="password"],
     input[type="email"] {

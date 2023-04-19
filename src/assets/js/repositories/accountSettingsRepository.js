@@ -26,6 +26,23 @@ export class AccountSettingsRepository {
             });
     }
 
+    updateIdentity(userId, identity) {
+        const isPersoon = identity === "persoon";
+
+        const data = {
+            userId: userId,
+            isPersoon: isPersoon,
+        };
+
+        return this.#networkManager
+            .doRequest("/updateIdentity", "POST", data)
+            .catch((error) => {
+                console.error("Error updating identity:", error);
+                throw error;
+            });
+    }
+
+
     updateEmail(currentEmail, newEmail) {
         return this.getUsers()
             .then((users) => {
