@@ -17,8 +17,10 @@ import { signUpController } from "./controllers/signUpController.js"
 import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
 import { BulletinController } from "./controllers/bulletinController.js"
 import {SupportController} from "./controllers/supportController.js";
+import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
 import { AccountSettingsController } from "./controllers/accountSettingsController.js";
 import {VerhalenController} from "./controllers/verhalenController.js";
+import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -37,6 +39,8 @@ export class App {
     static CONTROLLER_UPDATEPASSWORD = "updatePassword";
     static CONTROLLER_SUPPORT = "support";
     static CONTROLLER_ACCOUNT_SETTINGS = "accountSettings";
+    static CONTROLLER_PASSWORDUPDATEMAIL = "passwordUpdateMail";
+    static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
 
     constructor() {
@@ -97,10 +101,15 @@ export class App {
             case App.CONTROLLER_UPDATEPASSWORD:
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
                 break;
+            case App.CONTROLLER_INGELOGDUPDATEPASSWORD:
+                App.isLoggedIn(()=> new IngelogdUpdatePasswordController(), ()=> new LoginController())
+                break;
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(), () => new LoginController());
                 break;
-
+            case App.CONTROLLER_PASSWORDUPDATEMAIL:
+                App.isLoggedIn(() => new PasswordUpdateMailController(), () => new PasswordUpdateMailController())
+                break;
             case App.CONTROLLER_SUPPORT:
                 App.isLoggedIn(() => new SupportController(), () => new LoginController())
                 break;
