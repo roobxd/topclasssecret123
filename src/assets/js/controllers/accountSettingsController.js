@@ -30,6 +30,7 @@ export class AccountSettingsController extends Controller {
 
         ///// MORGEN MET ALI BESPREKEN
 
+        
         this.#accountSettingsView.querySelector(".resetPassword").addEventListener("click",event => App.loadController(App.CONTROLLER_INGELOGDUPDATEPASSWORD));
         // Add event listener for profile picture input change
         // this.#accountSettingsView.querySelector("#profilePic").addEventListener("change", event => this.#handleProfilePicturePreview(event));
