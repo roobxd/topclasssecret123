@@ -11,7 +11,6 @@
 
 <!-- Edit Email and Password -->
 <div class="main-wrapper">
-    <div class="background-image"></div>
     <div class="editProfileContainer">
         <div>
             <h2>Welkom bij Profielpagina</h2>
@@ -23,22 +22,36 @@
 
                 <form id="editEmailForm">
                     <p id="currentEmail"></p>
-                    <label for="email">Nieuw Email:</label>
-                    <input type="email" id="email" name="email"><br><br>
-                    <i class="bi bi-person-fill inputIcon"></i>
-                    <div class="submitButton">
-                        <button type="submit" id="confirmEmail">Save Changes</button>
-                        <!--                        <i class="bi bi-box-arrow-in-right inputicon"></i>-->
-
+                    <div class="email-input-container"> <!-- Add this wrapper div -->
+                        <label for="email">Nieuw Email:</label>
+                        <input type="email" id="email" name="email">
+                        <div class="submitButton">
+                            <button type="submit" id="confirmEmail">Save Changes</button>
+                        </div>
                     </div>
+                    <p class="email-update-message"></p>
                 </form>
-                <p class="email-update-message"></p>
+
+
+                <!-- Edit Identity -->
+                <form id="editIdentityForm">
+                    <div class="identity-input-container">
+                        <label for="identiteit">Identity:</label>
+                        <select name="identiteit" id="identiteit">
+                            <option value="persoon">Persoon</option>
+                            <option value="instantie">Instantie</option>
+                        </select>
+                        <br>
+                        <button type="submit" id="confirmIdentity">Save Changes</button>
+                    </div>
+                    <p class="identity-update-message"></p>
+                </form>
+
             </div>
             <!--    <p id="currentEmail"></p>-->
             <!--    <br>-->
             <!--    <label for="email">Email:</label>-->
             <!--    <input type="email" id="email" name="email"><br><br>-->
-
 
 
             <button class="resetPassword" type="submit" style="color:white">Verander wachtwoord</button>
@@ -67,29 +80,29 @@
             <!--    </select><br><br>-->
 
             <!--    <input type="submit" value="Save Changes">-->
-            <!--</form>-->
+        </form>
 
-            <!--&lt;!&ndash; Edit Posts &ndash;&gt;-->
-            <!--&lt;!&ndash; This is still a sketch&ndash;&gt;-->
-            <!--<h2>Your Posts</h2>-->
-            <!--<ul>-->
-            <!--    <li>-->
-            <!--        <p>Post Title 1</p>-->
-            <!--        <p>Post Content 1</p>-->
-            <!--        <img src="post-image-1.jpg" alt="Post Image 1">-->
-            <!--        <a href="#">Edit</a>-->
-            <!--    </li>-->
-            <!--    <li>-->
-            <!--        <p>Post Title 2</p>-->
-            <!--        <p>Post Content 2</p>-->
-            <!--        <a href="#">Edit</a>-->
-            <!--    </li>-->
-            <!--    <li>-->
-            <!--        <p>Post Title 3</p>-->
-            <!--        <p>Post Content 3</p>-->
-            <!--        <img src="post-image-3.jpg" alt="Post Image 3">-->
-            <!--        <a href="#">Edit</a>-->
-            <!--    </li>-->
-            <!--</ul>-->
+        <!--&lt;!&ndash; Edit Posts &ndash;&gt;-->
+        <!--&lt;!&ndash; This is still a sketch&ndash;&gt;-->
+        <!--<h2>Your Posts</h2>-->
+        <!--<ul>-->
+        <!--    <li>-->
+        <!--        <p>Post Title 1</p>-->
+        <!--        <p>Post Content 1</p>-->
+        <!--        <img src="post-image-1.jpg" alt="Post Image 1">-->
+        <!--        <a href="#">Edit</a>-->
+        <!--    </li>-->
+        <!--    <li>-->
+        <!--        <p>Post Title 2</p>-->
+        <!--        <p>Post Content 2</p>-->
+        <!--        <a href="#">Edit</a>-->
+        <!--    </li>-->
+        <!--    <li>-->
+        <!--        <p>Post Title 3</p>-->
+        <!--        <p>Post Content 3</p>-->
+        <!--        <img src="post-image-3.jpg" alt="Post Image 3">-->
+        <!--        <a href="#">Edit</a>-->
+        <!--    </li>-->
+        <!--</ul>-->
     </div>
 </div>

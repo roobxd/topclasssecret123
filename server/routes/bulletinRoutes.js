@@ -1,8 +1,8 @@
 /**
- * This class contains ExpressJS routes specific for the roomsExample entity
+ * This class contains ExpressJS routes specific for the bulletin entity
  * this file is automatically loaded in app.js
  *
- * @author Pim Meijer
+ * @author Rocco van Baardwijk
  */
 
 class BulletinRoutes {
@@ -24,12 +24,12 @@ class BulletinRoutes {
     }
 
     /**
- * dummy data example endpoint - rooms (welcome screen)
+ * bulletin creation data endpoint - bulletin.html view (bulletin creation screen)
  * get request, data is sent by client via url - req.params
  * @private
  */
     #create() {
-        this.#app.post("/posts", async (req, res) => {
+        this.#app.post("/bulletin", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
@@ -48,7 +48,7 @@ class BulletinRoutes {
 
 
     /**
-     * dummy data example endpoint - rooms (welcome screen)
+     * bulletin dummy data example endpoint - welcome.html (welcome screen)
      * get request, data is sent by client via url - req.params
      * @private
      */

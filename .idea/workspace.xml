@@ -14,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/passwordUpdateMailController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/passwordUpdateMailController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html_views/PasswordUpdateMail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/PasswordUpdateMail.html" afterDir="false" />
     <list default="true" id="f2ffdf1d-b529-434b-9b65-4dc38d455bde" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/postsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/postsRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/assets/css/pages/posts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/posts.css" afterDir="false" />
@@ -23,12 +22,9 @@
       <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/postsRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/postsRepository.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html_views/posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/posts.html" afterDir="false" />
     <list default="true" id="d30f73d1-1e9b-456a-a095-42b814371f9f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/assets/css/pages/testSupport.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/html_views/testSupport.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/supportRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/supportRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/pages/support.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/pages/support.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/controllers/supportController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/controllers/supportController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/repositories/supportRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/repositories/supportRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html_views/support.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html_views/support.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +35,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -50,28 +49,34 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2M6w2whrWWc6ocfZZBrZ3VK4KA8" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sumdo/team-7&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/team-7/PAD-framework/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="login.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/team-7 PAD/PAD-framework/html_views/login.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -90,6 +95,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.login.html" />
       </list>
     </recent_temporary>
@@ -114,23 +120,17 @@
       <workItem from="1679921756347" duration="5188000" />
       <workItem from="1679431062532" duration="2016000" />
       <workItem from="1679469826952" duration="15802000" />
-      <workItem from="1679521661434" duration="599000" />
+      <workItem from="1679521661434" duration="1580000" />
+      <workItem from="1679652169933" duration="880000" />
+      <workItem from="1679653548370" duration="628000" />
+      <workItem from="1679668051239" duration="438000" />
+      <workItem from="1679857283362" duration="635000" />
+      <workItem from="1679921756347" duration="5782000" />
+      <workItem from="1679994427296" duration="8891000" />
+      <workItem from="1680071661090" duration="1690000" />
+      <workItem from="1680074442599" duration="1724000" />
+      <workItem from="1681886725668" duration="605000" />
     </task>
-    <task id="LOCAL-00001" summary="regristreer pagina edits">
-      <created>1679394135020</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1679394135020</updated>
-    </task>
-    <task id="LOCAL-00002" summary="support pagina aangepast">
-      <created>1679432566714</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1679432566714</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,10 +157,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="regristreer pagina edits" />
-    <MESSAGE value="support pagina aangepast" />
-    <option name="LAST_COMMIT_MESSAGE" value="support pagina aangepast" />
   </component>
 </project>

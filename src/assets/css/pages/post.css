@@ -71,7 +71,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     color: var(--white);
-
+    display: none;
 }
 
 .typeselector p {

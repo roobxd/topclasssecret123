@@ -21,6 +21,7 @@ import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailCont
 import { AccountSettingsController } from "./controllers/accountSettingsController.js";
 import {VerhalenController} from "./controllers/verhalenController.js";
 import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
+import { TijdlijnController } from "./controllers/tijdlijnController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -42,6 +43,7 @@ export class App {
     static CONTROLLER_PASSWORDUPDATEMAIL = "passwordUpdateMail";
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
+    static CONTROLLER_TIJDLIJN = "tijdlijn";
 
     constructor() {
         //Always load the navigation
@@ -116,6 +118,8 @@ export class App {
             case App.CONTROLLER_ACCOUNT_SETTINGS:
                 App.isLoggedIn(() => new AccountSettingsController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_TIJDLIJN:
+                App.isLoggedIn(() => new TijdlijnController(), () => new LoginController())
 
 
             default:
