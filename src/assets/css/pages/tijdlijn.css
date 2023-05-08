@@ -7,7 +7,7 @@
 
 body{
     background: lightblue;
-    /*background-image: url("assets/img/background.png");*/
+    background-image: url("assets/img/background.png");
 }
 
 /*De div die de content in tijdlijn houdt*/
@@ -21,9 +21,9 @@ body{
 
 /*.container has the story in the .timeline*/
 .container{
+    max-width: 50%;
     padding: 10px 30px;
     position: relative;
-    width: 50%;
     animation: movedown 1s linear forwards;
     opacity: 0;
 }
@@ -63,6 +63,7 @@ body{
 
 /* .content has the text of story in the .container */
 .content{
+    /*width: 50%;*/
     padding: 20px 50px;
     margin: 0 15px 0 15px;
     background: #fff;
@@ -117,7 +118,7 @@ The profile images should have small size and aligned
     left: 50%;
     margin-left: -3px;
     z-index: -1;
-    animation: moveline 6s linear forwards;
+    /*animation: moveline 6s linear forwards;*/
 }
 /* More for the animation */
 @keyframes moveline {
@@ -177,7 +178,7 @@ The profile images should have small size and aligned
         left: 31px;
     }
     .container{
-        width: 100%;
+        min-width: 100%;
         padding-left: 80px;
         padding-right: 25px;
     }
@@ -193,6 +194,9 @@ The profile images should have small size and aligned
     .right-container{
         left: 0;
     }
+    /*.left-container{*/
+    /*    left: 50%;*/
+    /*}*/
 
     .left-container img, .right-container img{
         left: 10px;
