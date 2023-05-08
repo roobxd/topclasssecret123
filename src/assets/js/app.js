@@ -120,7 +120,7 @@ export class App {
                 break;
             case App.CONTROLLER_TIJDLIJN:
                 App.isLoggedIn(() => new TijdlijnController(), () => new LoginController())
-
+                break;
 
             default:
                 return false;

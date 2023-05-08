@@ -7,23 +7,23 @@
 
 body{
     background: lightblue;
-    /*background-image: url("assets/img/background.png");*/
+    background-image: url("assets/img/background.png");
 }
 
-/*De div die de content in tijdlijn houdt*/
+/*De div die de contentText in tijdlijn houdt*/
 .timeline{
     position: relative;
     max-width: 1200px;
     /* margin auto will let the time line be centered horizontally in the page, if necessary, this can be changed
     to pixels in order to fit the contents of welcome page */
-    margin: auto;
+    /*margin: auto;*/
 }
 
 /*.container has the story in the .timeline*/
 .container{
+    max-width: 50%;
     padding: 10px 30px;
     position: relative;
-    width: 50%;
     animation: movedown 1s linear forwards;
     opacity: 0;
 }
@@ -61,8 +61,9 @@ body{
 
 
 
-/* .content has the text of story in the .container */
-.content{
+/* .contentText has the text of story in the .container */
+.text-box{
+    /*width: 50%;*/
     padding: 20px 50px;
     margin: 0 15px 0 15px;
     background: #fff;
@@ -114,10 +115,10 @@ The profile images should have small size and aligned
     height: 100%;
     background: #fff;
     top: 0;
-    left: 50%;
+    left: 75.5%;
     margin-left: -3px;
     z-index: -1;
-    animation: moveline 6s linear forwards;
+    /*animation: moveline 6s linear forwards;*/
 }
 /* More for the animation */
 @keyframes moveline {
@@ -131,12 +132,12 @@ The profile images should have small size and aligned
 }
 
 /*Titel with font-weight*/
-.content h2{
+.text-box h2{
     font-weight: 6000;
 }
 
-/*Text of the content*/
-.content small{
+/*Text of the contentText*/
+.text-box small{
     display: inline-block;
     margin-bottom: 15px;
 }
@@ -177,22 +178,25 @@ The profile images should have small size and aligned
         left: 31px;
     }
     .container{
-        width: 100%;
+        min-width: 100%;
         padding-left: 80px;
         padding-right: 25px;
     }
 
-    .content{
+    .text-box{
         font-size: 13px;
     }
 
-    .content small{
+    .text-box small{
         margin-bottom: 10px;
     }
 
     .right-container{
         left: 0;
     }
+    /*.left-container{*/
+    /*    left: 50%;*/
+    /*}*/
 
     .left-container img, .right-container img{
         left: 10px;
