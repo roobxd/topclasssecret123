@@ -12,15 +12,15 @@ export class TijdlijnController extends Controller{
     constructor() {
         super();
         this.#tijdlijnRepository = new TijdlijnRepository();
-       this.#initializeView;
+       this.#initializeView();
 
     }
 
     async #initializeView(){
+        // 1.
         this.#tijdlijnView = await super.loadHtmlIntoContent("html_views/tijdlijn.html");
 
-        console.log(this.#tijdlijnView);
-
+        console.log("Hallo");
     }
 
 }
