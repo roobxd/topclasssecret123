@@ -63,7 +63,7 @@ class MailRoutes {
                                 "address": mail
                             }
                         ],
-                        "subject": "   Jouw wachtwoord",
+                        "subject": " verificatie",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
