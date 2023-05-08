@@ -42,6 +42,7 @@ export class PasswordUpdateMailController extends Controller {
 
                 alert("gelukt")
 
+
                 //send mail
                 const mail = this.#MailUpdatePasswordView.querySelector("#email").value
                 this.#sendMailRepository.sendMail(mail)

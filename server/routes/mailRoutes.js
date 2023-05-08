@@ -18,8 +18,9 @@ class MailRoutes {
     }
 
     async #create() {
-        this.#app.post("/mail", async (req, res) => {
+        this.#app.post("/mail/:type", async (req, res) => {
             try {
+                const type = req.params.type;
                 const mail = req.body.email;
                 const apiKey = "pad_flo_7.Ixxt5Fxzg0fJObw7";
                 const headers = {
@@ -27,27 +28,49 @@ class MailRoutes {
                 };
 
                 const wachtwoord = await this.#databaseHelper.handleQuery({
-                        query: "SELECT password, voornaam from users where email = ?",
-                        values: [mail]
-                    });
+                    query: "SELECT password, voornaam from users where email = ?",
+                    values: [mail]
+                });
 
-                const emailData = {
-                    "from": {
-                        "name": "Buurtposter",
-                        "address": "buurtposter@hbo-ict.cloud"
-                    },
-                    "to": [
-                        {
-                            "name": "Lennard Fonteijn",
-                            "address": mail
-                        }
-                    ],
-                    "subject": "   Jouw wachtwoord",
-                    "html":
-                        "Hallo, " + wachtwoord[0].voornaam +
 
-                        "\nJouw wachtwoord is " + wachtwoord[0].password
-                };
+                if (type === "wachtwoord") {
+                    var emailData = {
+                        "from": {
+                            "name": "Buurtposter",
+                            "address": "buurtposter@hbo-ict.cloud"
+                        },
+                        "to": [
+                            {
+                                "name": "Lennard Fonteijn",
+                                "address": mail
+                            }
+                        ],
+                        "subject": "   Jouw wachtwoord",
+                        "html":
+                            "Hallo, " + wachtwoord[0].voornaam +
+
+                            "\nJouw wachtwoord is " + wachtwoord[0].password
+                    };
+                } else if (type === "verificatie") {
+                     emailData = {
+                        "from": {
+                            "name": "Buurtposter",
+                            "address": "buurtposter@hbo-ict.cloud"
+                        },
+                        "to": [
+                            {
+                                "name": "Lennard Fonteijn",
+                                "address": mail
+                            }
+                        ],
+                        "subject": "   Jouw wachtwoord",
+                        "html":
+                            "Hallo, " + wachtwoord[0].voornaam +
+
+                            "dit is een verificatie mail"
+                    };
+
+                }
 
                 const data = await fetch("https://api.hbo-ict.cloud/mail", {
                     method: "POST",
