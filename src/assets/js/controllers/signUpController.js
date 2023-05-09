@@ -6,18 +6,21 @@ import { Controller } from "./controller.js";
 import { signUpRepository } from "../repositories/signUpRepository.js";
 import { App } from "../app.js";
 import { loadAllUsersRepository } from "../repositories/loadAllUsersRepository.js";
+import {SendMailRepository} from "../repositories/sendMailRepository.js";
 
 
 export class signUpController extends Controller {
     #createSingInView;
     #signUpRepository;
     #loadAllUsersRepository;
+    #sendMailRepository;
 
 
     constructor() {
         super();
         this.#signUpRepository = new signUpRepository();
         this.#loadAllUsersRepository = new loadAllUsersRepository();
+        this.#sendMailRepository = new SendMailRepository();
         this.#setupView();
     }
 
@@ -145,6 +148,7 @@ export class signUpController extends Controller {
             alert("aanmelding is gelukt");
             // toevoegen aan database --------------------------
             this.#signUpRepository.signUpUser(password.value, email.value);
+            this.#sendMailRepository.sendVerificationMail(email.value);
             App.loadController(App.CONTROLLER_LOGIN);
 
         }

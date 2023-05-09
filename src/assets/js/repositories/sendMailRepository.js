@@ -12,9 +12,14 @@ export class SendMailRepository {
     }
 
     sendMail(mail){
-
+        this.#route = "/mail/wachtwoord"
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
 
+    }
+
+    sendVerificationMail(mail){
+        this.#route = "/mail/verificatie"
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
 
 }

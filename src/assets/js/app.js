@@ -7,21 +7,22 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { SessionManager } from "./framework/utils/sessionManager.js"
-import { LoginController } from "./controllers/loginController.js"
-import { NavbarController } from "./controllers/navbarController.js"
-import { UploadController } from "./controllers/uploadController.js"
-import { WelcomeController } from "./controllers/welcomeController.js"
-import { PostsController } from "./controllers/postsController.js"
-import { signUpController } from "./controllers/signUpController.js"
-import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
-import { BulletinController } from "./controllers/bulletinController.js"
+import {SessionManager} from "./framework/utils/sessionManager.js"
+import {LoginController} from "./controllers/loginController.js"
+import {NavbarController} from "./controllers/navbarController.js"
+import {UploadController} from "./controllers/uploadController.js"
+import {WelcomeController} from "./controllers/welcomeController.js"
+import {PostsController} from "./controllers/postsController.js"
+import {signUpController} from "./controllers/signUpController.js"
+import {UpdatePasswordController} from "./controllers/updatePasswordController.js"
+import {BulletinController} from "./controllers/bulletinController.js"
 import {SupportController} from "./controllers/supportController.js";
 import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
-import { AccountSettingsController } from "./controllers/accountSettingsController.js";
+import {AccountSettingsController} from "./controllers/accountSettingsController.js";
 import {VerhalenController} from "./controllers/verhalenController.js";
 import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
-import { TijdlijnController } from "./controllers/tijdlijnController.js";
+import {TijdlijnController} from "./controllers/tijdlijnController.js";
+import {VerifieerAccountController} from "./controllers/verifieerAccountController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -44,6 +45,7 @@ export class App {
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
     static CONTROLLER_TIJDLIJN = "tijdlijn";
+    static CONTROLLER_VERIFIEERACCOUNT = "verifieerAcount";
 
     constructor() {
         //Always load the navigation
@@ -97,6 +99,9 @@ export class App {
             case App.CONTROLLER_BULLETIN:
                 App.isLoggedIn(() => new BulletinController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_VERIFIEERACCOUNT:
+                App.isLoggedIn(() => new VerifieerAccountController(), () => new LoginController())
+                break;
             case App.CONTROLLER_POSTS:
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
@@ -104,7 +109,7 @@ export class App {
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
                 break;
             case App.CONTROLLER_INGELOGDUPDATEPASSWORD:
-                App.isLoggedIn(()=> new IngelogdUpdatePasswordController(), ()=> new LoginController())
+                App.isLoggedIn(() => new IngelogdUpdatePasswordController(), () => new LoginController())
                 break;
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(), () => new LoginController());
