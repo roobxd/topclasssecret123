@@ -67,7 +67,16 @@ class MailRoutes {
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
-                            "dit is een verificatie mail"
+                            "Hartelijk welkom bij De Buurtposter, dé online plek waar je eenvoudig en snel jouw buurt op de hoogte kunt houden van alles wat er speelt in de buurt. We zijn blij dat je je hebt aangemeld en we willen je graag wat meer informatie geven over onze website.\n" +
+                            "\n" +
+                            "Op De Buurtposter kun je eenvoudig informatie delen met je buren, zoals nieuws over evenementen, buurtfeesten, problemen in de buurt en nog veel meer. Je kunt je eigen berichten plaatsen, of reageren op berichten van andere buurtbewoners. Zo blijf je op de hoogte van alles wat er in jouw buurt gebeurt!\n" +
+                            "\n" +
+                            "We hopen dat je onze website gemakkelijk en plezierig vindt om te gebruiken.\n" +
+                            "\n" +
+                            "Nogmaals hartelijk welkom bij De Buurtposter en we hopen dat je veel plezier hebt met het gebruik van onze website.\n" +
+                            "\n" +
+                            "Met vriendelijke groet,\n" +
+                            "\n"
                     };
 
                 }
