@@ -54,6 +54,22 @@
     color: white;
 }
 
+.editor {
+    width: 825px;
+    height: 600px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: #343434;
+    color: white;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
 textarea {
     width: 825px;
     height: 600px;
@@ -123,4 +139,22 @@ input[type="file"] {
 
 .space {
     padding-right: 5px;
+}
+
+.buttons {
+    height: 42px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: 25px 25px 25px 25px 25px 1fr;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.typeicon {
+    height: 42px;
+    font-size: 25px;
+    color: white;
+    justify-self: center;
+    margin: 0 auto;
 }

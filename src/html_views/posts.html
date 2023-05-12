@@ -1,7 +1,7 @@
-<link href="assets/css/pages/posts.css" rel="stylesheet" />
+<link href="assets/css/pages/posts.css" rel="stylesheet"/>
 
 <div class="main-wrapper">
-    <div class="background-image"></div>
+    <!-- <div class="background-image"></div> -->
     <div class="post-container">
         <div class="post-header">
             <h2>Plaats hier een bericht!</h2>
@@ -21,13 +21,50 @@
                 <option value="Announcement">Mededeling</option>
             </select>
 
-            <label for="post" class="test">Voeg hier je verhaal toe:</label>
-            <textarea id="post" name="post" placeholder="Vul hier je bericht in..."></textarea>
+            <label for="editor" class="test">Voeg hier je verhaal toe:</label>
+
+            <div class="buttons">
+                <button class="bold typeicon"> <i class="bi bi-type-bold"></i> </button>
+                <button class="italic typeicon"> <i class="bi bi-type-italic"></i> </button>
+                <button class="underlined typeicon"> <i class="bi bi-type-underline"></i> </button>
+                <button class="strikethrough typeicon"> <i class="bi bi-type-strikethrough"></i> </button>
+
+                <!--
+                 <button type="button"
+                     class="bold bi bi-type-bold">
+                 </button>
+
+                 <button type="button"
+                         class="italic bi bi-type-italic">
+                 </button>
+
+                <div class="bold typeicon">
+                    <i class="bi bi-type-bold"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-type-italic"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-type-underline"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-type-strikethrough"></i>
+                </div>
+                <div class="typeicon">
+                    <i class="bi bi-fonts"></i>
+                </div>
+                -->
+
+            </div>
+
+            <div contenteditable="true" id="editor" class="editor">Vul hier je bericht in...</div>
+
+            <!-- <textarea id="post" name="post" placeholder="Vul hier je bericht in..."></textarea> -->
 
             <label for="sampleFile" class="custom-file-upload">
                 <i class="bi bi-image space"></i>Klik hier om een plaatje toe te voegen
             </label>
-            <input id="sampleFile" type="file" name="sampleFile" />
+            <input id="sampleFile" type="file" name="sampleFile"/>
 
 
             <input type="submit" class="submitbutton" value="Verzend">

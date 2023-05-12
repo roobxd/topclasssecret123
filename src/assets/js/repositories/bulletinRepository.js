@@ -13,7 +13,7 @@ export class BulletinRepository {
     #networkManager
 
     constructor() {
-        this.#route = "/posts"
+        this.#route = "/bulletin"
         this.#networkManager = new NetworkManager();
     }
 
