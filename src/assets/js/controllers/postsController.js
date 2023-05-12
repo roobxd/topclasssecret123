@@ -12,6 +12,7 @@ import { PostsRepository } from "../repositories/postsRepository.js";
 export class PostsController extends Controller {
     #postsRepository;
     #welcomeView;
+    #PostsRepository;
 
     constructor() {
         super();
@@ -34,7 +35,20 @@ export class PostsController extends Controller {
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
 
-        this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
+        this.#welcomeView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
+        this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
+        this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
+        this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
+
+        this.#welcomeView.querySelector(".storyinput").addEventListener('input', () => {
+            // Get the HTML content of the editor
+            //const content = editor.innerHTML;
+
+            // Do something with the HTML content (e.g. save it to a database)
+            //console.log(html);
+        });
+
+        this.#welcomeView.querySelector(".postbutton").addEventListener("click", (event) => this.#savePost(event));
     }
 
 
@@ -42,13 +56,14 @@ export class PostsController extends Controller {
         const subject = this.#welcomeView.querySelector("#subject");
         const jaartal = this.#welcomeView.querySelector("#jaartal");
         const typeOfPost = this.#welcomeView.querySelector("#typeOfPost");
-        const post = this.#welcomeView.querySelector("#post");
+        const post = this.#welcomeView.querySelector(".storyinput");
         const sampleFile = this.#welcomeView.querySelector("#sampleFile");
 
+        const content = post.innerHTML;
         //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
 
         try {
-            await this.#postsRepository.create(subject.value, jaartal.value, typeOfPost.value, post.value, sampleFile.value );
+            await this.#postsRepository.create(subject.value, jaartal.value, typeOfPost.value, content, sampleFile.value );
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);
@@ -62,19 +77,21 @@ export class PostsController extends Controller {
      * @private
      */
     async #fetchPosts() {
-        const storyTitel = this.#welcomeView.querySelector(".story-titel");
-        const storyTekst = this.#welcomeView.querySelector(".story-tekst");
+        const storyPlaatje = this.#welcomeView.querySelector(".story-plaatje");
+
 
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
-            let data = await this.#postsRepository.getAll();
+            let data = await this.#PostsRepository.getAll();
+            let length = data.length - 1;
+            storyPlaatje.innerHTML = data[length].sampleFile;
             console.log(data);
         } catch (e) {
             console.log("error while fetching rooms", e);
 
-
+            //for now just show every error on page, normally not all errors are appropriate for user
+            // exampleResponse.innerHTML = e;
+        } }
             //for now just show every error on page, normally not all errors are appropriate for user
             //exampleResponse.innerHTML = e;
         }
-    }
-}
