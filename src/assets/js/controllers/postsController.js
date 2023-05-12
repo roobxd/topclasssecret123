@@ -37,10 +37,10 @@ export class PostsController extends Controller {
 
         this.#welcomeView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
         this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
-        this.#welcomeView.querySelector(".underlined").addEventListener("click", () => document.execCommand("underline", false, null));
+        this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
         this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
-        this.#welcomeView.querySelector(".editor").addEventListener('input', () => {
+        this.#welcomeView.querySelector(".storyinput").addEventListener('input', () => {
             // Get the HTML content of the editor
             //const content = editor.innerHTML;
 
@@ -48,7 +48,7 @@ export class PostsController extends Controller {
             //console.log(html);
         });
 
-        this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
+        this.#welcomeView.querySelector(".postbutton").addEventListener("click", (event) => this.#savePost(event));
     }
 
 
@@ -56,7 +56,7 @@ export class PostsController extends Controller {
         const subject = this.#welcomeView.querySelector("#subject");
         const jaartal = this.#welcomeView.querySelector("#jaartal");
         const typeOfPost = this.#welcomeView.querySelector("#typeOfPost");
-        const post = this.#welcomeView.querySelector(".editor");
+        const post = this.#welcomeView.querySelector(".storyinput");
         const sampleFile = this.#welcomeView.querySelector("#sampleFile");
 
         const content = post.innerHTML;
