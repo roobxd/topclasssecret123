@@ -35,7 +35,11 @@ export class WelcomeController extends Controller {
         this.#welcomeView.querySelector(".toonmeer").addEventListener("click", event => App.loadController(App.CONTROLLER_BULLETIN));
 
         // Show the time-line page when it is clicked in welcome page.
-        this.#welcomeView.querySelector(".showMore").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
+        this.#welcomeView.querySelector(".timeline").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
+
+        // this.#welcomeView.querySelector(".timeline").onclick = function () {
+        //     window.location.href = "html_views/tijdlijn.html";
+        // };
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
