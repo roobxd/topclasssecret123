@@ -106,17 +106,20 @@ input:focus {
     gap: 0;
 }
 
+.imageselector:hover {
+    color: var(--off-white);
+}
+
 .image-icon {
     align-self: center;
     font-size: 75px;
-    margin-bottom: -25px
+    margin-bottom: -25px;
 }
 
 #actual-btn {
     width: 125px;
     height: 125px;
 }
-
 
 .imageselector p {
     text-align: center;
@@ -151,8 +154,34 @@ input:focus {
     border-radius: 2vh;
 }
 
+.richtextbar svg {
+    border: solid 1px transparent;
+    border-radius: 5px;
+}
+
+.richtextbar svg:hover {
+    color: var(--trending);
+    border: solid 1px var(--button-line);
+}
+
 .instantietag {
     background: var(--instantie-gradient);
+    opacity: 50%;
+}
+
+.instantietag:hover {
+    background: var(--instantie-gradient);
+    opacity: 100%;
+}
+
+.gebruikertag {
+    background: var(--story-gradient);
+    opacity: 50%;
+}
+
+.gebruikertag:hover {
+    background: var(--story-gradient);
+    opacity: 100%;
 }
 
 .tags p {
@@ -329,7 +358,7 @@ input:focus {
     align-items: center;
 }
 
-.mypost-button:hover>p {
+.mypost-button:hover > p {
     cursor: pointer;
     color: var(--off-white);
 }

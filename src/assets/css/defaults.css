@@ -15,18 +15,22 @@
     --pill-main-solid: #1e1e1e;
 
     --button-primary: #343434;
-    --button-secondary: #4A4A4A;
+    --button-secondary: #4a4a4a;
     --button-line: #565656;
 
-    --story-gradient: linear-gradient(97.34deg,
-            rgba(30, 30, 30, 0.95) 0%,
-            rgba(78, 65, 100, 0.95) 51.8%,
-            rgba(129, 95, 185, 0.95) 99.93%);
+    --story-gradient: linear-gradient(
+        97.34deg,
+        rgba(30, 30, 30, 0.95) 0%,
+        rgba(78, 65, 100, 0.95) 51.8%,
+        rgba(129, 95, 185, 0.95) 99.93%
+    );
 
-    --instantie-gradient: linear-gradient(96.64deg,
-            rgba(30, 30, 30, 0.9025) 0%,
-            rgba(98, 78, 78, 0.926398) 50.31%,
-            rgba(255, 151, 151, 0.9025) 100%);
+    --instantie-gradient: linear-gradient(
+        96.64deg,
+        rgba(30, 30, 30, 0.9025) 0%,
+        rgba(98, 78, 78, 0.926398) 50.31%,
+        rgba(255, 151, 151, 0.9025) 100%
+    );
 
     --story-border: #904bff;
 
@@ -39,7 +43,6 @@
     --trending: #ff8a00;
     --heart: #ff0000;
     --trash-color: #3a1d09;
-
 }
 
 .main-wrapper {
@@ -47,7 +50,7 @@
 }
 
 * {
-    transition: 200ms;
+    transition: 100ms;
 }
 
 .background-image {
@@ -63,6 +66,7 @@
 body {
     background: url("/assets/img/background.png");
     background-repeat: no-repeat;
+    background-size: cover;
     padding: 0;
     margin: 0;
     font-family: var(--main-font);
@@ -73,7 +77,6 @@ body {
 button {
     font-weight: 600;
 }
-
 
 /*error laten zien*/
 
