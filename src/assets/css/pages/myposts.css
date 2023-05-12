@@ -1,0 +1,255 @@
+.main-container {
+    margin: auto;
+    width: 955px;
+    max-width: 955px;
+    height: 695px;
+    background-color: var(--pill-main);
+    border-radius: 2vh;
+    font-family: "Roboto", sans-serif;
+    margin-top: 12vh;
+}
+
+.myposts-container {
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.title {
+    margin: auto;
+    margin-top: 75px;
+    width: 955px;
+    max-width: 955px;
+    height: 80px;
+    background-color: var(--pill-main-solid);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2vh;
+}
+
+.toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 12vh;
+    width: 100%;
+}
+
+.searchbar-container {
+    align-self: center;
+    display: grid;
+    width: 40vh;
+    height: 6vh;
+    grid-template-columns: 1fr 1fr;
+}
+
+.searchbar {
+    width: 30vh;
+    height: 60px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-style: none;
+    margin-left: 8.5vh;
+    text-indent: 25px;
+    font-size: 2vh;
+    color: black;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.searchbar-icon {
+    width: 6vh;
+    height: 60px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: var(--button-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.filter-container {
+    justify-self: right;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 5vh 10fr 10fr 10fr;
+    width: 35vh;
+    height: 60px;
+    background-color: var(--button-primary);
+    justify-self: right;
+    border-radius: 2vh;
+    margin-right: 2.5vh;
+}
+
+.filter-icon {
+    width: 6vh;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-container p {
+    color: white;
+    justify-self: center;
+    font-size: 1.85vh;
+
+    cursor: pointer;
+}
+
+.filter-container p:hover {
+    color: var(--off-white);
+}
+
+svg {
+    width: 3vh;
+    height: 3vh;
+    color: white;
+}
+
+.searchbar-icon svg {
+    height: 2.5vh;
+    width: 2.5vh;
+}
+
+.searchbar-icon:hover>svg {
+    color: var(--off-white);
+}
+
+.story-container {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 65% 17.5% 17.5%;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 100%;
+    height: 40vh;
+}
+
+.story {
+    align-self: center;
+    display: grid;
+    grid-template-columns: 17.5vh 30vh 1fr 1fr;
+    height: 10vh;
+    width: 65vh;
+    margin-left: 8.5vh;
+    border-radius: 2vh;
+    background: var(--story-gradient);
+
+    cursor: pointer;
+}
+
+.story h2,
+p {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.story h2 {
+    font-size: 2.25vh;
+}
+
+.story img {
+    height: 6.25vh;
+    width: 6.25vh;
+    object-fit: cover;
+    align-self: center;
+    justify-self: right;
+    border-radius: 2vh;
+    border: solid 0.35vh var(--story-border);
+}
+
+.icon-holder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+}
+
+.icon-holder svg {
+    height: 3vh;
+    width: 3vh;
+    align-self: center;
+    justify-self: center;
+}
+
+#trending {
+    color: var(--trending);
+}
+
+.icon-holder p {
+    font-size: 2vh;
+    justify-self: left;
+}
+
+.story-edit,
+.story-delete {
+    justify-self: center;
+    align-self: center;
+    margin-left: 0.75vh;
+    height: 8vh;
+    width: 12.5vh;
+    border-radius: 2vh;
+    background-color: var(--button-primary);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.story-edit p {
+    font-size: 2vh;
+    color: white;
+}
+
+.story-delete p {
+    font-size: 2vh;
+    color: white;
+}
+
+.story-edit:hover p {
+    color: var(--off-white);
+}
+
+.story-delete:hover p {
+    color: var(--off-white);
+}
+
+.page-selector {
+    display: grid;
+    width: 15vh;
+    height: 60px;
+    border-radius: 2vh;
+    font-size: 2vh;
+    background-color: var(--button-primary);
+    grid-template-columns: 1fr 1fr 1fr;
+
+    margin: auto;
+    margin-top: 50px;
+}
+
+#firstSvg {
+    justify-self: right;
+    align-self: center;
+    cursor: pointer;
+}
+
+#firstSvg:hover {
+    color: var(--off-white);
+}
+
+#secondSvg {
+    justify-self: left;
+    align-self: center;
+    cursor: pointer;
+}
+
+#secondSvg:hover {
+    color: var(--off-white);
+}

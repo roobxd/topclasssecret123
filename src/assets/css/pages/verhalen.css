@@ -1,92 +1,128 @@
-.sorteer-knop{
-    margin: auto;
-    background-color: #343434;
-    width: 180px;
-    height: 50px;
-    border-radius: 8px;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-/* Dropdown Button */
-.dropbtn {
+h1 {
+    font-size: 2.75vh;
+}
+
+.main-wrapper {
     margin: auto;
-    background-color: #343434;
-    width: 180px;
-    height: 50px;
-    border-radius: 8px;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+    width: 955px;
+    max-width: 955px;
+    height: 695px;
+    border-radius: 2vh;
+    font-family: "Roboto", sans-serif;
+}
+
+input:focus {
+    outline: none;
+}
+
+.toolbar {
+    margin: 0 auto;
+    margin-top: 75px;
+    margin-bottom: 2vh;
+    width: 955px;
+    max-width: 955px;
+    height: 80px;
+    border-radius: 25px;
+    margin-top: 12vh;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--pill-main);
+}
+
+.searchbar-container {
+    align-self: center;
+    display: grid;
+    width: 40vh;
+    grid-template-columns: 1fr 1fr;
+}
+
+.searchbar {
+    width: 30vh;
+    height: 60px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-style: none;
+    margin-left: 8.5vh;
+    text-indent: 25px;
+    font-size: 1.75vh;
+    color: black;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.searchbar-icon {
+    width: 6vh;
+    height: 60px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: var(--button-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     cursor: pointer;
 }
 
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
+.filter-container {
+    justify-self: right;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 5vh 10fr 10fr 10fr;
+    width: 35vh;
+    height: 60px;
+    background-color: var(--button-primary);
+    justify-self: right;
+    border-radius: 2vh;
+    margin-right: 2.5vh;
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
-.sorteer-knoppen{
-    margin: auto;
+.filter-icon {
+    width: 6vh;
+    height: 60px;
     display: flex;
-    background-color: rgba(20, 20, 20, 0.88);
-    width: 500px;
-    height: 70px;
-    border-radius: 10px;
-}
-
-p {
-    margin: 0!important;
-}
-
-.story-grid {
-    display:grid;
-    margin: auto;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 40px;
-}
-
-.posts-knop{
-    margin: auto;
-    background-color: #343434;
-    width: 180px;
-    height: 50px;
-    border-radius: 8px;
-}
-
-.text{
-    margin: auto;
-    color: white;
     justify-content: center;
+    align-items: center;
+}
+
+.filter-container p {
+    color: white;
+    align-self: center;
+    justify-self: center;
+    font-size: 1.75vh;
+    font-family: var(--main-font);
+
+    cursor: pointer;
+}
+
+.filter-container p:hover {
+    color: var(--off-white);
+}
+
+svg {
+    width: 3vh;
+    height: 3vh;
+    color: white;
+}
+
+.searchbar-icon svg {
+    height: 2.5vh;
+    width: 2.5vh;
+}
+
+.searchbar-icon:hover>svg {
+    color: var(--off-white);
+}
+
+.story-container {
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .story {
@@ -96,48 +132,60 @@ p {
     height: 150px;
     border-radius: 25px;
     margin-bottom: 35px;
-    margin-left: 20px;
-    margin-right: 20px;
+    justify-self: right;
 }
 
-.persoonstory{
-    background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(78, 65, 100, 0.95) 51.8%, rgba(129, 95, 185, 0.95) 99.93%);
+.story:nth-child(odd) {
+    justify-self: left;
 }
 
-.instantiestory{
-    background: linear-gradient(96.64deg, rgba(30, 30, 30, 0.9025) 0%, rgba(98, 78, 78, 0.926398) 50.31%, rgba(255, 151, 151, 0.9025) 100%);
+.persoonstory {
+    background: linear-gradient(97.34deg,
+            rgba(30, 30, 30, 0.95) 0%,
+            rgba(78, 65, 100, 0.95) 51.8%,
+            rgba(129, 95, 185, 0.95) 99.93%);
 }
 
-.shitpost{
-    background: linear-gradient(96.98deg, rgba(30, 30, 30, 0.9025) 0%, rgba(65, 53, 45, 0.925409) 50.83%, rgba(99, 68, 45, 0.9025) 100%);
+.instantiestory {
+    background: linear-gradient(96.64deg,
+            rgba(30, 30, 30, 0.9025) 0%,
+            rgba(98, 78, 78, 0.926398) 50.31%,
+            rgba(255, 151, 151, 0.9025) 100%);
 }
 
-.one{
-    -webkit-animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+.shitpost {
+    background: linear-gradient(96.98deg,
+            rgba(30, 30, 30, 0.9025) 0%,
+            rgba(65, 53, 45, 0.925409) 50.83%,
+            rgba(99, 68, 45, 0.9025) 100%);
 }
 
-.two{
-    -webkit-animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.15s both;
-    animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.15s both;
+.one {
+    -webkit-animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.three{
-    -webkit-animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.25s both;
-    animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.25s both;
+.two {
+    -webkit-animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s both;
+    animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s both;
 }
 
-.four{
-    -webkit-animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.35s both;
-    animation: slide-right 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.35s both;
+.three {
+    -webkit-animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
+    animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
+}
+
+.four {
+    -webkit-animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s both;
+    animation: slide-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s both;
 }
 
 /* ----------------------------------------------
-* Generated by Animista on 2023-3-22 13:3:42
-* Licensed under FreeBSD License.
-* See http://animista.net/license for more info.
-* w: http://animista.net, t: @cssanimista
-* ---------------------------------------------- */
+ * Generated by Animista on 2023-3-22 13:3:42
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
 
 /**
  * ----------------------------------------
@@ -149,53 +197,22 @@ p {
         -webkit-transform: translateX(-300px);
         transform: translateX(-300px);
     }
+
     100% {
         -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
 }
+
 @keyframes slide-right {
     0% {
         -webkit-transform: translateX(-300px);
         transform: translateX(-300px);
     }
-    100% {
-        -webkit-transform: translateX(100px);
-        transform: translateX(100px);
-    }
-}
 
-
-/* ----------------------------------------------
-* Generated by Animista on 2023-3-22 13:9:5
-* Licensed under FreeBSD License.
-* See http://animista.net/license for more info.
-* w: http://animista.net, t: @cssanimista
-* ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation slide-left
- * ----------------------------------------
- */
-@-webkit-keyframes slide-left {
-    0% {
-        -webkit-transform: translateX(100px);
-        transform: translateX(100px);
-    }
     100% {
-        -webkit-transform: translateX(-100px);
-        transform: translateX(-100px);
-    }
-}
-@keyframes slide-left {
-    0% {
-        -webkit-transform: translateX(100px);
-        transform: translateX(100px);
-    }
-    100% {
-        -webkit-transform: translateX(-100px);
-        transform: translateX(-100px);
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
     }
 }
 
@@ -290,8 +307,4 @@ p {
     font-size: 14px;
     margin-top: 4px;
     /* margin-left: -2px; */
-}
-
-.main-wrapper {
-
 }

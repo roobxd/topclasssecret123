@@ -23,6 +23,7 @@ span.name {
     background: linear-gradient(96.98deg, rgba(30, 30, 30, 0.9025) 0%, rgba(65, 53, 45, 0.925409) 50.83%, rgba(99, 68, 45, 0.9025) 100%);
 }
 
+/* 
 .one {
     -webkit-animation: slide-right 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-right 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
@@ -212,9 +213,10 @@ span.name {
 .main-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    display: flex;
-    justify-content: center;
-
+    width: 955px;
+    max-width: 955px;
+    margin: 0 auto;
+    margin-top: 100px;
 }
 
 .other-container {
@@ -228,12 +230,9 @@ span.name {
 }
 
 .bulletinboard {
-    width: 450px;
     height: 250px;
     background-color: var(--pill-secondary);
     border-radius: 25px;
-    -webkit-animation: slide-left 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-left 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .bulletinheader {
@@ -272,7 +271,6 @@ span.name {
 }
 
 .toonmeer {
-    margin-top: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -286,8 +284,6 @@ span.name {
     background-color: var(--pill-secondary);
     border-radius: 25px;
     margin-top: 200px;
-    -webkit-animation: slide-left 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-left 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .timelineheader {

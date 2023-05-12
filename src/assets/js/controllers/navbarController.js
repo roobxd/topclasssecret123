@@ -25,7 +25,7 @@ export class NavbarController extends Controller {
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
 
         //from here we can safely get elements from the view via the right getter
-        const anchors = this.#navbarView.querySelectorAll("a.nav-link");
+        const anchors = this.#navbarView.querySelectorAll("div.nav-link");
 
         //set click listener on each anchor
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)))
