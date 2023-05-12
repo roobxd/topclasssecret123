@@ -16,11 +16,14 @@ import { PostsController } from "./controllers/postsController.js"
 import { signUpController } from "./controllers/signUpController.js"
 import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
 import { BulletinController } from "./controllers/bulletinController.js"
-import {SupportController} from "./controllers/supportController.js";
-import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
+import { SupportController } from "./controllers/supportController.js";
+import { PasswordUpdateMailController } from "./controllers/passwordUpdateMailController.js";
 import { AccountSettingsController } from "./controllers/accountSettingsController.js";
-import {VerhalenController} from "./controllers/verhalenController.js";
-import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
+import { VerhalenController } from "./controllers/verhalenController.js";
+import { IngelogdUpdatePasswordController } from "./controllers/ingelogdUpdatePasswordController.js";
+import { TijdlijnController } from "./controllers/tijdlijnController.js";
+import { readController } from "./controllers/readController.js";
+import { myPostsController } from "./controllers/myPostsController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -42,6 +45,9 @@ export class App {
     static CONTROLLER_PASSWORDUPDATEMAIL = "passwordUpdateMail";
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
+    static CONTROLLER_TIJDLIJN = "tijdlijn";
+    static CONTROLLER_READ = "read";
+    static CONTROLLER_MYPOSTS = "myposts";
 
     constructor() {
         //Always load the navigation
@@ -102,7 +108,7 @@ export class App {
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
                 break;
             case App.CONTROLLER_INGELOGDUPDATEPASSWORD:
-                App.isLoggedIn(()=> new IngelogdUpdatePasswordController(), ()=> new LoginController())
+                App.isLoggedIn(() => new IngelogdUpdatePasswordController(), () => new LoginController())
                 break;
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(), () => new LoginController());
@@ -116,6 +122,16 @@ export class App {
             case App.CONTROLLER_ACCOUNT_SETTINGS:
                 App.isLoggedIn(() => new AccountSettingsController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_TIJDLIJN:
+                App.isLoggedIn(() => new TijdlijnController(), () => new LoginController());
+                break;
+            case App.CONTROLLER_READ:
+                App.isLoggedIn(() => new readController(), () => new readController());
+                break;
+            case App.CONTROLLER_MYPOSTS:
+                App.isLoggedIn(() => new myPostsController(), () => new myPostsController());
+                break;
+
 
 
             default:
@@ -195,33 +211,18 @@ export class App {
     static isLoggedIn(whenYes, whenNo) {
         if (App.sessionManager.get("email")) {
             whenYes();
-            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
+            const loggedInElements = document.querySelectorAll('#whenLoggedIn');
             for (let i = 0; i < loggedInElements.length; i++) {
                 loggedInElements[i].style.display = 'flex';
             }
-            console.log("Showing elements that should be shown when loggedin.");
-
-            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
-            for (let i = 0; i < loggedOutElements.length; i++) {
-                loggedOutElements[i].style.display = 'none';
-            }
-            console.log("Hiding elements that should be hidden when loggedin.");
-
         } else {
             whenNo();
-            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
-            for (let i = 0; i < loggedInElements.length; i++) {
-                loggedInElements[i].style.display = 'none';
-            }
 
-            console.log("Hidding elements that shouldn't be shown when loggedout.");
-
-            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
+            const loggedOutElements = document.querySelectorAll('#whenLoggedOut');
             for (let i = 0; i < loggedOutElements.length; i++) {
+                console.log("Im logged out!");
                 loggedOutElements[i].style.display = 'flex';
             }
-            console.log("Showing elements that should be hidden when loggedout.");
-
         }
     }
 

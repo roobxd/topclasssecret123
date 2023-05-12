@@ -1,30 +1,29 @@
-class signInRoutes {
+class VerifierAccountRoutes {
 
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
 
-
     constructor(app) {
         this.#app = app;
 
-        this.#postUser()
+        this.#verifier()
     }
 
+    #verifier(){
 
-    #postUser() {
+        this.#app.post("/verificatie", async (req, res) => {
 
-        this.#app.post("/postuser", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO users(voornaam, tussenvoegsel, achternaam, password, email) values('','','',?,?)",
-                    values: [req.body.password, req.body.email]
+                    query: "Update users set verificatie values(1) where email = ?",
+                    values: [req.body.email]
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
 
             } catch (e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e});
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e });
             }
 
 
@@ -34,4 +33,4 @@ class signInRoutes {
 
 }
 
-module.exports = signInRoutes;
+module.exports = VerifierAccountRoutes

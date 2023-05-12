@@ -1,7 +1,7 @@
 import {NetworkManager} from "../framework/utils/networkManager.js";
 
 
-class SendMailRepository {
+export class SendMailRepository {
 #networkManager
 #route
 
@@ -12,7 +12,13 @@ class SendMailRepository {
     }
 
     sendMail(mail){
+        this.#route = "/mail/wachtwoord"
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
 
+    }
+
+    sendVerificationMail(mail){
+        this.#route = "/mail/verificatie"
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
 

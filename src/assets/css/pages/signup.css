@@ -5,7 +5,7 @@
     background-color: rgba(30, 30, 30, 95%);
     border-radius: 25px;
     -webkit-animation: slide-fwd-bottom 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-fwd-bottom 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-fwd-bottom 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 /* ----------------------------------------------
@@ -20,26 +20,29 @@
  * animation slide-fwd-bottom
  * ----------------------------------------
  */
- @-webkit-keyframes slide-fwd-bottom {
+@-webkit-keyframes slide-fwd-bottom {
     0% {
-      -webkit-transform: translateZ(0) translateY(-100px);
-              transform: translateZ(0) translateY(-100px);
+        -webkit-transform: translateZ(0) translateY(-100px);
+        transform: translateZ(0) translateY(-100px);
     }
+
     100% {
-      -webkit-transform: translateZ(160px) translateY(0px);
-              transform: translateZ(160px) translateY(0px);
+        -webkit-transform: translateZ(160px) translateY(0px);
+        transform: translateZ(160px) translateY(0px);
     }
-  }
-  @keyframes slide-fwd-bottom {
+}
+
+@keyframes slide-fwd-bottom {
     0% {
-      -webkit-transform: translateZ(0) translateY(-100px);
-              transform: translateZ(0) translateY(-100px);
+        -webkit-transform: translateZ(0) translateY(-100px);
+        transform: translateZ(0) translateY(-100px);
     }
+
     100% {
-      -webkit-transform: translateZ(160px) translateY(0px);
-              transform: translateZ(160px) translateY(0px);
+        -webkit-transform: translateZ(160px) translateY(0px);
+        transform: translateZ(160px) translateY(0px);
     }
-  }
+}
 
 .signupheader {
     display: flex;
@@ -64,13 +67,14 @@
 /* Testing over here! */
 
 .button-container {
-    font-size: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
     width: 425px;
     height: 60px;
     margin: 0 auto;
+    margin-top: 25px;
+    font-size: 1.75vh;
 }
 
 .button-container button {
@@ -97,19 +101,10 @@
     cursor: pointer;
 }
 
-.wwvergeten,
-.submitbutton {
-    margin: 0;
-    margin-top: 25px;
-    padding: 0;
-}
-
 .submitbutton p,
 .submitbutton i {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
+    justify-self: center;
+    align-self: center;
 }
 
 
@@ -122,7 +117,6 @@
 }
 
 .signup-container input {
-
     width: 350px;
     height: 60px;
     margin-bottom: 25px;
@@ -169,6 +163,11 @@
     margin-top: 25px;
 }
 
+.input-container i {
+    position: absolute;
+    margin-left: 360px;
+}
+
 .login-container {
     display: flex;
     justify-content: center;
@@ -196,6 +195,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px;
     color: white;
 }

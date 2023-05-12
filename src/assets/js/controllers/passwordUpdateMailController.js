@@ -1,17 +1,20 @@
 import {Controller} from "./controller.js";
 import {loadAllUsersRepository} from "../repositories/loadAllUsersRepository.js";
 import {App} from "../app.js";
+import {SendMailRepository} from "../repositories/sendMailRepository.js";
 
 
 export class PasswordUpdateMailController extends Controller {
     #MailUpdatePasswordView
     #loadAllUsersRepository
+    #sendMailRepository
 
 
     constructor() {
         super();
 
         this.#loadAllUsersRepository = new loadAllUsersRepository();
+        this.#sendMailRepository = new SendMailRepository();
         this.#setupView()
     }
 
@@ -31,19 +34,22 @@ export class PasswordUpdateMailController extends Controller {
             let data = await this.#loadAllUsersRepository.loadUsers(email.value)
             console.log(data.length)
 
-
             if (data.length === 0) {
-                this.#setErrorfor(mail, "Mail bestaat niet")
+                this.#setErrorfor("Mail bestaat niet")
             } else {
-                this.#setSuccesfor(mail)
-                App.loadController(alert("gelukt"))
+                // App.loadController(alert("gelukt"))
                 // location.reload()
 
+                alert("gelukt")
+
+
                 //send mail
+                const mail = this.#MailUpdatePasswordView.querySelector("#email").value
+                this.#sendMailRepository.sendMail(mail)
+                this.#setSuccesfor()
 
             }
 
-            //send mail
             console.log(data[0].email)
 
 
