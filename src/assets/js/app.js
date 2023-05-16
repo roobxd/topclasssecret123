@@ -53,8 +53,11 @@ export class App {
 
     constructor() {
         //Always load the navigation
-
-        App.loadController(App.CONTROLLER_NAVBAR);
+        if (App.sessionManager.get("email")) {
+            App.loadController(App.CONTROLLER_NAVBAR_LOGGEDIN);
+        } else {
+            App.loadController(App.CONTROLLER_NAVBAR);
+        }
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
         App.loadControllerFromUrl(App.CONTROLLER_WELCOME);
