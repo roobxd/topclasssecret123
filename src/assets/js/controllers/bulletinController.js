@@ -35,6 +35,19 @@ export class BulletinController extends Controller {
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
 
+        this.#welcomeView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
+        this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
+        this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
+        this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
+
+        this.#welcomeView.querySelector(".verhaal").addEventListener('input', () => {
+            // Get the HTML content of the editor
+            //const content = editor.innerHTML;
+
+            // Do something with the HTML content (e.g. save it to a database)
+            //console.log(html);
+        });
+
         this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
 
     }
@@ -43,8 +56,10 @@ export class BulletinController extends Controller {
         const titel = this.#welcomeView.querySelector(".titleinput");
         const verhaal = this.#welcomeView.querySelector(".verhaal");
 
+        const content = verhaal.innerHTML;
+
         try {
-            await this.#BulletinRepository.create(titel.value, verhaal.value);
+            await this.#BulletinRepository.create(titel.value, content);
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);
