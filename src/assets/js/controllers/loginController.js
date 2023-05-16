@@ -50,25 +50,8 @@ export class LoginController extends Controller {
             const user = await this.#usersRepository.login(username, password);
 
             //let the session manager know we are logged in by setting the username, never set the password in localstorage
-            App.sessionManager.set("username", user.username);
             App.sessionManager.set("email", user.email);
 
-            if (App.sessionManager.get("username")) {
-                const loggedins = document.querySelectorAll('.loggedin');
-                const loggedouts = document.querySelectorAll('.loggedout');
-
-                // Loop through each <a> element and add "nav-link" class name
-                loggedouts.forEach(link => {
-                    link.classList.remove('loggedout');
-                    link.classList.add('loggedin');
-                });
-
-                // Loop through each <a> element and add "nav-link" class name
-                loggedins.forEach(link => {
-                    link.classList.remove('loggedin');
-                    link.classList.add('loggedout');
-                });
-            }
             App.loadController(App.CONTROLLER_NAVBAR_LOGGEDIN);
             App.loadController(App.CONTROLLER_WELCOME);
         } catch (error) {
