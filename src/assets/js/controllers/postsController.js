@@ -53,17 +53,16 @@ export class PostsController extends Controller {
 
 
     async #savePost(event) {
-        const subject = this.#welcomeView.querySelector("#subject");
-        const jaartal = this.#welcomeView.querySelector("#jaartal");
-        const typeOfPost = this.#welcomeView.querySelector("#typeOfPost");
-        const post = this.#welcomeView.querySelector(".storyinput");
-        const sampleFile = this.#welcomeView.querySelector("#sampleFile");
+        const titelinput = this.#welcomeView.querySelector(".titelinput");
+        const dateinput = this.#welcomeView.querySelector(".dateinput");
+        const storyinput = this.#welcomeView.querySelector(".storyinput");
+        const fileinput = this.#welcomeView.querySelector("#fileinput");
 
-        const content = post.innerHTML;
+        const content = storyinput.innerHTML;
         //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
 
         try {
-            await this.#postsRepository.create(subject.value, jaartal.value, typeOfPost.value, content, sampleFile.value );
+            await this.#postsRepository.create(titelinput.value, dateinput.value, content, fileinput.value );
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);

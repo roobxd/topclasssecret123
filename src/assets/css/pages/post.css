@@ -49,8 +49,11 @@ button {
 
 }
 
-textarea {
+.verhaal {
     font-family: "Roboto", sans-serif;
+    height: 180px;
+    width: 565px;
+    color: white;
 }
 
 .buttons {
@@ -58,19 +61,16 @@ textarea {
     width: 500px;
     display: grid;
     grid-template-columns: 25px 25px 25px 25px 25px 1fr;
-
     display: flex;
     align-items: center;
-
     margin-bottom: 25px;
 }
 
-.typeicon {
+.bold, .italic, .underline, .strikethrough, .font {
     height: 42px;
     font-size: 25px;
     color: white;
     justify-self: center;
-
     margin: 0 auto;
 }
 
@@ -189,6 +189,20 @@ textarea {
     border-style: none;
     border-radius: 25px;
     color: var(--white);
-
     text-indent: 70px;
+}
+
+.buttons button {
+    background-color: transparent;
+    border-style: none;
+}
+
+.buttons svg {
+    border: solid 1px transparent;
+    border-radius: 5px;
+}
+
+.buttons svg:hover {
+    color: var(--trending);
+    border: solid 1px var(--button-line);
 }
