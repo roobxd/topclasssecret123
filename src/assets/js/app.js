@@ -45,7 +45,7 @@ export class App {
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
     static CONTROLLER_TIJDLIJN = "tijdlijn";
-    static CONTROLLER_VERIFIEERACCOUNT = "verifieerAcount";
+    static CONTROLLER_VERIFIEERACCOUNT = "verification";
 
     constructor() {
         //Always load the navigation
