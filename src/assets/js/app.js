@@ -47,6 +47,7 @@ export class App {
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
     static CONTROLLER_TIJDLIJN = "tijdlijn";
+    static CONTROLLER_VERIFIEERACCOUNT = "verification";
     static CONTROLLER_READ = "read";
     static CONTROLLER_MYPOSTS = "myposts";
     static CONTROLLER_LOGIN = "login";
