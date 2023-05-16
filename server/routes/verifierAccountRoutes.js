@@ -16,7 +16,7 @@ class VerifierAccountRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "Update users set verificatie values(1) where email = ?",
+                    query: "Update users set verificatie = 1 where email = ?",
                     values: [req.body.email]
                 });
 
