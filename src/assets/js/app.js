@@ -10,6 +10,7 @@
 import { SessionManager } from "./framework/utils/sessionManager.js"
 import { LoginController } from "./controllers/loginController.js"
 import { NavbarController } from "./controllers/navbarController.js"
+import { NavbarLoggedController } from "./controllers/navbarControllerLogged.js"
 import { UploadController } from "./controllers/uploadController.js"
 import { WelcomeController } from "./controllers/welcomeController.js"
 import { PostsController } from "./controllers/postsController.js"
@@ -32,7 +33,7 @@ export class App {
 
     //controller identifiers, add new controllers here
     static CONTROLLER_NAVBAR = "navbar";
-    static CONTROLLER_LOGIN = "login";
+    static CONTROLLER_NAVBAR_LOGGEDIN = "navbar_loggedin";
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_POSTS = "posts";
@@ -48,9 +49,11 @@ export class App {
     static CONTROLLER_TIJDLIJN = "tijdlijn";
     static CONTROLLER_READ = "read";
     static CONTROLLER_MYPOSTS = "myposts";
+    static CONTROLLER_LOGIN = "login";
 
     constructor() {
         //Always load the navigation
+
         App.loadController(App.CONTROLLER_NAVBAR);
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
@@ -75,6 +78,10 @@ export class App {
         switch (name) {
             case App.CONTROLLER_NAVBAR:
                 new NavbarController();
+                return true;
+
+            case App.CONTROLLER_NAVBAR_LOGGEDIN:
+                new NavbarLoggedController();
                 return true;
 
             case App.CONTROLLER_LOGOUT:
@@ -234,6 +241,7 @@ export class App {
         App.sessionManager.remove("email");
 
         //go to login screen
+        App.loadController(App.CONTROLLER_NAVBAR);
         App.loadController(App.CONTROLLER_LOGIN);
     }
 }

@@ -69,7 +69,7 @@ export class LoginController extends Controller {
                     link.classList.add('loggedout');
                 });
             }
-
+            App.loadController(App.CONTROLLER_NAVBAR_LOGGEDIN);
             App.loadController(App.CONTROLLER_WELCOME);
         } catch (error) {
             //if unauthorized error code, show error message to the user
