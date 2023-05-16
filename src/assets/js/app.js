@@ -7,22 +7,24 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import {SessionManager} from "./framework/utils/sessionManager.js"
-import {LoginController} from "./controllers/loginController.js"
-import {NavbarController} from "./controllers/navbarController.js"
-import {UploadController} from "./controllers/uploadController.js"
-import {WelcomeController} from "./controllers/welcomeController.js"
-import {PostsController} from "./controllers/postsController.js"
-import {signUpController} from "./controllers/signUpController.js"
-import {UpdatePasswordController} from "./controllers/updatePasswordController.js"
-import {BulletinController} from "./controllers/bulletinController.js"
-import {SupportController} from "./controllers/supportController.js";
-import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
-import {AccountSettingsController} from "./controllers/accountSettingsController.js";
-import {VerhalenController} from "./controllers/verhalenController.js";
-import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
-import {TijdlijnController} from "./controllers/tijdlijnController.js";
-import {VerifieerAccountController} from "./controllers/verifieerAccountController.js";
+import { SessionManager } from "./framework/utils/sessionManager.js"
+import { LoginController } from "./controllers/loginController.js"
+import { NavbarController } from "./controllers/navbarController.js"
+import { NavbarLoggedController } from "./controllers/navbarControllerLogged.js"
+import { UploadController } from "./controllers/uploadController.js"
+import { WelcomeController } from "./controllers/welcomeController.js"
+import { PostsController } from "./controllers/postsController.js"
+import { signUpController } from "./controllers/signUpController.js"
+import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
+import { BulletinController } from "./controllers/bulletinController.js"
+import { SupportController } from "./controllers/supportController.js";
+import { PasswordUpdateMailController } from "./controllers/passwordUpdateMailController.js";
+import { AccountSettingsController } from "./controllers/accountSettingsController.js";
+import { VerhalenController } from "./controllers/verhalenController.js";
+import { IngelogdUpdatePasswordController } from "./controllers/ingelogdUpdatePasswordController.js";
+import { TijdlijnController } from "./controllers/tijdlijnController.js";
+import { readController } from "./controllers/readController.js";
+import { myPostsController } from "./controllers/myPostsController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -31,7 +33,7 @@ export class App {
 
     //controller identifiers, add new controllers here
     static CONTROLLER_NAVBAR = "navbar";
-    static CONTROLLER_LOGIN = "login";
+    static CONTROLLER_NAVBAR_LOGGEDIN = "navbar_loggedin";
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_POSTS = "posts";
@@ -46,9 +48,13 @@ export class App {
     static CONTROLLER_VERHALEN = "verhalen";
     static CONTROLLER_TIJDLIJN = "tijdlijn";
     static CONTROLLER_VERIFIEERACCOUNT = "verification";
+    static CONTROLLER_READ = "read";
+    static CONTROLLER_MYPOSTS = "myposts";
+    static CONTROLLER_LOGIN = "login";
 
     constructor() {
         //Always load the navigation
+
         App.loadController(App.CONTROLLER_NAVBAR);
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
@@ -75,6 +81,10 @@ export class App {
                 new NavbarController();
                 return true;
 
+            case App.CONTROLLER_NAVBAR_LOGGEDIN:
+                new NavbarLoggedController();
+                return true;
+
             case App.CONTROLLER_LOGOUT:
                 App.handleLogout();
                 return true;
@@ -99,9 +109,6 @@ export class App {
             case App.CONTROLLER_BULLETIN:
                 App.isLoggedIn(() => new BulletinController(), () => new LoginController());
                 break;
-            case App.CONTROLLER_VERIFIEERACCOUNT:
-                App.isLoggedIn(() => new VerifieerAccountController(), () => new LoginController())
-                break;
             case App.CONTROLLER_POSTS:
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
                 break;
@@ -124,8 +131,16 @@ export class App {
                 App.isLoggedIn(() => new AccountSettingsController(), () => new LoginController());
                 break;
             case App.CONTROLLER_TIJDLIJN:
-                App.isLoggedIn(() => new TijdlijnController(), () => new LoginController())
+                App.isLoggedIn(() => new TijdlijnController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_READ:
+                App.isLoggedIn(() => new readController(), () => new readController());
+                break;
+            case App.CONTROLLER_MYPOSTS:
+                App.isLoggedIn(() => new myPostsController(), () => new myPostsController());
+                break;
+
+
 
             default:
                 return false;
@@ -204,33 +219,18 @@ export class App {
     static isLoggedIn(whenYes, whenNo) {
         if (App.sessionManager.get("email")) {
             whenYes();
-            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
+            const loggedInElements = document.querySelectorAll('#whenLoggedIn');
             for (let i = 0; i < loggedInElements.length; i++) {
                 loggedInElements[i].style.display = 'flex';
             }
-            console.log("Showing elements that should be shown when loggedin.");
-
-            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
-            for (let i = 0; i < loggedOutElements.length; i++) {
-                loggedOutElements[i].style.display = 'none';
-            }
-            console.log("Hiding elements that should be hidden when loggedin.");
-
         } else {
             whenNo();
-            const loggedInElements = document.querySelectorAll('.whenLoggedIn');
-            for (let i = 0; i < loggedInElements.length; i++) {
-                loggedInElements[i].style.display = 'none';
-            }
 
-            console.log("Hidding elements that shouldn't be shown when loggedout.");
-
-            const loggedOutElements = document.querySelectorAll('.whenLoggedOut');
+            const loggedOutElements = document.querySelectorAll('#whenLoggedOut');
             for (let i = 0; i < loggedOutElements.length; i++) {
+                console.log("Im logged out!");
                 loggedOutElements[i].style.display = 'flex';
             }
-            console.log("Showing elements that should be hidden when loggedout.");
-
         }
     }
 
@@ -242,6 +242,7 @@ export class App {
         App.sessionManager.remove("email");
 
         //go to login screen
+        App.loadController(App.CONTROLLER_NAVBAR);
         App.loadController(App.CONTROLLER_LOGIN);
     }
 }

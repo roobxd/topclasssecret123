@@ -1,47 +1,22 @@
+<link rel="stylesheet" href="../assets/css/defaults.css">
 <link rel="stylesheet" href="../assets/css/pages/navbar.css">
 
-<nav class="navbar navbar-expand-lg navbar-dark static-top border-bottom">
-    <div class="container">
-        <i class="fa-regular fa-house-heart" src="../assets/img/logo.png"></i>
-        <!-- <a class="navbar-brand" href="#">De Buurt Poster</a> -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#" data-controller="welcome">Welcome</a>
-                </li>
-                <li>
-                    <a class="nav-link" data-controller="posts" href="#">Posts</a>
-                </li>
-                <!-- <li class="whenLoggedIn">
-                    <a class="nav-link" data-controller="upload" href="#">Upload</a>
-                </li> -->
-                <li class="whenLoggedIn">
-                    <a class="nav-link" data-controller="verhalen" href="#">Verhalen</a>
-                </li>
-                <!--                support page -->
-                <!-- <li class="whenLoggedIn">
-                    <a class="nav-link" id="navSupport" data-controller="support" href="#">Support</a>
-                </li> -->
-
-                <li class="whenLoggedOut">
-                    <a class="nav-link" data-controller="login" href="#">Login</a>
-                </li>
-                <li class="whenLoggedIn">
-                    <a class="nav-link" data-controller="accountSettings" href="#">Account</a>
-                    <img class="profileimage" src="../assets/images/logo.png" alt="" srcset="">
-                </li>
-                <li class="whenLoggedIn">
-                    <a class="nav-link" data-controller="logout" href="#">Logout</a>
-                </li>
-                <li class="whenLoggedOut">
-                    <a class="nav-link" data-controller="signUp" href="#">Signup</a>
-                </li>
-
-            </ul>
-        </div>
+<div class="nav">
+    <div class="home nav-link">
+        <p data-controller="welcome">Home</p>
     </div>
-</nav>
+    <div class="verhalen nav-link">
+        <p data-controller="verhalen">Verhalen</p>
+    </div>
+    <div class="spacer"></div>
+    <div class="brand nav-link">
+        <p>De Buurt Poster</p>
+    </div>
+    <div class="spacer"></div>
+    <div class="aanmelden nav-link">
+        <p data-controller="signUp">Aanmelden</p>
+    </div>
+    <div class="login nav-link">
+        <p data-controller="login">Login</p>
+    </div>
+</div>

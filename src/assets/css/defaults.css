@@ -1,34 +1,59 @@
-/*Fonts and Colors*/
-@import url('https://fonts.cdnfonts.com/css/roboto');
+@import url("https://fonts.cdnfonts.com/css/roboto");
+@import url("https://fonts.cdnfonts.com/css/oswald-4");
 
 :root {
-    --main-font: 'Roboto', sans-serif;
+    --main-font: "Roboto", sans-serif;
+    --brand-font: "Oswald Regular", sans-serif;
+    --white: #ffffff;
+    --off-white: #d3d3d3;
 
-    --white: #FFFFFF;
-
-    --navbar-main: #292E5C;
+    --navbar-main: #292e5c;
     --navbar-brand: #222754;
 
     --pill-main: rgba(30, 30, 30, 95%);
     --pill-secondary: rgba(49, 49, 49, 95%);
-    --pill-main-solid: #1E1E1E;
+    --pill-main-solid: #1e1e1e;
 
-    --bulletinboard-bulletin: #00ffff;
+    --button-primary: #343434;
+    --button-secondary: #4a4a4a;
+    --button-line: #565656;
 
+    --story-gradient: linear-gradient(
+        97.34deg,
+        rgba(30, 30, 30, 0.95) 0%,
+        rgba(78, 65, 100, 0.95) 51.8%,
+        rgba(129, 95, 185, 0.95) 99.93%
+    );
+
+    --instantie-gradient: linear-gradient(
+        96.64deg,
+        rgba(30, 30, 30, 0.9025) 0%,
+        rgba(98, 78, 78, 0.926398) 50.31%,
+        rgba(255, 151, 151, 0.9025) 100%
+    );
+
+    --story-border: #904bff;
+
+    --trending-border: linear-gradient(225deg, #ff3d00 0%, #ff8a00 100);
+
+    --bulletinboard-bulletin: #840000;
 
     /* Icon and Border colors */
 
-    --trending: #ffa500;
+    --trending: #ff8a00;
     --heart: #ff0000;
-    --trash-color: #3A1D09;
+    --trash-color: #3a1d09;
+}
 
+.main-wrapper {
+    margin-top: 100px;
 }
 
 * {
-    transition: 200ms;
+    transition: 100ms;
 }
 
-.background-image{
+.background-image {
     position: absolute;
     background-color: #000000;
     opacity: 25%;
@@ -46,70 +71,11 @@ body {
     margin: 0;
     font-family: var(--main-font);
     font-weight: 600;
+    margin-bottom: 25px;
 }
 
-/*Scrollbar*/
-body::-webkit-scrollbar {
-    width: 0.25rem;
-}
-
-body::-webkit-scrollbar-track {
-    background-color: powderblue;
-}
-
-/* Navbar begint hier */
-.navbar {
-    background-color: var(--navbar-main);
-}
-
-.bd-navbar .navbar-nav .nav-link .loggedout {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-    color: #cbbde2;
-}
-
-.navbar-brand:active,
-.nav-link:hover {
-    background-color: darkseagreen;
-}
-
-.navbar-brand {
-    position: fixed;
-    right: 900px;
-    border: 2px #1A1E3DFF solid;
-    border-radius: 15px;
-}
-
-/*Nav eindigt*/
-
-/* Footer begint hier */
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: var(--navbar-brand);
-}
-
-/*Footer eindigt*/
-
-/*Buttons*/
 button {
-    margin-top: 25px;
-    border: 5px blanchedalmond solid;
-    color: cyan;
-}
-
-/*Buttons eindigt*/
-
-
-.loggedout {
-    display: none;
-}
-
-.loggedin {
-    display: block;
-
+    font-weight: 600;
 }
 
 /*error laten zien*/
