@@ -13,5 +13,6 @@ export class VerificatieRepository {
     async verifier(mail){
 
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
+
     }
 }
