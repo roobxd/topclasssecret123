@@ -63,7 +63,26 @@ class MailRoutes {
                                 "address": mail
                             }
                         ],
-                        "subject": " verificatie",
+                        "subject": "Verificatie",
+                        "html":
+                            "Hallo, " + wachtwoord[0].voornaam +
+
+                            '<a href="http://localhost:3000/#verification">verifieer account</a>'
+                    };
+
+                } else {
+                    emailData = {
+                        "from": {
+                            "name": "Buurtposter",
+                            "address": "buurtposter@hbo-ict.cloud"
+                        },
+                        "to": [
+                            {
+                                "name": "Lennard Fonteijn",
+                                "address": mail
+                            }
+                        ],
+                        "subject": "Welkom",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
@@ -78,7 +97,6 @@ class MailRoutes {
                             "Met vriendelijke groet,\n" +
                             "\n"
                     };
-
                 }
 
                 const data = await fetch("https://api.hbo-ict.cloud/mail", {

@@ -132,9 +132,9 @@ svg {
 .story {
     align-self: center;
     display: grid;
-    grid-template-columns: 17.5vh 30vh 1fr 1fr;
-    height: 10vh;
-    width: 65vh;
+    grid-template-columns: 25% 50% 1fr 1fr;
+    height: 8.5vh;
+    width: 85%;
     margin-left: 8.5vh;
     border-radius: 2vh;
     background: var(--story-gradient);
@@ -191,7 +191,7 @@ p {
     justify-self: center;
     align-self: center;
     margin-left: 0.75vh;
-    height: 8vh;
+    height: 7.5vh;
     width: 12.5vh;
     border-radius: 2vh;
     background-color: var(--button-primary);
@@ -231,7 +231,7 @@ p {
     grid-template-columns: 1fr 1fr 1fr;
 
     margin: auto;
-    margin-top: 50px;
+    margin-top: 0.5vh;
 }
 
 #firstSvg {

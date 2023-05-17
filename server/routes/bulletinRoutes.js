@@ -33,7 +33,7 @@ class BulletinRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values('test', ?, 'Bulletin', ?, 2023, 'geen', CURRENT_TIMESTAMP) ",
+                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values('test', ?, 'Bulletin', ?, CURRENT_TIMESTAMP, 'geen', CURRENT_TIMESTAMP) ",
                     values: [req.body.titel, req.body.verhaal]
                 });
 
