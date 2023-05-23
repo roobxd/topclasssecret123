@@ -246,9 +246,17 @@ input:focus {
     color: var(--white);
 }
 
+.likeordislike .disliked{
+    color: red;
+}
+
 #dislike:hover {
     color: red;
     cursor: pointer;
+}
+
+.likeordislike .liked{
+    color: green;
 }
 
 #like:hover {

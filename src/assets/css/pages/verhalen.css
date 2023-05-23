@@ -132,7 +132,6 @@ svg {
     height: 150px;
     border-radius: 25px;
     margin-bottom: 35px;
-
     justify-self: right;
 }
 
@@ -241,6 +240,7 @@ svg {
     margin: 0;
     padding: 0;
     color: var(--white);
+    background-color: transparent;
 }
 
 .story-titel {
