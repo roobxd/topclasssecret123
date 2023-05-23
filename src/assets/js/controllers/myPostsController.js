@@ -24,6 +24,11 @@ export class myPostsController extends Controller {
     async #getStories(){
         let userid = App.sessionManager.get("id");
         const storyData = await this.#myPostsRepository.getStories(userid);
+
+        // Clear the story container
+        let container = document.querySelector(".story-container");
+        container.innerHTML = "";
+
         storyData.forEach(story => {
             let sid = story.id;
             let stitle = story.onderwerp;
@@ -36,7 +41,7 @@ export class myPostsController extends Controller {
         // Create a new div element with the class "story"
         var storyDiv = document.createElement("div");
         storyDiv.classList.add("story");
-      
+
         // Create an image element
         var img = document.createElement("img");
         img.src = "assets/img/guus.jpg";
@@ -129,6 +134,7 @@ export class myPostsController extends Controller {
         deleteButton.addEventListener("click", () => {
             alert("Deleting story post with the id: " + sid);
             this.#myPostsRepository.delete(sid);
+            App.loadController(App.CONTROLLER_MYPOSTS);
         });
 
         editButton.addEventListener("click", () => {
