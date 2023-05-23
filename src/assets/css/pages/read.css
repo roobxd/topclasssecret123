@@ -191,7 +191,6 @@ input:focus {
 }
 
 .bottom-section {
-    margin-top: 125px;
     display: grid;
     height: 12vh;
     width: 100%;

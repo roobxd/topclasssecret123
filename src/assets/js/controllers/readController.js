@@ -77,7 +77,6 @@ export class readController extends Controller {
 
         try {
             const storyData = await this.#readRepository.readStory(lastNumber);
-            console.log(storyData);
             storyTitle.innerHTML = storyData[0].onderwerp;
             storyContent.innerHTML = storyData[0].bericht;
             storyAuthor.innerHTML = "Auteur: " + storyData[0].gebruiker;

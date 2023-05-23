@@ -56,12 +56,6 @@ export class WelcomeController extends Controller {
                 };
         }
 
-
-
-
-
-
-
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
 
@@ -83,7 +77,6 @@ export class WelcomeController extends Controller {
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
-            let length = data.length - 1;
             let last4stories = data.slice(-4);
             last4stories.reverse().forEach(story => {
                 let stitel = story.onderwerp;
@@ -91,15 +84,8 @@ export class WelcomeController extends Controller {
                 let sid = story.id;
                 this.#createCard(stitel, scontent, sid);
             });
-            // storyTitel.innerHTML = data[length].onderwerp;
-            // storyTekst.innerHTML = data[length].bericht;
-
-            console.log(data);
         } catch (e) {
-            console.log("error while fetching rooms", e);
-
-            //for now just show every error on page, normally not all errors are appropriate for user
-            // exampleResponse.innerHTML = e;
+            console.log("error while fetching posts: ", e);
         }
     }
 

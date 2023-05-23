@@ -28,7 +28,6 @@ export class ReadRepository {
     }
 
     readStory(sid){
-        console.log(sid);
         return this.#networkManager.doRequest(`${this.#readRoute}/${sid}`, "GET")
     }
 }
