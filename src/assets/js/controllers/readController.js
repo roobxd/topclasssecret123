@@ -23,6 +23,7 @@ export class readController extends Controller {
 
         this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event));
         this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event));
+        this.#readView.querySelector(".tts-button").addEventListener("click", (event) => this.#speak());
     }
 
     #likePost(event) {
@@ -85,4 +86,26 @@ export class readController extends Controller {
             console.log("Error while fetching story", error)
         }
     }
+
+    #speak() {
+        console.log("klik op tts");
+        // Check if speech synthesis is supported by the browser
+        if ('speechSynthesis' in window) {
+          const synthesis = window.speechSynthesis;
+          const paragraphs = document.querySelectorAll('.story-content p');
+          let fullText = '';
+      
+          // Concatenate the text content of each paragraph
+          paragraphs.forEach(paragraph => {
+            fullText += paragraph.textContent + ' ';
+          });
+      
+          const utterance = new SpeechSynthesisUtterance(fullText.trim());
+      
+          // Speak the text
+          synthesis.speak(utterance);
+        } else {
+          console.log('Speech synthesis is not supported.');
+        }
+      }
 }
