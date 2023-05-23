@@ -5,10 +5,12 @@
  * @author Pim Meijer
  */
 
+
 class PostsRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
+    // #id = require("../../src/assets/js/app.js");
 
     /**
      * @param app - ExpressJS instance(web application) we get passed automatically via app.js
@@ -29,12 +31,13 @@ class PostsRoutes {
      * @private
      */
     #create() {
+
         this.#app.post("/posts", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values ('test', ?, 'verhaal', ?, ?, ?, CURRENT_TIMESTAMP) ",
-                    values: [req.body.titelinput, req.body.storyinput, req.body.dateinput, req.body.fileinput]
+                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values (?, ?, 'verhaal', ?, ?, ?, CURRENT_TIMESTAMP) ",
+                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storyinput, req.body.dateinput, req.body.fileinput]
                 });
 
                 //just give all data back as json, could also be empty

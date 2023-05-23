@@ -80,6 +80,7 @@ export class App {
 
         //Check for a special controller that shouldn't modify the URL
         switch (name) {
+
             case App.CONTROLLER_NAVBAR:
                 new NavbarController();
                 return true;
@@ -91,6 +92,10 @@ export class App {
             case App.CONTROLLER_LOGOUT:
                 App.handleLogout();
                 return true;
+        }
+
+        if (window.location.href.includes("tijdlijn")) {
+            new TijdlijnController();
         }
 
         //Otherwise, load any of the other controllers
@@ -134,6 +139,7 @@ export class App {
                 App.isLoggedIn(() => new AccountSettingsController(), () => new LoginController());
                 break;
             case App.CONTROLLER_TIJDLIJN:
+                App.setCurrentController(name)
                 App.isLoggedIn(() => new TijdlijnController(), () => new LoginController());
                 break;
             case App.CONTROLLER_READ:
@@ -161,7 +167,9 @@ export class App {
 
         if (currentController) {
             if (!App.loadController(currentController.name, currentController.data)) {
-                App.loadController(fallbackController);
+                // App.loadController(fallbackController);
+                if (window.location.hash.includes("tijdlijn"));
+                return;
             }
         } else {
             App.loadController(fallbackController);

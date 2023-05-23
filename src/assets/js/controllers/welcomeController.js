@@ -29,20 +29,45 @@ export class WelcomeController extends Controller {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
 
+
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         this.#welcomeView.querySelector(".toonmeer").addEventListener("click", event => App.loadController(App.CONTROLLER_BULLETIN));
 
-        // Show the time-line page when it is clicked in welcome page.
-        this.#welcomeView.querySelector(".timeline").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
+        // values of the dates
+        let beginDate = this.#welcomeView.querySelector("#beginDatum");
+        let endDate = this.#welcomeView.querySelector("#eindDatum");
 
-        // this.#welcomeView.querySelector(".timeline").onclick = function () {
-        //     window.location.href = "html_views/tijdlijn.html";
-        // };
+
+
+        if (!beginDate || !endDate) {
+            console.log('Input type date is empty');
+            this.#welcomeView.querySelector(".timelineContext").innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
+        } else {
+            console.log('Input type date is NOT empty');
+            this.#welcomeView.querySelector(".timelineContext").innerHTML = "Top, begin en eind datum zijn gekozen!";
+            // setTimeout(this.#welcomeView.querySelector(".timelineContext").innerHTML = "eyyyyyyyyy", 30000)
+        this.#welcomeView.querySelector(".bekijken").onclick = function () {
+                    window.location.href = `#tijdlijn/${beginDate.value}/${endDate.value}`;
+                    console.log(beginDate.value)
+                    console.log(endDate.value);
+
+                };
+        }
+
+
+
+
+
+
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
+
+        // Show the time-line page when it is clicked in welcome page.
+        // this.#welcomeView.querySelector(".bekijken").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
+
     }
 
     /**

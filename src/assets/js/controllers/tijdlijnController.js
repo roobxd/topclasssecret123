@@ -3,16 +3,21 @@
  */
 import {Controller} from "./controller.js";
 import {TijdlijnRepository} from "../repositories/tijdlijnRepository.js";
+import {AccountSettingsRepository} from "../repositories/accountSettingsRepository.js";
+import {App} from "../app.js";
 
 export class TijdlijnController extends Controller {
     #tijdlijnView;
     #tijdlijnRepository;
+    #accountSettingsRepository;
+    #app
 
     constructor() {
         super();
         this.#tijdlijnRepository = new TijdlijnRepository();
+        this.#accountSettingsRepository =  new AccountSettingsRepository();
+        this.#app = App;
         this.#initializeView();
-
     }
 
     async #initializeView() {
@@ -24,21 +29,37 @@ export class TijdlijnController extends Controller {
         console.log(this.#tijdlijnView);
 
 
-
     }
 
 
     async #getStories() {
+
+        let session = App.sessionManager.get("id");
+
+        // event.preventDefault();
         console.log(" Het is loaded!");
         console.log("Hallo");
-        // data
-        const data = await this.#tijdlijnRepository.getStory();
-        console.log(data.result);
 
-        // animation time length for timeline
-        // this.#tijdlijnView.querySelector(".timeline").style.animation = "moveline" +  data.result.length + "s linear forwards;"
+
+        // data
+
+        // if(!(beginDate.length ===0 && enddate.length === 0)){
+        console.log(window.location.hash.replace("#tijdlijn/", ""))
+        let dates = window.location.hash.replace("#tijdlijn/", "").split("/");
+        console.log(dates);
+
+        const data = await this.#tijdlijnRepository.getStory(dates[0], dates[1]);
+
+
+
+
+
+
 
         for (let i = 0; i < data.result.length; i++) {
+            console.log("Is gebruiker persoon of instantie: ")
+            console.log(data.result[i].persoon);
+
             /*
             Some important calculations for likes and trend would be first calculated
              */
@@ -71,7 +92,6 @@ export class TijdlijnController extends Controller {
             const difference_in_day = Math.floor(difference_in_time / millisecondsInDay);
 
 
-
             console.log("Days: " + difference_in_day)
             // Content container includes profiel img, date and story. Container is appended in .timeline
             const container = document.createElement("div");
@@ -87,7 +107,13 @@ export class TijdlijnController extends Controller {
             const story = document.createElement("div");
             story.className = "story";
             story.classList.add("one");
-            story.classList.add("persoonstory");
+            // story.classList.add("persoonstory");
+            if (data.result[i].persoon === 0 ){
+                story.classList.add("instantieStory");
+
+            } else {
+                story.classList.add("persoonstory");
+            }
             // story is child of container
             container.appendChild(story);
 
@@ -146,29 +172,30 @@ export class TijdlijnController extends Controller {
             // the type of the icon would be determined depending on the number of likes of the story
             if (difference_in_day <= 7) {
                 console.log("Het is niet een week geweest")
-                if (difference >= 0 && difference <= tienProcent ) {
-                    console.log("difference: "+ difference + ", 10%: "+ tienProcent  )
+                if (difference >= 0 && difference <= tienProcent) {
+                    console.log("difference: " + difference + ", 10%: " + tienProcent)
                     // i for the icons
                     const heartIcon = document.createElement("i");
                     heartIcon.className = "bi bi-heart-fill heart";
                     iconType.appendChild(heartIcon);
 
-                } else if (difference > tienProcent && difference <= twentigProcent ) {
-                    console.log("difference: "+ difference + ", 20%: "+ twentigProcent  )
+                } else if (difference > tienProcent && difference <= twentigProcent) {
+                    console.log("difference: " + difference + ", 20%: " + twentigProcent)
 
                     const graphIcon = document.createElement("i");
                     graphIcon.className = "bi bi-graph-up-arrow";
                     iconType.appendChild(graphIcon);
 
-                } else if ( difference >= vijftigProcent ) {
-                    console.log("difference: "+ difference + ", 50%: "+ vijftigProcent  )
+                } else if (difference >= vijftigProcent) {
+                    console.log("difference: " + difference + ", 50%: " + vijftigProcent)
 
                     const fireIcon = document.createElement("i");
                     fireIcon.className = "bi bi-fire trending";
                     iconType.appendChild(fireIcon);
 
-                } else if (difference < 0 ) {
-                    console.log("difference: "+ difference + ", -10%: min "+ tienProcent)
+                } else if (difference < 0) {
+                    console.log("difference: " + difference + ", -10%: min " + tienProcent)
+                    story.classList.replace("persoonstory", "unlikedStory");
                     const canIcon = document.createElement("i");
                     canIcon.className = "bi bi-trash3-fill trash";
                     iconType.appendChild(canIcon);
@@ -180,24 +207,25 @@ export class TijdlijnController extends Controller {
             } else {
                 console.log(" meer dan een week ")
 
-                if (difference <= tienProcent) {
+                if (difference >= 0 && difference <= tienProcent) {
                     // i for the icons
                     const heartIcon = document.createElement("i");
                     heartIcon.className = "bi bi-heart-fill heart";
                     iconType.appendChild(heartIcon);
 
-                } else if (difference <= twentigProcent ) {
+                } else if (difference > tienProcent && difference <= twentigProcent) {
 
                     const graphIcon = document.createElement("i");
                     graphIcon.className = "bi bi-graph-up-arrow";
-                    graphIcon.appendChild(heartIcon);
+                    iconType.appendChild(graphIcon);
 
-                } else if ( difference <= vijftigProcent ) {
+                } else if (difference >= vijftigProcent) {
                     const fireIcon = document.createElement("i");
                     fireIcon.className = "bi bi-fire trending";
                     iconType.appendChild(fireIcon);
 
-                } else if (difference < 0 ) {
+                } else if (difference < 0) {
+                    story.classList.replace("persoonstory", "unlikedStory");
                     const canIcon = document.createElement("i");
                     canIcon.className = "bi bi-trash3-fill trash";
                     iconType.appendChild(canIcon);
@@ -252,16 +280,38 @@ export class TijdlijnController extends Controller {
             differentialLikes.appendChild(arrow);
         }
 
+        // animation time length for timeline+ "s linear forwards;"
+        // get the div .container
+        // const timelineAfter = document.querySelector('.timeline::after');
+        // timelineAfter.style.animation = "movedown " + data.result.length+ "s linear forwards";
+//
+//         // Create a new style rule
+//         const style = document.createElement('style');
+//         style.type = 'text/css';
+//
+//
+//
+// // Append the keyframes to the style rule
+//         style.appendChild(document.createTextNode(keyframes));
+//
+// // Append the style rule to the document's style sheet
+//         document.head.appendChild(style);
+
+
+
+// Add the animation to the ".timeline::after" pseudo-element
+//         const timelineAfter = document.querySelector('.timeline');
+        // const after = window.getComputedStyle(timelineAfter, ':after');
+        let length = data.result.length ;
+        document.styleSheets[0].addRule('div.timeline:after', `animation: moveline ${length}s linear forwards`)
+        // timelineAfter.style.animation = `moveline ${data.result.length}s linear forwards`;
+
+        // after.setProperty("animation", "moveline 6s linear forwards")
+
+
 
     }
 
-    #trending(length) {
-        //    Change the icons whenever the likes or trend is changing.
-        let iconDiv = document.querySelector()
-        for (let i = 0; i < lenght; i++) {
 
-
-        }
-    }
 
 }
