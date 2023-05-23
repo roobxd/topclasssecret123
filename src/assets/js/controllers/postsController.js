@@ -13,10 +13,12 @@ export class PostsController extends Controller {
     #postsRepository;
     #welcomeView;
     #PostsRepository;
+    #session;
 
     constructor() {
         super();
         this.#postsRepository = new PostsRepository();
+        this.#session = App.sessionManager.get("id");
         this.#setupView();
     }
 
@@ -30,7 +32,7 @@ export class PostsController extends Controller {
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         //from here we can safely get elements from the view via the right getter
-        //this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
+        // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
@@ -58,11 +60,13 @@ export class PostsController extends Controller {
         const storyinput = this.#welcomeView.querySelector(".storyinput");
         const fileinput = this.#welcomeView.querySelector("#fileinput");
 
+
         const content = storyinput.innerHTML;
-        //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
+        // console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
+        console.log(this.#session);
 
         try {
-            await this.#postsRepository.create(titelinput.value, dateinput.value, content, fileinput.value );
+            await this.#postsRepository.create(this.#session, titelinput.value, dateinput.value, content, fileinput.value );
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);

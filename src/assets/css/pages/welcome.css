@@ -278,15 +278,18 @@ span.name {
     width: 100%;
 }
 
-.timeline {
-    width: 450px;
+.timelineWelcome {
+    /*width: 450px;*/
+    width: fit-content;
     height: 175px;
+
     background-color: var(--pill-secondary);
     border-radius: 25px;
     margin-top: 200px;
 }
 
 .timelineheader {
+    color: white;
     background-color: var(--pill-main-solid);
     border-radius: 25px;
     width: 450px;
@@ -310,6 +313,20 @@ span.name {
     color: var(--white);
 }
 
+.calanderLeft{
+    position: relative;
+    left: 15px;
+    top: -20px;
+
+}
+
+.calanderRight{
+    position: relative;
+    right: -121px;
+    top: -20px;
+
+}
+
 .timestripe {
     display: flex;
     justify-content: center;
@@ -323,4 +340,15 @@ span.name {
     height: 10px;
     background-color: var(--white);
     margin-bottom: 25px;
+}
+
+.calanderRight{
+    position: relative;
+    left: 80px;
+}
+
+.bekijken{
+    position: relative;
+    top: -14px;
+    left: 206px;
 }

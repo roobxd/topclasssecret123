@@ -14,8 +14,12 @@ export class TijdlijnRepository {
 
     }
 
-     getStory() {
-        return this.#networkManager.doRequest( this.#route, "GET");
+     getStory(beginDatum, eindDatum) {
+        return this.#networkManager.doRequest( `${this.#route}/${beginDatum}/${eindDatum}`, "GET");
+    }
+
+    getUser(){
+        return this.#networkManager.doRequest(`${this.#route}/user`, "GET")
     }
 
 }
