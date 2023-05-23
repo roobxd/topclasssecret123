@@ -167,7 +167,7 @@ export class WelcomeController extends Controller {
         story.appendChild(icons);
         story.appendChild(iconsadd);
 
-        const targetElement = document.querySelector(".story-container");
+        const targetElement = document.querySelector(".story-container-welcome");
         story.addEventListener("click", ()=>{
             window.location = "http://localhost:3000/#read/" + sid
         })

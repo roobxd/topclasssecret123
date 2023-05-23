@@ -40,7 +40,8 @@ class ReadRoutes {
         this.#app.post("/read/like", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "UPDATE posts SET aantalLikes = aantalLikes + 1 WHERE id = 47 "
+                    query: "UPDATE posts SET aantalLikes = aantalLikes + 1 WHERE id = ? ",
+                    values: [req.body.sid]
                 });
 
                 if(data.affectedRows){
@@ -56,7 +57,8 @@ class ReadRoutes {
         this.#app.post("/read/dislike", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "UPDATE posts SET aantalDislikes = aantalDislikes - 1 WHERE id = 47 "
+                    query: "UPDATE posts SET aantalDislikes = aantalDislikes + 1 WHERE id = ?",
+                    values: [req.body.sid]
                 });
 
                 if(data.affectedRows){

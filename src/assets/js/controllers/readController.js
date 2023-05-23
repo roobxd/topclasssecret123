@@ -21,12 +21,12 @@ export class readController extends Controller {
         const lastNumber = url.substring(url.lastIndexOf("/") + 1);
         this.#readStory(lastNumber);
 
-        this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event));
-        this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event));
+        this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event, lastNumber));
+        this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event, lastNumber));
         this.#readView.querySelector(".tts-button").addEventListener("click", (event) => this.#speak());
     }
 
-    #likePost(event) {
+    #likePost(event, lastNumber) {
         if (this.dislikedStatus === 1) {
             this.dislikedStatus = 0;
             console.log("Je hebt de like button gedrukt!");
@@ -35,7 +35,7 @@ export class readController extends Controller {
             event.target.classList.add("liked");
             document.querySelector("#dislike").classList.remove("disliked");
 
-            this.#readRepository.updateLikes();
+            this.#readRepository.updateLikes(lastNumber);
         } else if (this.dislikedStatus !== 1 && this.likedStatus === 0) {
             console.log("Je hebt de like button gedrukt!");
             this.likedStatus = 1;
@@ -43,13 +43,13 @@ export class readController extends Controller {
             event.target.classList.add("liked");
             document.querySelector("#dislike").classList.remove("disliked");
 
-            this.#readRepository.updateLikes();
+            this.#readRepository.updateLikes(lastNumber);
         } else {
             console.log("U heeft al geliked!");
         }
     }
 
-    #dislikePost(event) {
+    #dislikePost(event, lastNumber) {
         if (this.likedStatus === 1) {
             this.likedStatus = 0;
             console.log("Je hebt de dislike button gedrukt!");
@@ -57,14 +57,14 @@ export class readController extends Controller {
 
             event.target.classList.add("disliked");
             document.querySelector("#like").classList.remove("liked");
-            this.#readRepository.updateDislikes();
+            this.#readRepository.updateDislikes(lastNumber);
         } else if (this.likedStatus !== 1 && this.dislikedStatus === 0) {
             console.log("Je hebt de dislike button gedrukt!");
             this.dislikedStatus = 1;
 
             event.target.classList.add("disliked");
             document.querySelector("#like").classList.remove("liked");
-            this.#readRepository.updateDislikes();
+            this.#readRepository.updateDislikes(lastNumber);
         } else {
             console.log("U heeft al gedisliked!");
         }

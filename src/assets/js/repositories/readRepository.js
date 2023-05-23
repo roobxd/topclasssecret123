@@ -19,12 +19,12 @@ export class ReadRepository {
         this.#networkManager = new NetworkManager();
     }
 
-    updateLikes(){
-        this.#networkManager.doRequest(this.#likeRoute, "POST", {})
+    updateLikes(sid){
+        this.#networkManager.doRequest(this.#likeRoute, "POST", {sid: sid})
     }
 
-    updateDislikes(){
-        this.#networkManager.doRequest(this.#dislikeRoute, "POST", {})
+    updateDislikes(sid){
+        this.#networkManager.doRequest(this.#dislikeRoute, "POST", {sid: sid})
     }
 
     readStory(sid){

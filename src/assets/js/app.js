@@ -98,6 +98,11 @@ export class App {
             new readController();
         }
 
+        
+        if(window.location.href.includes("myposts")){
+            new myPostsController();
+        }
+
         if (window.location.href.includes("tijdlijn")) {
             new TijdlijnController();
         }
@@ -173,7 +178,8 @@ export class App {
             if (!App.loadController(currentController.name, currentController.data)) {
                 // App.loadController(fallbackController);
                 if (window.location.hash.includes("tijdlijn") ||
-                    window.location.hash.includes("read")
+                    window.location.hash.includes("read") ||
+                    window.location.hash.includes("myposts")
                 )
                 return;
                 window.location.href = "#welcome";
