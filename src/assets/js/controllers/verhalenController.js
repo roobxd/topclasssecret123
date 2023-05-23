@@ -19,7 +19,6 @@ export class VerhalenController extends Controller {
     async #setupView() {
         this.#verhalenView = await super.loadHtmlIntoContent("html_views/verhalen.html");
         await this.#fetchPosts();
-        this.#verhalenView.querySelector(".story").addEventListener("click", event => App.loadController(App.CONTROLLER_READ));
 
 
         console.log(this.#verhalenView);
@@ -38,14 +37,15 @@ export class VerhalenController extends Controller {
             data.reverse().forEach(story => {
                 let stitel = story.onderwerp;
                 let scontent = story.bericht;
-                this.#createCard(stitel, scontent);
+                let sid = story.id;
+                this.#createCard(stitel, scontent, sid);
             });
         } catch (e) {
             console.log("Error while fetching stories: ", e);
         }
     }
 
-    async #createCard(stitel, scontent){
+    async #createCard(stitel, scontent, sid){
         const story = document.createElement('div');
         story.className = 'story one persoonstory';
 
@@ -123,6 +123,9 @@ export class VerhalenController extends Controller {
         story.appendChild(iconsadd);
 
         const targetElement = document.querySelector(".story-container");
+        story.addEventListener("click", ()=>{
+            window.location = "http://localhost:3000/#read/" + sid
+        })
         targetElement.appendChild(story);
     }
 }

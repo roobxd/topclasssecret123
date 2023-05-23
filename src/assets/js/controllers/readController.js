@@ -16,7 +16,10 @@ export class readController extends Controller {
 
     async #setupView() {
         this.#readView = await super.loadHtmlIntoContent("html_views/read.html");
-        this.#readStory();
+        
+        const url = window.location.href;
+        const lastNumber = url.substring(url.lastIndexOf("/") + 1);
+        this.#readStory(lastNumber);
 
         this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event));
         this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event));
@@ -66,14 +69,14 @@ export class readController extends Controller {
         }
     }
 
-    async #readStory() {
+    async #readStory(lastNumber) {
         const storyTitle = this.#readView.querySelector(".story-title");
         const storyContent = this.#readView.querySelector(".story-content p");
         const storyAuthor = this.#readView.querySelector(".author p");
         const storyFlow = this.#readView.querySelector(".post-status p");
 
         try {
-            const storyData = await this.#readRepository.readStory();
+            const storyData = await this.#readRepository.readStory(lastNumber);
             console.log(storyData);
             storyTitle.innerHTML = storyData[0].onderwerp;
             storyContent.innerHTML = storyData[0].bericht;

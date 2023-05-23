@@ -20,20 +20,21 @@ class ReadRoutes {
     }
 
     #readStory(){
-        this.#app.get("/read", async (req, res) => {
+        this.#app.get("/read/:sid", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT * FROM posts WHERE id = 49"
+                    query: "SELECT * FROM posts WHERE id = ?",
+                    values: [req.params.sid]
                 });
-
                 //just give all data back as json, could also be empty
                 res.status(this.#httpErrorCodes.HTTP_OK_CODE).json(data);
-
-            } catch (error) {
-                res.status(this.#httpErrorCodes.BAD_REQUEST_CODE).json({reason: e})
+    
+            } catch (e) { // Fix the catch parameter name here
+                res.status(this.#httpErrorCodes.BAD_REQUEST_CODE).json({reason: e});
             }
         });
     }
+    
     
     #updateLikes(){
         this.#app.post("/read/like", async (req, res) => {

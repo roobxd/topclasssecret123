@@ -94,6 +94,10 @@ export class App {
                 return true;
         }
 
+        if(window.location.href.includes("read")){
+            new readController();
+        }
+
         if (window.location.href.includes("tijdlijn")) {
             new TijdlijnController();
         }
@@ -168,8 +172,11 @@ export class App {
         if (currentController) {
             if (!App.loadController(currentController.name, currentController.data)) {
                 // App.loadController(fallbackController);
-                if (window.location.hash.includes("tijdlijn"));
+                if (window.location.hash.includes("tijdlijn") ||
+                    window.location.hash.includes("read")
+                )
                 return;
+                window.location.href = "#welcome";
             }
         } else {
             App.loadController(fallbackController);

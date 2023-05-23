@@ -88,7 +88,8 @@ export class WelcomeController extends Controller {
             last4stories.reverse().forEach(story => {
                 let stitel = story.onderwerp;
                 let scontent = story.bericht;
-                this.#createCard(stitel, scontent);
+                let sid = story.id;
+                this.#createCard(stitel, scontent, sid);
             });
             // storyTitel.innerHTML = data[length].onderwerp;
             // storyTekst.innerHTML = data[length].bericht;
@@ -103,7 +104,7 @@ export class WelcomeController extends Controller {
     }
 
 
-    async #createCard(stitel, scontent){
+    async #createCard(stitel, scontent, sid){
         const story = document.createElement('div');
         story.className = 'story one persoonstory';
 
@@ -181,6 +182,9 @@ export class WelcomeController extends Controller {
         story.appendChild(iconsadd);
 
         const targetElement = document.querySelector(".story-container");
+        story.addEventListener("click", ()=>{
+            window.location = "http://localhost:3000/#read/" + sid
+        })
         targetElement.appendChild(story);
     }
 }

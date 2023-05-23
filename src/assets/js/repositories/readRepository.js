@@ -27,7 +27,8 @@ export class ReadRepository {
         this.#networkManager.doRequest(this.#dislikeRoute, "POST", {})
     }
 
-    async readStory(){
-        return await this.#networkManager.doRequest(this.#readRoute, "GET", {})
+    readStory(sid){
+        console.log(sid);
+        return this.#networkManager.doRequest(`${this.#readRoute}/${sid}`, "GET")
     }
 }
