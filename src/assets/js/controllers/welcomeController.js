@@ -38,22 +38,24 @@ export class WelcomeController extends Controller {
         // values of the dates
         let beginDate = this.#welcomeView.querySelector("#beginDatum");
         let endDate = this.#welcomeView.querySelector("#eindDatum");
+        let timelineContext = this.#welcomeView.querySelector(".timelineContext");
 
-
-
-        if (!beginDate || !endDate) {
-            console.log('Input type date is empty');
-            this.#welcomeView.querySelector(".timelineContext").innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
-        } else {
-            console.log('Input type date is NOT empty');
-            this.#welcomeView.querySelector(".timelineContext").innerHTML = "Top, begin en eind datum zijn gekozen!";
-            // setTimeout(this.#welcomeView.querySelector(".timelineContext").innerHTML = "eyyyyyyyyy", 30000)
         this.#welcomeView.querySelector(".bekijken").onclick = function () {
-                    window.location.href = `#tijdlijn/${beginDate.value}/${endDate.value}`;
-                    console.log(beginDate.value)
-                    console.log(endDate.value);
 
-                };
+
+            if (!beginDate.value || !endDate.value) {
+                console.log('Input type date is empty');
+               timelineContext.innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
+            } else {
+                console.log('Input type date is NOT empty');
+                timelineContext.innerHTML = "Top, begin en eind datum zijn gekozen!";
+                window.location.href = `#tijdlijn/${beginDate.value}/${endDate.value}`;
+                console.log(beginDate.value)
+                console.log(endDate.value);
+
+
+            }
+
         }
 
         //for demonstration a hardcoded room id that exists in the database of the back-end

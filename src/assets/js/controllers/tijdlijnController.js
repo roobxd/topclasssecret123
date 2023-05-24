@@ -200,9 +200,9 @@ export class TijdlijnController extends Controller {
                     canIcon.className = "bi bi-trash3-fill trash";
                     iconType.appendChild(canIcon);
                 } else {
-                    // const heartIcon = document.createElement("i");
-                    // heartIcon.className = "bi bi-heart-fill heart";
-                    // iconType.appendChild(heartIcon);
+                    const heartIcon = document.createElement("i");
+                    heartIcon.className = "bi bi-heart-fill heart";
+                    iconType.appendChild(heartIcon);
                 }
             } else {
                 console.log(" meer dan een week ")

@@ -256,6 +256,9 @@ The profile images should have small size and aligned
     left: 50%;
     margin-left: -3px;
     z-index: -1;
+
+    background: linear-gradient(180deg, #FFFFFF 0%, #7CFBBE 17.77%, #21CED9 39.64%, #0B12C7 61.52%, #810666 81.83%, #00445E 100%);
+
     /*animation: moveline 6s linear forwards;*/
 }
 /* More for the animation */
