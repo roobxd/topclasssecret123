@@ -349,6 +349,24 @@ span.name {
 
 .bekijken{
     position: relative;
-    top: -14px;
-    left: 206px;
+    top: 18px;
+    left: -143px;
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+    border-radius: 15px;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+.bekijken:hover {
+    background-color: #008CBA;
+    color: white;
 }
