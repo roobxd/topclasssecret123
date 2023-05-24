@@ -138,7 +138,7 @@ export class myPostsController extends Controller {
         });
 
         editButton.addEventListener("click", () => {
-            alert("Editing story post with the id: " + sid);
+            window.location.href = "/#edit/" + sid;
         });
       }
 }

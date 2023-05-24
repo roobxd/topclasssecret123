@@ -14,6 +14,7 @@ import { NavbarLoggedController } from "./controllers/navbarControllerLogged.js"
 import { UploadController } from "./controllers/uploadController.js"
 import { WelcomeController } from "./controllers/welcomeController.js"
 import { PostsController } from "./controllers/postsController.js"
+import { EditController } from "./controllers/editController.js"
 import { signUpController } from "./controllers/signUpController.js"
 import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
 import { BulletinController } from "./controllers/bulletinController.js"
@@ -37,6 +38,7 @@ export class App {
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_POSTS = "posts";
+    static CONTROLLER_EDIT = "edit";
     static CONTROLLER_BULLETIN = "bulletin";
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SIGNUP = "signUp";
@@ -103,6 +105,10 @@ export class App {
             new myPostsController();
         }
 
+        if(window.location.href.includes("edit")){
+            new EditController();
+        }
+
         if (window.location.href.includes("tijdlijn")) {
             new TijdlijnController();
         }
@@ -128,6 +134,9 @@ export class App {
                 break;
             case App.CONTROLLER_POSTS:
                 App.isLoggedIn(() => new PostsController(), () => new LoginController());
+                break;
+            case App.CONTROLLER_EDIT:
+                App.isLoggedIn(() => new EditController(), () => new LoginController());
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
@@ -179,7 +188,8 @@ export class App {
                 // App.loadController(fallbackController);
                 if (window.location.hash.includes("tijdlijn") ||
                     window.location.hash.includes("read") ||
-                    window.location.hash.includes("myposts")
+                    window.location.hash.includes("myposts") ||
+                    window.location.hash.includes("edit")
                 )
                 return;
                 window.location.href = "#welcome";

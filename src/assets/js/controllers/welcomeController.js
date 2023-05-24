@@ -80,7 +80,6 @@ export class WelcomeController extends Controller {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
             let last4stories = data.slice(-4);
-            console.log(data);
             last4stories.reverse().forEach(story => {
                 let stitel = story.onderwerp;
                 let scontent = story.bericht;
@@ -171,7 +170,6 @@ export class WelcomeController extends Controller {
         story.appendChild(iconsadd);
 
         const targetElement = document.querySelector(".story-container-welcome");
-        console.log(sid);
         story.addEventListener("click", ()=>{
             window.location = "http://localhost:3000/#read/" + sid
         })
