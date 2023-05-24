@@ -18,7 +18,7 @@ export class PostsRepository {
     }
 
     async getAll() {
-        return this.#networkManager.doRequest(`${this.#route}/stories`, "GET");
+        return this.#networkManager.doRequest(`/welcome`, "GET");
     }
 
     /**
