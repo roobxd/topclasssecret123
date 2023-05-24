@@ -342,9 +342,6 @@ The profile images should have small size and aligned
     .right-container{
         left: 0;
     }
-    /*.left-container{*/
-    /*    left: 50%;*/
-    /*}*/
 
     .left-container img, .right-container img{
         left: 10px;

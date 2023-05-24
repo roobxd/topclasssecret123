@@ -56,10 +56,10 @@ class PostsRoutes {
      * @private
      */
     #getAll() {
-        this.#app.get("/welcome", async (req, res) => {
+        this.#app.get("/posts/stories", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT * FROM posts ORDER BY ID DESC LIMIT 1"
+                    query: "SELECT posts.id, posts.gebruiker, posts.onderwerp, posts.soortBericht, posts.bericht, posts.jaartalGebeurtenis, posts.plaatje, posts.publicatieDatum, posts.aantalLikes, posts.aantalDislikes, users.id, users.persoon FROM pad_flo_7_dev.posts LEFT JOIN users ON posts.gebruiker = users.id ORDER BY posts.id DESC"
                 });
 
                 //just give all data back as json, could also be empty

@@ -50,12 +50,6 @@ export class TijdlijnController extends Controller {
 
         const data = await this.#tijdlijnRepository.getStory(dates[0], dates[1]);
 
-
-
-
-
-
-
         for (let i = 0; i < data.result.length; i++) {
             console.log("Is gebruiker persoon of instantie: ")
             console.log(data.result[i].persoon);
@@ -68,6 +62,7 @@ export class TijdlijnController extends Controller {
             const likes = data.result[i].aantalLikes
             const dislikes = data.result[i].aantalDislikes
             const difference = likes - dislikes;
+
             const tienProcent = 10 / 100 * (likes + dislikes);
             console.log("10%: " + tienProcent);
             const vijtienProcent = 15 / 100 * (likes + dislikes);
@@ -76,17 +71,14 @@ export class TijdlijnController extends Controller {
             console.log("20%: " + twentigProcent)
             const vijftigProcent = 50 / 100 * (likes + dislikes);
             console.log("50%: " + vijftigProcent)
-            const honderdProcent = 100 / 100 * (likes + dislikes);
-            console.log("100%: " + honderdProcent);
+
 
 
             // the difference between the day of post and of today, in order to determine trending post
-
             const postDay = data.result[i].jaartalGebeurtenis;
             const today = new Date();
             const postDateObj = new Date(postDay);
             const millisecondsInDay = 1000 * 60 * 60 * 24;
-
 
             const difference_in_time = today.getTime() - postDateObj.getTime();
             const difference_in_day = Math.floor(difference_in_time / millisecondsInDay);
@@ -280,33 +272,10 @@ export class TijdlijnController extends Controller {
             differentialLikes.appendChild(arrow);
         }
 
-        // animation time length for timeline+ "s linear forwards;"
-        // get the div .container
-        // const timelineAfter = document.querySelector('.timeline::after');
-        // timelineAfter.style.animation = "movedown " + data.result.length+ "s linear forwards";
-//
-//         // Create a new style rule
-//         const style = document.createElement('style');
-//         style.type = 'text/css';
-//
-//
-//
-// // Append the keyframes to the style rule
-//         style.appendChild(document.createTextNode(keyframes));
-//
-// // Append the style rule to the document's style sheet
-//         document.head.appendChild(style);
 
-
-
-// Add the animation to the ".timeline::after" pseudo-element
-//         const timelineAfter = document.querySelector('.timeline');
-        // const after = window.getComputedStyle(timelineAfter, ':after');
         let length = data.result.length ;
         document.styleSheets[0].addRule('div.timeline:after', `animation: moveline ${length}s linear forwards`)
-        // timelineAfter.style.animation = `moveline ${data.result.length}s linear forwards`;
 
-        // after.setProperty("animation", "moveline 6s linear forwards")
 
 
 
