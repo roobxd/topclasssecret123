@@ -36,8 +36,8 @@ class EditRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "UPDATE posts SET gebruiker = ?, onderwerp = ?, soortBericht = 'verhaal', bericht = ?, jaartalGebeurtenis = ?, plaatje = ?, publicatieDatum = CURRENT_TIMESTAMP WHERE id = ?",
-                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storyinput, req.body.dateinput, req.body.fileinput, req.body.postid]
+                    query: "UPDATE posts SET gebruiker = ?, onderwerp = ?, soortBericht = 'verhaal', bericht = ?, jaartalGebeurtenis = ?, plaatje = ?, publicatieDatum = CURRENT_TIMESTAMP, commentsenabled = ? WHERE id = ?",
+                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storyinput, req.body.dateinput, req.body.fileinput, req.body.yesorno, req.body.postid]
                 });
                 //just give all data back as json, could also be empty
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);

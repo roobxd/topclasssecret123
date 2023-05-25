@@ -45,6 +45,9 @@ export class EditController extends Controller {
         this.#editView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
         this.#editView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
+        this.#editView.querySelector("#no").addEventListener("click", () => this.#toggleCommentsNo());
+        this.#editView.querySelector("#yes").addEventListener("click", () => this.#toggleCommentsYes());
+
         this.#editView.querySelector(".storyinput").addEventListener('input', () => {
             // Get the HTML content of the editor
             //const content = editor.innerHTML;
@@ -54,6 +57,22 @@ export class EditController extends Controller {
         });
 
         this.#editView.querySelector(".postbutton").addEventListener("click", (event) => this.#updatePost(event, lastNumber));
+    }
+
+    #toggleCommentsNo(){
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.add("commentno");
+
+        let yesbutton = document.querySelector("#yes");
+        yesbutton.classList.remove("commentyes");
+    }
+
+    #toggleCommentsYes(){
+        let yesbutton = document.querySelector("#yes");
+        yesbutton.classList.add("commentyes");
+
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.remove("commentno");
     }
 
 
@@ -68,11 +87,20 @@ export class EditController extends Controller {
         // console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
         console.log(this.#session);
 
-        try {
-            await this.#editRepository.update(this.#session, titelinput.value, dateinput.value, content, fileinput.value, lastNumber );
-            alert("Uw verhaal is geplaatst!");
-        } catch (error) {
-            console.log(error);
+        if(document.querySelector(".commentyes")){
+            try {
+                await this.#editRepository.update(this.#session, titelinput.value, dateinput.value, content, fileinput.value, lastNumber, 1 );
+                alert("Uw verhaal is geplaatst!");
+            } catch (error) {
+                console.log(error);
+            }
+        } else{
+            try {
+                await this.#editRepository.update(this.#session, titelinput.value, dateinput.value, content, fileinput.value ,lastNumber, 0 );
+                alert("Uw verhaal is geplaatst!");
+            } catch (error) {
+                console.log(error);
+            }
         }
 
     }
@@ -111,6 +139,14 @@ export class EditController extends Controller {
             storyinput.innerHTML = data[0].bericht;
 
             dateinput.value = formattedDate;
+
+            if(data[0].commentsenabled == 1){
+                let nobutton = document.querySelector("#yes");
+                nobutton.classList.add("commentyes");
+            } else{
+                let nobutton = document.querySelector("#no");
+                nobutton.classList.add("commentno");
+            }
 
 
             // storyPlaatje.innerHTML = data[length].sampleFile;
