@@ -29,20 +29,41 @@ export class WelcomeController extends Controller {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
 
+
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         this.#welcomeView.querySelector(".toonmeer").addEventListener("click", event => App.loadController(App.CONTROLLER_BULLETIN));
 
-        // Show the time-line page when it is clicked in welcome page.
-        this.#welcomeView.querySelector(".timeline").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
+        // values of the dates
+        let beginDate = this.#welcomeView.querySelector("#beginDatum");
+        let endDate = this.#welcomeView.querySelector("#eindDatum");
+        let timelineContext = this.#welcomeView.querySelector(".timelineContext");
 
-        // this.#welcomeView.querySelector(".timeline").onclick = function () {
-        //     window.location.href = "html_views/tijdlijn.html";
-        // };
+        this.#welcomeView.querySelector(".bekijken").onclick = function () {
+
+
+            if (!beginDate.value || !endDate.value) {
+                console.log('Input type date is empty');
+               timelineContext.innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
+            } else {
+                console.log('Input type date is NOT empty');
+                timelineContext.innerHTML = "Top, begin en eind datum zijn gekozen!";
+                window.location.href = `#tijdlijn/${beginDate.value}/${endDate.value}`;
+                console.log(beginDate.value)
+                console.log(endDate.value);
+
+
+            }
+
+        }
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
+
+        // Show the time-line page when it is clicked in welcome page.
+        // this.#welcomeView.querySelector(".bekijken").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
+
     }
 
     /**
@@ -58,27 +79,20 @@ export class WelcomeController extends Controller {
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
-            let length = data.length - 1;
             let last4stories = data.slice(-4);
             last4stories.reverse().forEach(story => {
                 let stitel = story.onderwerp;
                 let scontent = story.bericht;
-                this.#createCard(stitel, scontent);
+                let sid = story.id;
+                this.#createCard(stitel, scontent, sid);
             });
-            // storyTitel.innerHTML = data[length].onderwerp;
-            // storyTekst.innerHTML = data[length].bericht;
-
-            console.log(data);
         } catch (e) {
-            console.log("error while fetching rooms", e);
-
-            //for now just show every error on page, normally not all errors are appropriate for user
-            // exampleResponse.innerHTML = e;
+            console.log("error while fetching posts: ", e);
         }
     }
 
 
-    async #createCard(stitel, scontent){
+    async #createCard(stitel, scontent, sid){
         const story = document.createElement('div');
         story.className = 'story one persoonstory';
 
@@ -155,7 +169,10 @@ export class WelcomeController extends Controller {
         story.appendChild(icons);
         story.appendChild(iconsadd);
 
-        const targetElement = document.querySelector(".story-container");
+        const targetElement = document.querySelector(".story-container-welcome");
+        story.addEventListener("click", ()=>{
+            window.location = "http://localhost:3000/#read/" + sid
+        })
         targetElement.appendChild(story);
     }
 }

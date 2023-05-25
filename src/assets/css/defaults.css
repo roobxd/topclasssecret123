@@ -32,6 +32,13 @@
         rgba(255, 151, 151, 0.9025) 100%
     );
 
+    --bulletin-gradient: linear-gradient(
+        97.34deg, 
+        rgba(30, 30, 30, 0.95) 0%, 
+        rgba(65, 75, 100, 0.95) 51.8%, 
+        rgba(65, 98, 181, 0.95) 99.93%
+    );
+
     --story-border: #904bff;
 
     --trending-border: linear-gradient(225deg, #ff3d00 0%, #ff8a00 100);

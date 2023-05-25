@@ -1,5 +1,6 @@
 <link href="assets/css/pages/welcome.css" rel="stylesheet" />
 
+
 <div class="main-wrapper">
     <!-- <div class="row justify-content-md-center">
         <section class="col text-center gx-2">
@@ -9,7 +10,7 @@
             <code class="example-response"></code>
         </section>
     </div> -->
-    <div class="story-container">
+    <div class="story-container-welcome">
 
     </div>
 
@@ -38,10 +39,17 @@
                 <p>Voeg een bulletin post toe</p>
             </div>
         </div>
-        <div class="timeline">
+        <div class="timelineWelcome">
             <div class="timelineheader">
                 <h2 class="timelineTitle">Timeline</h2>
-                <h3>2023</h3>
+                <h3 class="timelineContext">Kies het begin en eind datum van de tijdlijn: </h3> <br>
+<!--                <h3>2023</h3>-->
+                <label for="beginDatum" class="calanderLeft">Vanaf: </label>
+                <input type="date" class="calanderLeft" id="beginDatum">
+                <label for="eindDatum" class="calanderRight">Tot: </label>
+                <input type="date" class="calanderRight" id="eindDatum">
+<!--                <button type="submit" class="btn btn-outline-light bekijken">Bekijken</button>-->
+                <button type="submit" class="btn btn-outline-info bekijken">Bekijken</button>
             </div>
             <div class="timestripe">
                 <div class="stripe">

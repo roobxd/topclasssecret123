@@ -3,6 +3,7 @@
  * @author Kifle
  *
  */
+const https = require("https");
 
 class SupportRoutes{
     #app
@@ -19,6 +20,7 @@ class SupportRoutes{
         this.#app = app;
 
         this.#createSupport();
+        this.#sendEmail();
 
     }
 
@@ -42,6 +44,37 @@ class SupportRoutes{
 
             }
         })
+    }
+
+    #sendEmail(){
+        const data = JSON.stringify({
+            from: 'p.d.leek@hva.nl',
+            to: 'p.d.leek@hva.nl',
+            subject: 'Message title',
+            text: 'Plaintext version of the message',
+            html: '<p>HTML version of the message</p>'
+        })
+        const options = {
+            hostname: 'api.hbo-ict.cloud',
+            port: 443,
+            path: '/mail',
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer pad_flo_7.Ixxt5Fxzg0fJObw7',
+                'Content-Type': 'application/json'
+            }
+        }
+        const request = https.request(options, res => {
+            console.log(`statusCode: ${res.statusCode}`)
+            res.on('data', d => {
+                process.stdout.write(d)
+            })
+        })
+        request.on('error', error => {
+            console.error(error)
+        })
+        request.write(data)
+        request.end()
     }
 
 }

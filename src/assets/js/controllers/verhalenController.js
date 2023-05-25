@@ -19,7 +19,6 @@ export class VerhalenController extends Controller {
     async #setupView() {
         this.#verhalenView = await super.loadHtmlIntoContent("html_views/verhalen.html");
         await this.#fetchPosts();
-        this.#verhalenView.querySelector(".story").addEventListener("click", event => App.loadController(App.CONTROLLER_READ));
 
 
         console.log(this.#verhalenView);
@@ -35,19 +34,46 @@ export class VerhalenController extends Controller {
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
+            console.log(data);
             data.reverse().forEach(story => {
                 let stitel = story.onderwerp;
                 let scontent = story.bericht;
-                this.#createCard(stitel, scontent);
+                let sid = story.id;
+                let sLikes = story.aantalLikes;
+                let sDislikes = story.aantalDislikes;
+                let difference = sLikes - sDislikes;
+                let sum = sLikes + sDislikes;
+                let userType = story.persoon;
+
+                this.#createCard(stitel, scontent, sid, difference, sum, userType);
             });
         } catch (e) {
             console.log("Error while fetching stories: ", e);
         }
     }
 
-    async #createCard(stitel, scontent){
+    async #createCard(stitel, scontent, sid, difference, sum, userType){
+       /*
+       Percentage calculations that are important for determining icons. The calculation is based on the sum of likes.
+        */
+        const tienProcent = 10 / 100 * sum;
+        console.log("10%: " + tienProcent);
+        const vijtienProcent = 15 / 100 * sum;
+        console.log("15%: " + vijtienProcent)
+        const twentigProcent = 20 / 100 * sum;
+        console.log("20%: " + twentigProcent)
+        const vijftigProcent = 50 / 100 * sum;
+        console.log("50%: " + vijftigProcent)
+
         const story = document.createElement('div');
-        story.className = 'story one persoonstory';
+        story.className = "story";
+        story.classList.add("one");
+
+        if (userType === 0 ){
+            story.classList.add("instantiestory");
+        } else {
+            story.classList.add("persoonstory");
+        }
 
         const image = document.createElement('div');
         image.className = 'image';
@@ -84,10 +110,33 @@ export class VerhalenController extends Controller {
         const trending = document.createElement('div');
         trending.className = 'trending';
 
-        const trendingIcon = document.createElement('i');
-        trendingIcon.className = 'bi bi-fire trending';
+        if (difference >= 0 && difference <= tienProcent) {
+            // i for the icons
+            const heartIcon = document.createElement("i");
+            heartIcon.className = "bi bi-heart-fill heart";
+            trending.appendChild(heartIcon);
 
-        trending.appendChild(trendingIcon);
+        } else if (difference > tienProcent && difference <= twentigProcent) {
+
+            const graphIcon = document.createElement("i");
+            graphIcon.className = "bi bi-graph-up-arrow";
+            trending.appendChild(graphIcon);
+
+        } else if (difference >= vijftigProcent) {
+            const fireIcon = document.createElement("i");
+            fireIcon.className = "bi bi-fire trending";
+            trending.appendChild(fireIcon);
+
+        } else if (difference < 0) {
+            story.classList.replace("persoonstory", "unlikedstory");
+            const canIcon = document.createElement("i");
+            canIcon.className = "bi bi-trash3-fill trash";
+            trending.appendChild(canIcon);
+        } else {
+            const heartIcon = document.createElement("i");
+            heartIcon.className = "bi bi-heart-fill heart";
+            trending.appendChild(heartIcon);
+        }
 
         const readme = document.createElement('div');
         readme.className = 'readme';
@@ -107,7 +156,11 @@ export class VerhalenController extends Controller {
         iconnumber.className = 'iconnumber';
 
         const iconnumberText = document.createElement('p');
-        iconnumberText.textContent = '+19';
+        if (difference > 0) {
+            iconnumberText.textContent  = "+" + difference;
+        } else {
+            iconnumberText.textContent  = difference;
+        }
 
         iconnumber.appendChild(iconnumberText);
 
@@ -122,7 +175,11 @@ export class VerhalenController extends Controller {
         story.appendChild(icons);
         story.appendChild(iconsadd);
 
-        const targetElement = document.querySelector(".story-container");
+        const targetElement = document.querySelector(".story-container-verhalen");
+        story.addEventListener("click", ()=>{
+            window.location = "http://localhost:3000/#read/" + sid
+        })
         targetElement.appendChild(story);
     }
+
 }

@@ -118,7 +118,7 @@ svg {
     color: var(--off-white);
 }
 
-.story-container {
+.story-container-verhalen {
     width: 100%;
     margin: 0 auto;
     display: grid;
@@ -132,7 +132,6 @@ svg {
     height: 150px;
     border-radius: 25px;
     margin-bottom: 35px;
-
     justify-self: right;
 }
 
@@ -148,17 +147,18 @@ svg {
 }
 
 .instantiestory {
-    background: linear-gradient(96.64deg,
-            rgba(30, 30, 30, 0.9025) 0%,
-            rgba(98, 78, 78, 0.926398) 50.31%,
-            rgba(255, 151, 151, 0.9025) 100%);
+    background: linear-gradient(96.64deg, rgba(30, 30, 30, 0.9025) 0%,
+    rgba(98, 78, 78, 0.926398) 50.31%,
+    rgba(255, 151, 151, 0.9025) 100%);
+    border-radius: 25px;
 }
 
-.shitpost {
+.unlikedstory {
     background: linear-gradient(96.98deg,
-            rgba(30, 30, 30, 0.9025) 0%,
-            rgba(65, 53, 45, 0.925409) 50.83%,
-            rgba(99, 68, 45, 0.9025) 100%);
+    rgba(30, 30, 30, 0.9025) 0%,
+    rgba(187, 103, 43, 0.9025) 39.64%,
+    rgba(171, 84, 47, 0.925409) 100%);
+    border-radius: 25px;
 }
 
 .one {
@@ -241,6 +241,7 @@ svg {
     margin: 0;
     padding: 0;
     color: var(--white);
+    background-color: transparent;
 }
 
 .story-titel {

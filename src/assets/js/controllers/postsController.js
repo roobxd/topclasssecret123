@@ -13,10 +13,12 @@ export class PostsController extends Controller {
     #postsRepository;
     #welcomeView;
     #PostsRepository;
+    #session;
 
     constructor() {
         super();
         this.#postsRepository = new PostsRepository();
+        this.#session = App.sessionManager.get("id");
         this.#setupView();
     }
 
@@ -30,7 +32,7 @@ export class PostsController extends Controller {
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         //from here we can safely get elements from the view via the right getter
-        //this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
+        // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
@@ -39,6 +41,12 @@ export class PostsController extends Controller {
         this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
         this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
         this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
+
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.add("commentno");
+
+        this.#welcomeView.querySelector("#no").addEventListener("click", () => this.#toggleCommentsNo());
+        this.#welcomeView.querySelector("#yes").addEventListener("click", () => this.#toggleCommentsYes());
 
         this.#welcomeView.querySelector(".storyinput").addEventListener('input', () => {
             // Get the HTML content of the editor
@@ -51,21 +59,45 @@ export class PostsController extends Controller {
         this.#welcomeView.querySelector(".postbutton").addEventListener("click", (event) => this.#savePost(event));
     }
 
+    #toggleCommentsNo(){
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.add("commentno");
+
+        let yesbutton = document.querySelector("#yes");
+        yesbutton.classList.remove("commentyes");
+
+    }
+
+    #toggleCommentsYes(){
+        let yesbutton = document.querySelector("#yes");
+        yesbutton.classList.add("commentyes");
+
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.remove("commentno");
+    }
+
 
     async #savePost(event) {
         const titelinput = this.#welcomeView.querySelector(".titelinput");
         const dateinput = this.#welcomeView.querySelector(".dateinput");
         const storyinput = this.#welcomeView.querySelector(".storyinput");
         const fileinput = this.#welcomeView.querySelector("#fileinput");
-
         const content = storyinput.innerHTML;
-        //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
 
-        try {
-            await this.#postsRepository.create(titelinput.value, dateinput.value, content, fileinput.value );
-            alert("Uw verhaal is geplaatst!");
-        } catch (error) {
-            console.log(error);
+        if(document.querySelector(".commentyes")){
+            try {
+                await this.#postsRepository.create(this.#session, titelinput.value, dateinput.value, content, fileinput.value, 1 );
+                alert("Uw verhaal is geplaatst!");
+            } catch (error) {
+                console.log(error);
+            }
+        } else{
+            try {
+                await this.#postsRepository.create(this.#session, titelinput.value, dateinput.value, content, fileinput.value, 0 );
+                alert("Uw verhaal is geplaatst!");
+            } catch (error) {
+                console.log(error);
+            }
         }
 
     }

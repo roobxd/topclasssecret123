@@ -191,7 +191,6 @@ input:focus {
 }
 
 .bottom-section {
-    margin-top: 125px;
     display: grid;
     height: 12vh;
     width: 100%;
@@ -246,9 +245,17 @@ input:focus {
     color: var(--white);
 }
 
+.likeordislike .disliked{
+    color: red;
+}
+
 #dislike:hover {
     color: red;
     cursor: pointer;
+}
+
+.likeordislike .liked{
+    color: green;
 }
 
 #like:hover {

@@ -1,12 +1,12 @@
 /**
- * This class contains ExpressJS routes specific for the roomsExample entity
+ * This class contains ExpressJS routes specific for the Edit entity
  * this file is automatically loaded in app.js
  *
- * @author Pim Meijer
+ * @author Rocco van Baardwijk
  */
 
 
-class PostsRoutes {
+class EditRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
@@ -20,26 +20,25 @@ class PostsRoutes {
         this.#app = app;
 
         //call method per route for the rooms entity
-        this.#create();
+        this.#update();
 
-        this.#getAll();
+        this.#getPost();
     }
 
     /**
-     * dummy data example endpoint - rooms (welcome screen)
-     * get request, data is sent by client via url - req.params
+     * Update post endpoint
+     * post request, data is sent by client via body - req.body
      * @private
      */
-    #create() {
+    #update() {
 
-        this.#app.post("/posts", async (req, res) => {
+        this.#app.post("/edit/update", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum, commentsenabled) values (?, ?, 'verhaal', ?, ?, ?, CURRENT_TIMESTAMP, ?) ",
-                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storyinput, req.body.dateinput, req.body.fileinput, req.body.yesorno]
+                    query: "UPDATE posts SET gebruiker = ?, onderwerp = ?, soortBericht = 'verhaal', bericht = ?, jaartalGebeurtenis = ?, plaatje = ?, publicatieDatum = CURRENT_TIMESTAMP, commentsenabled = ? WHERE id = ?",
+                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storyinput, req.body.dateinput, req.body.fileinput, req.body.yesorno, req.body.postid]
                 });
-
                 //just give all data back as json, could also be empty
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
 
@@ -50,16 +49,18 @@ class PostsRoutes {
     }
 
 
+
     /**
      * dummy data example endpoint - rooms (welcome screen)
      * get request, data is sent by client via url - req.params
      * @private
      */
-    #getAll() {
-        this.#app.get("/welcome", async (req, res) => {
+    #getPost() {
+        this.#app.get("/edit/:lastnumber", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT posts.id, posts.gebruiker, posts.onderwerp, posts.soortBericht, posts.bericht, posts.jaartalGebeurtenis, posts.plaatje, posts.publicatieDatum, posts.aantalLikes, posts.aantalDislikes, users.id, users.persoon FROM pad_flo_7_dev.posts LEFT JOIN users ON posts.gebruiker = users.id ORDER BY posts.id DESC"
+                    query: "SELECT * FROM `posts` WHERE id = ?",
+                    values: [req.params.lastnumber]
                 });
 
                 //just give all data back as json, could also be empty
@@ -71,4 +72,4 @@ class PostsRoutes {
     }
 }
 
-module.exports = PostsRoutes
+module.exports = EditRoutes
