@@ -26,6 +26,7 @@ import { IngelogdUpdatePasswordController } from "./controllers/ingelogdUpdatePa
 import { TijdlijnController } from "./controllers/tijdlijnController.js";
 import { readController } from "./controllers/readController.js";
 import { myPostsController } from "./controllers/myPostsController.js";
+import {VerifieerAccountController} from "./controllers/verifieerAccountController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -137,6 +138,8 @@ export class App {
                 break;
             case App.CONTROLLER_EDIT:
                 App.isLoggedIn(() => new EditController(), () => new LoginController());
+            case App.CONTROLLER_VERIFIEERACCOUNT:
+                App.isLoggedIn(() => new VerifieerAccountController(),() => new LoginController())
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
