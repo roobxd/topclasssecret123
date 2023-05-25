@@ -10,27 +10,41 @@ class VerifierAccountRoutes {
         this.#verifier()
     }
 
-    #verifier(){
+    #verifier() {
 
         this.#app.post("/verificatie", async (req, res) => {
 
-            try {
-                const data = await this.#databaseHelper.handleQuery({
-                    query: "Update users set verificatie = 1 where email = ?",
-                    values: [req.body.email]
+            const inputCode = req.body.inputCode
+            const check = await this.#databaseHelper.handleQuery(
+                {
+                    query: "SELECT * FROM users where OTP = ?",
+                    values: [inputCode]
                 });
 
-                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
 
-            } catch (e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e });
+            if (check.length > 0) {
+                try {
+                    const data = await this.#databaseHelper.handleQuery({
+                        query: "Update users set verificatie = 1 where email = ?",
+                        values: [req.body.email]
+                    });
+                    const data1 = await this.#databaseHelper.handleQuery({
+                        query: "Update users set OTP = 1 where email = ?",
+                        values: [req.body.email]
+                    });
+
+
+                    res.status(this.#errorCodes.HTTP_OK_CODE).json(check);
+
+                } catch (e) {
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e});
+                }
             }
 
 
         });
 
     }
-
 }
 
 module.exports = VerifierAccountRoutes
