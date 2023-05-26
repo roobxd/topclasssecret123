@@ -207,6 +207,10 @@ export class myPostsController extends Controller {
         targetElement.appendChild(deleteButton);
         targetElement.appendChild(editButton);
 
+        storyDiv.addEventListener("click", () => {
+            window.location.href = "/#read/" + sid;
+        })
+
         deleteButton.addEventListener("click", () => {
             alert("Deleting story post with the id: " + sid);
             this.#myPostsRepository.delete(sid);
