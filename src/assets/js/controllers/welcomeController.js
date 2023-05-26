@@ -93,7 +93,8 @@ export class WelcomeController extends Controller {
                 let stitel = story.onderwerp;
                 let scontent = story.bericht;
                 let sid = story.id;
-                this.#createCard(stitel, scontent, sid);
+                let soort = story.soortBericht;
+                this.#createCard(stitel, scontent, sid, soort);
             });
         } catch (e) {
             console.log("error while fetching posts: ", e);
@@ -101,9 +102,19 @@ export class WelcomeController extends Controller {
     }
 
 
-    async #createCard(stitel, scontent, sid){
+    async #createCard(stitel, scontent, sid, soort){
         const story = document.createElement('div');
-        story.className = 'story one persoonstory';
+        let storygradient = "verhaal-gradient";
+        switch(soort) {
+            case "bulletin":
+                storygradient = "bulletin-gradient"
+            break;
+
+            case "instantie":
+                storygradient = "instantie-gradient"
+            break;
+        }
+        story.className = 'story one ' + storygradient;
 
         const image = document.createElement('div');
         image.className = 'image';

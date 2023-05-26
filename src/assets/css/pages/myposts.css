@@ -137,7 +137,6 @@ svg {
     width: 85%;
     margin-left: 8.5vh;
     border-radius: 2vh;
-    background: var(--story-gradient);
 
     cursor: pointer;
 }

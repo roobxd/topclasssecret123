@@ -77,13 +77,26 @@ export class VerhalenController extends Controller {
             let difference = sLikes - sDislikes;
             let sum = sLikes + sDislikes;
             let userType = story.persoon;
+            let soort = story.soortBericht;
     
-            this.#createCard(stitel, scontent, sid, difference, sum, userType);
+            this.#createCard(stitel, scontent, sid, difference, sum, userType, soort);
         });
     }
     
 
-    async #createCard(stitel, scontent, sid, difference, sum, userType){
+    async #createCard(stitel, scontent, sid, difference, sum, userType, soort){
+        console.log(soort);
+        let storygradient = "verhaal-gradient";
+        switch(soort) {
+            case "bulletin":
+                storygradient = "bulletin-gradient"
+            break;
+
+            case "instantie":
+                storygradient = "instantie-gradient"
+            break;
+        }
+
        /*
        Percentage calculations that are important for determining icons. The calculation is based on the sum of likes.
         */
@@ -99,12 +112,8 @@ export class VerhalenController extends Controller {
         const story = document.createElement('div');
         story.className = "story";
         story.classList.add("one");
+        story.classList.add(storygradient);
 
-        if (userType === 0 ){
-            story.classList.add("instantiestory");
-        } else {
-            story.classList.add("persoonstory");
-        }
 
         const image = document.createElement('div');
         image.className = 'image';
@@ -159,7 +168,8 @@ export class VerhalenController extends Controller {
             trending.appendChild(fireIcon);
 
         } else if (difference < 0) {
-            story.classList.replace("persoonstory", "unlikedstory");
+            story.classList.add("unlikedstory");
+            story.classList.remove("verhaal-gradient");
             const canIcon = document.createElement("i");
             canIcon.className = "bi bi-trash3-fill trash";
             trending.appendChild(canIcon);

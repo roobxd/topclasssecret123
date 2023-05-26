@@ -51,9 +51,22 @@ export class TijdlijnController extends Controller {
         const data = await this.#tijdlijnRepository.getStory(dates[0], dates[1]);
 
         for (let i = 0; i < data.result.length; i++) {
+            
             console.log("Is gebruiker persoon of instantie: ")
             console.log(data.result[i].persoon);
 
+            let soort = data.result[i].soortBericht;
+
+            let storygradient = "verhaal-gradient";
+            switch(soort) {
+                case "bulletin":
+                    storygradient = "bulletin-gradient"
+                break;
+    
+                case "instantie":
+                    storygradient = "instantie-gradient"
+                break;
+            }
             /*
             Some important calculations for likes and trend would be first calculated
              */
@@ -99,13 +112,8 @@ export class TijdlijnController extends Controller {
             const story = document.createElement("div");
             story.className = "story";
             story.classList.add("one");
-            // story.classList.add("persoonstory");
-            if (data.result[i].persoon === 0 ){
-                story.classList.add("instantieStory");
+            story.classList.add(storygradient);
 
-            } else {
-                story.classList.add("persoonstory");
-            }
             // story is child of container
             container.appendChild(story);
 

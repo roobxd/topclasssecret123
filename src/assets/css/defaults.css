@@ -108,3 +108,19 @@ body::-webkit-scrollbar-thumb
 	background-color: var(--navbar-main);
 	border: 2px solid var(--navbar-brand);
 }
+
+.verhaal-gradient {
+    background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(78, 65, 100, 0.95) 51.8%, rgba(129, 95, 185, 0.95) 99.93%);
+}
+
+.instantie-gradient {
+    background: linear-gradient(96.64deg, rgba(30, 30, 30, 0.9025) 0%, rgba(98, 78, 78, 0.926398) 50.31%, rgba(255, 151, 151, 0.9025) 100%);
+}
+
+.shitpost-gradient {
+    background: linear-gradient(96.98deg, rgba(30, 30, 30, 0.9025) 0%, rgba(65, 53, 45, 0.925409) 50.83%, rgba(99, 68, 45, 0.9025) 100%);
+}
+
+.bulletin-gradient {
+    background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(65, 75, 100, 0.95) 51.8%, rgba(65, 98, 181, 0.95) 99.93%);
+}

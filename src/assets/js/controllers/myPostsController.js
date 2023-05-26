@@ -83,7 +83,8 @@ export class myPostsController extends Controller {
             let sid = this.cachedData[index].id;
             let stitle = this.cachedData[index].onderwerp;
             let sflow = this.cachedData[index].aantalLikes - this.cachedData[index].aantalDislikes;
-            this.#appendStory(stitle, sflow, sid);
+            let soort = this.cachedData[index].soortBericht;
+            this.#appendStory(stitle, sflow, sid, soort);
         }
     }
     
@@ -114,10 +115,22 @@ export class myPostsController extends Controller {
 
     
 
-    #appendStory(stitle, sflow, sid) {
+    #appendStory(stitle, sflow, sid, soort) {
+        let storygradient = "verhaal-gradient";
+        switch(soort) {
+            case "bulletin":
+                storygradient = "bulletin-gradient"
+            break;
+
+            case "instantie":
+                storygradient = "instantie-gradient"
+            break;
+        }
+
         // Create a new div element with the class "story"
         var storyDiv = document.createElement("div");
         storyDiv.classList.add("story");
+        storyDiv.classList.add(storygradient);
 
         // Create an image element
         var img = document.createElement("img");
