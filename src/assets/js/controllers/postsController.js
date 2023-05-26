@@ -48,6 +48,13 @@ export class PostsController extends Controller {
         this.#welcomeView.querySelector(".gebruikertag").addEventListener("click", () => this.#toggleStory());
 
         this.#welcomeView.querySelector(".postbutton").addEventListener("click", (event) => this.#savePost(event));
+
+        var storyInput = document.querySelector('.storyinput');
+
+storyInput.addEventListener('keyup', function () {
+    this.dataset.divPlaceholderContent = this.textContent;
+});
+
     }
 
     #toggleCommentsNo(){

@@ -41,12 +41,19 @@ export class BulletinController extends Controller {
         this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
         let gaterugbutton = document.querySelector(".gaterug")
+        
         gaterugbutton.addEventListener("click", () => {
             window.history.back();
         });
         
 
         this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
+
+        var storyInput = document.querySelector('.verhaal');
+
+        storyInput.addEventListener('keyup', function () {
+            this.dataset.divPlaceholderContent = this.textContent;
+        });
 
     }
 

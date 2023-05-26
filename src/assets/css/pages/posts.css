@@ -13,6 +13,14 @@ input:focus {
     outline: none;
 }
 
+.storyinput[data-placeholder]:not(:focus):not([data-div-placeholder-content]):before {
+    content: attr(data-placeholder);
+    float: left;
+    margin-left: 5px;
+    color: #888;
+}
+
+
 .create-container {
     margin: 0 auto;
     margin-top: 45px;
