@@ -52,6 +52,14 @@ class MailRoutes {
                             "\nJouw wachtwoord is " + wachtwoord[0].password
                     };
                 } else if (type === "verificatie") {
+
+                    const code = Math.floor(Math.random()*10000)
+
+                          this.#databaseHelper.handleQuery({
+                              query: "UPDATE users SET OTP= ? where email = ?",
+                              values: [code, mail]
+                          });
+
                      emailData = {
                         "from": {
                             "name": "Buurtposter",
@@ -67,6 +75,8 @@ class MailRoutes {
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
+                            "Jouw code: " + code +
+                            "\nverifieer hier: "+
                             '<a href="http://localhost:3000/#verification">verifieer account</a>'
                     };
 
