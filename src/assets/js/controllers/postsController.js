@@ -51,9 +51,9 @@ export class PostsController extends Controller {
 
         var storyInput = document.querySelector('.storyinput');
 
-storyInput.addEventListener('keyup', function () {
-    this.dataset.divPlaceholderContent = this.textContent;
-});
+        storyInput.addEventListener('keyup', function () {
+            this.dataset.divPlaceholderContent = this.textContent;
+        });
 
     }
 

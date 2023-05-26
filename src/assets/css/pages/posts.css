@@ -17,7 +17,7 @@ input:focus {
     content: attr(data-placeholder);
     float: left;
     margin-left: 5px;
-    color: #888;
+    color: var(--off-white);
 }
 
 

@@ -8,6 +8,7 @@ import { App } from "../app.js";
 export class VerhalenController extends Controller {
     #PostsRepository
     #verhalenView
+    isSorted = 0;
 
     constructor() {
         super();
@@ -20,9 +21,14 @@ export class VerhalenController extends Controller {
         this.#verhalenView = await super.loadHtmlIntoContent("html_views/verhalen.html");
         await this.#fetchPosts();
 
+        let filtertype = document.querySelector(".type");
+        filtertype.addEventListener("click", (event) => this.#sorteerType());
+
+        let filterlikes = document.querySelector(".likes");
+        filterlikes.addEventListener("click", (event) => this.#sorteerLikes());
+
         let searchpost = document.querySelector(".searchbar-icon");
         searchpost.addEventListener("click", (event) => this.#searchPost());
-        console.log(this.#verhalenView);
     }
 
     #searchPost() {
@@ -46,6 +52,61 @@ export class VerhalenController extends Controller {
         this.#displayPosts(this.cachedData);  // Update the page info
     }
 
+    #sorteerType() {
+        if(this.isSorted == 0) {
+            // Sort cachedData by soortBericht
+            this.cachedData.sort((a, b) => {
+                if (a.soortBericht < b.soortBericht) {
+                    return -1;
+                }
+                if (a.soortBericht > b.soortBericht) {
+                    return 1;
+                }
+                return 0;
+            });
+    
+            this.isSorted = 1;
+        } else {
+            // reset back to original data if already sorted
+            this.cachedData = [...this.originalData];
+            this.isSorted = 0;
+        }
+    
+        // Clear the story container
+        let container = document.querySelector(".story-container-verhalen");
+        container.innerHTML = "";
+    
+        this.#displayPosts(this.cachedData);  // Update the page info
+    }
+
+    #sorteerLikes() {
+        if(this.isSorted == 0) {
+            // Sort cachedData by soortBericht
+            this.cachedData.sort((a, b) => {
+                if (a.aantalLikes < b.aantalLikes) {
+                    return -1;
+                }
+                if (a.aantalLikes > b.aantalLikes) {
+                    return 1;
+                }
+                return 0;
+            });
+    
+            this.isSorted = 1;
+        } else {
+            // reset back to original data if already sorted
+            this.cachedData = [...this.originalData];
+            this.isSorted = 0;
+        }
+    
+        // Clear the story container
+        let container = document.querySelector(".story-container-verhalen");
+        container.innerHTML = "";
+    
+        this.#displayPosts(this.cachedData);  // Update the page info
+    }
+    
+    
     async #fetchPosts() {
         try {
             // await keyword 'stops' code until data is returned - can only be used in async function
