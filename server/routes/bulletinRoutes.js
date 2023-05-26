@@ -24,16 +24,16 @@ class BulletinRoutes {
     }
 
     /**
- * bulletin creation data endpoint - bulletin.html view (bulletin creation screen)
- * get request, data is sent by client via url - req.params
- * @private
- */
+     * bulletin creation data endpoint - bulletin.html view (bulletin creation screen)
+     * get request, data is sent by client via url - req.params
+     * @private
+     */
     #create() {
         this.#app.post("/bulletin", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum) values('test', ?, 'Bulletin', ?, CURRENT_TIMESTAMP, 'geen', CURRENT_TIMESTAMP) ",
+                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum, commentsenabled) values('test', ?, 'bulletin', ?, CURRENT_TIMESTAMP, 'geen', CURRENT_TIMESTAMP, 0) ",
                     values: [req.body.titel, req.body.verhaal]
                 });
 

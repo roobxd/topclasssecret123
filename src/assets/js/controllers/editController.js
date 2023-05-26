@@ -30,14 +30,8 @@ export class EditController extends Controller {
         //await for when HTML is loaded
         this.#editView = await super.loadHtmlIntoContent("html_views/edit.html")
 
-        //from here we can safely get elements from the view via the right getter
-        // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
-
-
         const url = window.location.href;
         const lastNumber = url.substring(url.lastIndexOf("/") + 1);
-        console.log(lastNumber);
-        //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPost(lastNumber);
 
         this.#editView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
@@ -48,13 +42,8 @@ export class EditController extends Controller {
         this.#editView.querySelector("#no").addEventListener("click", () => this.#toggleCommentsNo());
         this.#editView.querySelector("#yes").addEventListener("click", () => this.#toggleCommentsYes());
 
-        this.#editView.querySelector(".storyinput").addEventListener('input', () => {
-            // Get the HTML content of the editor
-            //const content = editor.innerHTML;
-
-            // Do something with the HTML content (e.g. save it to a database)
-            //console.log(html);
-        });
+        this.#editView.querySelector(".instantietag").addEventListener("click", () => this.#toggleInstantie());
+        this.#editView.querySelector(".gebruikertag").addEventListener("click", () => this.#toggleStory());
 
         this.#editView.querySelector(".postbutton").addEventListener("click", (event) => this.#updatePost(event, lastNumber));
     }
@@ -75,6 +64,22 @@ export class EditController extends Controller {
         nobutton.classList.remove("commentno");
     }
 
+    #toggleInstantie(){
+        let instantietag = document.querySelector(".instantietag");
+        instantietag.classList.add("active-tag-instantie");
+
+        let gebruikertag = document.querySelector(".gebruikertag");
+        gebruikertag.classList.remove("active-tag-user");
+    }
+
+    #toggleStory(){
+        let yesbutton = document.querySelector(".gebruikertag");
+        yesbutton.classList.add("active-tag-user");
+
+        let instantietag = document.querySelector(".instantietag");
+        instantietag.classList.remove("active-tag-instantie");
+    }
+
 
     async #updatePost(event, lastNumber) {
         const titelinput = this.#editView.querySelector(".titelinput");
@@ -84,23 +89,24 @@ export class EditController extends Controller {
 
 
         const content = storyinput.innerHTML;
-        // console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
-        console.log(this.#session);
+
+
+        let commentsenabled = 0;
+        let storytype = "instantie";
 
         if(document.querySelector(".commentyes")){
-            try {
-                await this.#editRepository.update(this.#session, titelinput.value, dateinput.value, content, fileinput.value, lastNumber, 1 );
-                alert("Uw verhaal is geplaatst!");
-            } catch (error) {
-                console.log(error);
-            }
-        } else{
-            try {
-                await this.#editRepository.update(this.#session, titelinput.value, dateinput.value, content, fileinput.value ,lastNumber, 0 );
-                alert("Uw verhaal is geplaatst!");
-            } catch (error) {
-                console.log(error);
-            }
+            commentsenabled = 1;
+        }
+
+        if(document.querySelector(".active-tag-user")){
+            storytype = "verhaal"
+        }
+
+        try {
+            await this.#editRepository.update(this.#session, titelinput.value, storytype, dateinput.value, content, fileinput.value, lastNumber, commentsenabled );
+            alert("Uw verhaal is geplaatst!");
+        } catch (error) {
+            console.log(error);
         }
 
     }
@@ -146,6 +152,14 @@ export class EditController extends Controller {
             } else{
                 let nobutton = document.querySelector("#no");
                 nobutton.classList.add("commentno");
+            }
+
+            if(data[0].soortStory == "instantie"){
+                let storytag = document.querySelector(".gebruikertag");
+                storytag.classList.add("active-tag-user");
+            } else{
+                let storytag = document.querySelector(".instantietag");
+                storytag.classList.add("active-tag-instantie");
             }
 
 

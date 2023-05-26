@@ -23,8 +23,8 @@ export class EditRepository {
         return this.#networkManager.doRequest(`${this.#route}/${lastNumber}`, "GET");
     }
 
-    async update( id, titelinput, dateinput, storyinput, fileinput, sid, comments) {
-        this.#networkManager.doRequest(this.#updateRoute, "POST", { gebruiker: id, titelinput: titelinput, dateinput: dateinput, storyinput: storyinput, fileinput: fileinput, postid: sid, yesorno: comments})
+    async update( id, titelinput, storytype, dateinput, storyinput, fileinput, sid, comments) {
+        this.#networkManager.doRequest(this.#updateRoute, "POST", { gebruiker: id, titelinput: titelinput, storytype:storytype, dateinput: dateinput, storyinput: storyinput, fileinput: fileinput, postid: sid, yesorno: comments})
     }
 
     async delete() {
