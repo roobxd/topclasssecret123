@@ -24,13 +24,14 @@ export class myPostsController extends Controller {
     async #setupView() {
         this.#myPostsView = await super.loadHtmlIntoContent("html_views/myposts.html")
     
-        let searchpost = document.querySelector(".searchbar-icon");
         let backarrow = document.querySelector("#firstSvg");
         let nextarrow = document.querySelector("#secondSvg");
         let searchbar = document.querySelector(".searchbar");  // Get the search bar input field
     
         backarrow.addEventListener("click", (event) => this.#pageSelector("back"));
         nextarrow.addEventListener("click", (event) => this.#pageSelector("next"));
+        
+        let searchpost = document.querySelector(".searchbar-icon");
         searchpost.addEventListener("click", (event) => this.#searchPost());
     }
     

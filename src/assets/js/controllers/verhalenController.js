@@ -20,37 +20,68 @@ export class VerhalenController extends Controller {
         this.#verhalenView = await super.loadHtmlIntoContent("html_views/verhalen.html");
         await this.#fetchPosts();
 
-
+        let searchpost = document.querySelector(".searchbar-icon");
+        searchpost.addEventListener("click", (event) => this.#searchPost());
         console.log(this.#verhalenView);
     }
 
-    /**
-     * async function that retrieves a room by its id via the right repository
-     * @param roomId the room id to retrieve
-     * @private
-     */
+    #searchPost() {
+        let searchvalue = document.querySelector(".searchbar").value;
+    
+        if (searchvalue.trim() === '') {
+            // If search value is empty, reset cachedData to the original data
+            this.cachedData = [...this.originalData];
+        } else {
+            // Otherwise, filter the originalData
+            let filteredData = this.originalData.filter((story) => {
+                return story.onderwerp.toLowerCase().includes(searchvalue.toLowerCase());
+            });
+            this.cachedData = filteredData;
+        }
+    
+        // Clear the story container
+        let container = document.querySelector(".story-container-verhalen");
+        container.innerHTML = "";
+    
+        this.#displayPosts(this.cachedData);  // Update the page info
+    }
 
     async #fetchPosts() {
         try {
-            //await keyword 'stops' code until data is returned - can only be used in async function
+            // await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
             console.log(data);
-            data.reverse().forEach(story => {
-                let stitel = story.onderwerp;
-                let scontent = story.bericht;
-                let sid = story.id;
-                let sLikes = story.aantalLikes;
-                let sDislikes = story.aantalDislikes;
-                let difference = sLikes - sDislikes;
-                let sum = sLikes + sDislikes;
-                let userType = story.persoon;
-
-                this.#createCard(stitel, scontent, sid, difference, sum, userType);
-            });
+    
+            // Store original fetched data
+            this.originalData = [...data];
+            this.cachedData = [...this.originalData];
+    
+            this.#displayPosts(data);  // Update the page info
+    
         } catch (e) {
             console.log("Error while fetching stories: ", e);
         }
     }
+
+    async #displayPosts(posts) {
+        // Clear existing posts before displaying new ones
+        const targetElement = document.querySelector(".story-container-verhalen");
+        targetElement.innerHTML = "";
+    
+        posts.reverse().forEach(story => {
+            let stitel = story.onderwerp;
+            let scontent = story.bericht;
+            let sid = story.id;
+            let sLikes = story.aantalLikes;
+            let sDislikes = story.aantalDislikes;
+            let difference = sLikes - sDislikes;
+            let sum = sLikes + sDislikes;
+            let userType = story.persoon;
+    
+            this.#createCard(stitel, scontent, sid, difference, sum, userType);
+        });
+    }
+    
 
     async #createCard(stitel, scontent, sid, difference, sum, userType){
        /*
