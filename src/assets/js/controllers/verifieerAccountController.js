@@ -21,17 +21,14 @@ export class VerifieerAccountController extends Controller {
         this.#verificatieRepository = new VerificatieRepository();
         this.#sendMailRepository = new SendMailRepository();
 
-        const mail = App.sessionManager.get("email")
-
-
         this.#verifierView.querySelector("#checkCode").addEventListener("click", this.#verifieren)
+        this.#verifierView.querySelector("#resendCode").addEventListener("click", this.#resendCode)
 
     }
 
 
     #verifieren = async () => {
         const mail = App.sessionManager.get("email");
-        console.log(mail)
         const inputCode = document.querySelector("#inputCode").value
 
         await this.#verificatieRepository.verifier(mail, inputCode);
@@ -42,14 +39,20 @@ export class VerifieerAccountController extends Controller {
         console.log(data)
 
 
-        if(data[0].verificatie === 1){
-           App.loadController(App.CONTROLLER_WELCOME);
+        if (data[0].verificatie === 1) {
+            App.loadController(App.CONTROLLER_WELCOME);
             alert("Gelukt")
         } else if (data[0].verificatie === 0) {
             alert("verkeerde code! check opnieuw")
         }
 
 
+    }
+
+    #resendCode = async () => {
+        const mail = App.sessionManager.get("email");
+
+        this.#sendMailRepository.sendVerificationMail(mail)
 
     }
 
