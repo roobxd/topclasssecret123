@@ -53,14 +53,14 @@ class MailRoutes {
                     };
                 } else if (type === "verificatie") {
 
-                    const code = Math.floor(Math.random()*10000)
+                    const code = Math.floor(Math.random() * 10000)
 
-                          this.#databaseHelper.handleQuery({
-                              query: "UPDATE users SET OTP= ? where email = ?",
-                              values: [code, mail]
-                          });
+                    this.#databaseHelper.handleQuery({
+                        query: "UPDATE users SET OTP= ? where email = ?",
+                        values: [code, mail]
+                    });
 
-                     emailData = {
+                    emailData = {
                         "from": {
                             "name": "Buurtposter",
                             "address": "buurtposter@hbo-ict.cloud"
@@ -74,10 +74,19 @@ class MailRoutes {
                         "subject": "Verificatie",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
+                            "Bedankt voor het registreren bij ons platform! " +
+                            "We zijn verheugd om je als nieuwe gebruiker te verwelkomen." +
+                            " Om je account volledig te activeren, vragen we je vriendelijk " +
+                            "om je e-mailadres te verifiëren door de onderstaande code in te voeren.\n" +
 
-                            "Jouw code: " + code +
-                            "\nverifieer hier: "+
-                            '<a href="http://localhost:3000/#verification">verifieer account</a>'
+                            "Jouw verificatiecode: " + code +
+                            "\nklik hier om je account te verifiëren: " +
+                             "<a href='http://localhost:3000/#verification'>verifieer account</a>" +
+
+                            "\nNogmaals bedankt voor het kiezen van ons platform. " +
+                            "We kijken ernaar uit om je te voorzien \n van een geweldige gebruikerservaring!\n" +
+                            "\n" +
+                            "Met vriendelijke groet, \n De Buurtposter"
                     };
 
                 } else {

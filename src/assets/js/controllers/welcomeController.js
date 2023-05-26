@@ -8,14 +8,18 @@
 import { PostsRepository } from "../repositories/postsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
+import {VerificatieRepository} from "../repositories/verificatieRepository.js";
 
 export class WelcomeController extends Controller {
     #PostsRepository
     #welcomeView
+    #verificatieRepository
+
 
     constructor() {
         super();
         this.#PostsRepository = new PostsRepository();
+        this.#verificatieRepository = new VerificatieRepository();
 
         this.#setupView();
     }
@@ -28,7 +32,12 @@ export class WelcomeController extends Controller {
     async #setupView() {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
+        const mail = App.sessionManager.get("email");
+        const statusGebruiker = await this.#verificatieRepository.verifierResult(mail)
 
+        if (statusGebruiker[0].verificatie === 0){
+            App.loadController(App.CONTROLLER_VERIFIEERACCOUNT)
+        }
 
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
