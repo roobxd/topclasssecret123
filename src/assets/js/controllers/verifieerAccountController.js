@@ -53,6 +53,7 @@ export class VerifieerAccountController extends Controller {
         const mail = App.sessionManager.get("email");
 
         this.#sendMailRepository.sendVerificationMail(mail)
+        alert("Mail is verzonden!")
 
     }
 
