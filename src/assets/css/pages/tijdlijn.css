@@ -5,11 +5,6 @@
     box-sizing: border-box;
 }
 
-body{
-    /*background: lightblue;*/
-    background: url(../../img/background.png) repeat-y;
-}
-
 /*De div die de contentText in tijdlijn houdt*/
 .timeline{
     position: relative;
@@ -18,7 +13,7 @@ body{
     /* margin auto will let the time line be centered horizontally in the page, if necessary, this can be changed
     to pixels in order to fit the contents of welcome page */
     margin: auto;
-    top: 60px;
+    top: 75px;
 }
 /* Make the story - card the same as in verhalen page */
 .story-container {

@@ -60,26 +60,23 @@
     transition: 100ms;
 }
 
-.background-image {
-    position: absolute;
-    background-color: #000000;
-    opacity: 25%;
-    margin-top: -50px;
-    width: 100%;
+html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-/*Body Content*/
 body {
-    background: url("/assets/img/background.png");
-    background-repeat: no-repeat;
+    background: url("/assets/img/background.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    padding: 0;
-    margin: 0;
     font-family: var(--main-font);
     font-weight: 600;
     margin-bottom: 25px;
 }
+
 
 button {
     font-weight: 600;
