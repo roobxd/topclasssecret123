@@ -171,7 +171,7 @@ input:focus {
 
 .instantietag {
     background: var(--instantie-gradient);
-    opacity: 50%;
+    opacity: 35%;
 }
 
 .instantietag:hover {
@@ -181,11 +181,19 @@ input:focus {
 
 .gebruikertag {
     background: var(--story-gradient);
-    opacity: 50%;
+    opacity: 35%;
 }
 
 .gebruikertag:hover {
     background: var(--story-gradient);
+    opacity: 100%;
+}
+
+.active-tag-instantie{
+    opacity: 100%;
+}
+
+.active-tag-user{
     opacity: 100%;
 }
 

@@ -20,7 +20,7 @@ class TijdlijnRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT posts.id, posts.gebruiker, posts.onderwerp, posts.soortBericht, posts.bericht, posts.jaartalGebeurtenis, posts.plaatje, posts.publicatieDatum, posts.aantalLikes, posts.aantalDislikes, users.id, users.persoon FROM pad_flo_7_dev.posts LEFT JOIN users ON posts.gebruiker = users.id WHERE `jaartalGebeurtenis` BETWEEN ? AND ? ORDER BY `jaartalGebeurtenis` ASC",
+                    query: "SELECT posts.id as story_id, posts.gebruiker, posts.onderwerp, posts.soortBericht, posts.bericht, posts.jaartalGebeurtenis, posts.plaatje, posts.publicatieDatum, posts.aantalLikes, posts.aantalDislikes, users.id, users.persoon FROM pad_flo_7_dev.posts LEFT JOIN users ON posts.gebruiker = users.id WHERE `jaartalGebeurtenis` BETWEEN ? AND ? ORDER BY `jaartalGebeurtenis` ASC",
                     values: [ req.params.beginDate, req.params.endDate]
                 });
 

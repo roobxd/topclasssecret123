@@ -91,3 +91,20 @@ button {
     color: red;
     font-size: medium;
 }
+
+body::-webkit-scrollbar-track
+{
+	background-color: var(--button-primary);
+}
+
+body::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: var(--button-primary);
+}
+
+body::-webkit-scrollbar-thumb
+{
+	background-color: var(--navbar-main);
+	border: 2px solid var(--navbar-brand);
+}

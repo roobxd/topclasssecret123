@@ -109,6 +109,11 @@ export class TijdlijnController extends Controller {
             // story is child of container
             container.appendChild(story);
 
+            story.addEventListener("click", () => {
+                console.log(data.result[i]);
+                window.location.href = "/#read/" + data.result[0].story_id;
+            })
+
             // div for the image
             const divImage = document.createElement("div");
             divImage.className = "image";
