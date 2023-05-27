@@ -45,7 +45,7 @@ class MailRoutes {
                                 "address": mail
                             }
                         ],
-                        "subject": "   Jouw wachtwoord",
+                        "subject": "Jouw wachtwoord",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
@@ -83,7 +83,7 @@ class MailRoutes {
                             "Met vriendelijke groet,<br>De Buurtposter"
                     };
 
-                } else {
+                } else if(type === "welkom") {
                     emailData = {
                         "from": {
                             "name": "Buurtposter",

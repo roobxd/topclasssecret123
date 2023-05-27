@@ -18,7 +18,6 @@ export class VerificatieRepository {
 
 
     async verifierResult(email){
-
        return this.#networkManager.doRequest(`/verificatie/result/${email}`,"GET")
 
     }
