@@ -152,6 +152,7 @@ export class signUpController extends Controller {
             // toevoegen aan database --------------------------
             this.#signUpRepository.signUpUser(password.value, email.value);
             this.#sendMailRepository.sendVerificationMail(email.value);
+            this.#sendMailRepository.sendWelkomMail(email.value);
             App.loadController(App.CONTROLLER_LOGIN);
 
         }

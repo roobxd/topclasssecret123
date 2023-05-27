@@ -45,7 +45,7 @@ class MailRoutes {
                                 "address": mail
                             }
                         ],
-                        "subject": "   Jouw wachtwoord",
+                        "subject": "Jouw wachtwoord",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
@@ -74,22 +74,16 @@ class MailRoutes {
                         "subject": "Verificatie",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
-                            "Bedankt voor het registreren bij ons platform! " +
-                            "We zijn verheugd om je als nieuwe gebruiker te verwelkomen." +
-                            " Om je account volledig te activeren, vragen we je vriendelijk " +
-                            "om je e-mailadres te verifiëren door de onderstaande code in te voeren.\n" +
-
-                            "Jouw verificatiecode: " + code +
-                            "\nklik hier om je account te verifiëren: " +
-                             "<a href='http://localhost:3000/#verification'>verifieer account</a>" +
-
-                            "\nNogmaals bedankt voor het kiezen van ons platform. " +
-                            "We kijken ernaar uit om je te voorzien \n van een geweldige gebruikerservaring!\n" +
-                            "\n" +
-                            "Met vriendelijke groet, \n De Buurtposter"
+                            "<br><br>" +
+                            "Bedankt voor het registreren bij ons platform! We zijn verheugd om je als nieuwe gebruiker te verwelkomen.<br><br>" +
+                            "Om je account volledig te activeren, vragen we je vriendelijk om je e-mailadres te verifiëren door de onderstaande code in te voeren.<br><br>" +
+                            "<span style='color: green;'>Jouw verificatiecode: " + code + "</span><br><br>" +
+                            "Klik <a href='http://localhost:3000/#verification' style='color: green;'>hier</a> om je account te verifiëren.<br><br>" +
+                            "Nogmaals bedankt voor het kiezen van ons platform. We kijken ernaar uit om je te voorzien van een geweldige gebruikerservaring!<br><br>" +
+                            "Met vriendelijke groet,<br>De Buurtposter"
                     };
 
-                } else {
+                } else if(type === "welkom") {
                     emailData = {
                         "from": {
                             "name": "Buurtposter",

@@ -28,22 +28,29 @@ export class VerifieerAccountController extends Controller {
 
 
     #verifieren = async () => {
+
         const mail = App.sessionManager.get("email");
         const inputCode = document.querySelector("#inputCode").value
-
+        const dataBefore = await this.#verificatieRepository.verifierResult(mail);
+        console.log(dataBefore[0].OTP)
         await this.#verificatieRepository.verifier(mail, inputCode);
 
-        const data = await this.#verificatieRepository.verifierResult(mail);
-        console.log(mail)
-        console.log(data[0].verificatie)
-        console.log(data)
+
+        // const data = await this.#verificatieRepository.verifierResult(mail);
+        // console.log(mail)
+        // console.log(data[0].verificatie)
+        // console.log(data)
 
 
-        if (data[0].verificatie === 1) {
+        console.log("inputcode: " + inputCode.trim())
+        console.log( "data otp before:  "+ dataBefore[0].OTP)
+        console.log(dataBefore)
+
+        if (dataBefore[0].OTP == inputCode.trim()) {
             App.loadController(App.CONTROLLER_WELCOME);
             alert("Gelukt")
-        } else if (data[0].verificatie === 0) {
-            alert("verkeerde code! check opnieuw")
+        } else if (dataBefore[0].OTP != inputCode) {
+            alert("verkeerde code! check je mail")
         }
 
 
