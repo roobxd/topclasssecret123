@@ -4,7 +4,7 @@ span.name {
 
 .story {
     display: grid;
-    grid-template-columns: 40% 45.5% 7.5% 4.5%;
+    grid-template-columns: 35% 50% 7.5% 7.5%;
     width: 450px;
     height: 150px;
     border-radius: 25px;
@@ -127,16 +127,26 @@ span.name {
 
 .story p {
     margin: 0;
-    padding: 0;
     color: var(--white);
 }
 
 .story-titel {
     font-size: 18px;
+    padding-bottom: 5px;
+}
+
+.text{
+    height: 100%;
 }
 
 .story-text {
     font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to display before truncating */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px; /* Optional, depending on your design */
 }
 
 .status {
