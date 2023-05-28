@@ -144,7 +144,8 @@ export class myPostsController extends Controller {
             let stitle = this.cachedData[index].onderwerp;
             let sflow = this.cachedData[index].aantalLikes - this.cachedData[index].aantalDislikes;
             let soort = this.cachedData[index].soortBericht;
-            this.#appendStory(stitle, sflow, sid, soort);
+            let imagepath = this.cachedData[index].plaatje;
+            this.#appendStory(stitle, sflow, sid, soort, imagepath);
         }
     }
     
@@ -175,7 +176,7 @@ export class myPostsController extends Controller {
 
     
 
-    #appendStory(stitle, sflow, sid, soort) {
+    #appendStory(stitle, sflow, sid, soort, imagepath) {
         let storygradient = "verhaal-gradient";
         switch(soort) {
             case "bulletin":
@@ -194,7 +195,7 @@ export class myPostsController extends Controller {
 
         // Create an image element
         var img = document.createElement("img");
-        img.src = "assets/img/guus.jpg";
+        img.src = imagepath;
         img.alt = "";
       
         // Create an h2 element

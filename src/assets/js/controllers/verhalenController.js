@@ -139,13 +139,14 @@ export class VerhalenController extends Controller {
             let sum = sLikes + sDislikes;
             let userType = story.persoon;
             let soort = story.soortBericht;
+            let imagepath = story.plaatje;
     
-            this.#createCard(stitel, scontent, sid, difference, sum, userType, soort);
+            this.#createCard(stitel, scontent, sid, difference, sum, userType, soort, imagepath);
         });
     }
     
 
-    async #createCard(stitel, scontent, sid, difference, sum, userType, soort){
+    async #createCard(stitel, scontent, sid, difference, sum, userType, soort, imagepath){
         console.log(soort);
         let storygradient = "verhaal-gradient";
         switch(soort) {
@@ -181,7 +182,7 @@ export class VerhalenController extends Controller {
 
         const img = document.createElement('img');
         img.className = 'trendingimage';
-        img.src = '/assets/img/guus.jpg';
+        img.src = imagepath;
         img.alt = '';
 
         image.appendChild(img);
