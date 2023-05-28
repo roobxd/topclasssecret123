@@ -331,6 +331,7 @@ input:focus {
     border-radius: 25px;
     margin-top: 65px;
     justify-self: right;
+    border-style: none;
 
     display: flex;
     justify-content: center;

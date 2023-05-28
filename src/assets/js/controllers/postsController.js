@@ -8,15 +8,19 @@
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { PostsRepository } from "../repositories/postsRepository.js";
+import {NetworkManager} from "../framework/utils/networkManager.js";
+
 
 export class PostsController extends Controller {
     #postsRepository;
     #welcomeView;
     #PostsRepository;
+    #networkManager
     #session;
 
     constructor() {
         super();
+        this.#networkManager = new NetworkManager();
         this.#postsRepository = new PostsRepository();
         this.#session = App.sessionManager.get("id");
         this.#setupView();
@@ -31,7 +35,7 @@ export class PostsController extends Controller {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
-        this.#fetchPosts();
+        // this.#fetchPosts();
 
         this.#welcomeView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
         this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
@@ -90,11 +94,13 @@ export class PostsController extends Controller {
     }
 
 
-    async #savePost(req, res) {
+    async #savePost(event) {
+        event.preventDefault()
+
         const titelinput = this.#welcomeView.querySelector(".titelinput");
         const dateinput = this.#welcomeView.querySelector(".dateinput");
         const storyinput = this.#welcomeView.querySelector(".storyinput");
-        const fileinput = this.#welcomeView.querySelector("#fileinput");
+        const fileinput = this.#welcomeView.querySelector("#sampleFile");
         const content = storyinput.innerHTML;
         let commentsenabled = 0;
         let storytype = "instantie";
@@ -103,10 +109,32 @@ export class PostsController extends Controller {
         // const imagePath = URL.createObjectURL(file);
         // console.log(imagePath)
 
-        const file = fileinput.files[0];
-        const fileName = file.name; // Extract the file name from the uploaded file
-        const imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
+        console.log(fileinput.files[0]);
+        //TODO: you should add validation to check if an actual file is selected
+        let file = fileinput.files[0];
+        let formData = new FormData();
+
+        let fileName = file.name; // Extract the file name from the uploaded file
+        let imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
         console.log(imagePath);
+
+
+        //set "sampleFile" as key, we read this key in de back-end
+        formData.append("sampleFile", file)
+
+        try {
+            console.log(formData);
+            let repsonse = await this.#networkManager.doFileRequest("/upload", "POST", formData);
+            console.log(repsonse);
+
+            //here we know file upload is successful, otherwise would've triggered catch
+            fileinput.value = "";
+
+            // Set imagePath to the uploaded file path
+            imagePath = `/uploads/${repsonse.fileName}`;
+        } catch (e) {
+            console.error(e);
+        }
 
 
 
