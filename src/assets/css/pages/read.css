@@ -159,7 +159,8 @@ input:focus {
 }
 
 .story-content p {
-    height: 42.5vh;
+    height: 315px; /* set this to whatever fixed height you want */
+    overflow-y: auto;
 }
 
 .story-title {

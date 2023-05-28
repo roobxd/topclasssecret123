@@ -236,6 +236,7 @@ input:focus {
     border-style: none;
     color: var(--white);
     resize: none;
+    overflow-y: scroll;
     font-family: "Roboto", sans-serif;
 }
 

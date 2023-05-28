@@ -121,3 +121,21 @@ body::-webkit-scrollbar-thumb
 .bulletin-gradient {
     background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(65, 75, 100, 0.95) 51.8%, rgba(65, 98, 181, 0.95) 99.93%);
 }
+
+/*Tijdelijke scrollbar*/
+p::-webkit-scrollbar-track
+{
+	background-color: var(--button-primary);
+}
+
+p::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: var(--story-border);
+}
+
+p::-webkit-scrollbar-thumb
+{
+	background-color: var(--story-border);
+	border: 2px solid var(--story-border);
+}

@@ -94,7 +94,8 @@ export class WelcomeController extends Controller {
                 let scontent = story.bericht;
                 let sid = story.id;
                 let soort = story.soortBericht;
-                this.#createCard(stitel, scontent, sid, soort);
+                let imagepath = story.plaatje;
+                this.#createCard(stitel, scontent, sid, soort, imagepath);
             });
         } catch (e) {
             console.log("error while fetching posts: ", e);
@@ -102,7 +103,7 @@ export class WelcomeController extends Controller {
     }
 
 
-    async #createCard(stitel, scontent, sid, soort){
+    async #createCard(stitel, scontent, sid, soort, imagepath){
         const story = document.createElement('div');
         let storygradient = "verhaal-gradient";
         switch(soort) {
@@ -121,7 +122,7 @@ export class WelcomeController extends Controller {
 
         const img = document.createElement('img');
         img.className = 'trendingimage';
-        img.src = '/assets/img/guus.jpg';
+        img.src = imagepath;
         img.alt = '';
 
         image.appendChild(img);
