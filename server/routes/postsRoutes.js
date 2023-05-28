@@ -37,7 +37,7 @@ class PostsRoutes {
             try {
                 const data = await this.#databaseHelper.handleQuery({
                     query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum, commentsenabled) values (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?) ",
-                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storytype, req.body.storyinput, req.body.dateinput, req.body.fileinput, req.body.yesorno]
+                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storytype, req.body.storyinput, req.body.dateinput, req.body.imagePath, req.body.yesorno]
                 });
 
                 //just give all data back as json, could also be empty

@@ -90,7 +90,7 @@ export class PostsController extends Controller {
     }
 
 
-    async #savePost(event) {
+    async #savePost(req, res) {
         const titelinput = this.#welcomeView.querySelector(".titelinput");
         const dateinput = this.#welcomeView.querySelector(".dateinput");
         const storyinput = this.#welcomeView.querySelector(".storyinput");
@@ -98,6 +98,17 @@ export class PostsController extends Controller {
         const content = storyinput.innerHTML;
         let commentsenabled = 0;
         let storytype = "instantie";
+
+        // const file = fileinput.files[0];
+        // const imagePath = URL.createObjectURL(file);
+        // console.log(imagePath)
+
+        const file = fileinput.files[0];
+        const fileName = file.name; // Extract the file name from the uploaded file
+        const imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
+        console.log(imagePath);
+
+
 
         if(document.querySelector(".commentyes")){
             commentsenabled = 1;
@@ -107,8 +118,9 @@ export class PostsController extends Controller {
             storytype = "verhaal"
         }
 
+
         try {
-            await this.#postsRepository.create(this.#session, titelinput.value, storytype, dateinput.value, content, fileinput.value, commentsenabled );
+            await this.#postsRepository.create(this.#session, titelinput.value, storytype, dateinput.value, content, imagePath, commentsenabled );
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);
