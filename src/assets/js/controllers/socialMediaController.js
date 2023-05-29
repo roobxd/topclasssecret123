@@ -40,11 +40,39 @@ export class SocialMediaController extends Controller {
         this.#socialMediaView.querySelector(".bulletinGedrag").addEventListener("click", event => {
             window.location.href = "#bulletinGedrag";
         });
-        this.#socialMediaView.querySelector(".instantie").addEventListener("click", event => {
-            window.location.href = "html_views/instantie.html";
+
+        this.#socialMediaView.querySelector(".edit-button1").addEventListener("click", event => {
+            this.#handleSocials(event);
         });
+        this.#socialMediaView.querySelector(".edit-button2").addEventListener("click", event => {
+            this.#handleSocials(event);
+        });
+        this.#socialMediaView.querySelector(".edit-button3").addEventListener("click", event => {
+            this.#handleSocials(event);
+        });
+
 
     }
 
 
+    #handleSocials(event) {
+        event.preventDefault();
+
+        const newInstagram = this.#socialMediaView.querySelector("#instagramUser").value;
+        const newTiktok = this.#socialMediaView.querySelector("#tiktokUser").value;
+        const newFacebook = this.#socialMediaView.querySelector("#facebookUser").value;
+        const currentId = App.sessionManager.get("id");
+
+        this.#accountSettingsRepository
+            .updateSocials(currentId, newInstagram, newTiktok, newFacebook)
+            .then(() => {
+                this.#socialMediaView.querySelector(".socials-update-message").textContent = "Socials updated successfully!";
+                // this.#accountSettingsBewerkenView.querySelector("#currentEmail").textContent = newEmail;
+                // App.sessionManager.set("email", newEmail);
+            })
+            .catch(error => {
+                console.error("Error updating socials:", error);
+                this.#socialMediaView.querySelector(".socials-update-message").textContent = "Error updating socials: " + error.message;
+            });
+    }
 }

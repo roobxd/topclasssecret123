@@ -14,6 +14,7 @@ class AccountSettingsRoutes {
         this.#updateEmail();
         this.#updateNaam();
         this.#updatePassword();
+        this.#updateSocials();
         this.#uploadProfilePicture();
         this.#updateIdentity();
     }
@@ -22,7 +23,7 @@ class AccountSettingsRoutes {
         this.#app.get("/getUsers", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT id,voornaam,achternaam, email, password FROM users",
+                    query: "SELECT * FROM users",
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
@@ -66,13 +67,14 @@ class AccountSettingsRoutes {
             try {
                 const newVoornaam = req.body.newVoornaam;
                 const newAchternaam = req.body.newAchternaam;
+                const newTussenvoegsel = req.body.newTussenvoegsel;
                 const userId = req.body.userId;
 
                 if (newVoornaam && userId) {
                     try {
                         const data = await this.#databaseHelper.handleQuery({
-                            query: "UPDATE users SET voornaam = ?, achternaam = ?  WHERE id= ?",
-                            values: [newVoornaam, newAchternaam, userId],
+                            query: "UPDATE users SET voornaam = ?, achternaam = ?, tussenvoegsel = ?  WHERE id= ?",
+                            values: [newVoornaam, newAchternaam,newTussenvoegsel, userId],
                         });
 
                         res.status(this.#errorCodes.HTTP_OK_CODE).json({data});
@@ -81,10 +83,40 @@ class AccountSettingsRoutes {
                             message: "Database was not queried correctly",
                             error: e
                         });
+                        z
                     }
                 } else {
                     res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Input is NaN or missing" + {reason: e});
                 }
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Error processing request: " + {reason: e});
+            }
+        });
+    }
+
+    #updateSocials() {
+        this.#app.post("/updateSocials", async (req, res) => {
+            try {
+                const newInstagram = req.body.instagram;
+                const newTiktok = req.body.tiktok;
+                const newFacebook = req.body.facebook;
+                const userId = req.body.userId;
+
+
+                try {
+                    const data = await this.#databaseHelper.handleQuery({
+                        query: "UPDATE users SET instagram = ?, tiktok = ?, facebook = ?  WHERE id= ?",
+                        values: [newInstagram, newTiktok, newFacebook, userId],
+                    });
+
+                    res.status(this.#errorCodes.HTTP_OK_CODE).json({data});
+                } catch (e) {
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json({
+                        message: "Database was not queried correctly",
+                        error: e
+                    });
+                }
+                console.log(newInstagram,newTiktok,newFacebook,userId)
             } catch (e) {
                 res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Error processing request: " + {reason: e});
             }

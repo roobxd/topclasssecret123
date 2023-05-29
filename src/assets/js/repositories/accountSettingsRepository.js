@@ -52,7 +52,7 @@ export class AccountSettingsRepository {
 
 
 
-    updateNaam(currentId, newVoornaam, newAchternaam) {
+    updateNaam(currentId, newVoornaam, newAchternaam, newTussenvoegsel) {
         return this.getUsers()
             .then((users) => {
                 const user = users.find((u) => u.id === currentId);
@@ -64,6 +64,7 @@ export class AccountSettingsRepository {
                 const data = {
                     newVoornaam: newVoornaam,
                     newAchternaam: newAchternaam,
+                    newTussenvoegsel: newTussenvoegsel,
                     userId: userId,
                 };
 
@@ -80,6 +81,35 @@ export class AccountSettingsRepository {
             });
     }
 
+
+    updateSocials(currentId, newInstagram, newTiktok, newFacebook) {
+        return this.getUsers()
+            .then((users) => {
+                const user = users.find((u) => u.id === currentId)
+                if (!user) {
+                    throw new Error("User not found");
+                }
+                const userId = user.id;
+
+                const data = {
+                    instagram: newInstagram,
+                    tiktok: newTiktok,
+                    facebook: newFacebook,
+                    userId: userId,
+                };
+
+                return this.#networkManager
+                    .doRequest("/updateSocials", "POST", data)
+                    .catch((error) => {
+                        console.error("Error updating user info:", error);
+                        throw error;
+                    });
+            })
+            .catch((error) => {
+                console.error("Error getting users:", error);
+                throw error;
+            });
+    }
 
     updateEmail(currentEmail, newEmail) {
         return this.getUsers()
@@ -107,7 +137,6 @@ export class AccountSettingsRepository {
                 throw error;
             });
     }
-
 
     updatePassword(email, newPassword, confirmPassword) {
         // Get user ID from the email
