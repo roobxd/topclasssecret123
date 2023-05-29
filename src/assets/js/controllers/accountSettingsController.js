@@ -11,7 +11,6 @@ export class AccountSettingsController extends Controller {
     #usersRepository;
     #accountSettingsRepository;
     #accountSettingsView;
-    #instantieView;
 
 
     constructor() {
@@ -42,25 +41,11 @@ export class AccountSettingsController extends Controller {
         this.#accountSettingsView.querySelector(".bulletinGedrag").addEventListener("click", event => {
             window.location.href = "#bulletinGedrag";
         });
-        // const userEmail = App.sessionManager.get("email");
-        // this.#accountSettingsView.querySelector("#currentEmail").textContent = userEmail;
-
-
-        ///// MORGEN MET ALI BESPREKEN
-
-
-        // this.#accountSettingsView.querySelector(".resetPassword").addEventListener("click", event => App.loadController(App.CONTROLLER_INGELOGDUPDATEPASSWORD));
-        // Add event listener for profile picture input change
-        // this.#accountSettingsView.querySelector("#profilePic").addEventListener("change", event => this.#handleProfilePicturePreview(event));
-
-        // Add event listener for email update button
-        // this.#accountSettingsView.querySelector("#confirmEmail").addEventListener("click", event => this.#handleEmailUpdate(event));
-
-        // gebruik ik niet
-        // this.#accountSettingsView.querySelector("#confirm-password").addEventListener("click", event => this.#handlePasswordUpdate(event));
 
         //event listener for identity veranderen knop
         // this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));
+
+        console.log(App.sessionManager.get("userId"));
 
         this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
 
@@ -142,42 +127,4 @@ export class AccountSettingsController extends Controller {
             });
     }
 
-    // #handleIdentityUpdate(event) {
-    //     event.preventDefault();
-    //
-    //     const identity = this.#accountSettingsView.querySelector("#identiteit").value;
-    //     const userId = App.sessionManager.get("userId");
-    //
-    //     this.#accountSettingsRepository
-    //         .updateIdentity(userId, identity)
-    //         .then(() => {
-    //             this.#accountSettingsView.querySelector(".identity-update-message").textContent = "Identity updated successfully!";
-    //         })
-    //         .catch(error => {
-    //             console.error("Error updating identity:", error);
-    //             this.#accountSettingsView.querySelector(".identity-update-message").textContent = "Error updating identity: " + error.message;
-    //         });
-    // }
-
-    #handlePasswordUpdate(event) {
-        event.preventDefault();
-
-        const newPassword = this.#accountSettingsView.querySelector("#newPassword").value;
-        const confirmPassword = this.#accountSettingsView.querySelector("#confirmPassword").value;
-        const email = App.sessionManager.get("email");
-
-        if (newPassword === confirmPassword) {
-            this.#accountSettingsRepository
-                .updatePassword(email, newPassword, confirmPassword)
-                .then(() => {
-                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Password updated successfully!";
-                })
-                .catch(error => {
-                    console.error("Error updating password:", error);
-                    this.#accountSettingsView.querySelector(".password-update-message").textContent = "Error updating password: " + error.message;
-                });
-        } else {
-            this.#accountSettingsView.querySelector(".password-update-message").textContent = "Passwords do not match!";
-        }
-    }
 }

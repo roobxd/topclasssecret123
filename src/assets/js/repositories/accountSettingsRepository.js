@@ -52,12 +52,34 @@ export class AccountSettingsRepository {
 
 
 
-    updateName(currentName, newName){
+    updateNaam(currentId, newVoornaam, newAchternaam) {
         return this.getUsers()
             .then((users) => {
-                const user = users.find((u) => u.voornaam === currentName)
+                const user = users.find((u) => u.id === currentId);
+                if (!user) {
+                    throw new Error("User not found");
+                }
+                const userId = user.id;
+
+                const data = {
+                    voornaam: newVoornaam,
+                    achternaam: newAchternaam,
+                    userId: userId,
+                };
+
+                return this.#networkManager
+                    .doRequest("/updateNaam", "POST", data)
+                    .catch((error) => {
+                        console.error("Error updating user info:", error);
+                        throw error;
+                    });
             })
+            .catch((error) => {
+                console.error("Error getting users:", error);
+                throw error;
+            });
     }
+
 
     updateEmail(currentEmail, newEmail) {
         return this.getUsers()

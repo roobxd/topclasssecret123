@@ -32,6 +32,13 @@
         rgba(255, 151, 151, 0.9025) 100%
     );
 
+    --bulletin-gradient: linear-gradient(
+        97.34deg, 
+        rgba(30, 30, 30, 0.95) 0%, 
+        rgba(65, 75, 100, 0.95) 51.8%, 
+        rgba(65, 98, 181, 0.95) 99.93%
+    );
+
     --story-border: #904bff;
 
     --trending-border: linear-gradient(225deg, #ff3d00 0%, #ff8a00 100);
@@ -53,26 +60,22 @@
     transition: 100ms;
 }
 
-.background-image {
-    position: absolute;
-    background-color: #000000;
-    opacity: 25%;
-    margin-top: -50px;
-    width: 100%;
+html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-/*Body Content*/
 body {
-    background: url("/assets/img/background.png");
-    background-repeat: no-repeat;
+    background: url("/assets/img/background.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    padding: 0;
-    margin: 0;
     font-family: var(--main-font);
     font-weight: 600;
-    margin-bottom: 25px;
 }
+
 
 button {
     font-weight: 600;
@@ -83,4 +86,55 @@ button {
 .error {
     color: red;
     font-size: medium;
+}
+
+body::-webkit-scrollbar-track
+{
+	background-color: var(--button-primary);
+}
+
+body::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: var(--button-primary);
+}
+
+body::-webkit-scrollbar-thumb
+{
+	background-color: var(--navbar-main);
+	border: 2px solid var(--navbar-brand);
+}
+
+.verhaal-gradient {
+    background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(78, 65, 100, 0.95) 51.8%, rgba(129, 95, 185, 0.95) 99.93%);
+}
+
+.instantie-gradient {
+    background: linear-gradient(96.64deg, rgba(30, 30, 30, 0.9025) 0%, rgba(98, 78, 78, 0.926398) 50.31%, rgba(255, 151, 151, 0.9025) 100%);
+}
+
+.shitpost-gradient {
+    background: linear-gradient(96.98deg, rgba(30, 30, 30, 0.9025) 0%, rgba(65, 53, 45, 0.925409) 50.83%, rgba(99, 68, 45, 0.9025) 100%);
+}
+
+.bulletin-gradient {
+    background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(65, 75, 100, 0.95) 51.8%, rgba(65, 98, 181, 0.95) 99.93%);
+}
+
+/*Tijdelijke scrollbar*/
+p::-webkit-scrollbar-track
+{
+	background-color: var(--button-primary);
+}
+
+p::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: var(--story-border);
+}
+
+p::-webkit-scrollbar-thumb
+{
+	background-color: var(--story-border);
+	border: 2px solid var(--story-border);
 }

@@ -42,6 +42,7 @@ export class InstantieController extends Controller {
             window.location.href = "#bulletinGedrag";
         });
 
+        console.log(App.sessionManager.get("id"));
 
         this.#instantieView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));
 
@@ -52,7 +53,7 @@ export class InstantieController extends Controller {
         event.preventDefault();
 
         const identity = this.#instantieView.querySelector("#identiteit").value;
-        const userId = App.sessionManager.get("userId");
+        const userId = App.sessionManager.get("id");
         console.log("Retrieved userId from sessionManager:", userId);
         this.#accountSettingsRepository
             .updateIdentity(userId, identity)

@@ -1,119 +1,10 @@
 <link href="assets/css/pages/welcome.css" rel="stylesheet" />
 
+
 <div class="main-wrapper">
-    <!-- <div class="row justify-content-md-center">
-        <section class="col text-center gx-2">
-            <h1 class="mt-4">Welkom <span class="name"></span>, bij het enige echte PAD framework 2.0</h1>
-            <p class="lead">Je hebt framework succesvol opgezet als je deze pagina ziet! Happy coding :)</p>
-            <p>Succesvol JSON ontvangen van de back-end(rooms example data):</p>
-            <code class="example-response"></code>
-        </section>
-    </div> -->
-    <div class="story-container">
-        <div class="story one persoonstory">
-            <div class="image">
-                <img class="trendingimage" src="/assets/img/guus.jpg" alt="">
-            </div>
-            <div class="text">
-                <div class="text-info">
-                    <p class="story-titel">Empty</p>
-                    <p class="story-text">Empty</p>
-                </div>
-            </div>
-            <div class="icons">
-                <div class="trending">
-                    <i class="bi bi-fire trending"></i>
-                </div>
-                <div class="readme">
-                    <i class="bi bi-arrow-right gonext"></i>
-                </div>
-            </div>
-            <div class="iconsadd">
-                <div class="iconnumber">
-                    <p>+19</p>
-                </div>
-                <div class="empty"></div>
-            </div>
-        </div>
-        <div class="story two persoonstory">
-            <div class="image">
-                <img class="heartimage" src="/assets/img/petje.jpg" alt="">
-            </div>
-            <div class="text">
-                <div class="text-info">
-                    <p class="story-titel">Bijlmer Danspas</p>
-                    <p class="story-text">Terwijl ik de straten van de Bijlmer verkende, werd ik ondergedompeld in de
-                        levendige cultuur van deze gemeenschap...</p>
-                </div>
-            </div>
-            <div class="icons">
-                <div class="trending">
-                    <i class="bi bi-heart-fill heart"></i>
-                </div>
-                <div class="readme">
-                    <i class="bi bi-arrow-right gonext"></i>
-                </div>
-            </div>
-            <div class="iconsadd">
-                <div class="iconnumber">
-                    <p>+10</p>
-                </div>
-                <div class="empty"></div>
-            </div>
-        </div>
-        <div class="story three instantiestory">
-            <div class="image ">
-                <img class="heartimage" src="/assets/img/bermuda.jpg" alt="">
-            </div>
-            <div class="text">
-                <div class="text-info">
-                    <p class="story-titel">Bermuda Fissa</p>
-                    <p class="story-text">De muziek was onweerstaanbaar, de sfeer was elektrisch en de artiesten waren
-                        geweldig.
-                        Een nacht om nooit te vergeten...</p>
-                </div>
-            </div>
-            <div class="icons">
-                <div class="trending">
-                    <i class="bi bi-heart-fill heart"></i>
-                </div>
-                <div class="readme">
-                    <i class="bi bi-arrow-right gonext"></i>
-                </div>
-            </div>
-            <div class="iconsadd">
-                <div class="iconnumber">
-                    <p>+5</p>
-                </div>
-                <div class="empty"></div>
-            </div>
-        </div>
-        <div class="story four shitpost">
-            <div class="image">
-                <img class="trashimage" src="/assets/img/trashcan.jpg" alt="">
-            </div>
-            <div class="text">
-                <div class="text-info">
-                    <p class="story-titel">Newjaars Ruina</p>
-                    <p class="story-text">020 leeft weer een jaar, op naar een ruina vol 2023. Zuid Oost represent...
-                    </p>
-                </div>
-            </div>
-            <div class="icons">
-                <div class="trending">
-                    <i class="bi bi-trash3-fill trash"></i>
-                </div>
-                <div class="readme">
-                    <i class="bi bi-arrow-right gonext"></i>
-                </div>
-            </div>
-            <div class="iconsadd">
-                <div class="iconnumber">
-                    <p>-25</p>
-                </div>
-                <div class="empty"></div>
-            </div>
-        </div>
+    
+    <div class="story-container-welcome">
+
     </div>
 
     <div class="filler">
@@ -141,10 +32,17 @@
                 <p>Voeg een bulletin post toe</p>
             </div>
         </div>
-        <div class="timeline">
+        <div class="timelineWelcome">
             <div class="timelineheader">
                 <h2 class="timelineTitle">Timeline</h2>
-                <h3>2023</h3>
+                <h3 class="timelineContext">Kies het begin en eind datum van de tijdlijn: </h3> <br>
+<!--                <h3>2023</h3>-->
+                <label for="beginDatum" class="calanderLeft">Vanaf: </label>
+                <input type="date" class="calanderLeft" id="beginDatum">
+                <label for="eindDatum" class="calanderRight">Tot: </label>
+                <input type="date" class="calanderRight" id="eindDatum">
+<!--                <button type="submit" class="btn btn-outline-light bekijken">Bekijken</button>-->
+                <button type="submit" class="btn btn-outline-info bekijken">Bekijken</button>
             </div>
             <div class="timestripe">
                 <div class="stripe">

@@ -18,7 +18,7 @@ export class PostsRepository {
     }
 
     async getAll() {
-        return this.#networkManager.doRequest('/welcome', "GET");
+        return this.#networkManager.doRequest(`/welcome`, "GET");
     }
 
     /**
@@ -33,8 +33,8 @@ export class PostsRepository {
 
     }
 
-    async create(subject, jaartal, typeOfPost, post, sampleFile) {
-        this.#networkManager.doRequest(this.#route, "POST", { subject: subject, jaartal: jaartal, typeOfPost: typeOfPost, post: post, sampleFile: sampleFile})
+    async create( id, titelinput, storytype, dateinput, storyinput, imagePath, comments) {
+        this.#networkManager.doRequest(this.#route, "POST", { gebruiker: id, titelinput: titelinput, storytype: storytype, dateinput: dateinput, storyinput: storyinput, imagePath: imagePath, yesorno: comments})
 
     }
 

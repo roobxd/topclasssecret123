@@ -8,15 +8,21 @@
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { PostsRepository } from "../repositories/postsRepository.js";
+import { NetworkManager } from "../framework/utils/networkManager.js";
+
 
 export class PostsController extends Controller {
     #postsRepository;
     #welcomeView;
     #PostsRepository;
+    #networkManager
+    #session;
 
     constructor() {
         super();
+        this.#networkManager = new NetworkManager();
         this.#postsRepository = new PostsRepository();
+        this.#session = App.sessionManager.get("id");
         this.#setupView();
     }
 
@@ -29,69 +35,132 @@ export class PostsController extends Controller {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
-        //from here we can safely get elements from the view via the right getter
-        //this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
-
-        //for demonstration a hardcoded room id that exists in the database of the back-end
-        this.#fetchPosts();
+        // this.#fetchPosts();
 
         this.#welcomeView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
         this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
         this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
         this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
-        this.#welcomeView.querySelector(".storyinput").addEventListener('input', () => {
-            // Get the HTML content of the editor
-            //const content = editor.innerHTML;
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.add("commentno");
 
-            // Do something with the HTML content (e.g. save it to a database)
-            //console.log(html);
-        });
+        this.#welcomeView.querySelector("#no").addEventListener("click", () => this.#toggleCommentsNo());
+        this.#welcomeView.querySelector("#yes").addEventListener("click", () => this.#toggleCommentsYes());
+
+        this.#welcomeView.querySelector(".instantietag").addEventListener("click", () => this.#toggleInstantie());
+        this.#welcomeView.querySelector(".gebruikertag").addEventListener("click", () => this.#toggleStory());
 
         this.#welcomeView.querySelector(".postbutton").addEventListener("click", (event) => this.#savePost(event));
+
+        this.#welcomeView.querySelector("#sampleFile").addEventListener("change", () => this.#imagePreview());
+
+        var storyInput = document.querySelector('.storyinput');
+
+        storyInput.addEventListener('keyup', function () {
+            this.dataset.divPlaceholderContent = this.textContent;
+        });
+
+    }
+
+    #imagePreview(){
+        let input = this.#welcomeView.querySelector("#sampleFile");
+        const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const imagePreview = document.querySelector(".image-preview");
+                const selectorIcon = document.querySelector(".image-icon");
+                reader.addEventListener("load", function () {
+                    // Convert image file to Base64 string
+                    imagePreview.src = reader.result;
+                    selectorIcon.style.display = "none";
+                });
+        
+                reader.readAsDataURL(file);
+            }
+    }
+
+    #toggleCommentsNo(){
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.add("commentno");
+
+        let yesbutton = document.querySelector("#yes");
+        yesbutton.classList.remove("commentyes");
+    }
+
+    #toggleCommentsYes(){
+        let yesbutton = document.querySelector("#yes");
+        yesbutton.classList.add("commentyes");
+
+        let nobutton = document.querySelector("#no");
+        nobutton.classList.remove("commentno");
+    }
+
+    #toggleInstantie(){
+        let instantietag = document.querySelector(".instantietag");
+        instantietag.classList.add("active-tag-instantie");
+
+        let gebruikertag = document.querySelector(".gebruikertag");
+        gebruikertag.classList.remove("active-tag-user");
+    }
+
+    #toggleStory(){
+        let yesbutton = document.querySelector(".gebruikertag");
+        yesbutton.classList.add("active-tag-user");
+
+        let instantietag = document.querySelector(".instantietag");
+        instantietag.classList.remove("active-tag-instantie");
     }
 
 
     async #savePost(event) {
-        const subject = this.#welcomeView.querySelector("#subject");
-        const jaartal = this.#welcomeView.querySelector("#jaartal");
-        const typeOfPost = this.#welcomeView.querySelector("#typeOfPost");
-        const post = this.#welcomeView.querySelector(".storyinput");
-        const sampleFile = this.#welcomeView.querySelector("#sampleFile");
+        event.preventDefault();
 
-        const content = post.innerHTML;
-        //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
+        const titelinput = this.#welcomeView.querySelector(".titelinput");
+        const dateinput = this.#welcomeView.querySelector(".dateinput");
+        const storyinput = this.#welcomeView.querySelector(".storyinput");
+        const fileinput = this.#welcomeView.querySelector("#sampleFile");
+        const content = storyinput.innerHTML;
+        let commentsenabled = 0;
+        let storytype = "instantie";
+
+        //TODO: you should add validation to check if an actual file is selected
+        let file = fileinput.files[0];
+        let formData = new FormData();
+
+        let fileName = file.name; // Extract the file name from the uploaded file
+        let imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
+
+
+        //set "sampleFile" as key, we read this key in de back-end
+        formData.append("sampleFile", file)
 
         try {
-            await this.#postsRepository.create(subject.value, jaartal.value, typeOfPost.value, content, sampleFile.value );
-            alert("Uw verhaal is geplaatst!");
+            let repsonse = await this.#networkManager.doFileRequest("/upload", "POST", formData);
+
+            //here we know file upload is successful, otherwise would've triggered catch
+            fileinput.value = "";
+
+            // Set imagePath to the uploaded file path
+            imagePath = `/uploads/${repsonse.fileName}`;
+        } catch (e) {
+            console.error(e);
+        }
+
+        if(document.querySelector(".commentyes")){
+            commentsenabled = 1;
+        }
+
+        if(document.querySelector(".active-tag-user")){
+            storytype = "verhaal"
+        }
+
+        try {
+            await this.#postsRepository.create(this.#session, titelinput.value, storytype, dateinput.value, content, imagePath, commentsenabled );
+            App.loadController(App.CONTROLLER_WELCOME);
         } catch (error) {
             console.log(error);
         }
 
     }
-
-    /**
-     * async function that retrieves a room by its id via the right repository
-     * @param roomId the room id to retrieve
-     * @private
-     */
-    async #fetchPosts() {
-        const storyPlaatje = this.#welcomeView.querySelector(".story-plaatje");
-
-
-        try {
-            //await keyword 'stops' code until data is returned - can only be used in async function
-            let data = await this.#PostsRepository.getAll();
-            let length = data.length - 1;
-            storyPlaatje.innerHTML = data[length].sampleFile;
-            console.log(data);
-        } catch (e) {
-            console.log("error while fetching rooms", e);
-
-            //for now just show every error on page, normally not all errors are appropriate for user
-            // exampleResponse.innerHTML = e;
-        } }
-            //for now just show every error on page, normally not all errors are appropriate for user
-            //exampleResponse.innerHTML = e;
-        }
+}
