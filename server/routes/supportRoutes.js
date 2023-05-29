@@ -3,7 +3,7 @@
  * @author Kifle
  *
  */
-const https = require("https");
+const https = require('https'); // Import the 'https' module;
 
 class SupportRoutes{
     #app
@@ -20,7 +20,7 @@ class SupportRoutes{
         this.#app = app;
 
         this.#createSupport();
-        // this.#sendMail();
+        this.#sendMail();
 
     }
 
@@ -46,58 +46,51 @@ class SupportRoutes{
         })
     }
 
+
+
+
     #sendMail() {
         this.#app.post("/sendmail", async (req, res) => {
-            // const naam = req.body.naam;
-            // const mail = req.body.mail;
-            // const vraag = req.body.question;
-            //
-            // try{
-            //     const data = await this.#databaseHelper.handleQuery({
-            //         query: "INSERT INTO faq(name, email, question) VALUES (?,?,?);",
-            //         values: [naam, mail, vraag]
-            //     });
-            //
-            //     if (data.insertId){
-            //         res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId});
-            //         console.log(res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId}));
-            //     }
-            // } catch (e) {
-            //     console.log(e);
-            //     res.status(this.#httpErrorCodes.BAD_REQUEST_CODE).json({ reason: e});
-            //
-            // }
-            const data = JSON.stringify({
-                from: mail,
-                to: 'kiflemisgun15@gmail.com',
-                subject: "dat is text van klant; ",
-                text: "Vraag",
-                html: vraag
+            const fromEmail = 'buurtposter@hbo-ict.cloud';
+            const apiKey = 'pad_flo_7.Ixxt5Fxzg0fJObw7';
+            const { name, email, question } = req.body;
 
-            })
+            const data = JSON.stringify({
+                from: fromEmail,
+                to: email,
+                subject: " Vraag van klant; ",
+                text: question,
+                html: name,
+            });
+
             const options = {
                 hostname: 'api.hbo-ict.cloud',
-                port: 3000,
+                port: 443,
                 path: '/mail',
                 method: 'POST',
                 headers: {
-                    Authorization: 'Bearer pad_flo_7.Ixxt5Fxzg0fJObw7',
-                    'Content-Type': 'application/json'
-                }
-            }
-            const request = https.request(options, res => {
-                console.log(`statusCode:  ${res.statusCode}`)
-                res.on('data', d => {
-                    process.stdout.write(d)
-                })
-            })
-            request.on('error', error => {
-                console.error(error)
-            })
-            request.write(data)
-            request.end()
-        })
+                    Authorization: `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            const request = https.request(options, (response) => {
+                console.log(`statusCode: ${response.statusCode}`);
+                response.on('data', (d) => {
+                    process.stdout.write(d);
+                });
+            });
+
+            request.on('error', (error) => {
+                console.error(error);
+            });
+
+            request.write(data);
+            request.end();
+        });
     }
+
+
 }
 
 module.exports = SupportRoutes;

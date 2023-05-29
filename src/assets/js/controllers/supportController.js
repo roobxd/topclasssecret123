@@ -54,15 +54,11 @@ export class SupportController extends Controller{
            try {
 
                const data = await this.#supportRepository.support(name, email, question);
-               // const sendMail = await this.#supportRepository.sendContactInformation(name, email, question);
-               const sendMail = await  this.#sendMailRepository.sendAnswerMail(email, question);
-               // console.log(data);
-               // console.log(sendMail);
-               // console.log(sendMail);
+
+               const sendMail = await  this.#supportRepository.sendQuestionMail(name, email, question);
+
                reactieBox.innerHTML = "Bedankt voor jouw vraag. We hebben jouw reactie ontvangen!"
-               // if (data.id){
-               //     APP.loadController(APP.CONTROLLER_WELCOME);
-               // }
+             
            }catch (error){
             reactieBox.innerHTML = "Er is iets fout gegaan bij het indienen."
             console.log(error);
