@@ -248,7 +248,7 @@ input:focus {
     color: var(--white);
 }
 
-.likeordislike .disliked{
+.likeordislike .disliked, .downvoted .disliked{
     color: red;
 }
 
@@ -257,7 +257,7 @@ input:focus {
     cursor: pointer;
 }
 
-.likeordislike .liked{
+.likeordislike .liked, .upvoted .liked{
     color: green;
 }
 

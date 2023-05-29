@@ -7,25 +7,30 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { SessionManager } from "./framework/utils/sessionManager.js"
-import { LoginController } from "./controllers/loginController.js"
-import { NavbarController } from "./controllers/navbarController.js"
-import { NavbarLoggedController } from "./controllers/navbarControllerLogged.js"
-import { UploadController } from "./controllers/uploadController.js"
-import { WelcomeController } from "./controllers/welcomeController.js"
-import { PostsController } from "./controllers/postsController.js"
-import { EditController } from "./controllers/editController.js"
-import { signUpController } from "./controllers/signUpController.js"
-import { UpdatePasswordController } from "./controllers/updatePasswordController.js"
-import { BulletinController } from "./controllers/bulletinController.js"
-import { SupportController } from "./controllers/supportController.js";
-import { PasswordUpdateMailController } from "./controllers/passwordUpdateMailController.js";
-import { AccountSettingsController } from "./controllers/accountSettingsController.js";
-import { VerhalenController } from "./controllers/verhalenController.js";
-import { IngelogdUpdatePasswordController } from "./controllers/ingelogdUpdatePasswordController.js";
-import { TijdlijnController } from "./controllers/tijdlijnController.js";
-import { readController } from "./controllers/readController.js";
-import { myPostsController } from "./controllers/myPostsController.js";
+import {SessionManager} from "./framework/utils/sessionManager.js"
+import {LoginController} from "./controllers/loginController.js"
+import {NavbarController} from "./controllers/navbarController.js"
+import {NavbarLoggedController} from "./controllers/navbarControllerLogged.js"
+import {UploadController} from "./controllers/uploadController.js"
+import {WelcomeController} from "./controllers/welcomeController.js"
+import {PostsController} from "./controllers/postsController.js"
+import {EditController} from "./controllers/editController.js"
+import {signUpController} from "./controllers/signUpController.js"
+import {UpdatePasswordController} from "./controllers/updatePasswordController.js"
+import {BulletinController} from "./controllers/bulletinController.js"
+import {SupportController} from "./controllers/supportController.js";
+import {PasswordUpdateMailController} from "./controllers/passwordUpdateMailController.js";
+import {AccountSettingsController} from "./controllers/accountSettingsController.js";
+import {AccountSettingsBewerkenController} from "./controllers/accountSettingsBewerkenController.js";
+import {VerhalenController} from "./controllers/verhalenController.js";
+import {IngelogdUpdatePasswordController} from "./controllers/ingelogdUpdatePasswordController.js";
+import {TijdlijnController} from "./controllers/tijdlijnController.js";
+import {readController} from "./controllers/readController.js";
+import {myPostsController} from "./controllers/myPostsController.js";
+import {InstantieController} from "./controllers/instantieController.js";
+import {SocialMediaController} from "./controllers/socialMediaController.js";
+import {BeveiligingController} from "./controllers/beveiligingController.js";
+import {BulletinGedragController} from "./controllers/bulletinGedragController.js";
 import {VerifieerAccountController} from "./controllers/verifieerAccountController.js";
 
 export class App {
@@ -46,6 +51,11 @@ export class App {
     static CONTROLLER_UPDATEPASSWORD = "updatePassword";
     static CONTROLLER_SUPPORT = "support";
     static CONTROLLER_ACCOUNT_SETTINGS = "accountSettings";
+    static CONTROLLER_ACCOUNT_SETTINGS_BEWERKEN = "accountSettingsBewerken";
+    static CONTROLLER_INSTANTIE = "instantie";
+    static CONTROLLER_SOCIALMEDIA = "socialMedia";
+    static CONTROLLER_BEVEILIGING = "beveiliging";
+    static CONTROLLER_BULLETINGEDRAG = "bulletinGedrag"
     static CONTROLLER_PASSWORDUPDATEMAIL = "passwordUpdateMail";
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
@@ -97,16 +107,16 @@ export class App {
                 return true;
         }
 
-        if(window.location.href.includes("read")){
+        if (window.location.href.includes("read")) {
             new readController();
         }
 
-        
-        if(window.location.href.includes("myposts")){
+
+        if (window.location.href.includes("myposts")) {
             new myPostsController();
         }
 
-        if(window.location.href.includes("edit")){
+        if (window.location.href.includes("edit")) {
             new EditController();
         }
 
@@ -139,10 +149,22 @@ export class App {
             case App.CONTROLLER_EDIT:
                 App.isLoggedIn(() => new EditController(), () => new LoginController());
             case App.CONTROLLER_VERIFIEERACCOUNT:
-                App.isLoggedIn(() => new VerifieerAccountController(),() => new LoginController())
+                App.isLoggedIn(() => new VerifieerAccountController(), () => new LoginController())
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
+                break;
+            case App.CONTROLLER_INSTANTIE:
+                App.isLoggedIn(() => new InstantieController(), () => new InstantieController());
+                break;
+            case App.CONTROLLER_BEVEILIGING:
+                App.isLoggedIn(() => new BeveiligingController(), () => new BeveiligingController());
+                break;
+            case App.CONTROLLER_BULLETINGEDRAG:
+                App.isLoggedIn(() => new BulletinGedragController(), () => new BulletinGedragController());
+                break;
+            case App.CONTROLLER_SOCIALMEDIA:
+                App.isLoggedIn(() => new SocialMediaController(), () => new SocialMediaController());
                 break;
             case App.CONTROLLER_INGELOGDUPDATEPASSWORD:
                 App.isLoggedIn(() => new IngelogdUpdatePasswordController(), () => new LoginController())
@@ -159,6 +181,9 @@ export class App {
             case App.CONTROLLER_ACCOUNT_SETTINGS:
                 App.isLoggedIn(() => new AccountSettingsController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_ACCOUNT_SETTINGS_BEWERKEN:
+                App.isLoggedIn(() => new AccountSettingsBewerkenController(), () => new LoginController());
+                break;
             case App.CONTROLLER_TIJDLIJN:
                 App.setCurrentController(name)
                 App.isLoggedIn(() => new TijdlijnController(), () => new LoginController());
@@ -169,7 +194,6 @@ export class App {
             case App.CONTROLLER_MYPOSTS:
                 App.isLoggedIn(() => new myPostsController(), () => new myPostsController());
                 break;
-
 
 
             default:
@@ -194,7 +218,7 @@ export class App {
                     window.location.hash.includes("myposts") ||
                     window.location.hash.includes("edit")
                 )
-                return;
+                    return;
                 window.location.href = "#welcome";
             }
         } else {
