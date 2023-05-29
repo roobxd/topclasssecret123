@@ -69,31 +69,43 @@
                 </div>
             </div>
             <div class="account-content">
-                <p>Algemeen</p>
+                <p>Beveiliging</p>
                 <div class="content-stripe"></div>
                 <div class="inside">
-                    <div class="setting">
-                        <p>Naam</p>
-                        <p id="name">Rocco van Baardwijk</p>
-                        <p id="editName" class="edit-button">Bewerken</p>
+                <div class="wwvergeten-container">
+                    <div class="wwvergetenheader">
+                        <h2>Stel nieuwe wachtwoord in</h2>
                     </div>
-                    <div class="setting">
-                        <p>Email</p>
-                        <p class="currentEmail" id="email">rocco1999@hotmail.nl</p>
-                        <p id="editEmail" class="edit-button">Bewerken</p>
-                    </div>
-                    <div class="setting">
-                        <p>Contact</p>
-                        <p>roccomedianl@gmail.com</p>
-                        <p>Bewerken</p>
-                    </div>
-                    <div class="setting">
-                        <p>Verificatie-status</p>
-                        <p class="verificatie-status">
-                            niet-geverifierd
-                        </p>
-                        <p>Bewerken</p>
-                    </div>
+                    <form>
+<!--                        <div class="input-container">-->
+<!--                            <input type="text" name="username" class="inputfield" id="email" aria-describedby="usernameHelp"-->
+<!--                                   placeholder="Email...">-->
+<!--                            <i class="bi bi-person-fill inputicon"></i>-->
+<!--                        </div>-->
+
+                        <div class="input-container">
+                            <input type="password" class="form-control" id="new-password" placeholder="Wachtwoord...">
+
+                            <i class="bi bi-key-fill inputicon"></i>
+                        </div>
+
+                        <div class="input-container">
+                            <input type="password" class="form-control" id="confirm-password" placeholder="Herhaal wachtwoord...">
+
+                            <i class="bi bi-check-all inputicon"></i>
+                        </div>
+
+                        <div class="button-container">
+                            <div class="submitbutton">
+                                <p>Opslaan</p>
+                            </div>
+                        </div>
+
+                        <p class="error"></p>
+
+                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                    </form>
+                </div>
                 </div>
                 <div class="content-stripe"></div>
             </div>
