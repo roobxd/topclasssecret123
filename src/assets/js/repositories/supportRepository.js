@@ -23,15 +23,12 @@ export class SupportRepository{
         })
     }
 
-    sendQuestionMail(){
-        return this.#networkManager.doRequest("/mail", "POST")
-    }
 
-    sendContactInformation(name, mail, vraag){
+    sendQuestionMail(name, mail, vraag){
         return this.#networkManager.doRequest("/sendmail", "POST", {
-            "naam": name,
-            "mail": mail,
-            "question": vraag,
+            naam: name,
+            email: mail,
+            question: vraag,
              })
     }
 
