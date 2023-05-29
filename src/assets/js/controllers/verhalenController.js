@@ -111,6 +111,7 @@ export class VerhalenController extends Controller {
         try {
             // await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
+            // let userTypes = await this.#PostsRepository.getUserTypes();
             console.log(data);
     
             // Store original fetched data
@@ -163,13 +164,8 @@ export class VerhalenController extends Controller {
        Percentage calculations that are important for determining icons. The calculation is based on the sum of likes.
         */
         const tienProcent = 10 / 100 * sum;
-        console.log("10%: " + tienProcent);
-        const vijtienProcent = 15 / 100 * sum;
-        console.log("15%: " + vijtienProcent)
         const twentigProcent = 20 / 100 * sum;
-        console.log("20%: " + twentigProcent)
         const vijftigProcent = 50 / 100 * sum;
-        console.log("50%: " + vijftigProcent)
 
         const story = document.createElement('div');
         story.className = "story";

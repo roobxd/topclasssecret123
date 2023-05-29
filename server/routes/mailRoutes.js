@@ -22,6 +22,8 @@ class MailRoutes {
             try {
                 const type = req.params.type;
                 const mail = req.body.email;
+                const question = req.body.vraag;
+
                 const apiKey = "pad_flo_7.Ixxt5Fxzg0fJObw7";
                 const headers = {
                     "Authorization": `Bearer ${apiKey}`
@@ -92,12 +94,12 @@ class MailRoutes {
                         "to": [
                             {
                                 "name": "Buurtposter",
-                                "address": "buurtposter@hbo-ict.cloud"
+                                "address": "kiflemisgun15@gmail.com"
                         }
                         ],
                         "subject": "Welkom",
                         "html":
-                            "Hallo, " + wachtwoord[0].voornaam +
+                            "Hallo, " + question + "\n" +
 
                             "Hartelijk welkom bij De Buurtposter, dé online plek waar je eenvoudig en snel jouw buurt op de hoogte kunt houden van alles wat er speelt in de buurt. We zijn blij dat je je hebt aangemeld en we willen je graag wat meer informatie geven over onze website.\n" +
                             "\n" +

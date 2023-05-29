@@ -75,53 +75,72 @@ export class TijdlijnController extends Controller {
             story.classList.add("one");
             story.classList.add(storygradient);
 
+            if (data.result[i].persoon === 0 ){
+                story.classList.add("instantieStory");
+
+            } else {
+                story.classList.add("persoonstory");
+            }
+            // if the container is clicked, the user would be directed to read page
+            story.addEventListener("click", ()=>{
+                window.location = "http://localhost:3000/#read/" + data.result[i].id;
+            })
+            // story is child of container
             container.appendChild(story);
 
             story.addEventListener("click", () => {
                 window.location.href = "/#read/" + data.result[0].story_id;
             })
-
+            
+            // div for the image
             const divImage = document.createElement("div");
             divImage.className = "image";
             story.appendChild(divImage);
 
-            const image = document.createElement("img");
+// Image for profile inside container            const image = document.createElement("img");
             image.alt = "Avatar";
             image.className = "trendingimage";
             image.src = "../assets/img/petje.jpg";
             divImage.appendChild(image);
 
+ // Text-box for stroy
             const text = document.createElement("div");
             text.className = "text";
             story.appendChild(text);
-
+ // div for text-info
             const textInfo = document.createElement("div");
             textInfo.className = "text-info";
             text.appendChild(textInfo);
 
-            const date = document.createElement("h2");
+        // h2 for the date  
+  const date = document.createElement("h2");
             date.className = "gebeurtenis";
             date.innerHTML = postDay.slice(0, 10);
             textInfo.appendChild(date);
 
+// title for the story
             const title = document.createElement("p");
             title.className = "story-title";
             title.innerHTML = data.result[i].onderwerp
             textInfo.appendChild(title);
 
-            const storyText = document.createElement("p");
+           // story - text
+ const storyText = document.createElement("p");
             storyText.className = "story-text";
             storyText.innerHTML = data.result[i].bericht;
             textInfo.appendChild(storyText);
 
+ // div for the Icons, is child of story div
             const icons = document.createElement("div");
             icons.className = "icons";
             story.appendChild(icons);
 
+// div for the type of the icon
             const iconType = document.createElement("div");
             iconType.className = "trending";
             icons.appendChild(iconType);
 
+// the type of the icon would be determined depending on the number of likes of the story
             if (difference_in_day <= 7) {
                 if (difference >= 0 && difference <= tienProcent) {
                     const heartIcon = document.createElement("i");
@@ -176,22 +195,27 @@ export class TijdlijnController extends Controller {
                 }
             }
 
-            const readme = document.createElement("div")
+          // div for readme icon
+  const readme = document.createElement("div")
             readme.className = " readme";
             icons.appendChild(readme);
 
+// icon of readme
             const readmeIcon = document.createElement("i");
             readmeIcon.className = "bi bi-arrow-right gonext";
             readme.appendChild(readmeIcon);
 
+// div for the number of likes/dislikes
             const differentialLikes = document.createElement("div");
             differentialLikes.className = "iconsadd";
             story.appendChild(differentialLikes);
 
+            // holder div for differentialLikes
             const iconnumber = document.createElement("div");
             iconnumber.className = "iconnumber";
             differentialLikes.appendChild(iconnumber);
 
+// p for the real differentialLikes
             const likeDifference = document.createElement("p");
             if (difference > 0) {
                 likeDifference.innerHTML = "+" + difference;
@@ -200,6 +224,7 @@ export class TijdlijnController extends Controller {
             }
             iconnumber.appendChild(likeDifference);
 
+// arrow
             const arrow = document.createElement("div");
             if (i % 2 === 0) {
                 arrow.className = "right-container-arrow";
@@ -207,6 +232,8 @@ export class TijdlijnController extends Controller {
                 arrow.className = "left-container-arrow";
             }
             differentialLikes.appendChild(arrow);
+
+
         }
 
         let length = data.result.length ;

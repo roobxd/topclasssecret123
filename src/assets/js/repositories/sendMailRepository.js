@@ -22,14 +22,23 @@ export class SendMailRepository {
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
 
+
+    sendAnswerMail(mail, vraag){
+        this.#route = "/mail/support"
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail, vraag: vraag})
+    }
+
+
+
     sendWelkomMail(mail){
         this.#route = "/mail/welkom"
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
     
-    sendSupportMail(mail){
-        this.#route = "/mail/support"
-        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
-    }
+    // sendSupportMail(mail){
+    //     this.#route = "/mail/support"
+    //     this.#networkManager.doRequest(this.#route,"POST", { email: mail})
+    // }
+
 
 }

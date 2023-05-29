@@ -10,7 +10,6 @@ class PostsRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
-    // #id = require("../../src/assets/js/app.js");
 
     /**
      * @param app - ExpressJS instance(web application) we get passed automatically via app.js
@@ -23,6 +22,8 @@ class PostsRoutes {
         this.#create();
 
         this.#getAll();
+
+        this.#getUserTypes()
     }
 
     /**
@@ -57,9 +58,30 @@ class PostsRoutes {
      */
     #getAll() {
         this.#app.get("/welcome", async (req, res) => {
+
+
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT posts.id, posts.gebruiker, posts.onderwerp, posts.soortBericht, posts.bericht, posts.jaartalGebeurtenis, posts.plaatje, posts.publicatieDatum, posts.aantalLikes, posts.aantalDislikes, users.id, users.persoon FROM pad_flo_7_dev.posts LEFT JOIN users ON posts.gebruiker = users.id ORDER BY posts.id DESC"
+                    query: "SELECT * FROM `posts` ORDER BY ID"});
+
+                //just give all data back as json, could also be empty
+                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ reason: e })
+            }
+        });
+    }
+
+    /**
+     * This methode gets all stories with their respective users
+     */
+    #getUserTypes() {
+        this.#app.get("/posts/stories", async (req, res) => {
+
+
+            try {
+                const data = await this.#databaseHelper.handleQuery({
+                    query: "SELECT posts.id as 'postID', posts.gebruiker, posts.onderwerp, posts.soortBericht, posts.bericht, posts.jaartalGebeurtenis, posts.plaatje, posts.publicatieDatum, posts.aantalLikes, posts.aantalDislikes, users.id as 'userID', users.persoon FROM pad_flo_7_dev.posts INNER JOIN users ON posts.gebruiker = users.id WHERE `jaartalGebeurtenis` ORDER BY 'postID' ASC"
                 });
 
                 //just give all data back as json, could also be empty
