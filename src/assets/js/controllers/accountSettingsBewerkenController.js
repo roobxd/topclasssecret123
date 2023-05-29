@@ -79,18 +79,20 @@ export class AccountSettingsBewerkenController extends Controller {
 
 
         const newVoornaam = this.#accountSettingsBewerkenView.querySelector("#voornaam").value;
+        const newTussenvoegsel = this.#accountSettingsBewerkenView.querySelector("#tussenvoegsel").value;
         const newAchternaam = this.#accountSettingsBewerkenView.querySelector("#achternaam").value;
         const currentId = App.sessionManager.get("id");
         const currentName = App.sessionManager.get("voornaam","achternaam")
 
 
         this.#accountSettingsRepository
-            .updateNaam(currentId, newVoornaam, newAchternaam)
+            .updateNaam(currentId, newVoornaam, newAchternaam, newTussenvoegsel)
             .then(() => {
                 this.#accountSettingsBewerkenView.querySelector(".naam-update-message").textContent = "Naam succesvol veranderd!";
                 // this.#accountSettingsBewerkenView.querySelector("#currentEmail").textContent = newEmail;
                 App.sessionManager.set("voornaam", newVoornaam);
                 App.sessionManager.set("achternaam", newAchternaam);
+                App.sessionManager.set("tussenvoegsel", newTussenvoegsel);
                 App.sessionManager.set("id", currentId);
             })
             .catch(error => {

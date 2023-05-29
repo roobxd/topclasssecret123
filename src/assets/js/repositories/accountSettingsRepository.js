@@ -52,7 +52,7 @@ export class AccountSettingsRepository {
 
 
 
-    updateNaam(currentId, newVoornaam, newAchternaam) {
+    updateNaam(currentId, newVoornaam, newAchternaam, newTussenvoegsel) {
         return this.getUsers()
             .then((users) => {
                 const user = users.find((u) => u.id === currentId);
@@ -64,6 +64,7 @@ export class AccountSettingsRepository {
                 const data = {
                     newVoornaam: newVoornaam,
                     newAchternaam: newAchternaam,
+                    newTussenvoegsel: newTussenvoegsel,
                     userId: userId,
                 };
 

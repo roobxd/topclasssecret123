@@ -59,12 +59,13 @@ export class AccountSettingsController extends Controller {
         const achternaam = App.sessionManager.get("achternaam");
         const email = App.sessionManager.get("email");
         this.#accountSettingsView.querySelector("#name").textContent = name;
-        this.#accountSettingsView.querySelector("#achternaam").textContent = achternaam;
+        // this.#accountSettingsView.querySelector("#achternaam").textContent = achternaam;
+        // this.#accountSettingsView.querySelector("#tussenvoegsel").textContent = achternaam;
         this.#accountSettingsView.querySelector("#email").textContent = email;
-        this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
+        // this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
 
 
-        // this.#loadUserInfo();
+        this.#loadUserInfo();
     }
 
     #handleTextToInput(event) {
@@ -92,27 +93,8 @@ export class AccountSettingsController extends Controller {
     }
 
 
-    // #handleProfilePicturePreview(event) {
-    //     event.preventDefault();
-    //
-    //     const profilePicInput = this.#accountSettingsView.querySelector("#profilePic");
-    //     const profilePicPreview = this.#accountSettingsView.querySelector("#profilePicPreview");
-    //
-    //     if (profilePicInput.files.length === 0) {
-    //         profilePicPreview.style.display = "none";
-    //         return;
-    //     }
-    //
-    //     const profilePicFile = profilePicInput.files[0];
-    //     const reader = new FileReader();
-    //
-    //     reader.onload = (e) => {
-    //         profilePicPreview.src = e.target.result;
-    //         profilePicPreview.style.display = "block";
-    //     };
-    //
-    //     reader.readAsDataURL(profilePicFile);
-    // }
+    #handleProfilePicturePreview(event) {
+        event.preventDefault();
 
         const profilePicInput = this.#accountSettingsView.querySelector("#profilePic");
         const profilePicPreview = this.#accountSettingsView.querySelector("#profilePicPreview");
@@ -133,7 +115,8 @@ export class AccountSettingsController extends Controller {
         reader.readAsDataURL(profilePicFile);
     }
 
-    async #loadUserInfo() {
+
+    async #loadUserInfo(){
         const userMail = App.sessionManager.get("email")
 
         try {
@@ -152,17 +135,19 @@ export class AccountSettingsController extends Controller {
             const isGeverifieerd = await this.#geverifierdRepository.verifierResult(userMail);
             let klopt;
             console.log(isGeverifieerd[0].verificatie)
-            if(isGeverifieerd == 1){
+
+            if(isGeverifieerd[0].verificatie == 1){
                 klopt = "geverifieerd"
             } else {
                 klopt = "niet geverifieerd"
             }
-
+            console.log(userInfo.voornaam)
 
             // Update user info in the HTML
-            this.#accountSettingsView.querySelector("#contact").textContent = userInfo.email;
+            // this.#accountSettingsView.querySelector("#contact").textContent = userInfo.email;
             this.#accountSettingsView.querySelector("#email").textContent = userInfo.email;
             this.#accountSettingsView.querySelector("#name").textContent = `${userInfo.voornaam} ${userInfo.tussenvoegsel} ${userInfo.achternaam}`;
+            // this.#accountSettingsView.querySelector("#name").textContent = `${userInfo.voornaam} ${userInfo.tussenvoegsel} ${userInfo.achternaam}`;
             this.#accountSettingsView.querySelector(".verificatie-status").textContent = klopt;
 
         } catch (error) {
