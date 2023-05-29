@@ -6,9 +6,12 @@ import {AccountSettingsRepository} from "../repositories/accountSettingsReposito
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
 import {UsersRepository} from "../repositories/usersRepository.js";
+import {VerificatieRepository} from "../repositories/verificatieRepository.js";
+
 
 export class AccountSettingsController extends Controller {
     #usersRepository;
+    #geverifierdRepository;
     #accountSettingsRepository;
     #accountSettingsView;
 
@@ -17,6 +20,7 @@ export class AccountSettingsController extends Controller {
         super();
         this.#usersRepository = new UsersRepository();
         this.#accountSettingsRepository = new AccountSettingsRepository();
+        this.#geverifierdRepository = new VerificatieRepository();
 
         this.#setupView();
 
@@ -45,7 +49,7 @@ export class AccountSettingsController extends Controller {
         //event listener for identity veranderen knop
         // this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));
 
-        console.log(App.sessionManager.get("userId"));
+        console.log(App.sessionManager.get("email"));
 
         this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
 
@@ -99,22 +103,26 @@ export class AccountSettingsController extends Controller {
         reader.readAsDataURL(profilePicFile);
     }
 
-    #loadUserInfo() {
-        const userId = App.sessionManager.get("userId");
+    async #loadUserInfo() {
+        const userMail = App.sessionManager.get("email")
+
         try {
-            const users = this.#accountSettingsRepository.getUsers();
+            const users = await this.#accountSettingsRepository.getUsers();
+            console.log(users)
 
             // Find the current user in the list of users
-            const userInfo = users.find(user => user.id === userId);
+            const userInfo = users.find(user => user.email === userMail);
+            console.log(userInfo)
 
             if (!userInfo) {
-                console.error("User not found:", userId);
+                console.error("User not found:", userMail);
                 return;
             }
 
             // Update user info in the HTML
-            this.#accountSettingsView.querySelector("#currentEmail").textContent = userInfo.email;
-            this.#accountSettingsView.querySelector("#currentName").textContent = `${userInfo.voornaam} ${userInfo.achternaam}`;
+            this.#accountSettingsView.querySelector("#contact").textContent = userInfo.email;
+            this.#accountSettingsView.querySelector("#email").textContent = userInfo.email;
+            this.#accountSettingsView.querySelector("#name").textContent = `${userInfo.voornaam} ${userInfo.tussenvoegsel} ${userInfo.achternaam}`;
 
         } catch (error) {
             console.error("Error loading user info:", error);

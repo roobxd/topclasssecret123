@@ -22,7 +22,7 @@ class AccountSettingsRoutes {
         this.#app.get("/getUsers", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT id,voornaam,achternaam, email, password FROM users",
+                    query: "SELECT * FROM users",
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
