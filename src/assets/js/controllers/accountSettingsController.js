@@ -46,10 +46,15 @@ export class AccountSettingsController extends Controller {
         // this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));
 
         console.log(App.sessionManager.get("userId"));
-
+        const name = App.sessionManager.get("voornaam");
+        const achternaam = App.sessionManager.get("achternaam");
+        const email = App.sessionManager.get("email");
+        this.#accountSettingsView.querySelector("#name").textContent = name;
+        this.#accountSettingsView.querySelector("#achternaam").textContent = achternaam;
+        this.#accountSettingsView.querySelector("#email").textContent = email;
         this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
 
-        this.#loadUserInfo();
+        // this.#loadUserInfo();
     }
 
     #handleTextToInput(event) {
@@ -77,50 +82,50 @@ export class AccountSettingsController extends Controller {
     }
 
 
-    #handleProfilePicturePreview(event) {
-        event.preventDefault();
+    // #handleProfilePicturePreview(event) {
+    //     event.preventDefault();
+    //
+    //     const profilePicInput = this.#accountSettingsView.querySelector("#profilePic");
+    //     const profilePicPreview = this.#accountSettingsView.querySelector("#profilePicPreview");
+    //
+    //     if (profilePicInput.files.length === 0) {
+    //         profilePicPreview.style.display = "none";
+    //         return;
+    //     }
+    //
+    //     const profilePicFile = profilePicInput.files[0];
+    //     const reader = new FileReader();
+    //
+    //     reader.onload = (e) => {
+    //         profilePicPreview.src = e.target.result;
+    //         profilePicPreview.style.display = "block";
+    //     };
+    //
+    //     reader.readAsDataURL(profilePicFile);
+    // }
 
-        const profilePicInput = this.#accountSettingsView.querySelector("#profilePic");
-        const profilePicPreview = this.#accountSettingsView.querySelector("#profilePicPreview");
-
-        if (profilePicInput.files.length === 0) {
-            profilePicPreview.style.display = "none";
-            return;
-        }
-
-        const profilePicFile = profilePicInput.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            profilePicPreview.src = e.target.result;
-            profilePicPreview.style.display = "block";
-        };
-
-        reader.readAsDataURL(profilePicFile);
-    }
-
-    #loadUserInfo() {
-        const userId = App.sessionManager.get("userId");
-        try {
-            const users = this.#accountSettingsRepository.getUsers();
-
-            // Find the current user in the list of users
-            const userInfo = users.find(user => user.id === userId);
-
-            if (!userInfo) {
-                console.error("User not found:", userId);
-                return;
-            }
-
-            // Update user info in the HTML
-            this.#accountSettingsView.querySelector("#currentEmail").textContent = userInfo.email;
-            this.#accountSettingsView.querySelector("#currentName").textContent = `${userInfo.voornaam} ${userInfo.achternaam}`;
-
-        } catch (error) {
-            console.error("Error loading user info:", error);
-        }
-
-    }
+    // #loadUserInfo() {
+    //     const userId = App.sessionManager.get("userId");
+    //     try {
+    //         const users = this.#accountSettingsRepository.getUsers();
+    //
+    //         // Find the current user in the list of users
+    //         const userInfo = users.find(user => user.id === userId);
+    //
+    //         if (!userInfo) {
+    //             console.error("User not found:", userId);
+    //             return;
+    //         }
+    //
+    //         // Update user info in the HTML
+    //         this.#accountSettingsView.querySelector("#currentEmail").textContent = userInfo.email;
+    //         this.#accountSettingsView.querySelector("#currentName").textContent = `${userInfo.voornaam} ${userInfo.achternaam}`;
+    //
+    //     } catch (error) {
+    //         console.error("Error loading user info:", error);
+    //     }
+    //
+    // }
 
     #handleEmailUpdate(event) {
         event.preventDefault();
