@@ -23,9 +23,9 @@ export class SendMailRepository {
     }
 
 
-    sendAnswerMail(mail, answer){
+    sendAnswerMail(mail, vraag){
         this.#route = "/mail/support"
-        this.#networkManager.doRequest(this.#route,"POST", { email: mail, answer: answer})
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail, vraag: vraag})
     }
 
 
@@ -35,10 +35,10 @@ export class SendMailRepository {
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
     
-    sendSupportMail(mail){
-        this.#route = "/mail/support"
-        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
-    }
+    // sendSupportMail(mail){
+    //     this.#route = "/mail/support"
+    //     this.#networkManager.doRequest(this.#route,"POST", { email: mail})
+    // }
 
 
 }
