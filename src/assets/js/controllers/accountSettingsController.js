@@ -49,6 +49,7 @@ export class AccountSettingsController extends Controller {
 
         this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
 
+        this.#loadUserInfo();
     }
 
     #handleTextToInput(event) {
@@ -76,7 +77,6 @@ export class AccountSettingsController extends Controller {
     }
 
 
-
     #handleProfilePicturePreview(event) {
         event.preventDefault();
 
@@ -98,16 +98,30 @@ export class AccountSettingsController extends Controller {
 
         reader.readAsDataURL(profilePicFile);
     }
-    #handleNameUpdate(event){
-        event.preventDefault();
 
+    #loadUserInfo() {
+        const userId = App.sessionManager.get("userId");
+        try {
+            const users = this.#accountSettingsRepository.getUsers();
 
-        const newName = this.#accountSettingsView.querySelector("").value;
-        const currentName = App.sessionManager.get("voornaam","achternaam")
+            // Find the current user in the list of users
+            const userInfo = users.find(user => user.id === userId);
 
-        this.#accountSettingsRepository
+            if (!userInfo) {
+                console.error("User not found:", userId);
+                return;
+            }
+
+            // Update user info in the HTML
+            this.#accountSettingsView.querySelector("#currentEmail").textContent = userInfo.email;
+            this.#accountSettingsView.querySelector("#currentName").textContent = `${userInfo.voornaam} ${userInfo.achternaam}`;
+
+        } catch (error) {
+            console.error("Error loading user info:", error);
+        }
 
     }
+
     #handleEmailUpdate(event) {
         event.preventDefault();
 

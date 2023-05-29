@@ -42,7 +42,6 @@ export class BeveiligingController extends Controller {
             window.location.href = "#bulletinGedrag";
         });
 
-
         this.#beveiligingView.querySelector(".submitbutton").addEventListener("click", (event) => this.#updatePassword(event));
 
 
@@ -52,10 +51,26 @@ export class BeveiligingController extends Controller {
 
         event.preventDefault()
         let passwordCheck;
+        let emailCheck;
 
-        const email = App.sessionManager.get("email");
-        const password = this.#beveiligingView.querySelector("#new-password");
-        const confirmPassword = this.#beveiligingView.querySelector("#confirm-password");
+        const email = App.sessionManager.get("email")
+        const password = this.#beveiligingView.querySelector("#new-password")
+        const confirmPassword = this.#beveiligingView.querySelector("#confirm-password")
+
+            emailCheck = false;
+
+        if (email === "" || email === null) {
+            this.#setErrorfor(email, "email kan niet leeg zijn")
+        } else {
+            const data = await this.#loadAllUsersRepository.loadUsers(email)
+
+            if (data.length === 0) {
+                this.#setErrorfor(email, "Email bestaat niet")
+            } else {
+                this.#setSuccesfor(email)
+                emailCheck = true;
+            }
+        }
 
         passwordCheck = false;
 
@@ -72,9 +87,9 @@ export class BeveiligingController extends Controller {
         }
 
 
-        if (passwordCheck) {
+        if (emailCheck && passwordCheck) {
             try {
-                const data = await this.#updatePasswordRepository.updatePassword(password.value, email.value)
+                const data = await this.#updatePasswordRepository.updatePassword(password.value, email)
                 alert("Het is gelukt!")
                 location.reload()
             } catch (e) {
