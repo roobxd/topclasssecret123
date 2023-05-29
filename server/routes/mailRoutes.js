@@ -22,6 +22,7 @@ class MailRoutes {
             try {
                 const type = req.params.type;
                 const mail = req.body.email;
+
                 const apiKey = "pad_flo_7.Ixxt5Fxzg0fJObw7";
                 const headers = {
                     "Authorization": `Bearer ${apiKey}`
@@ -52,7 +53,7 @@ class MailRoutes {
                             "\nJouw wachtwoord is " + wachtwoord[0].password
                     };
                 } else if (type === "verificatie") {
-                     emailData = {
+                    emailData = {
                         "from": {
                             "name": "Buurtposter",
                             "address": "buurtposter@hbo-ict.cloud"
@@ -70,6 +71,23 @@ class MailRoutes {
                             '<a href="http://localhost:3000/#verification">verifieer account</a>'
                     };
 
+                } else if (type === "support") {
+                    emailData = {
+                        "from": {
+                            "name": "Buurtposter",
+                            "address": "buurtposter@hbo-ict.cloud"
+                        },
+                        "to": [
+                            {
+                                "name": "Lennard Fonteijn",
+                                "address": mail
+                            }
+                        ],
+                        "subject": "Welkom",
+                        "html":
+                            "Hallo," + "dit is je antwoord:" + req.body.answer
+
+                    };
                 } else {
                     emailData = {
                         "from": {

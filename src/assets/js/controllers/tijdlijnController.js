@@ -99,13 +99,16 @@ export class TijdlijnController extends Controller {
             const story = document.createElement("div");
             story.className = "story";
             story.classList.add("one");
-            // story.classList.add("persoonstory");
             if (data.result[i].persoon === 0 ){
                 story.classList.add("instantieStory");
 
             } else {
                 story.classList.add("persoonstory");
             }
+            // if the container is clicked, the user would be directed to read page
+            story.addEventListener("click", ()=>{
+                window.location = "http://localhost:3000/#read/" + data.result[i].id;
+            })
             // story is child of container
             container.appendChild(story);
 
@@ -270,6 +273,8 @@ export class TijdlijnController extends Controller {
                 arrow.className = "left-container-arrow";
             }
             differentialLikes.appendChild(arrow);
+
+
         }
 
 

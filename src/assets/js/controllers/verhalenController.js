@@ -34,16 +34,26 @@ export class VerhalenController extends Controller {
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
+            // let userTypes = await this.#PostsRepository.getUserTypes();
             console.log(data);
+            // console.log(userTypes);
+            let n = 0;
             data.reverse().forEach(story => {
+
                 let stitel = story.onderwerp;
-                let scontent = story.bericht;
+
+                let storyBericht = story.bericht;
+                let scontent = storyBericht.substring(0, 160) + "....";
                 let sid = story.id;
                 let sLikes = story.aantalLikes;
                 let sDislikes = story.aantalDislikes;
                 let difference = sLikes - sDislikes;
                 let sum = sLikes + sDislikes;
-                let userType = story.persoon;
+                // let userType;
+                // if (story.gebruiker === userTypes[n].id){
+                //     console.log(story.gebruiker + "===" + userTypes[n].id)
+                //      userType = userTypes[n].persoon;
+                // }
 
                 this.#createCard(stitel, scontent, sid, difference, sum, userType);
             });
@@ -53,17 +63,13 @@ export class VerhalenController extends Controller {
     }
 
     async #createCard(stitel, scontent, sid, difference, sum, userType){
+        console.log(userType)
        /*
        Percentage calculations that are important for determining icons. The calculation is based on the sum of likes.
         */
         const tienProcent = 10 / 100 * sum;
-        console.log("10%: " + tienProcent);
-        const vijtienProcent = 15 / 100 * sum;
-        console.log("15%: " + vijtienProcent)
         const twentigProcent = 20 / 100 * sum;
-        console.log("20%: " + twentigProcent)
         const vijftigProcent = 50 / 100 * sum;
-        console.log("50%: " + vijftigProcent)
 
         const story = document.createElement('div');
         story.className = "story";

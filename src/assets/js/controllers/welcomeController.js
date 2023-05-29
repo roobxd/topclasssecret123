@@ -83,7 +83,8 @@ export class WelcomeController extends Controller {
             console.log(data);
             last4stories.reverse().forEach(story => {
                 let stitel = story.onderwerp;
-                let scontent = story.bericht;
+                let storyBericht = story.bericht;
+                let scontent = storyBericht.substring(0, 160) + "....";
                 let sid = story.id;
                 this.#createCard(stitel, scontent, sid);
             });

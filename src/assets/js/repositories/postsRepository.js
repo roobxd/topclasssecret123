@@ -17,8 +17,12 @@ export class PostsRepository {
         this.#networkManager = new NetworkManager();
     }
 
-    async getAll() {
+    async getAll () {
         return this.#networkManager.doRequest(`/welcome`, "GET");
+    }
+
+    async getUserTypes() {
+        return this.#networkManager.doRequest(`${this.#route}/stories`, "GET");
     }
 
     /**

@@ -37,6 +37,7 @@ class SupportRoutes{
                if (data.insertId){
                    res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId});
                    console.log(res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId}));
+                   this.#sendEmail(data.name, data.email, req.body.question);
                }
             } catch (e) {
                 console.log(e);
@@ -46,21 +47,21 @@ class SupportRoutes{
         })
     }
 
-    #sendEmail(){
+    #sendEmail(name, email, question){
         const data = JSON.stringify({
-            from: 'p.d.leek@hva.nl',
-            to: 'p.d.leek@hva.nl',
-            subject: 'Message title',
+            from: email,
+            to: `kiflemisgun15@gmail.com`,
+            subject: 'FAQ vraag',
             text: 'Plaintext version of the message',
-            html: '<p>HTML version of the message</p>'
+            html: '<p> dkdkdm ${question} </p>'
         })
         const options = {
             hostname: 'api.hbo-ict.cloud',
             port: 443,
-            path: '/mail',
+            path: '/sendMail',
             method: 'POST',
             headers: {
-                Authorization: 'Bearer pad_flo_7.Ixxt5Fxzg0fJObw7',
+                Authorization: '',
                 'Content-Type': 'application/json'
             }
         }
