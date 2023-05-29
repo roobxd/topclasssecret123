@@ -137,9 +137,12 @@ input:focus {
     color: var(--heart);
 }
 
-#tiktok, #instagram, #facebook {
-    width: 3rem;
+#tiktok, #instagram, #facebook, .insta {
+    height: 3rem;
+    width: auto;
 }
+
+
 
 .textSM {
     margin-left: -95px;
@@ -153,4 +156,19 @@ input:focus {
 #bewerken1, #bewerken2, #bewerken3 {
     margin-top: -36px;
     margin-left: 430px;
+}
+
+.socialsContainer{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.insta{
+    margin-left: 200px;
+    gap: 2rem;
+    flex: 1 0 auto;
+    max-height: 3rem;
+    max-width: 3rem;
+
 }
