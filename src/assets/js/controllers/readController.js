@@ -41,8 +41,12 @@ export class readController extends Controller {
         // Setting up event listeners for buttons and form submission
         this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event, lastNumber));
         this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event, lastNumber));
-        this.#readView.querySelector("#upvoted").addEventListener("click", (event) => this.#likeComment(event, lastNumber));
-        this.#readView.querySelector("#downvoted").addEventListener("click", (event) => this.#dislikeComment(event, lastNumber));
+        if(this.#readView.querySelector("#upvoted")){
+            this.#readView.querySelector("#upvoted").addEventListener("click", (event) => this.#likeComment(event, lastNumber));
+        }
+        if(this.#readView.querySelector("#downvoted")){
+            this.#readView.querySelector("#downvoted").addEventListener("click", (event) => this.#dislikeComment(event, lastNumber));
+        }
         this.#readView.querySelector(".tts-button").addEventListener("click", (event) => this.#speak());
         this.#readView.querySelector(".submit-comment").addEventListener("click", (event) => this.#submitcomment(lastNumber));
 
