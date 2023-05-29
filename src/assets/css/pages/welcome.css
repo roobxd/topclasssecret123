@@ -4,23 +4,11 @@ span.name {
 
 .story {
     display: grid;
-    grid-template-columns: 40% 45.5% 7.5% 4.5%;
+    grid-template-columns: 35% 50% 7.5% 7.5%;
     width: 450px;
     height: 150px;
     border-radius: 25px;
     margin-bottom: 35px;
-}
-
-.persoonstory {
-    background: linear-gradient(97.34deg, rgba(30, 30, 30, 0.95) 0%, rgba(78, 65, 100, 0.95) 51.8%, rgba(129, 95, 185, 0.95) 99.93%);
-}
-
-.instantiestory {
-    background: linear-gradient(96.64deg, rgba(30, 30, 30, 0.9025) 0%, rgba(98, 78, 78, 0.926398) 50.31%, rgba(255, 151, 151, 0.9025) 100%);
-}
-
-.shitpost {
-    background: linear-gradient(96.98deg, rgba(30, 30, 30, 0.9025) 0%, rgba(65, 53, 45, 0.925409) 50.83%, rgba(99, 68, 45, 0.9025) 100%);
 }
 
 /* 
@@ -139,16 +127,26 @@ span.name {
 
 .story p {
     margin: 0;
-    padding: 0;
     color: var(--white);
 }
 
 .story-titel {
     font-size: 18px;
+    padding-bottom: 5px;
+}
+
+.text{
+    height: 100%;
 }
 
 .story-text {
     font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to display before truncating */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px; /* Optional, depending on your design */
 }
 
 .status {

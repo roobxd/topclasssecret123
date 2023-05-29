@@ -48,6 +48,7 @@ class SupportRoutes{
     }
 
     #sendEmail(name, email, question){
+
         const data = JSON.stringify({
             from: email,
             to: `kiflemisgun15@gmail.com`,
@@ -57,11 +58,11 @@ class SupportRoutes{
         })
         const options = {
             hostname: 'api.hbo-ict.cloud',
-            port: 443,
-            path: '/sendMail',
+            port: 3000,
+            path: '/mail',
             method: 'POST',
             headers: {
-                Authorization: '',
+                Authorization: 'Bearer pad_flo_7.Ixxt5Fxzg0fJObw7',
                 'Content-Type': 'application/json'
             }
         }

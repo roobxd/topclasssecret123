@@ -10,9 +10,15 @@ export class VerificatieRepository {
         this.#networkManager = new NetworkManager();
     }
 
-    async verifier(mail){
+    async verifier(mail,inputCode){
 
-        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail, inputCode: inputCode})
+
+    }
+
+
+    async verifierResult(email){
+       return this.#networkManager.doRequest(`/verificatie/result/${email}`,"GET")
 
     }
 }

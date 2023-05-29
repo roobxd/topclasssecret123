@@ -32,7 +32,10 @@ export class signUpController extends Controller {
 
         this.#createSingInView.querySelector(".login-container").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
 
-        this.#createSingInView.querySelector(".gaterug").addEventListener("click", event => window.history.back());
+        let gaterugbutton = document.querySelector(".gaterug")
+        gaterugbutton.addEventListener("click", () => {
+            window.history.back();
+        });
 
     }
 
@@ -149,6 +152,7 @@ export class signUpController extends Controller {
             // toevoegen aan database --------------------------
             this.#signUpRepository.signUpUser(password.value, email.value);
             this.#sendMailRepository.sendVerificationMail(email.value);
+            this.#sendMailRepository.sendWelkomMail(email.value);
             App.loadController(App.CONTROLLER_LOGIN);
 
         }

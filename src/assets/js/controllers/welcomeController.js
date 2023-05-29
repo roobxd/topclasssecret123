@@ -8,14 +8,18 @@
 import { PostsRepository } from "../repositories/postsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
+import {VerificatieRepository} from "../repositories/verificatieRepository.js";
 
 export class WelcomeController extends Controller {
     #PostsRepository
     #welcomeView
+    #verificatieRepository
+
 
     constructor() {
         super();
         this.#PostsRepository = new PostsRepository();
+        this.#verificatieRepository = new VerificatieRepository();
 
         this.#setupView();
     }
@@ -28,7 +32,12 @@ export class WelcomeController extends Controller {
     async #setupView() {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
+        const mail = App.sessionManager.get("email");
+        const statusGebruiker = await this.#verificatieRepository.verifierResult(mail)
 
+        if (statusGebruiker[0].verificatie === 0){
+            App.loadController(App.CONTROLLER_VERIFIEERACCOUNT)
+        }
 
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
@@ -80,13 +89,14 @@ export class WelcomeController extends Controller {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
             let last4stories = data.slice(-4);
-            console.log(data);
             last4stories.reverse().forEach(story => {
                 let stitel = story.onderwerp;
                 let storyBericht = story.bericht;
                 let scontent = storyBericht.substring(0, 160) + "....";
                 let sid = story.id;
-                this.#createCard(stitel, scontent, sid);
+                let soort = story.soortBericht;
+                let imagepath = story.plaatje;
+                this.#createCard(stitel, scontent, sid, soort, imagepath);
             });
         } catch (e) {
             console.log("error while fetching posts: ", e);
@@ -94,16 +104,26 @@ export class WelcomeController extends Controller {
     }
 
 
-    async #createCard(stitel, scontent, sid){
+    async #createCard(stitel, scontent, sid, soort, imagepath){
         const story = document.createElement('div');
-        story.className = 'story one persoonstory';
+        let storygradient = "verhaal-gradient";
+        switch(soort) {
+            case "bulletin":
+                storygradient = "bulletin-gradient"
+            break;
+
+            case "instantie":
+                storygradient = "instantie-gradient"
+            break;
+        }
+        story.className = 'story one ' + storygradient;
 
         const image = document.createElement('div');
         image.className = 'image';
 
         const img = document.createElement('img');
         img.className = 'trendingimage';
-        img.src = '/assets/img/guus.jpg';
+        img.src = imagepath;
         img.alt = '';
 
         image.appendChild(img);
@@ -172,7 +192,6 @@ export class WelcomeController extends Controller {
         story.appendChild(iconsadd);
 
         const targetElement = document.querySelector(".story-container-welcome");
-        console.log(sid);
         story.addEventListener("click", ()=>{
             window.location = "http://localhost:3000/#read/" + sid
         })

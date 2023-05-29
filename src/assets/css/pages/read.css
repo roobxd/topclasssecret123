@@ -112,8 +112,9 @@ input:focus {
 }
 
 .info p {
+    display: flex;
     justify-self: left;
-    align-self: center;
+    align-content: center;
     font-size: 1.75vh;
     margin-top: 2vh;
     font-family: var(--main-font);
@@ -135,14 +136,15 @@ input:focus {
 .info svg {
     width: 3.5vh;
     height: 3.5vh;
-    margin-top: 2vh;
     color: var(--story-border);
+    align-self: center;
 }
 
 .info div {
     align-self: center;
     width: 20vh;
     display: grid;
+    align-content: center;
     grid-template-columns: 3vh 7vh;
     gap: 1vw;
 }
@@ -157,7 +159,8 @@ input:focus {
 }
 
 .story-content p {
-    height: 42.5vh;
+    height: 315px; /* set this to whatever fixed height you want */
+    overflow-y: auto;
 }
 
 .story-title {
@@ -285,3 +288,173 @@ input:focus {
     height: 0.15vh;
     background-color: white;
 }
+
+.comments-section{
+    margin: auto;
+    margin-top: 35px;
+    width: 955px;
+    max-width: 955px;
+    min-height: 100px;
+    background-color: var(--pill-main-solid);
+    border-radius: 25px;
+}
+
+.comments-section h2{
+    padding-top: 35px;
+    margin-left: 50px;
+    color: var(--white);
+}
+
+.commentsinput{
+    width: 100%;
+    height: 45px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-style: none;
+    font-size: 1.75vh;
+    text-indent: 25px;
+}
+
+.commentsinput::placeholder{
+    text-indent: 25px;
+}
+
+.comment-stripe{
+    margin-top: 25px;
+    margin-left: 50px;
+    height: 2px;
+    width: 843px;
+    background-color: var(--white);
+}
+
+.comments-container{
+    width: 805px;
+}
+
+.comment{
+    display: flex;
+    margin-top: 25px;
+    margin-left: 50px;
+    color: var(--white);
+    font-size: 1.75vh;
+    height: 75px;
+    background-color: var(--button-primary);
+    width: 65%;
+    border-radius: 15px;
+}
+
+.comment p{
+    padding: 0;
+    margin: 0;
+    margin-left: 25px;
+    margin-top: 8px;
+}
+
+.username{
+    color: var(--white);
+    font-size: 1.5vh;
+    margin-left: 20px;
+}
+
+.comment-info{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    width: 325px;
+}
+
+.comment .dateposted{
+    color: var(--off-white);
+    justify-self: unset;
+    font-size: 1.4vh;
+    margin: 0;
+    margin-top: 8px;
+    font-weight: 550;
+    margin-left: 5px;
+}
+
+.comment-icon{
+    background-image: url();
+    border: solid 2px white;
+    margin-left: 25px;
+    align-self: center;
+    justify-self: center;
+    width: 50px;
+    height: 50px;
+    background-color: var(--white);
+    border-radius: 50%;
+}
+
+.thumbsupdown{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5px;
+}
+
+#upvoted, #downvoted {
+    align-self: center;
+    font-size: 23px;
+    justify-self: right;
+}
+
+.upvoted, .downvoted{
+    display: grid;
+    align-self: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.upvoted p, .downvoted p{
+    justify-self: left;
+    align-self: flex-end;
+    margin: 0;
+    font-size: 15px;
+}
+
+.comment-inputbar{
+    display: grid;
+    margin-left: 50px;
+    grid-template-columns: 55% 40% 10%;
+    width: 805px;
+}
+
+.lettersleft{
+    margin: 0;
+    width: 100%;
+    height: 47px;
+    background-color: var(--white);
+    color: var(--pill-main-solid);
+}
+
+.lettersleft p{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 25px;
+}
+
+.submit-comment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: var(--button-primary);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.submit-comment i{
+    font-size: 30px;
+    color: var(--white);
+}
+
+.commentsdisabled{
+    display: none;
+}
+
+.padding{
+    height: 35px;
+}
+
+
+

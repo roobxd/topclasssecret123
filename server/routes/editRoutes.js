@@ -1,14 +1,16 @@
 /**
- * This class contains ExpressJS routes specific for the bulletin entity
+ * This class contains ExpressJS routes specific for the Edit entity
  * this file is automatically loaded in app.js
  *
  * @author Rocco van Baardwijk
  */
 
-class BulletinRoutes {
+
+class EditRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
+    // #id = require("../../src/assets/js/app.js");
 
     /**
      * @param app - ExpressJS instance(web application) we get passed automatically via app.js
@@ -18,25 +20,25 @@ class BulletinRoutes {
         this.#app = app;
 
         //call method per route for the rooms entity
-        this.#create();
+        this.#update();
 
-        this.#getAll();
+        this.#getPost();
     }
 
     /**
-     * bulletin creation data endpoint - bulletin.html view (bulletin creation screen)
-     * get request, data is sent by client via url - req.params
+     * Update post endpoint
+     * post request, data is sent by client via body - req.body
      * @private
      */
-    #create() {
-        this.#app.post("/bulletin", async (req, res) => {
+    #update() {
+
+        this.#app.post("/edit/update", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum, commentsenabled) values('test', ?, 'bulletin', ?, CURRENT_TIMESTAMP, 'geen', CURRENT_TIMESTAMP, 0) ",
-                    values: [req.body.titel, req.body.verhaal]
+                    query: "UPDATE posts SET gebruiker = ?, onderwerp = ?, soortBericht = ?, bericht = ?, jaartalGebeurtenis = ?, plaatje = ?, publicatieDatum = CURRENT_TIMESTAMP, commentsenabled = ? WHERE id = ?",
+                    values: [ req.body.gebruiker, req.body.titelinput, req.body.storytype, req.body.storyinput, req.body.dateinput, req.body.fileinput, req.body.yesorno, req.body.postid]
                 });
-
                 //just give all data back as json, could also be empty
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
 
@@ -47,16 +49,18 @@ class BulletinRoutes {
     }
 
 
+
     /**
-     * bulletin dummy data example endpoint - welcome.html (welcome screen)
+     * dummy data example endpoint - rooms (welcome screen)
      * get request, data is sent by client via url - req.params
      * @private
      */
-    #getAll() {
-        this.#app.get("/welcome", async (req, res) => {
+    #getPost() {
+        this.#app.get("/edit/:lastnumber", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT * FROM posts"
+                    query: "SELECT * FROM `posts` WHERE id = ?",
+                    values: [req.params.lastnumber]
                 });
 
                 //just give all data back as json, could also be empty
@@ -68,4 +72,4 @@ class BulletinRoutes {
     }
 }
 
-module.exports = BulletinRoutes
+module.exports = EditRoutes

@@ -58,7 +58,7 @@ button {
 
 .buttons {
     height: 42px;
-    width: 500px;
+    width: 100%;
     display: grid;
     grid-template-columns: 25px 25px 25px 25px 25px 1fr;
     display: flex;
@@ -132,6 +132,18 @@ button {
     width: 650px;
     height: 60px;
     margin: 0 auto;
+}
+
+.verhaal[data-placeholder]:not(:focus):not([data-div-placeholder-content]):before {
+    content: attr(data-placeholder);
+    float: left;
+    margin-left: 5px;
+    color: var(--off-white);
+}
+
+
+.gaterug, .titleinput{
+    font-size: 1.75vh;
 }
 
 .button-container button {

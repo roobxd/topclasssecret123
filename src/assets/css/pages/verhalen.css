@@ -250,7 +250,14 @@ svg {
 
 .story-text {
     font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to display before truncating */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px; /* Optional, depending on your design */
 }
+
 
 .status {
     display: flex;

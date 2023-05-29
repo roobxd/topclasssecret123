@@ -46,13 +46,21 @@ class MailRoutes {
                                 "address": mail
                             }
                         ],
-                        "subject": "   Jouw wachtwoord",
+                        "subject": "Jouw wachtwoord",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
 
                             "\nJouw wachtwoord is " + wachtwoord[0].password
                     };
                 } else if (type === "verificatie") {
+
+                    const code = Math.floor(Math.random() * 10000)
+
+                    this.#databaseHelper.handleQuery({
+                        query: "UPDATE users SET OTP= ? where email = ?",
+                        values: [code, mail]
+                    });
+
                     emailData = {
                         "from": {
                             "name": "Buurtposter",
@@ -67,8 +75,13 @@ class MailRoutes {
                         "subject": "Verificatie",
                         "html":
                             "Hallo, " + wachtwoord[0].voornaam +
-
-                            '<a href="http://localhost:3000/#verification">verifieer account</a>'
+                            "<br><br>" +
+                            "Bedankt voor het registreren bij ons platform! We zijn verheugd om je als nieuwe gebruiker te verwelkomen.<br><br>" +
+                            "Om je account volledig te activeren, vragen we je vriendelijk om je e-mailadres te verifiëren door de onderstaande code in te voeren.<br><br>" +
+                            "<span style='color: green;'>Jouw verificatiecode: " + code + "</span><br><br>" +
+                            "Klik <a href='http://localhost:3000/#verification' style='color: green;'>hier</a> om je account te verifiëren.<br><br>" +
+                            "Nogmaals bedankt voor het kiezen van ons platform. We kijken ernaar uit om je te voorzien van een geweldige gebruikerservaring!<br><br>" +
+                            "Met vriendelijke groet,<br>De Buurtposter"
                     };
 
                 } else if (type === "support") {
@@ -80,15 +93,16 @@ class MailRoutes {
                         "to": [
                             {
                                 "name": "Lennard Fonteijn",
-                                "address": mail
+                                "address": "kiflemisgun15@gmail.com"
                             }
                         ],
-                        "subject": "Welkom",
+                        "subject": "Support question",
                         "html":
-                            "Hallo," + "dit is je antwoord:" + req.body.answer
+                            "Hallo, Test test "
 
                     };
-                } else {
+                
+                } else if(type === "welkom") {
                     emailData = {
                         "from": {
                             "name": "Buurtposter",

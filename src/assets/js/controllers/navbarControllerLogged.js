@@ -29,6 +29,14 @@ export class NavbarLoggedController extends Controller {
         
         //set click listener on each anchor
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)))
+        
+        const mypostbuton = this.#navbarView.querySelector(".myposts-nav");
+        mypostbuton.addEventListener("click", (event) => this.#handleMyPostButton(event));
+    }
+
+    #handleMyPostButton(event) {
+        event.preventDefault();
+        window.location.href = "/#myposts/" + App.sessionManager.get("id");
     }
 
     /**

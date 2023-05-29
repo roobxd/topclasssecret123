@@ -22,9 +22,17 @@ export class SendMailRepository {
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
 
+
     sendAnswerMail(mail, answer){
         this.#route = "/mail/support"
         this.#networkManager.doRequest(this.#route,"POST", { email: mail, answer: answer})
+    }
+
+
+
+    sendWelkomMail(mail){
+        this.#route = "/mail/welkom"
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
 
 

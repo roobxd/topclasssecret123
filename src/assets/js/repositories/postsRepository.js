@@ -37,8 +37,8 @@ export class PostsRepository {
 
     }
 
-    async create( id, titelinput, dateinput, storyinput, fileinput) {
-        this.#networkManager.doRequest(this.#route, "POST", { gebruiker: id, titelinput: titelinput, dateinput: dateinput, storyinput: storyinput, fileinput: fileinput})
+    async create( id, titelinput, storytype, dateinput, storyinput, imagePath, comments) {
+        this.#networkManager.doRequest(this.#route, "POST", { gebruiker: id, titelinput: titelinput, storytype: storytype, dateinput: dateinput, storyinput: storyinput, imagePath: imagePath, yesorno: comments})
 
     }
 

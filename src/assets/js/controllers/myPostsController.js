@@ -8,43 +8,194 @@ import { MyPostsRepository } from "../repositories/myPostsRepository.js";
 export class myPostsController extends Controller {
     #myPostsView;
     #myPostsRepository;
+    limitperpage;
     
     constructor() {
         super();
         this.#myPostsRepository = new MyPostsRepository();
+        this.currentPage = 0; // New instance variable
+        this.cachedData = []; // New instance variable
+        this.originalData = []; // Correct placement
+        this.limitperpage = 3; // Initialize it here
         this.#setupView();
         this.#getStories();
-
     }
 
     async #setupView() {
         this.#myPostsView = await super.loadHtmlIntoContent("html_views/myposts.html")
-    }
+    
+        let backarrow = document.querySelector("#firstSvg");
+        let nextarrow = document.querySelector("#secondSvg");
+        let searchbar = document.querySelector(".searchbar");  // Get the search bar input field
+    
+        backarrow.addEventListener("click", (event) => this.#pageSelector("back"));
+        nextarrow.addEventListener("click", (event) => this.#pageSelector("next"));
 
-    async #getStories(){
+        let filtertype = document.querySelector(".type");
+        filtertype.addEventListener("click", (event) => this.#sorteerType());
+
+        let filterlikes = document.querySelector(".likes");
+        filterlikes.addEventListener("click", (event) => this.#sorteerLikes());
+        
+        let searchpost = document.querySelector(".searchbar-icon");
+        searchpost.addEventListener("click", (event) => this.#searchPost());
+    }
+    
+
+    async #getStories() {
         let userid = App.sessionManager.get("id");
         const storyData = await this.#myPostsRepository.getStories(userid);
+        this.cachedData = storyData; // Save the fetched data into cachedData
+        this.originalData = [...storyData]; // Save a copy of the original data
 
         // Clear the story container
         let container = document.querySelector(".story-container");
         container.innerHTML = "";
 
-        storyData.forEach(story => {
-            let sid = story.id;
-            let stitle = story.onderwerp;
-            let sflow = story.aantalLikes - story.aantalDislikes;
-            this.#appendStory(stitle, sflow, sid);
-        });
+        this.#showStories();
+        this.#updatePageInfo();  // Update the page info
     }
 
-    #appendStory(stitle, sflow, sid) {
+    #sorteerType() {
+        if(this.isSorted == 0) {
+            // Sort cachedData by soortBericht
+            this.cachedData.sort((a, b) => {
+                if (a.soortBericht < b.soortBericht) {
+                    return -1;
+                }
+                if (a.soortBericht > b.soortBericht) {
+                    return 1;
+                }
+                return 0;
+            });
+    
+            this.isSorted = 1;
+        } else {
+            // reset back to original data if already sorted
+            this.cachedData = [...this.originalData];
+            this.isSorted = 0;
+        }
+    
+        // Clear the story container
+        let container = document.querySelector(".story-container");
+        container.innerHTML = "";
+
+        this.#showStories(this.cachedData); // Update the page info
+    }
+
+    #sorteerLikes() {
+        if(this.isSorted == 0) {
+            // Sort cachedData by soortBericht
+            this.cachedData.sort((a, b) => {
+                if (a.aantalLikes < b.aantalLikes) {
+                    return -1;
+                }
+                if (a.aantalLikes > b.aantalLikes) {
+                    return 1;
+                }
+                return 0;
+            });
+    
+            this.isSorted = 1;
+        } else {
+            // reset back to original data if already sorted
+            this.cachedData = [...this.originalData];
+            this.isSorted = 0;
+        }
+    
+        // Clear the story container
+        let container = document.querySelector(".story-container");
+        container.innerHTML = "";
+    
+        this.#showStories(this.cachedData); // Update the page info
+    }
+
+    #searchPost() {
+        let searchvalue = document.querySelector(".searchbar").value;
+
+        if (searchvalue.trim() === '') {
+            // If search value is empty, reset cachedData to the original data
+            this.cachedData = [...this.originalData];
+        } else {
+            // Otherwise, filter the originalData
+            let filteredData = this.originalData.filter((story) => {
+                return story.onderwerp.toLowerCase().includes(searchvalue.toLowerCase());
+            });
+            this.cachedData = filteredData;
+        }
+
+        this.currentPage = 0; // Reset page to the first one
+
+        // Clear the story container
+        let container = document.querySelector(".story-container");
+        container.innerHTML = "";
+
+        this.#showStories();
+        this.#updatePageInfo();  // Update the page info
+    }
+    
+
+    #showStories() {
+        let start = this.currentPage * this.limitperpage;
+        let end = start + this.limitperpage;
+    
+        for (let index = start; index < end && index < this.cachedData.length; index++) {
+            let sid = this.cachedData[index].id;
+            let stitle = this.cachedData[index].onderwerp;
+            let sflow = this.cachedData[index].aantalLikes - this.cachedData[index].aantalDislikes;
+            let soort = this.cachedData[index].soortBericht;
+            let imagepath = this.cachedData[index].plaatje;
+            this.#appendStory(stitle, sflow, sid, soort, imagepath);
+        }
+    }
+    
+    
+
+    #pageSelector(whereto){
+        let container = document.querySelector(".story-container");
+        container.innerHTML = "";
+    
+        if(whereto == "back" && this.currentPage > 0){
+            this.currentPage--;
+        } else if(whereto == "next" && (this.currentPage + 1) * this.limitperpage < this.cachedData.length){
+            this.currentPage++;
+        }
+    
+        this.#showStories();
+        this.#updatePageInfo();  // Add this line
+    }
+
+    #updatePageInfo() {
+        // Calculate the total number of pages
+        let totalPages = Math.ceil(this.cachedData.length / this.limitperpage);
+        // Get the p element inside the .page-selector
+        let pageInfo = document.querySelector(".page-selector p");
+        // Update the text
+        pageInfo.textContent = `${this.currentPage + 1} / ${totalPages}`;
+    }
+
+    
+
+    #appendStory(stitle, sflow, sid, soort, imagepath) {
+        let storygradient = "verhaal-gradient";
+        switch(soort) {
+            case "bulletin":
+                storygradient = "bulletin-gradient"
+            break;
+
+            case "instantie":
+                storygradient = "instantie-gradient"
+            break;
+        }
+
         // Create a new div element with the class "story"
         var storyDiv = document.createElement("div");
         storyDiv.classList.add("story");
+        storyDiv.classList.add(storygradient);
 
         // Create an image element
         var img = document.createElement("img");
-        img.src = "assets/img/guus.jpg";
+        img.src = imagepath;
         img.alt = "";
       
         // Create an h2 element
@@ -131,6 +282,10 @@ export class myPostsController extends Controller {
         targetElement.appendChild(deleteButton);
         targetElement.appendChild(editButton);
 
+        storyDiv.addEventListener("click", () => {
+            window.location.href = "/#read/" + sid;
+        })
+
         deleteButton.addEventListener("click", () => {
             alert("Deleting story post with the id: " + sid);
             this.#myPostsRepository.delete(sid);
@@ -138,7 +293,7 @@ export class myPostsController extends Controller {
         });
 
         editButton.addEventListener("click", () => {
-            alert("Editing story post with the id: " + sid);
+            window.location.href = "/#edit/" + sid;
         });
       }
 }

@@ -25,7 +25,7 @@ class UploadFileRoute {
      * @private
      */
     #uploadFile() {
-        this.#app.post("/upload", this.#multer().single("fileinput"), (req, res) => {
+        this.#app.post("/upload", this.#multer().single("sampleFile"), (req, res) => {
 
             if (!req.file) {
                 return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: "No file was uploaded."});
@@ -34,14 +34,18 @@ class UploadFileRoute {
             //get the buffer of the file
             const sampleFile = req.file.buffer;
 
+            let min = 100000000; // smallest 9-digit number
+            let max = 999999999; // largest 9-digit number
+            let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
             //TODO: you should make file name dynamic otherwise it will overwrite each time :)
-            fs.writeFile(wwwrootPath + "/uploads/test.jpg", sampleFile, (err) => {
+            fs.writeFile(wwwrootPath + `/uploads/${randomNumber}.jpg`, sampleFile, (err) => {
                 if (err) {
                     console.log(err)
                     return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: err});
                 }
 
-                return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
+                return res.status(this.#errorCodes.HTTP_OK_CODE).json({message: "File successfully uploaded!", fileName: `${randomNumber}.jpg`});
 
             });
         });

@@ -23,6 +23,10 @@ export class SupportRepository{
         })
     }
 
+    sendQuestionMail(){
+        return this.#networkManager.doRequest("/mail", "POST")
+    }
+
 
     // getUser(id){
     //     this.#networkManager.doRequest(this.#route, "GET", {
