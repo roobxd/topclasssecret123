@@ -8,7 +8,7 @@
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { PostsRepository } from "../repositories/postsRepository.js";
-import {NetworkManager} from "../framework/utils/networkManager.js";
+import { NetworkManager } from "../framework/utils/networkManager.js";
 
 
 export class PostsController extends Controller {
@@ -53,12 +53,31 @@ export class PostsController extends Controller {
 
         this.#welcomeView.querySelector(".postbutton").addEventListener("click", (event) => this.#savePost(event));
 
+        this.#welcomeView.querySelector("#sampleFile").addEventListener("change", () => this.#imagePreview());
+
         var storyInput = document.querySelector('.storyinput');
 
         storyInput.addEventListener('keyup', function () {
             this.dataset.divPlaceholderContent = this.textContent;
         });
 
+    }
+
+    #imagePreview(){
+        let input = this.#welcomeView.querySelector("#sampleFile");
+        const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const imagePreview = document.querySelector(".image-preview");
+                const selectorIcon = document.querySelector(".image-icon");
+                reader.addEventListener("load", function () {
+                    // Convert image file to Base64 string
+                    imagePreview.src = reader.result;
+                    selectorIcon.style.display = "none";
+                });
+        
+                reader.readAsDataURL(file);
+            }
     }
 
     #toggleCommentsNo(){
@@ -95,7 +114,7 @@ export class PostsController extends Controller {
 
 
     async #savePost(event) {
-        event.preventDefault()
+        event.preventDefault();
 
         const titelinput = this.#welcomeView.querySelector(".titelinput");
         const dateinput = this.#welcomeView.querySelector(".dateinput");
@@ -105,27 +124,19 @@ export class PostsController extends Controller {
         let commentsenabled = 0;
         let storytype = "instantie";
 
-        // const file = fileinput.files[0];
-        // const imagePath = URL.createObjectURL(file);
-        // console.log(imagePath)
-
-        console.log(fileinput.files[0]);
         //TODO: you should add validation to check if an actual file is selected
         let file = fileinput.files[0];
         let formData = new FormData();
 
         let fileName = file.name; // Extract the file name from the uploaded file
         let imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
-        console.log(imagePath);
 
 
         //set "sampleFile" as key, we read this key in de back-end
         formData.append("sampleFile", file)
 
         try {
-            console.log(formData);
             let repsonse = await this.#networkManager.doFileRequest("/upload", "POST", formData);
-            console.log(repsonse);
 
             //here we know file upload is successful, otherwise would've triggered catch
             fileinput.value = "";
@@ -149,34 +160,10 @@ export class PostsController extends Controller {
 
         try {
             await this.#postsRepository.create(this.#session, titelinput.value, storytype, dateinput.value, content, imagePath, commentsenabled );
-            alert("Uw verhaal is geplaatst!");
+            App.loadController(App.CONTROLLER_WELCOME);
         } catch (error) {
             console.log(error);
         }
 
     }
-
-    /**
-     * async function that retrieves a room by its id via the right repository
-     * @param roomId the room id to retrieve
-     * @private
-     */
-    async #fetchPosts() {
-        const storyPlaatje = this.#welcomeView.querySelector(".story-plaatje");
-
-
-        try {
-            //await keyword 'stops' code until data is returned - can only be used in async function
-            let data = await this.#PostsRepository.getAll();
-            let length = data.length - 1;
-            storyPlaatje.innerHTML = data[length].sampleFile;
-            console.log(data);
-        } catch (e) {
-            console.log("error while fetching rooms", e);
-
-            //for now just show every error on page, normally not all errors are appropriate for user
-            // exampleResponse.innerHTML = e;
-        } }
-            //for now just show every error on page, normally not all errors are appropriate for user
-            //exampleResponse.innerHTML = e;
-        }
+}

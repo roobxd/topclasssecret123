@@ -8,14 +8,18 @@
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { EditRepository } from "../repositories/editRepository.js";
+import { NetworkManager } from "../framework/utils/networkManager.js";
 
 export class EditController extends Controller {
     #editView;
+    #networkManager
     #editRepository;
     #session;
+    previousImage = "";
 
     constructor() {
         super();
+        this.#networkManager = new NetworkManager();
         this.#editRepository = new EditRepository();
         this.#session = App.sessionManager.get("id");
         this.#setupView();
@@ -46,6 +50,25 @@ export class EditController extends Controller {
         this.#editView.querySelector(".gebruikertag").addEventListener("click", () => this.#toggleStory());
 
         this.#editView.querySelector(".postbutton").addEventListener("click", (event) => this.#updatePost(event, lastNumber));
+
+        this.#editView.querySelector("#sampleFile").addEventListener("change", () => this.#imagePreview());
+    }
+
+    #imagePreview(){
+        let input = this.#editView.querySelector("#sampleFile");
+        const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const imagePreview = document.querySelector(".image-preview");
+                const selectorIcon = document.querySelector(".image-icon");
+                reader.addEventListener("load", function () {
+                    // Convert image file to Base64 string
+                    imagePreview.src = reader.result;
+                    selectorIcon.style.display = "none";
+                });
+        
+                reader.readAsDataURL(file);
+            }
     }
 
     #toggleCommentsNo(){
@@ -82,14 +105,39 @@ export class EditController extends Controller {
 
 
     async #updatePost(event, lastNumber) {
+        event.preventDefault();
+        
         const titelinput = this.#editView.querySelector(".titelinput");
         const dateinput = this.#editView.querySelector(".dateinput");
         const storyinput = this.#editView.querySelector(".storyinput");
-        const fileinput = this.#editView.querySelector("#fileinput");
-
+        const fileinput = this.#editView.querySelector("#sampleFile");
 
         const content = storyinput.innerHTML;
 
+        if(fileinput.files.length > 0){
+            //TODO: you should add validation to check if an actual file is selected
+            let file = fileinput.files[0];
+            let formData = new FormData();
+
+            let fileName = file.name; // Extract the file name from the uploaded file
+            let imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
+
+
+            //set "sampleFile" as key, we read this key in de back-end
+            formData.append("sampleFile", file)
+
+            try {
+                let repsonse = await this.#networkManager.doFileRequest("/upload", "POST", formData);
+
+                //here we know file upload is successful, otherwise would've triggered catch
+                fileinput.value = "";
+
+                // Set imagePath to the uploaded file path
+                this.previousImage = `/uploads/${repsonse.fileName}`;
+            } catch (e) {
+                console.error(e);
+            }
+        }
 
         let commentsenabled = 0;
         let storytype = "instantie";
@@ -103,8 +151,8 @@ export class EditController extends Controller {
         }
 
         try {
-            await this.#editRepository.update(this.#session, titelinput.value, storytype, dateinput.value, content, fileinput.value, lastNumber, commentsenabled );
-            alert("Uw verhaal is geplaatst!");
+            await this.#editRepository.update(this.#session, titelinput.value, storytype, dateinput.value, content, this.previousImage, lastNumber, commentsenabled );
+            App.loadController(App.CONTROLLER_MYPOSTS);
         } catch (error) {
             console.log(error);
         }
@@ -121,14 +169,17 @@ export class EditController extends Controller {
         let titelinput = this.#editView.querySelector(".titelinput");
         let dateinput = this.#editView.querySelector(".dateinput");
         let storyinput = this.#editView.querySelector(".storyinput");
-        let fileinput = this.#editView.querySelector("#fileinput");
+        let fileinput = this.#editView.querySelector("#sampleFile");
+        let imagepreview = this.#editView.querySelector(".image-preview");
 
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#editRepository.getPost(lastNumber);
-            let length = data.length - 1;
+            let length = data[0].plaatje.length;
             titelinput.value = data[0].onderwerp;
-
+            if(length > 0){
+                this.previousImage = data[0].plaatje;
+            }
             // Reformat date received from db to date with input format.
             let datumreceived = data[0].publicatieDatum;
             let date = new Date(datumreceived);
@@ -162,9 +213,13 @@ export class EditController extends Controller {
                 storytag.classList.add("active-tag-instantie");
             }
 
+            if(length > 0){
+                imagepreview.src= this.previousImage;
+                let selectorIcon = document.querySelector(".image-icon");
+                selectorIcon.style.display = "none";
+            }
 
-            // storyPlaatje.innerHTML = data[length].sampleFile;
-            console.log(data);
+            imagepreview.src= this.previousImage;
         } catch (e) {
             console.log("error while fetching rooms", e);
 

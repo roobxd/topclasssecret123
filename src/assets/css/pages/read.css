@@ -452,5 +452,9 @@ input:focus {
     display: none;
 }
 
+.padding{
+    height: 35px;
+}
+
 
 

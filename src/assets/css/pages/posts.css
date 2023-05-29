@@ -121,7 +121,15 @@ input:focus {
 .image-icon {
     align-self: center;
     font-size: 75px;
-    margin-bottom: -25px;
+    margin-bottom: -50px;
+}
+
+.image-preview{
+    margin-top: 25px;
+    justify-self: center;
+    align-self: center;
+    width: 75px;
+    height: 75px;
 }
 
 #actual-btn {
