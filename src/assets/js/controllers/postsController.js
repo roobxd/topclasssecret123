@@ -5,9 +5,9 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { App } from "../app.js";
-import { Controller } from "./controller.js";
-import { PostsRepository } from "../repositories/postsRepository.js";
+import {App} from "../app.js";
+import {Controller} from "./controller.js";
+import {PostsRepository} from "../repositories/postsRepository.js";
 
 export class PostsController extends Controller {
     #postsRepository;
@@ -62,7 +62,7 @@ export class PostsController extends Controller {
         //console.log(subject.value + " " + year.value + " " + typeOfPost.value + " " + post.value)
 
         try {
-            await this.#postsRepository.create(titelinput.value, dateinput.value, content, fileinput.value );
+            await this.#postsRepository.create(titelinput.value, dateinput.value, content, fileinput.value);
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);
@@ -76,21 +76,18 @@ export class PostsController extends Controller {
      * @private
      */
     async #fetchPosts() {
-        const storyPlaatje = this.#welcomeView.querySelector(".story-plaatje");
-
+        const storyTitel = this.#welcomeView.querySelector(".story-titel");
+        const storyTekst = this.#welcomeView.querySelector(".story-tekst");
 
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
-            let length = data.length - 1;
-            storyPlaatje.innerHTML = data[length].sampleFile;
             console.log(data);
         } catch (e) {
             console.log("error while fetching rooms", e);
 
             //for now just show every error on page, normally not all errors are appropriate for user
             // exampleResponse.innerHTML = e;
-        } }
-            //for now just show every error on page, normally not all errors are appropriate for user
-            //exampleResponse.innerHTML = e;
         }
+    }
+}
