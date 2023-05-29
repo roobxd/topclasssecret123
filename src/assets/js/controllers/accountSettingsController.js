@@ -119,10 +119,21 @@ export class AccountSettingsController extends Controller {
                 return;
             }
 
+            const isGeverifieerd = await this.#geverifierdRepository.verifierResult(userMail);
+            let klopt;
+            console.log(isGeverifieerd[0].verificatie)
+            if(isGeverifieerd == 1){
+                klopt = "geverifieerd"
+            } else {
+                klopt = "niet geverifieerd"
+            }
+
+
             // Update user info in the HTML
             this.#accountSettingsView.querySelector("#contact").textContent = userInfo.email;
             this.#accountSettingsView.querySelector("#email").textContent = userInfo.email;
             this.#accountSettingsView.querySelector("#name").textContent = `${userInfo.voornaam} ${userInfo.tussenvoegsel} ${userInfo.achternaam}`;
+            this.#accountSettingsView.querySelector(".verificatie-status").textContent = klopt;
 
         } catch (error) {
             console.error("Error loading user info:", error);
