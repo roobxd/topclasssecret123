@@ -13,6 +13,14 @@ input:focus {
     outline: none;
 }
 
+.storyinput[data-placeholder]:not(:focus):not([data-div-placeholder-content]):before {
+    content: attr(data-placeholder);
+    float: left;
+    margin-left: 5px;
+    color: var(--off-white);
+}
+
+
 .create-container {
     margin: 0 auto;
     margin-top: 45px;
@@ -113,7 +121,15 @@ input:focus {
 .image-icon {
     align-self: center;
     font-size: 75px;
-    margin-bottom: -25px;
+    margin-bottom: -50px;
+}
+
+.image-preview{
+    margin-top: 25px;
+    justify-self: center;
+    align-self: center;
+    width: 75px;
+    height: 75px;
 }
 
 #actual-btn {
@@ -171,7 +187,7 @@ input:focus {
 
 .instantietag {
     background: var(--instantie-gradient);
-    opacity: 50%;
+    opacity: 35%;
 }
 
 .instantietag:hover {
@@ -181,11 +197,19 @@ input:focus {
 
 .gebruikertag {
     background: var(--story-gradient);
-    opacity: 50%;
+    opacity: 35%;
 }
 
 .gebruikertag:hover {
     background: var(--story-gradient);
+    opacity: 100%;
+}
+
+.active-tag-instantie{
+    opacity: 100%;
+}
+
+.active-tag-user{
     opacity: 100%;
 }
 
@@ -220,6 +244,7 @@ input:focus {
     border-style: none;
     color: var(--white);
     resize: none;
+    overflow-y: scroll;
     font-family: "Roboto", sans-serif;
 }
 
@@ -267,7 +292,7 @@ input:focus {
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.yesorno svg {
+.yes, .no{
     justify-self: center;
     align-self: center;
     width: 3.5vh;
@@ -275,26 +300,34 @@ input:focus {
     color: var(--pill-main-solid);
 }
 
-#no {
+.no {
     color: var(--button-primary);
+    width: 3.5vh;
+    height: 3.5vh;
 }
 
-#yes {
+.yes {
     color: var(--button-primary);
     width: 3.15vh;
     height: 3.15vh;
-    padding-right: 5px;
+    margin-right: 2px;
 }
 
-#no:hover {
+.no:hover {
     color: red;
 }
 
-#yes:hover {
+.yes:hover {
     color: green;
-    width: 3.15vh;
-    height: 3.15vh;
-    padding-right: 5px;
+}
+
+
+.commentyes{
+    color: green;
+}
+
+.commentno{
+    color: red;
 }
 
 .postbutton {
@@ -307,6 +340,7 @@ input:focus {
     border-radius: 25px;
     margin-top: 65px;
     justify-self: right;
+    border-style: none;
 
     display: flex;
     justify-content: center;

@@ -40,15 +40,20 @@ export class BulletinController extends Controller {
         this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
         this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
-        this.#welcomeView.querySelector(".verhaal").addEventListener('input', () => {
-            // Get the HTML content of the editor
-            //const content = editor.innerHTML;
-
-            // Do something with the HTML content (e.g. save it to a database)
-            //console.log(html);
+        let gaterugbutton = document.querySelector(".gaterug")
+        
+        gaterugbutton.addEventListener("click", () => {
+            window.history.back();
         });
+        
 
         this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
+
+        var storyInput = document.querySelector('.verhaal');
+
+        storyInput.addEventListener('keyup', function () {
+            this.dataset.divPlaceholderContent = this.textContent;
+        });
 
     }
 
