@@ -45,6 +45,10 @@ export class AccountSettingsController extends Controller {
         //event listener for identity veranderen knop
         // this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));
 
+        this.#accountSettingsView.querySelector(".bewerken").addEventListener("click", event => {
+            window.location.href = "#accountSettingsBewerken"
+        })
+
         console.log(App.sessionManager.get("userId"));
         const name = App.sessionManager.get("voornaam");
         const achternaam = App.sessionManager.get("achternaam");
@@ -53,6 +57,7 @@ export class AccountSettingsController extends Controller {
         this.#accountSettingsView.querySelector("#achternaam").textContent = achternaam;
         this.#accountSettingsView.querySelector("#email").textContent = email;
         this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
+
 
         // this.#loadUserInfo();
     }
