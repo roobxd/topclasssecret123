@@ -55,8 +55,8 @@ export class LoginController extends Controller {
             App.sessionManager.set("id", user.result[0].id);
             console.log(App.sessionManager.get("id"))
 
-            App.loadController(App.CONTROLLER_NAVBAR_LOGGEDIN);
-            App.loadController(App.CONTROLLER_WELCOME);
+            // App.loadController(App.CONTROLLER_NAVBAR_LOGGEDIN);
+            // App.loadController(App.CONTROLLER_WELCOME);
         } catch (error) {
             //if unauthorized error code, show error message to the user
             if (error.code === 401) {
