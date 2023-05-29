@@ -52,6 +52,7 @@ export class SupportController extends Controller{
             return;
         }
            try {
+
                const data = await this.#supportRepository.support(name, email, question);
                // const sendMail = await this.#supportRepository.sendContactInformation(name, email, question);
                const sendMail = await  this.#sendMailRepository.sendAnswerMail(email, question);

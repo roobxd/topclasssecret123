@@ -23,7 +23,7 @@ class AccountSettingsRoutes {
         this.#app.get("/getUsers", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT id,voornaam,achternaam, email, password FROM users",
+                    query: "SELECT * FROM users",
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
@@ -67,13 +67,14 @@ class AccountSettingsRoutes {
             try {
                 const newVoornaam = req.body.newVoornaam;
                 const newAchternaam = req.body.newAchternaam;
+                const newTussenvoegsel = req.body.newTussenvoegsel;
                 const userId = req.body.userId;
 
                 if (newVoornaam && userId) {
                     try {
                         const data = await this.#databaseHelper.handleQuery({
-                            query: "UPDATE users SET voornaam = ?, achternaam = ?  WHERE id= ?",
-                            values: [newVoornaam, newAchternaam, userId],
+                            query: "UPDATE users SET voornaam = ?, achternaam = ?, tussenvoegsel = ?  WHERE id= ?",
+                            values: [newVoornaam, newAchternaam,newTussenvoegsel, userId],
                         });
 
                         res.status(this.#errorCodes.HTTP_OK_CODE).json({data});
