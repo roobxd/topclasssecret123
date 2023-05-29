@@ -4,16 +4,19 @@
  */
 import {Controller} from "./controller.js";
 import {SupportRepository} from "../repositories/supportRepository.js";
-import {App as APP} from "../app.js";
+import {App} from "../app.js";
+import {SendMailRepository} from "../repositories/sendMailRepository.js";
 
 
 export class SupportController extends Controller{
     #supportView
     #supportRepository;
+    #sendMailRepository;
 
     constructor() {
         super();
         this.#supportRepository = new SupportRepository();
+        this.#sendMailRepository = new SendMailRepository();
         this.#initializeView();
     }
 
@@ -50,7 +53,11 @@ export class SupportController extends Controller{
         }
            try {
                const data = await this.#supportRepository.support(name, email, question);
-               console.log(data);
+               // const sendMail = await this.#supportRepository.sendContactInformation(name, email, question);
+               const sendMail = await  this.#sendMailRepository.sendAnswerMail(email, question);
+               // console.log(data);
+               // console.log(sendMail);
+               // console.log(sendMail);
                reactieBox.innerHTML = "Bedankt voor jouw vraag. We hebben jouw reactie ontvangen!"
                // if (data.id){
                //     APP.loadController(APP.CONTROLLER_WELCOME);

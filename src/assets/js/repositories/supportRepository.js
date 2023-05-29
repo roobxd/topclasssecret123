@@ -23,6 +23,18 @@ export class SupportRepository{
         })
     }
 
+    sendQuestionMail(){
+        return this.#networkManager.doRequest("/mail", "POST")
+    }
+
+    sendContactInformation(name, mail, vraag){
+        return this.#networkManager.doRequest("/sendmail", "POST", {
+            "naam": name,
+            "mail": mail,
+            "question": vraag,
+             })
+    }
+
 
     // getUser(id){
     //     this.#networkManager.doRequest(this.#route, "GET", {
