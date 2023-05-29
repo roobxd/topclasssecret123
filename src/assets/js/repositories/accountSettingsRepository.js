@@ -62,8 +62,8 @@ export class AccountSettingsRepository {
                 const userId = user.id;
 
                 const data = {
-                    voornaam: newVoornaam,
-                    achternaam: newAchternaam,
+                    newVoornaam: newVoornaam,
+                    newAchternaam: newAchternaam,
                     userId: userId,
                 };
 

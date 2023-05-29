@@ -85,12 +85,13 @@ export class AccountSettingsBewerkenController extends Controller {
 
 
         this.#accountSettingsRepository
-            .updateNaam(currentName, newVoornaam, newAchternaam, currentId)
+            .updateNaam(currentId, newVoornaam, newAchternaam)
             .then(() => {
                 this.#accountSettingsBewerkenView.querySelector(".naam-update-message").textContent = "Naam succesvol veranderd!";
                 // this.#accountSettingsBewerkenView.querySelector("#currentEmail").textContent = newEmail;
                 App.sessionManager.set("voornaam", newVoornaam);
                 App.sessionManager.set("achternaam", newAchternaam);
+                App.sessionManager.set("id", currentId);
             })
             .catch(error => {
                 console.error("Error updating name:", error);

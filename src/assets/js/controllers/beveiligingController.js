@@ -42,7 +42,6 @@ export class BeveiligingController extends Controller {
             window.location.href = "#bulletinGedrag";
         });
 
-        this.#beveiligingView.querySelector(".gaterug").addEventListener("click", event => App.loadController(App.CONTROLLER_LOGIN));
 
         this.#beveiligingView.querySelector(".submitbutton").addEventListener("click", (event) => this.#updatePassword(event));
 
@@ -53,27 +52,10 @@ export class BeveiligingController extends Controller {
 
         event.preventDefault()
         let passwordCheck;
-        let emailCheck;
 
-        const email = this.#beveiligingView.querySelector("#email")
-        const password = this.#beveiligingView.querySelector("#new-password")
-        const confirmPassword = this.#beveiligingView.querySelector("#confirm-password")
-
-
-        emailCheck = false;
-
-        if (email.value === "" || email.value === null) {
-            this.#setErrorfor(email, "email kan niet leeg zijn")
-        } else {
-            const data = await this.#loadAllUsersRepository.loadUsers(email.value)
-
-            if (data.length === 0) {
-                this.#setErrorfor(email, "Email bestaat niet")
-            } else {
-                this.#setSuccesfor(email)
-                emailCheck = true;
-            }
-        }
+        const email = App.sessionManager.get("email");
+        const password = this.#beveiligingView.querySelector("#new-password");
+        const confirmPassword = this.#beveiligingView.querySelector("#confirm-password");
 
         passwordCheck = false;
 
@@ -90,7 +72,7 @@ export class BeveiligingController extends Controller {
         }
 
 
-        if (emailCheck && passwordCheck) {
+        if (passwordCheck) {
             try {
                 const data = await this.#updatePasswordRepository.updatePassword(password.value, email.value)
                 alert("Het is gelukt!")

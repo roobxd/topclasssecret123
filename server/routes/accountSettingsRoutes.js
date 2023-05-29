@@ -12,6 +12,7 @@ class AccountSettingsRoutes {
 
         this.#getUsers();
         this.#updateEmail();
+        this.#updateNaam();
         this.#updatePassword();
         this.#uploadProfilePicture();
         this.#updateIdentity();
@@ -21,7 +22,7 @@ class AccountSettingsRoutes {
         this.#app.get("/getUsers", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT id, email, password FROM users",
+                    query: "SELECT id,voornaam,achternaam, email, password FROM users",
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
@@ -60,6 +61,36 @@ class AccountSettingsRoutes {
         });
     }
 
+    #updateNaam() {
+        this.#app.post("/updateNaam", async (req, res) => {
+            try {
+                const newVoornaam = req.body.newVoornaam;
+                const newAchternaam = req.body.newAchternaam;
+                const userId = req.body.userId;
+
+                if (newVoornaam && userId) {
+                    try {
+                        const data = await this.#databaseHelper.handleQuery({
+                            query: "UPDATE users SET voornaam = ?, achternaam = ?  WHERE id= ?",
+                            values: [newVoornaam, newAchternaam, userId],
+                        });
+
+                        res.status(this.#errorCodes.HTTP_OK_CODE).json({data});
+                    } catch (e) {
+                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({
+                            message: "Database was not queried correctly",
+                            error: e
+                        });
+                    }
+                } else {
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Input is NaN or missing" + {reason: e});
+                }
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json("Error processing request: " + {reason: e});
+            }
+        });
+    }
+
     #updateIdentity() {
         this.#app.post("/updateIdentity", async (req, res) => {
             try {
@@ -72,12 +103,12 @@ class AccountSettingsRoutes {
                         values: [isPersoon, userId],
                     });
 
-                    res.status(this.#errorCodes.HTTP_OK_CODE).json({ data });
+                    res.status(this.#errorCodes.HTTP_OK_CODE).json({data});
                 } else {
-                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Input is NaN or missing" });
+                    res.status(this.#errorCodes.BAD_REQUEST_CODE).json({message: "Input is NaN or missing"});
                 }
             } catch (e) {
-                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({ message: "Error processing request", reason: e });
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({message: "Error processing request", reason: e});
             }
         });
     }
