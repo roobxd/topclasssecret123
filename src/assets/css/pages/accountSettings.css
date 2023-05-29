@@ -63,11 +63,11 @@ input:focus {
     cursor: pointer;
 }
 
-.sidebar-button:hover>p {
+.sidebar-button:hover > p {
     color: var(--off-white);
 }
 
-.sidebar-button:hover>.icon {
+.sidebar-button:hover > .icon {
     color: var(--off-white);
 }
 
@@ -135,4 +135,22 @@ input:focus {
 
 .account-content .verificatie-status {
     color: var(--heart);
+}
+
+#tiktok, #instagram, #facebook {
+    width: 3rem;
+}
+
+.textSM {
+    margin-left: -95px;
+}
+
+#instagramUser, #facebookUser, #tiktokUser {
+    max-width: 100%;
+    margin-left: -200px;
+}
+
+#bewerken1, #bewerken2, #bewerken3 {
+    margin-top: -36px;
+    margin-left: 430px;
 }
