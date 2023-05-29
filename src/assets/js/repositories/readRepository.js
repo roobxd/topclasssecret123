@@ -11,6 +11,8 @@ export class ReadRepository {
     #likeRoute;
     #dislikeRoute;
     #submitRoute;
+    #likeCommentRoute;
+    #dislikeCommentRoute
     #readRoute;
 
     constructor(){
@@ -18,11 +20,13 @@ export class ReadRepository {
         this.#dislikeRoute = "/read/dislike";
         this.#readRoute = "/read";
         this.#submitRoute = "/read/:sid/comment";
+        this.#likeCommentRoute = "/read/comment-like";
+        this.#dislikeCommentRoute = "/read/comment-dislike";
         this.#networkManager = new NetworkManager();
     }
 
-    submitComment(message, sid){
-        this.#networkManager.doRequest(this.#submitRoute, "POST", {message: message, sid: sid})
+    submitComment(message, sid, user){
+        this.#networkManager.doRequest(this.#submitRoute, "POST", {message: message, sid: sid, user: user})
     }
 
     updateLikes(sid){
@@ -31,6 +35,14 @@ export class ReadRepository {
 
     updateDislikes(sid){
         this.#networkManager.doRequest(this.#dislikeRoute, "POST", {sid: sid})
+    }
+
+    updateCommentLikes(sid, commentText){
+        this.#networkManager.doRequest(this.#likeCommentRoute, "POST", {sid: sid, commentText: commentText})
+    }
+
+    updateCommentDislikes(sid, commentText){
+        this.#networkManager.doRequest(this.#dislikeCommentRoute, "POST", {sid: sid, commentText: commentText})
     }
 
     readStory(sid){

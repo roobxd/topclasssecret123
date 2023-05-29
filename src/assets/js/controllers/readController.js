@@ -1,4 +1,5 @@
 // Importing necessary modules
+import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { ReadRepository } from "../repositories/readRepository.js";
 
@@ -7,9 +8,15 @@ export class readController extends Controller {
     // Private class variables
     #readView;
     #readRepository;
+    user = App.sessionManager.get("id");
 
     likedStatus = 0; // Status of whether a post is liked or not
     dislikedStatus = 0; // Status of whether a post is disliked or not
+
+    
+    likedCommentStatus = 0; // Status of whether a post is liked or not
+    dislikedCommentStatus = 0; // Status of whether a post is disliked or not
+
     newMinHeight = 25; // Starting minimum height for comments section
 
     constructor() {
@@ -29,13 +36,23 @@ export class readController extends Controller {
         const lastNumber = url.substring(url.lastIndexOf("/") + 1);
         
         // Reading the story associated with the last number
-        this.#readStory(lastNumber);
+        await this.#readStory(lastNumber);
 
         // Setting up event listeners for buttons and form submission
         this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event, lastNumber));
         this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event, lastNumber));
+        this.#readView.querySelector("#upvoted").addEventListener("click", (event) => this.#likeComment(event, lastNumber));
+        this.#readView.querySelector("#downvoted").addEventListener("click", (event) => this.#dislikeComment(event, lastNumber));
         this.#readView.querySelector(".tts-button").addEventListener("click", (event) => this.#speak());
         this.#readView.querySelector(".submit-comment").addEventListener("click", (event) => this.#submitcomment(lastNumber));
+
+        let commentInput = this.#readView.querySelector(".commentsinput");
+
+        commentInput.addEventListener('input', function () {
+            let remaining = 150 - commentInput.value.length;
+            let charCount =  document.querySelector(".charCount");
+            charCount.textContent = `${remaining} karakters over`;
+        });
 
         let gaterugbutton = document.querySelector(".back-button")
         gaterugbutton.addEventListener("click", () => {
@@ -51,10 +68,10 @@ export class readController extends Controller {
         // Checking if comment input is greater than one character
         if(document.querySelector(".commentsinput").value.length > 1){
             // Submitting comment through repository
-            this.#readRepository.submitComment(message, sid);
+            this.#readRepository.submitComment(message, sid, this.user);
 
             // Appending comment to view
-            this.#appendComment(message);
+            this.#appendComment(message, this.user, "Just now");
             
             // Increase minHeight for comments container based on number of comments
             let sectioncomments = document.querySelector(".comments-container");
@@ -65,7 +82,7 @@ export class readController extends Controller {
         }
     }
     // Private method to append a comment to the view
-    #appendComment(message){
+    #appendComment(message, user, date, likes, dislikes){
         // Create elements for the comment
         let comment = document.createElement('div');
         let commentIcon = document.createElement('img');
@@ -93,6 +110,10 @@ export class readController extends Controller {
         downvoted.className = 'downvoted';
         iUpvoted.className = 'bi bi-hand-thumbs-up-fill';
         iDownvoted.className = 'bi bi-hand-thumbs-down-fill';
+        pMessage.className = "comment-message";
+        pUpvotes.className = "upvotesNumber";
+        pDownvotes.className = "downvotesNumber";
+
 
         iUpvoted.id = 'upvoted';
         iDownvoted.id = 'downvoted';
@@ -100,12 +121,12 @@ export class readController extends Controller {
         commentIcon.src = "assets/images/RoccoStar.png";
         commentIcon.alt = "";
         commentIcon.srcset = "";
-
-        pUsername.textContent = "Testuser";
-        pDatePosted.textContent = "Just now...";
+        console.log(date);
+        pUsername.textContent = "dbpgebruiker" + this.user;
+        pDatePosted.textContent = date;
         pMessage.textContent = message;
-        pUpvotes.textContent = 0;
-        pDownvotes.textContent = 0;
+        pUpvotes.textContent = likes;
+        pDownvotes.textContent = dislikes;
 
         // Append elements
         upvoted.append(iUpvoted, pUpvotes);
@@ -150,13 +171,76 @@ export class readController extends Controller {
 
             event.target.classList.add("disliked");
             document.querySelector("#like").classList.remove("liked");
-            this.#readRepository.updateDislikes(lastNumber);
+            this.#readRepository.updateCommentDislikes(lastNumber);
         } else if (this.likedStatus !== 1 && this.dislikedStatus === 0) {
             this.dislikedStatus = 1;
 
             event.target.classList.add("disliked");
             document.querySelector("#like").classList.remove("liked");
-            this.#readRepository.updateDislikes(lastNumber);
+            this.#readRepository.updateCommentDislikes(lastNumber);
+        } else {
+            console.log("U heeft al gedisliked!");
+        }
+    }
+
+    // Private method to like a post
+    #likeComment(event, lastNumber) {
+        let parentCommentDiv = event.target.closest('.comment');
+        let nearestDownvoteIcon = parentCommentDiv.querySelector("#downvoted");
+        let upvotesNumber = parentCommentDiv.querySelector(".upvotesNumber");
+        let downvotesNumber = parentCommentDiv.querySelector(".downvotesNumber");
+        
+        console.log(nearestDownvoteIcon);
+        let commentText = parentCommentDiv.querySelector('.comment-message').textContent;
+        // alert(commentText);
+
+        if (this.dislikedCommentStatus === 1) {
+            this.dislikedCommentStatus = 0;
+            this.likedCommentStatus = 1;
+
+            event.target.classList.add("liked");
+            nearestDownvoteIcon.classList.remove("disliked");
+
+            this.#readRepository.updateCommentLikes(lastNumber, commentText);
+            upvotesNumber.textContent = parseInt(upvotesNumber.textContent) + 1;
+        } else if (this.dislikedCommentStatus !== 1 && this.likedCommentStatus === 0) {
+            this.likedCommentStatus = 1;
+
+            event.target.classList.add("liked");
+            nearestDownvoteIcon.classList.remove("disliked");
+
+            upvotesNumber.textContent = parseInt(upvotesNumber.textContent) + 1;
+            this.#readRepository.updateCommentLikes(lastNumber, commentText);
+        } else {
+            console.log("U heeft al geliked!");
+        }
+    }
+
+    // Private method to dislike a post
+    #dislikeComment(event, lastNumber) {
+        let parentCommentDiv = event.target.closest('.comment');
+        let nearestUpvoteIcon = parentCommentDiv.querySelector("#upvoted")
+        let commentText = parentCommentDiv.querySelector('.comment-message').textContent;
+        let upvotesNumber = parentCommentDiv.querySelector(".upvotesNumber");
+        let downvotesNumber = parentCommentDiv.querySelector(".downvotesNumber");
+
+        if (this.likedCommentStatus === 1) {
+            this.likedCommentStatus = 0;
+            this.dislikedCommentStatus = 1;
+
+            event.target.classList.add("disliked");
+            nearestUpvoteIcon.classList.remove("liked");
+            this.#readRepository.updateCommentDislikes(lastNumber, commentText);
+            downvotesNumber.textContent = parseInt(downvotesNumber.textContent) + 1;
+
+        } else if (this.likedCommentStatus !== 1 && this.dislikedCommentStatus === 0) {
+            this.dislikedCommentStatus = 1;
+
+            event.target.classList.add("disliked");
+            nearestUpvoteIcon.classList.remove("liked");
+            this.#readRepository.updateCommentDislikes(lastNumber, commentText);
+            downvotesNumber.textContent = parseInt(downvotesNumber.textContent) + 1;
+
         } else {
             console.log("U heeft al gedisliked!");
         }
@@ -173,7 +257,7 @@ export class readController extends Controller {
         try {
             // Fetch the story data
             const storyData = await this.#readRepository.readStory(lastNumber);
-
+            console.log(storyData.wholikedwhat);
             // Check if comments are enabled for this story
             // If not, disable the comments section
             if(storyData.post[0].commentsenabled == 0){
@@ -194,7 +278,9 @@ export class readController extends Controller {
                     this.newMinHeight += increasePerComment;
                     baseMinHeight += increasePerComment;
                     sectioncomments.style.minHeight = baseMinHeight + 'px';
-                    this.#appendComment(comment.bericht);
+                    let likes = comment.likes;
+                    let dislikes = comment.dislikes;
+                    this.#appendComment(comment.bericht, this.user, comment.creation_date.slice(0, 10), likes, dislikes);
                 });
             }
             // Set the story data

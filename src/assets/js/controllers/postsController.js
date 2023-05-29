@@ -147,8 +147,6 @@ export class PostsController extends Controller {
             console.error(e);
         }
 
-
-
         if(document.querySelector(".commentyes")){
             commentsenabled = 1;
         }
@@ -156,7 +154,6 @@ export class PostsController extends Controller {
         if(document.querySelector(".active-tag-user")){
             storytype = "verhaal"
         }
-
 
         try {
             await this.#postsRepository.create(this.#session, titelinput.value, storytype, dateinput.value, content, imagePath, commentsenabled );
