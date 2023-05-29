@@ -26,5 +26,10 @@ export class SendMailRepository {
         this.#route = "/mail/welkom"
         this.#networkManager.doRequest(this.#route,"POST", { email: mail})
     }
+    
+    sendSupportMail(mail){
+        this.#route = "/mail/support"
+        this.#networkManager.doRequest(this.#route,"POST", { email: mail})
+    }
 
 }
