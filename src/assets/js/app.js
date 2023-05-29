@@ -24,6 +24,10 @@ import { IngelogdUpdatePasswordController } from "./controllers/ingelogdUpdatePa
 import { TijdlijnController } from "./controllers/tijdlijnController.js";
 import { readController } from "./controllers/readController.js";
 import { myPostsController } from "./controllers/myPostsController.js";
+import { InstantieController } from "./controllers/instantieController.js";
+import { SocialMediaController } from "./controllers/socialMediaController.js";
+import { BeveiligingController } from "./controllers/beveiligingController.js";
+import { BulletinGedragController } from "./controllers/bulletinGedragController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -42,6 +46,10 @@ export class App {
     static CONTROLLER_UPDATEPASSWORD = "updatePassword";
     static CONTROLLER_SUPPORT = "support";
     static CONTROLLER_ACCOUNT_SETTINGS = "accountSettings";
+    static CONTROLLER_INSTANTIE = "instantie";
+    static CONTROLLER_SOCIALMEDIA = "socialMedia";
+    static CONTROLLER_BEVEILIGING = "beveiliging";
+    static CONTROLLER_BULLETINGEDRAG = "bulletinGedrag"
     static CONTROLLER_PASSWORDUPDATEMAIL = "passwordUpdateMail";
     static CONTROLLER_INGELOGDUPDATEPASSWORD = "ingelogdUpdatePassword";
     static CONTROLLER_VERHALEN = "verhalen";
@@ -106,6 +114,18 @@ export class App {
                 break;
             case App.CONTROLLER_UPDATEPASSWORD:
                 App.isLoggedIn(() => new UpdatePasswordController(), () => new UpdatePasswordController());
+                break;
+            case App.CONTROLLER_INSTANTIE:
+                App.isLoggedIn(() => new InstantieController(), ()=> new InstantieController());
+                break;
+            case App.CONTROLLER_BEVEILIGING:
+                App.isLoggedIn(() => new BeveiligingController(), ()=> new BeveiligingController());
+                break;
+            case App.CONTROLLER_BULLETINGEDRAG:
+                App.isLoggedIn(() => new BulletinGedragController(), () => new BulletinGedragController());
+                break;
+            case App.CONTROLLER_SOCIALMEDIA:
+                App.isLoggedIn(() => new SocialMediaController(), () => new SocialMediaController());
                 break;
             case App.CONTROLLER_INGELOGDUPDATEPASSWORD:
                 App.isLoggedIn(() => new IngelogdUpdatePasswordController(), () => new LoginController())

@@ -27,6 +27,8 @@ export class AccountSettingsRepository {
     }
 
     updateIdentity(userId, identity) {
+        console.log("updateIdentity called with userId:", userId, "and identity:", identity); // Added console.log
+
         const isPersoon = identity === "persoon";
 
         const data = {
@@ -34,14 +36,28 @@ export class AccountSettingsRepository {
             isPersoon: isPersoon,
         };
 
+        console.log("Sending data to networkManager:", data); // Added console.log
+
         return this.#networkManager
             .doRequest("/updateIdentity", "POST", data)
+            .then(response => {
+                console.log("Response from networkManager:", response); // Added console.log
+                return response;
+            })
             .catch((error) => {
                 console.error("Error updating identity:", error);
                 throw error;
             });
     }
 
+
+
+    updateName(currentName, newName){
+        return this.getUsers()
+            .then((users) => {
+                const user = users.find((u) => u.voornaam === currentName)
+            })
+    }
 
     updateEmail(currentEmail, newEmail) {
         return this.getUsers()
@@ -101,16 +117,5 @@ export class AccountSettingsRepository {
             });
     }
 
-    uploadProfilePicture(userId, profilePicFile) {
-        const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("profilePic", profilePicFile);
 
-        return this.#networkManager
-            .doFileRequest("/uploadProfilePicture", "POST", formData)
-            .catch(error => {
-                console.error("Error uploading profile picture:", error);
-                throw error;
-            });
-    }
 }

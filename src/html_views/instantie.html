@@ -69,13 +69,16 @@
                 </div>
             </div>
             <div class="account-content">
-                <p>Algemeen</p>
+                <p>Instantie & Taggen </p>
                 <div class="content-stripe"></div>
                 <div class="inside">
                     <div class="setting">
-                        <p>Naam</p>
-                        <p id="name">Rocco van Baardwijk</p>
-                        <p id="editName" class="edit-button">Bewerken</p>
+                        <p>Identiteit</p>
+                        <select name="identiteit" id="identiteit">
+                            <option value="persoon">Persoon</option>
+                            <option value="instantie">Instantie</option>
+                        </select>
+                        <button type="submit" id="confirmIdentity">Save Changes</button>
                     </div>
                     <div class="setting">
                         <p>Email</p>
@@ -100,16 +103,16 @@
         </div>
     </div>
     <!-- Edit Identity -->
-    <form id="editIdentityForm">
-        <div class="identity-input-container">
-            <label for="identiteit">Identity:</label>
-            <select name="identiteit" id="identiteit">
-                <option value="persoon">Persoon</option>
-                <option value="instantie">Instantie</option>
-            </select>
-            <br>
-            <button type="submit" id="confirmIdentity">Save Changes</button>
-        </div>
-        <p class="identity-update-message"></p>
-    </form>
+<!--    <form id="editIdentityForm">-->
+<!--        <div class="identity-input-container">-->
+<!--            <label for="identiteit">Identity:</label>-->
+<!--            <select name="identiteit" id="identiteit">-->
+<!--                <option value="persoon">Persoon</option>-->
+<!--                <option value="instantie">Instantie</option>-->
+<!--            </select>-->
+<!--            <br>-->
+<!--            <button type="submit" id="confirmIdentity">Save Changes</button>-->
+<!--        </div>-->
+<!--        <p class="identity-update-message"></p>-->
+<!--    </form>-->
 </div>

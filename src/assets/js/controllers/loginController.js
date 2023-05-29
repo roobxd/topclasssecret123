@@ -49,9 +49,16 @@ export class LoginController extends Controller {
         try {
             const user = await this.#usersRepository.login(username, password);
 
+
             //let the session manager know we are logged in by setting the username, never set the password in localstorage
             App.sessionManager.set("username", user.username);
             App.sessionManager.set("email", user.email);
+            App.sessionManager.set("userId", user.id);
+
+
+
+            console.log(App.sessionManager.get("username"));
+            console.log(App.sessionManager.get("userId"));
 
             if (App.sessionManager.get("username")) {
                 const loggedins = document.querySelectorAll('.loggedin');
