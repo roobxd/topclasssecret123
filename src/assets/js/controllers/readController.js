@@ -13,7 +13,7 @@ export class readController extends Controller {
     likedStatus = 0; // Status of whether a post is liked or not
     dislikedStatus = 0; // Status of whether a post is disliked or not
 
-    
+
     likedCommentStatus = 0; // Status of whether a post is liked or not
     dislikedCommentStatus = 0; // Status of whether a post is disliked or not
 
@@ -34,17 +34,17 @@ export class readController extends Controller {
         // Getting the last number from the current URL
         const url = window.location.href;
         const lastNumber = url.substring(url.lastIndexOf("/") + 1);
-        
+
         // Reading the story associated with the last number
         await this.#readStory(lastNumber);
 
         // Setting up event listeners for buttons and form submission
         this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event, lastNumber));
         this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event, lastNumber));
-        if(this.#readView.querySelector("#upvoted")){
+        if (this.#readView.querySelector("#upvoted")) {
             this.#readView.querySelector("#upvoted").addEventListener("click", (event) => this.#likeComment(event, lastNumber));
         }
-        if(this.#readView.querySelector("#downvoted")){
+        if (this.#readView.querySelector("#downvoted")) {
             this.#readView.querySelector("#downvoted").addEventListener("click", (event) => this.#dislikeComment(event, lastNumber));
         }
         this.#readView.querySelector(".tts-button").addEventListener("click", (event) => this.#speak());
@@ -54,7 +54,7 @@ export class readController extends Controller {
 
         commentInput.addEventListener('input', function () {
             let remaining = 150 - commentInput.value.length;
-            let charCount =  document.querySelector(".charCount");
+            let charCount = document.querySelector(".charCount");
             charCount.textContent = `${remaining} karakters over`;
         });
 
@@ -66,17 +66,17 @@ export class readController extends Controller {
     }
 
     // Private method to submit a comment
-    #submitcomment(lastNumber){
+    #submitcomment(lastNumber) {
         let message = document.querySelector(".commentsinput").value;
         let sid = lastNumber;
         // Checking if comment input is greater than one character
-        if(document.querySelector(".commentsinput").value.length > 1){
+        if (document.querySelector(".commentsinput").value.length > 1) {
             // Submitting comment through repository
             this.#readRepository.submitComment(message, sid, this.user);
 
             // Appending comment to view
             this.#appendComment(message, this.user, "Just now");
-            
+
             // Increase minHeight for comments container based on number of comments
             let sectioncomments = document.querySelector(".comments-container");
             let increasePerComment = 100; // set increase per comment in px
@@ -86,7 +86,7 @@ export class readController extends Controller {
         }
     }
     // Private method to append a comment to the view
-    #appendComment(message, user, date, likes, dislikes){
+    #appendComment(message, user, date, likes, dislikes) {
         // Create elements for the comment
         let comment = document.createElement('div');
         let commentIcon = document.createElement('img');
@@ -193,7 +193,7 @@ export class readController extends Controller {
         let nearestDownvoteIcon = parentCommentDiv.querySelector("#downvoted");
         let upvotesNumber = parentCommentDiv.querySelector(".upvotesNumber");
         let downvotesNumber = parentCommentDiv.querySelector(".downvotesNumber");
-        
+
         console.log(nearestDownvoteIcon);
         let commentText = parentCommentDiv.querySelector('.comment-message').textContent;
         // alert(commentText);
@@ -264,7 +264,7 @@ export class readController extends Controller {
             console.log(storyData.wholikedwhat);
             // Check if comments are enabled for this story
             // If not, disable the comments section
-            if(storyData.post[0].commentsenabled == 0){
+            if (storyData.post[0].commentsenabled == 0) {
                 let section2 = document.querySelector(".comment-inputbar");
                 let section3 = document.querySelector(".comment-stripe");
                 let section1 = document.querySelector(".comments-container");
@@ -273,7 +273,7 @@ export class readController extends Controller {
                 section3.classList.add("commentsdisabled");
                 let commentstext = document.querySelector(".comments-section h2");
                 commentstext.innerHTML = "Comments are disabled on this post by the creator.";
-            }else{
+            } else {
                 let sectioncomments = document.querySelector(".comments-container");
                 let baseMinHeight = 25;
                 let increasePerComment = 100;
@@ -292,6 +292,8 @@ export class readController extends Controller {
             storyContent.innerHTML = storyData.post[0].bericht;
             storyAuthor.innerHTML = "Auteur: " + storyData.post[0].gebruiker;
             storyFlow.innerHTML = storyData.post[0].aantalLikes - storyData.post[0].aantalDislikes;
+            let storyimage = document.querySelector(".info img");
+            storyimage.src = storyData.post[0].plaatje;
         } catch (error) {
             // Log any errors during fetching the story
             console.log("Error while fetching story", error)
@@ -301,19 +303,19 @@ export class readController extends Controller {
     // Method to read the story out loud using speech synthesis
     #speak() {
         if ('speechSynthesis' in window) {
-          const synthesis = window.speechSynthesis;
-          const paragraphs = document.querySelectorAll('.story-content p');
-          let fullText = '';
+            const synthesis = window.speechSynthesis;
+            const paragraphs = document.querySelectorAll('.story-content p');
+            let fullText = '';
 
-          paragraphs.forEach(paragraph => {
-            fullText += paragraph.textContent + ' ';
-          });
+            paragraphs.forEach(paragraph => {
+                fullText += paragraph.textContent + ' ';
+            });
 
-          const utterance = new SpeechSynthesisUtterance(fullText.trim());
+            const utterance = new SpeechSynthesisUtterance(fullText.trim());
 
-          synthesis.speak(utterance);
+            synthesis.speak(utterance);
         } else {
-          console.log('Speech synthesis is not supported.');
+            console.log('Speech synthesis is not supported.');
         }
-      }
+    }
 }
