@@ -8,8 +8,8 @@
 import { PostsRepository } from "../repositories/postsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
-import {VerificatieRepository} from "../repositories/verificatieRepository.js";
-import {BulletinRepository} from "../repositories/bulletinRepository.js";
+import { VerificatieRepository } from "../repositories/verificatieRepository.js";
+import { BulletinRepository } from "../repositories/bulletinRepository.js";
 
 export class WelcomeController extends Controller {
     #PostsRepository
@@ -34,12 +34,14 @@ export class WelcomeController extends Controller {
     async #setupView() {
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
-        const mail = App.sessionManager.get("email");
-        const statusGebruiker = await this.#verificatieRepository.verifierResult(mail)
 
-        if (statusGebruiker[0].verificatie === 0){
-            App.loadController(App.CONTROLLER_VERIFIEERACCOUNT)
+        try {
+            this.#checkVerification();
+        } catch (error) {
+            console.log("Not redirecting to verification since you arent logged in...")
         }
+
+
 
         //from here we can safely get elements from the view via the right getter
         // this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("email");
@@ -56,7 +58,7 @@ export class WelcomeController extends Controller {
 
             if (!beginDate.value || !endDate.value) {
                 console.log('Input type date is empty');
-               timelineContext.innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
+                timelineContext.innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
             } else {
                 console.log('Input type date is NOT empty');
                 timelineContext.innerHTML = "Top, begin en eind datum zijn gekozen!";
@@ -75,6 +77,15 @@ export class WelcomeController extends Controller {
         // Show the time-line page when it is clicked in welcome page.
         // this.#welcomeView.querySelector(".bekijken").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
 
+    }
+
+    async #checkVerification() {
+        const mail = App.sessionManager.get("email");
+        const statusGebruiker = await this.#verificatieRepository.verifierResult(mail)
+
+        if (statusGebruiker[0].verificatie === 0) {
+            App.loadController(App.CONTROLLER_VERIFIEERACCOUNT)
+        }
     }
 
     /**
@@ -106,17 +117,17 @@ export class WelcomeController extends Controller {
     }
 
 
-    async #createCard(stitel, scontent, sid, soort, imagepath){
+    async #createCard(stitel, scontent, sid, soort, imagepath) {
         const story = document.createElement('div');
         let storygradient = "verhaal-gradient";
-        switch(soort) {
+        switch (soort) {
             case "bulletin":
                 storygradient = "bulletin-gradient"
-            break;
+                break;
 
             case "instantie":
                 storygradient = "instantie-gradient"
-            break;
+                break;
         }
         story.className = 'story one ' + storygradient;
 
@@ -194,7 +205,7 @@ export class WelcomeController extends Controller {
         story.appendChild(iconsadd);
 
         const targetElement = document.querySelector(".story-container-welcome");
-        story.addEventListener("click", ()=>{
+        story.addEventListener("click", () => {
             window.location = "http://localhost:3000/#read/" + sid
         })
         targetElement.appendChild(story);
