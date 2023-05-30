@@ -37,9 +37,9 @@ export class SocialMediaController extends Controller {
         this.#socialMediaView.querySelector(".socialMedia").addEventListener("click", event => {
             window.location.href = "#socialMedia";
         });
-        this.#socialMediaView.querySelector(".bulletinGedrag").addEventListener("click", event => {
-            window.location.href = "#bulletinGedrag";
-        });
+        // this.#socialMediaView.querySelector(".bulletinGedrag").addEventListener("click", event => {
+        //     window.location.href = "#bulletinGedrag";
+        // });
 
         this.#socialMediaView.querySelector(".edit-button1").addEventListener("click", event => {
             this.#handleSocials(event);
