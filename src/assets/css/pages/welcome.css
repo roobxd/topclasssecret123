@@ -257,7 +257,7 @@ span.name {
 .bulletins {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 100px;
+    gap: 50px;
     display: flex;
     justify-content: center;
     align-items: center;

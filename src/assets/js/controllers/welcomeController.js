@@ -9,18 +9,20 @@ import { PostsRepository } from "../repositories/postsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import {VerificatieRepository} from "../repositories/verificatieRepository.js";
+import {BulletinRepository} from "../repositories/bulletinRepository.js";
 
 export class WelcomeController extends Controller {
     #PostsRepository
     #welcomeView
     #verificatieRepository
+    #BulletinRepository
 
 
     constructor() {
         super();
         this.#PostsRepository = new PostsRepository();
         this.#verificatieRepository = new VerificatieRepository();
-
+        this.#BulletinRepository = new BulletinRepository();
         this.#setupView();
     }
 
@@ -69,7 +71,7 @@ export class WelcomeController extends Controller {
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchPosts();
-
+        this.#fetchBulletinPosts();
         // Show the time-line page when it is clicked in welcome page.
         // this.#welcomeView.querySelector(".bekijken").addEventListener("click", event => App.loadController(App.CONTROLLER_TIJDLIJN));
 
@@ -197,4 +199,35 @@ export class WelcomeController extends Controller {
         })
         targetElement.appendChild(story);
     }
+
+    async #fetchBulletinPosts() {
+        try {
+            const dataBulletin = await this.#BulletinRepository.getAll();
+            const bulletinPosts = dataBulletin.filter(bulletin => bulletin.soortBericht === 'bulletin');
+            const laatste3bulletin = bulletinPosts
+                .sort((a, b) => new Date(b.publicatieDatum) - new Date(a.publicatieDatum))
+                .slice(0, 3);
+            const bulletinsList = document.querySelector('.bulletpoints');
+            const datesList = document.querySelector('.dates');
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+            laatste3bulletin.forEach(bulletin => {
+                const btitel = bulletin.onderwerp;
+                const bdatum = bulletin.publicatieDatum;
+
+                const titleItem = document.createElement('li');
+                titleItem.textContent = btitel;
+                bulletinsList.appendChild(titleItem);
+
+                const dateItem = document.createElement('li');
+                const formattedDate = new Date(bdatum).toLocaleDateString(undefined, options);
+                dateItem.textContent = formattedDate;
+                datesList.appendChild(dateItem);
+            });
+        } catch (e) {
+            console.log("error while fetching bulletin: ", e);
+        }
+    }
+
 }
