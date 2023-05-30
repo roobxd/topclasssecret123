@@ -33,8 +33,8 @@ class BulletinRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum, commentsenabled) values('test', ?, 'bulletin', ?, CURRENT_TIMESTAMP, 'geen', CURRENT_TIMESTAMP, 0) ",
-                    values: [req.body.titel, req.body.verhaal]
+                    query: "INSERT INTO posts(gebruiker, onderwerp, soortBericht, bericht, jaartalGebeurtenis, plaatje, publicatieDatum, commentsenabled) values(?, ?, 'bulletin', ?, CURRENT_TIMESTAMP, '/uploads/geen.png', CURRENT_TIMESTAMP, 0) ",
+                    values: [req.body.userid, req.body.titel, req.body.verhaal]
                 });
 
                 //just give all data back as json, could also be empty

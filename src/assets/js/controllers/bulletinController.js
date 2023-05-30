@@ -41,11 +41,11 @@ export class BulletinController extends Controller {
         this.#welcomeView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
         let gaterugbutton = document.querySelector(".gaterug")
-        
+
         gaterugbutton.addEventListener("click", () => {
             window.history.back();
         });
-        
+
 
         this.#welcomeView.querySelector(".submitbutton").addEventListener("click", (event) => this.#savePost(event));
 
@@ -60,11 +60,11 @@ export class BulletinController extends Controller {
     async #savePost(event) {
         const titel = this.#welcomeView.querySelector(".titleinput");
         const verhaal = this.#welcomeView.querySelector(".verhaal");
-
+        let userid = App.sessionManager.get("id");
         const content = verhaal.innerHTML;
 
         try {
-            await this.#BulletinRepository.create(titel.value, content);
+            await this.#BulletinRepository.create(userid, titel.value, content);
             alert("Uw verhaal is geplaatst!");
         } catch (error) {
             console.log(error);

@@ -33,8 +33,8 @@ export class BulletinRepository {
 
     }
 
-    async create(titel, verhaal) {
-        this.#networkManager.doRequest(this.#route, "POST", { titel: titel, verhaal: verhaal })
+    async create(userid, titel, verhaal) {
+        this.#networkManager.doRequest(this.#route, "POST", { userid: userid, titel: titel, verhaal: verhaal })
     }
 
     async delete() {
