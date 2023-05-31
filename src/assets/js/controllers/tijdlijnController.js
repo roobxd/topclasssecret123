@@ -1,10 +1,10 @@
 /**
  * Controller for the timeline, to integrate the timeline with welcome page and show data from database in the timeline.
  */
-import {Controller} from "./controller.js";
-import {TijdlijnRepository} from "../repositories/tijdlijnRepository.js";
-import {AccountSettingsRepository} from "../repositories/accountSettingsRepository.js";
-import {App} from "../app.js";
+import { Controller } from "./controller.js";
+import { TijdlijnRepository } from "../repositories/tijdlijnRepository.js";
+import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
+import { App } from "../app.js";
 
 export class TijdlijnController extends Controller {
     #tijdlijnView;

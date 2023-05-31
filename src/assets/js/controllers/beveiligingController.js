@@ -38,9 +38,9 @@ export class BeveiligingController extends Controller {
         this.#beveiligingView.querySelector(".socialMedia").addEventListener("click", event => {
             window.location.href = "#socialMedia";
         });
-        this.#beveiligingView.querySelector(".bulletinGedrag").addEventListener("click", event => {
-            window.location.href = "#bulletinGedrag";
-        });
+        // this.#beveiligingView.querySelector(".bulletinGedrag").addEventListener("click", event => {
+        //     window.location.href = "#bulletinGedrag";
+        // });
 
         this.#beveiligingView.querySelector(".submitbutton").addEventListener("click", (event) => this.#updatePassword(event));
 

@@ -42,9 +42,9 @@ export class AccountSettingsController extends Controller {
         this.#accountSettingsView.querySelector(".socialMedia").addEventListener("click", event => {
             window.location.href = "#socialMedia";
         });
-        this.#accountSettingsView.querySelector(".bulletinGedrag").addEventListener("click", event => {
-            window.location.href = "#bulletinGedrag";
-        });
+        // this.#accountSettingsView.querySelector(".bulletinGedrag").addEventListener("click", event => {
+        //     window.location.href = "#bulletinGedrag";
+        // });
 
         //event listener for identity veranderen knop
         // this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));

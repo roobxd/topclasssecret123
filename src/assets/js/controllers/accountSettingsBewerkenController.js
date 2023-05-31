@@ -38,9 +38,9 @@ export class AccountSettingsBewerkenController extends Controller {
         this.#accountSettingsBewerkenView.querySelector(".socialMedia").addEventListener("click", event => {
             window.location.href = "#socialMedia";
         });
-        this.#accountSettingsBewerkenView.querySelector(".bulletinGedrag").addEventListener("click", event => {
-            window.location.href = "#bulletinGedrag";
-        });
+        // this.#accountSettingsBewerkenView.querySelector(".bulletinGedrag").addEventListener("click", event => {
+        //     window.location.href = "#bulletinGedrag";
+        // });
 
         //event listener for identity veranderen knop
         // this.#accountSettingsView.querySelector("#confirmIdentity").addEventListener("click", event => this.#handleIdentityUpdate(event));

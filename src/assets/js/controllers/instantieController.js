@@ -38,9 +38,9 @@ export class InstantieController extends Controller {
         this.#instantieView.querySelector(".socialMedia").addEventListener("click", event => {
             window.location.href = "#socialMedia";
         });
-        this.#instantieView.querySelector(".bulletinGedrag").addEventListener("click", event => {
-            window.location.href = "#bulletinGedrag";
-        });
+        // this.#instantieView.querySelector(".bulletinGedrag").addEventListener("click", event => {
+        //     window.location.href = "#bulletinGedrag";
+        // });
 
         console.log(App.sessionManager.get("id"));
 
