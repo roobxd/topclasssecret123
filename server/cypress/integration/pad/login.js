@@ -5,16 +5,16 @@ describe("Login", () => {
     //Run before each test in this context
     beforeEach(() => {
         //Go to the specified URL
-        cy.visit("http://localhost:8080");
+        cy.visit("http://localhost:8080/#login");
     });
 
     //Test: Validate login form
     it("Valid login form", () => {
         //Find the field for the username, check if it exists.
-        cy.get("#exampleInputUsername").should("exist");
+        cy.get("#email").should("exist");
 
         //Find the field for the password, check if it exists.
-        cy.get("#exampleInputPassword").should("exist");
+        cy.get("#password").should("exist");
 
         //Find the button to login, check if it exists.
         cy.get(".submitbutton").should("exist");

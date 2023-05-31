@@ -56,9 +56,12 @@ export class WelcomeController extends Controller {
 
 
             if (!beginDate.value || !endDate.value) {
-                console.log('Input type date is empty');
+                timelineContext.style.color = "red";
                 timelineContext.innerHTML = "Begin en eind datum moet allebei ingevuld worden!";
-            } else {
+            } else if (beginDate.value >= endDate.value){
+                timelineContext.style.color = "yellow";
+                timelineContext.innerHTML = "Begin datum kan niet na eind datum liggen!";
+            }else {
                 console.log('Input type date is NOT empty');
                 timelineContext.innerHTML = "Top, begin en eind datum zijn gekozen!";
                 window.location.href = `#tijdlijn/${beginDate.value}/${endDate.value}`;
