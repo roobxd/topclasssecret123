@@ -5,11 +5,11 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { PostsRepository } from "../repositories/postsRepository.js";
-import { App } from "../app.js";
-import { Controller } from "./controller.js";
-import { VerificatieRepository } from "../repositories/verificatieRepository.js";
-import { BulletinRepository } from "../repositories/bulletinRepository.js";
+import {PostsRepository} from "../repositories/postsRepository.js";
+import {App} from "../app.js";
+import {Controller} from "./controller.js";
+import {VerificatieRepository} from "../repositories/verificatieRepository.js";
+import {BulletinRepository} from "../repositories/bulletinRepository.js";
 
 export class WelcomeController extends Controller {
     #PostsRepository
@@ -36,11 +36,10 @@ export class WelcomeController extends Controller {
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
 
         try {
-            this.#checkVerification();
+            this.#checkVerification;
         } catch (error) {
             console.log("Not redirecting to verification since you arent logged in...")
         }
-
 
 
         //from here we can safely get elements from the view via the right getter
@@ -81,10 +80,14 @@ export class WelcomeController extends Controller {
 
     async #checkVerification() {
         const mail = App.sessionManager.get("email");
+
+        try{
         const statusGebruiker = await this.#verificatieRepository.verifierResult(mail)
 
         if (statusGebruiker[0].verificatie === 0) {
             App.loadController(App.CONTROLLER_VERIFIEERACCOUNT)
+        } } catch (e) {
+            console.log(reason)
         }
     }
 
@@ -109,7 +112,12 @@ export class WelcomeController extends Controller {
                 let sid = story.id;
                 let soort = story.soortBericht;
                 let imagepath = story.plaatje;
-                this.#createCard(stitel, scontent, sid, soort, imagepath);
+                try {
+                    this.#createCard(stitel, scontent, sid, soort, imagepath);
+                } catch (e) {
+                    console.log(reason)
+
+                }
             });
         } catch (e) {
             console.log("error while fetching posts: ", e);
@@ -131,6 +139,7 @@ export class WelcomeController extends Controller {
         }
         story.className = 'story one ' + storygradient;
 
+        try{
         const image = document.createElement('div');
         image.className = 'image';
 
@@ -208,7 +217,9 @@ export class WelcomeController extends Controller {
         story.addEventListener("click", () => {
             window.location = "http://localhost:3000/#read/" + sid
         })
-        targetElement.appendChild(story);
+        targetElement.appendChild(story);} catch (e) {
+            console.log(e)
+        }
     }
 
     async #fetchBulletinPosts() {
@@ -221,7 +232,7 @@ export class WelcomeController extends Controller {
             const bulletinsList = document.querySelector('.bulletpoints');
             const datesList = document.querySelector('.dates');
 
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const options = {year: 'numeric', month: 'long', day: 'numeric'};
 
             laatste3bulletin.forEach(bulletin => {
                 const btitel = bulletin.onderwerp;
