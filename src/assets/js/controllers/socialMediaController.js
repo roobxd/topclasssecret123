@@ -69,10 +69,16 @@ export class SocialMediaController extends Controller {
                 this.#socialMediaView.querySelector(".socials-update-message").textContent = "Socials updated successfully!";
                 // this.#accountSettingsBewerkenView.querySelector("#currentEmail").textContent = newEmail;
                 // App.sessionManager.set("email", newEmail);
+                App.sessionManager.set("instagram", newInstagram);
+                App.sessionManager.set("achternaam", newTiktok);
+                App.sessionManager.set("tussenvoegsel", newFacebook);
+                App.sessionManager.set("id", currentId);
             })
             .catch(error => {
                 console.error("Error updating socials:", error);
                 this.#socialMediaView.querySelector(".socials-update-message").textContent = "Error updating socials: " + error.message;
             });
     }
+
+
 }
