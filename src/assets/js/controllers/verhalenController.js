@@ -1,5 +1,6 @@
 /**
- * Controller voor Verhalen Pagina
+ * Controller for Verhalen Pagina
+ * @author Rocco van Baardwijk
  */
 import { PostsRepository } from "../repositories/postsRepository.js";
 import { Controller } from "./controller.js"
@@ -17,6 +18,10 @@ export class VerhalenController extends Controller {
         this.#setupView();
     }
 
+    /**
+     * Sets up the view and adds event listeners
+     * @private
+     */
     async #setupView() {
         this.#verhalenView = await super.loadHtmlIntoContent("html_views/verhalen.html");
         await this.#fetchPosts();
@@ -31,30 +36,34 @@ export class VerhalenController extends Controller {
         searchpost.addEventListener("click", (event) => this.#searchPost());
     }
 
+    /**
+     * Handles the search functionality
+     * @private
+     */
     #searchPost() {
         let searchvalue = document.querySelector(".searchbar").value;
-    
+
         if (searchvalue.trim() === '') {
-            // If search value is empty, reset cachedData to the original data
             this.cachedData = [...this.originalData];
         } else {
-            // Otherwise, filter the originalData
             let filteredData = this.originalData.filter((story) => {
                 return story.onderwerp.toLowerCase().includes(searchvalue.toLowerCase());
             });
             this.cachedData = filteredData;
         }
-    
-        // Clear the story container
+
         let container = document.querySelector(".story-container-verhalen");
         container.innerHTML = "";
-    
-        this.#displayPosts(this.cachedData);  // Update the page info
+
+        this.#displayPosts(this.cachedData);
     }
 
+    /**
+     * Sorts the posts by type
+     * @private
+     */
     #sorteerType() {
         if(this.isSorted == 0) {
-            // Sort cachedData by soortBericht
             this.cachedData.sort((a, b) => {
                 if (a.soortBericht < b.soortBericht) {
                     return -1;
@@ -64,24 +73,25 @@ export class VerhalenController extends Controller {
                 }
                 return 0;
             });
-    
+
             this.isSorted = 1;
         } else {
-            // reset back to original data if already sorted
             this.cachedData = [...this.originalData];
             this.isSorted = 0;
         }
-    
-        // Clear the story container
+
         let container = document.querySelector(".story-container-verhalen");
         container.innerHTML = "";
-    
-        this.#displayPosts(this.cachedData);  // Update the page info
+
+        this.#displayPosts(this.cachedData);
     }
 
+    /**
+     * Sorts the posts by likes
+     * @private
+     */
     #sorteerLikes() {
         if(this.isSorted == 0) {
-            // Sort cachedData by soortBericht
             this.cachedData.sort((a, b) => {
                 if (a.aantalLikes < b.aantalLikes) {
                     return -1;
@@ -91,45 +101,48 @@ export class VerhalenController extends Controller {
                 }
                 return 0;
             });
-    
+
             this.isSorted = 1;
         } else {
-            // reset back to original data if already sorted
             this.cachedData = [...this.originalData];
             this.isSorted = 0;
         }
-    
-        // Clear the story container
+
         let container = document.querySelector(".story-container-verhalen");
         container.innerHTML = "";
-    
-        this.#displayPosts(this.cachedData);  // Update the page info
+
+        this.#displayPosts(this.cachedData);
     }
-    
-    
+
+
+    /**
+     * Fetches the posts from the repository
+     * @private
+     */
     async #fetchPosts() {
         try {
-            // await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#PostsRepository.getAll();
-            // let userTypes = await this.#PostsRepository.getUserTypes();
             console.log(data);
-    
-            // Store original fetched data
+
             this.originalData = [...data];
             this.cachedData = [...this.originalData];
-    
-            this.#displayPosts(data);  // Update the page info
-    
+
+            this.#displayPosts(data);
+
         } catch (e) {
             console.log("Error while fetching stories: ", e);
         }
     }
 
+    /**
+     * Displays the posts on the page
+     * @param {Array} posts - The array of posts to display
+     * @private
+     */
     async #displayPosts(posts) {
-        // Clear existing posts before displaying new ones
         const targetElement = document.querySelector(".story-container-verhalen");
         targetElement.innerHTML = "";
-    
+
         posts.reverse().forEach(story => {
             let stitel = story.onderwerp;
             let scontent = story.bericht;
@@ -141,14 +154,25 @@ export class VerhalenController extends Controller {
             let userType = story.persoon;
             let soort = story.soortBericht;
             let imagepath = story.plaatje;
-    
+
             this.#createCard(stitel, scontent, sid, difference, sum, userType, soort, imagepath);
         });
     }
-    
 
+
+    /**
+     * Creates a card for a post and appends it to the container
+     * @param {string} stitel - The title of the post
+     * @param {string} scontent - The content of the post
+     * @param {string} sid - The ID of the post
+     * @param {number} difference - The difference between likes and dislikes
+     * @param {number} sum - The sum of likes and dislikes
+     * @param {string} userType - The type of user
+     * @param {string} soort - The type of post
+     * @param {string} imagepath - The path to the post image
+     * @private
+     */
     async #createCard(stitel, scontent, sid, difference, sum, userType, soort, imagepath){
-        console.log(soort);
         let storygradient = "verhaal-gradient";
         switch(soort) {
             case "bulletin":
@@ -160,9 +184,6 @@ export class VerhalenController extends Controller {
             break;
         }
 
-       /*
-       Percentage calculations that are important for determining icons. The calculation is based on the sum of likes.
-        */
         const tienProcent = 10 / 100 * sum;
         const twentigProcent = 20 / 100 * sum;
         const vijftigProcent = 50 / 100 * sum;
@@ -209,7 +230,6 @@ export class VerhalenController extends Controller {
         trending.className = 'trending';
 
         if (difference >= 0 && difference <= tienProcent) {
-            // i for the icons
             const heartIcon = document.createElement("i");
             heartIcon.className = "bi bi-heart-fill heart";
             trending.appendChild(heartIcon);
@@ -280,5 +300,4 @@ export class VerhalenController extends Controller {
         })
         targetElement.appendChild(story);
     }
-
 }
