@@ -1,8 +1,7 @@
 /**
- * Responsible for handling the actions happening on welcome view
- * For now it uses the roomExampleRepository to get some example data from server
- *
- * @author Lennard Fonteijn & Pim Meijer
+ * EditController class responsible for handling the actions in the edit view.
+ * 
+ * @author Rocco van Baardwijk
  */
 
 import { App } from "../app.js";
@@ -17,6 +16,9 @@ export class EditController extends Controller {
     #session;
     previousImage = "";
 
+    /**
+     * Constructor of EditController. Initializes network manager, edit repository and session.
+     */
     constructor() {
         super();
         this.#networkManager = new NetworkManager();
@@ -26,34 +28,38 @@ export class EditController extends Controller {
     }
 
     /**
-     * Loads contents of desired HTML file into the index.html .content div
-     * @returns {Promise<>}
-     * @private
+     * Load HTML content and setup event listeners.
      */
     async #setupView() {
-        //await for when HTML is loaded
         this.#editView = await super.loadHtmlIntoContent("html_views/edit.html")
-
         const url = window.location.href;
         const lastNumber = url.substring(url.lastIndexOf("/") + 1);
         this.#fetchPost(lastNumber);
 
+        // Setting up event listeners for text formatting and post submission.
         this.#editView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
         this.#editView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
         this.#editView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));
         this.#editView.querySelector(".strikethrough").addEventListener("click", () => document.execCommand("strikeThrough", false, null));
 
+        // Setting up event listeners for comment toggling.
         this.#editView.querySelector("#no").addEventListener("click", () => this.#toggleCommentsNo());
         this.#editView.querySelector("#yes").addEventListener("click", () => this.#toggleCommentsYes());
 
+        // Setting up event listeners for instance and user story toggling.
         this.#editView.querySelector(".instantietag").addEventListener("click", () => this.#toggleInstantie());
         this.#editView.querySelector(".gebruikertag").addEventListener("click", () => this.#toggleStory());
 
+        // Setting up event listener for post update.
         this.#editView.querySelector(".postbutton").addEventListener("click", (event) => this.#updatePost(event, lastNumber));
 
+        // Setting up event listener for image preview.
         this.#editView.querySelector("#sampleFile").addEventListener("change", () => this.#imagePreview());
     }
 
+    /**
+     * Function to show the image preview.
+     */
     #imagePreview(){
         let input = this.#editView.querySelector("#sampleFile");
         const file = input.files[0];
@@ -62,7 +68,6 @@ export class EditController extends Controller {
                 const imagePreview = document.querySelector(".image-preview");
                 const selectorIcon = document.querySelector(".image-icon");
                 reader.addEventListener("load", function () {
-                    // Convert image file to Base64 string
                     imagePreview.src = reader.result;
                     selectorIcon.style.display = "none";
                 });
@@ -71,6 +76,9 @@ export class EditController extends Controller {
             }
     }
 
+    /**
+     * Function to toggle the "no" comments button.
+     */
     #toggleCommentsNo(){
         let nobutton = document.querySelector("#no");
         nobutton.classList.add("commentno");
@@ -79,6 +87,9 @@ export class EditController extends Controller {
         yesbutton.classList.remove("commentyes");
     }
 
+    /**
+     * Function to toggle the "yes" comments button.
+     */
     #toggleCommentsYes(){
         let yesbutton = document.querySelector("#yes");
         yesbutton.classList.add("commentyes");
@@ -87,6 +98,9 @@ export class EditController extends Controller {
         nobutton.classList.remove("commentno");
     }
 
+    /**
+     * Function to toggle the instance tag.
+     */
     #toggleInstantie(){
         let instantietag = document.querySelector(".instantietag");
         instantietag.classList.add("active-tag-instantie");
@@ -95,6 +109,9 @@ export class EditController extends Controller {
         gebruikertag.classList.remove("active-tag-user");
     }
 
+    /**
+     * Function to toggle the user story tag.
+     */
     #toggleStory(){
         let yesbutton = document.querySelector(".gebruikertag");
         yesbutton.classList.add("active-tag-user");
@@ -103,7 +120,11 @@ export class EditController extends Controller {
         instantietag.classList.remove("active-tag-instantie");
     }
 
-
+    /**
+     * Function to update a post.
+     * @param {object} event - The event object.
+     * @param {string} lastNumber - The last number in the URL.
+     */
     async #updatePost(event, lastNumber) {
         event.preventDefault();
         
@@ -115,24 +136,14 @@ export class EditController extends Controller {
         const content = storyinput.innerHTML;
 
         if(fileinput.files.length > 0){
-            //TODO: you should add validation to check if an actual file is selected
             let file = fileinput.files[0];
             let formData = new FormData();
 
-            let fileName = file.name; // Extract the file name from the uploaded file
-            let imagePath = `/img/${fileName}`; // Example: Assuming 'uploads' is the directory where you store the images
-
-
-            //set "sampleFile" as key, we read this key in de back-end
             formData.append("sampleFile", file)
 
             try {
                 let repsonse = await this.#networkManager.doFileRequest("/upload", "POST", formData);
-
-                //here we know file upload is successful, otherwise would've triggered catch
                 fileinput.value = "";
-
-                // Set imagePath to the uploaded file path
                 this.previousImage = `/uploads/${repsonse.fileName}`;
             } catch (e) {
                 console.error(e);
@@ -160,72 +171,44 @@ export class EditController extends Controller {
     }
 
     /**
-     * async function that retrieves a room by its id via the right repository
-     * @param roomId the room id to retrieve
-     * @private
+     * Function to fetch a post.
+     * @param {string} lastNumber - The last number in the URL.
      */
     async #fetchPost(lastNumber) {
-        let storyPlaatje = this.#editView.querySelector(".story-plaatje");
         let titelinput = this.#editView.querySelector(".titelinput");
         let dateinput = this.#editView.querySelector(".dateinput");
         let storyinput = this.#editView.querySelector(".storyinput");
-        let fileinput = this.#editView.querySelector("#sampleFile");
         let imagepreview = this.#editView.querySelector(".image-preview");
 
         try {
-            //await keyword 'stops' code until data is returned - can only be used in async function
             let data = await this.#editRepository.getPost(lastNumber);
             let length = data[0].plaatje.length;
             titelinput.value = data[0].onderwerp;
             if(length > 0){
                 this.previousImage = data[0].plaatje;
             }
-            // Reformat date received from db to date with input format.
             let datumreceived = data[0].publicatieDatum;
             let date = new Date(datumreceived);
             let year = date.getUTCFullYear();
-            let month = date.getUTCMonth() + 1;  // getUTCMonth() returns a 0-based month (where 0 is January), so we add 1
+            let month = date.getUTCMonth() + 1;
             let day = date.getUTCDate();
+            dateinput.value = `${year}-${month}-${day}`;
+            storyinput.innerHTML = data[0].verhaal;
+            imagepreview.src = this.previousImage;
 
-            // Pad the month and day with leading zeros if they are less than 10
-            if (month < 10) month = '0' + month;
-            if (day < 10) day = '0' + day;
-
-            let formattedDate = `${year}-${month}-${day}`;
-
-            storyinput.innerHTML = data[0].bericht;
-
-            dateinput.value = formattedDate;
-
-            if(data[0].commentsenabled == 1){
-                let nobutton = document.querySelector("#yes");
-                nobutton.classList.add("commentyes");
-            } else{
-                let nobutton = document.querySelector("#no");
-                nobutton.classList.add("commentno");
+            if(data[0].reactiesMogelijk){
+                document.querySelector("#yes").classList.add("commentyes");
+            } else {
+                document.querySelector("#no").classList.add("commentno");
             }
 
-            if(data[0].soortStory == "instantie"){
-                let storytag = document.querySelector(".gebruikertag");
-                storytag.classList.add("active-tag-user");
-            } else{
-                let storytag = document.querySelector(".instantietag");
-                storytag.classList.add("active-tag-instantie");
+            if(data[0].typePost == "instantie"){
+                document.querySelector(".instantietag").classList.add("active-tag-instantie");
+            } else {
+                document.querySelector(".gebruikertag").classList.add("active-tag-user");
             }
-
-            if(length > 0){
-                imagepreview.src= this.previousImage;
-                let selectorIcon = document.querySelector(".image-icon");
-                selectorIcon.style.display = "none";
-            }
-
-            imagepreview.src= this.previousImage;
-        } catch (e) {
-            console.log("error while fetching rooms", e);
-
-            //for now just show every error on page, normally not all errors are appropriate for user
-            // exampleResponse.innerHTML = e;
-        } }
-            //for now just show every error on page, normally not all errors are appropriate for user
-            //exampleResponse.innerHTML = e;
+        } catch (error) {
+            console.log(error);
         }
+    }
+}

@@ -97,7 +97,7 @@ export class TijdlijnController extends Controller {
             divImage.className = "image";
             story.appendChild(divImage);
 
-            // Image for profile inside container            
+            // Image for profile inside container
             const image = document.createElement("img");
             image.alt = "Avatar";
             image.className = "trendingimage";
@@ -113,7 +113,7 @@ export class TijdlijnController extends Controller {
             textInfo.className = "text-info";
             text.appendChild(textInfo);
 
-            // h2 for the date  
+            // h2 for the date
             const date = document.createElement("h2");
             date.className = "gebeurtenis";
             date.innerHTML = postDay.slice(0, 10);

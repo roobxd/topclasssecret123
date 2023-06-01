@@ -1,44 +1,51 @@
-// Importing necessary modules
+/**
+ * Read Controller class.
+ * This class extends the Controller class.
+ * It handles all logic for reading posts and comments on the site.
+ * @module readController
+ * @author Rocco van Baardwijk
+ */
+
+
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { ReadRepository } from "../repositories/readRepository.js";
 
-// ReadController class inherits from Controller class
+/**
+ * readController constructor.
+ * Sets up the ReadRepository and the view.
+ */
 export class readController extends Controller {
-    // Private class variables
     #readView;
     #readRepository;
     user = App.sessionManager.get("id");
 
-    likedStatus = 0; // Status of whether a post is liked or not
-    dislikedStatus = 0; // Status of whether a post is disliked or not
+    likedStatus = 0;
+    dislikedStatus = 0;
 
+    likedCommentStatus = 0;
+    dislikedCommentStatus = 0;
 
-    likedCommentStatus = 0; // Status of whether a post is liked or not
-    dislikedCommentStatus = 0; // Status of whether a post is disliked or not
-
-    newMinHeight = 25; // Starting minimum height for comments section
+    newMinHeight = 25;
 
     constructor() {
-        super(); // Calling parent constructor
-        // Creating a new instance of ReadRepository
+        super();
         this.#readRepository = new ReadRepository();
-        // Setup view for reading
         this.#setupView();
     }
 
-    // Private async method to setup the view
+    /**
+     * Asynchronous method to set up the view.
+     * This method fetches the HTML for the read view and attaches event listeners to various elements in the view.
+     */
     async #setupView() {
         this.#readView = await super.loadHtmlIntoContent("html_views/read.html");
 
-        // Getting the last number from the current URL
         const url = window.location.href;
         const lastNumber = url.substring(url.lastIndexOf("/") + 1);
 
-        // Reading the story associated with the last number
         await this.#readStory(lastNumber);
 
-        // Setting up event listeners for buttons and form submission
         this.#readView.querySelector("#like").addEventListener("click", (event) => this.#likePost(event, lastNumber));
         this.#readView.querySelector("#dislike").addEventListener("click", (event) => this.#dislikePost(event, lastNumber));
         if (this.#readView.querySelector("#upvoted")) {
@@ -60,34 +67,38 @@ export class readController extends Controller {
 
         let gaterugbutton = document.querySelector(".back-button")
         gaterugbutton.addEventListener("click", () => {
-            // Go back to the previous page when the back button is clicked
             window.history.back();
         });
     }
 
-    // Private method to submit a comment
+    /**
+     * Method for handling submission of comments.
+     * @param {number} lastNumber - The last number in the current URL.
+     */
     #submitcomment(lastNumber) {
         let message = document.querySelector(".commentsinput").value;
         let sid = lastNumber;
-        // Checking if comment input is greater than one character
         if (document.querySelector(".commentsinput").value.length > 1) {
-            // Submitting comment through repository
             this.#readRepository.submitComment(message, sid, this.user);
-
-            // Appending comment to view
             this.#appendComment(message, this.user, "Just now");
 
-            // Increase minHeight for comments container based on number of comments
             let sectioncomments = document.querySelector(".comments-container");
-            let increasePerComment = 100; // set increase per comment in px
+            let increasePerComment = 100;
             sectioncomments.style.minHeight = this.newMinHeight + "px";
-            let updateMinHeight = this.newMinHeight += increasePerComment; // increase baseMinHeight for each comment
-            sectioncomments.style.minHeight = updateMinHeight + 'px'; // update min-height
+            let updateMinHeight = this.newMinHeight += increasePerComment;
+            sectioncomments.style.minHeight = updateMinHeight + 'px';
         }
     }
-    // Private method to append a comment to the view
+
+    /**
+     * Method for appending a comment to the view.
+     * @param {string} message - The comment message.
+     * @param {string} user - The user who submitted the comment.
+     * @param {string} date - The date the comment was submitted.
+     * @param {number} likes - The number of likes the comment has.
+     * @param {number} dislikes - The number of dislikes the comment has.
+     */
     #appendComment(message, user, date, likes, dislikes) {
-        // Create elements for the comment
         let comment = document.createElement('div');
         let commentIcon = document.createElement('img');
         let messageDiv = document.createElement('div');
@@ -132,20 +143,15 @@ export class readController extends Controller {
         pUpvotes.textContent = likes;
         pDownvotes.textContent = dislikes;
 
-        // Append elements
-        upvoted.append(iUpvoted, pUpvotes);
-        downvoted.append(iDownvoted, pDownvotes);
-        thumbsupdown.append(upvoted, downvoted);
-        commentInfo.append(pUsername, pDatePosted);
-        messageDiv.append(commentInfo, pMessage);
-        comment.append(commentIcon, messageDiv, thumbsupdown);
-
-        // Append the new comment to the parent container
         let targetelement = document.querySelector(".comments-container");
         targetelement.append(comment);
     }
 
-    // Private method to like a post
+    /**
+     * Method for handling the event of a post being liked.
+     * @param {Object} event - The event object.
+     * @param {number} lastNumber - The last number in the current URL.
+     */
     #likePost(event, lastNumber) {
         if (this.dislikedStatus === 1) {
             this.dislikedStatus = 0;
@@ -167,7 +173,11 @@ export class readController extends Controller {
         }
     }
 
-    // Private method to dislike a post
+    /**
+     * Method for handling the event of a post being disliked.
+     * @param {Object} event - The event object.
+     * @param {number} lastNumber - The last number in the current URL.
+     */
     #dislikePost(event, lastNumber) {
         if (this.likedStatus === 1) {
             this.likedStatus = 0;
@@ -187,7 +197,11 @@ export class readController extends Controller {
         }
     }
 
-    // Private method to like a post
+    /**
+     * Method for handling the event of a comment being liked.
+     * @param {Object} event - The event object.
+     * @param {number} lastNumber - The last number in the current URL.
+     */
     #likeComment(event, lastNumber) {
         let parentCommentDiv = event.target.closest('.comment');
         let nearestDownvoteIcon = parentCommentDiv.querySelector("#downvoted");
@@ -196,7 +210,6 @@ export class readController extends Controller {
 
         console.log(nearestDownvoteIcon);
         let commentText = parentCommentDiv.querySelector('.comment-message').textContent;
-        // alert(commentText);
 
         if (this.dislikedCommentStatus === 1) {
             this.dislikedCommentStatus = 0;
@@ -220,7 +233,11 @@ export class readController extends Controller {
         }
     }
 
-    // Private method to dislike a post
+    /**
+     * Method for handling the event of a comment being disliked.
+     * @param {Object} event - The event object.
+     * @param {number} lastNumber - The last number in the current URL.
+     */
     #dislikeComment(event, lastNumber) {
         let parentCommentDiv = event.target.closest('.comment');
         let nearestUpvoteIcon = parentCommentDiv.querySelector("#upvoted")
@@ -250,20 +267,19 @@ export class readController extends Controller {
         }
     }
 
-    // Asynchronous method to read a story
+    /**
+     * Asynchronous method for reading a story.
+     * @param {number} lastNumber - The last number in the current URL.
+     */
     async #readStory(lastNumber) {
-        // Get the DOM elements for the story
         const storyTitle = this.#readView.querySelector(".story-title");
         const storyContent = this.#readView.querySelector(".story-content p");
         const storyAuthor = this.#readView.querySelector(".author p");
         const storyFlow = this.#readView.querySelector(".post-status p");
 
         try {
-            // Fetch the story data
             const storyData = await this.#readRepository.readStory(lastNumber);
-            console.log(storyData.wholikedwhat);
-            // Check if comments are enabled for this story
-            // If not, disable the comments section
+
             if (storyData.post[0].commentsenabled == 0) {
                 let section2 = document.querySelector(".comment-inputbar");
                 let section3 = document.querySelector(".comment-stripe");
@@ -287,7 +303,6 @@ export class readController extends Controller {
                     this.#appendComment(comment.bericht, this.user, comment.creation_date.slice(0, 10), likes, dislikes);
                 });
             }
-            // Set the story data
             storyTitle.innerHTML = storyData.post[0].onderwerp;
             storyContent.innerHTML = storyData.post[0].bericht;
             storyAuthor.innerHTML = "Auteur: " + storyData.post[0].gebruiker;
@@ -295,12 +310,13 @@ export class readController extends Controller {
             let storyimage = document.querySelector(".info img");
             storyimage.src = storyData.post[0].plaatje;
         } catch (error) {
-            // Log any errors during fetching the story
             console.log("Error while fetching story", error)
         }
     }
 
-    // Method to read the story out loud using speech synthesis
+    /**
+     * Method for reading out the story using the Web Speech API.
+     */
     #speak() {
         if ('speechSynthesis' in window) {
             const synthesis = window.speechSynthesis;
