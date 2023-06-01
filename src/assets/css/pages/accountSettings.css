@@ -137,7 +137,7 @@ input:focus {
     color: var(--heart);
 }
 
-#tiktok, #instagram, #facebook, .insta {
+#tiktok, #instagram, #facebook, .instagram, .tiktok, .facebook {
     height: 3rem;
     width: auto;
 }

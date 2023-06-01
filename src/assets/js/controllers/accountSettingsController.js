@@ -64,8 +64,23 @@ export class AccountSettingsController extends Controller {
         this.#accountSettingsView.querySelector("#email").textContent = email;
         // this.#accountSettingsView.querySelector("#editEmail").addEventListener("click", event => this.#handleTextToInput(event));
 
+        const instagram = App.sessionManager.get("instagram");
+        const tiktok = App.sessionManager.get("tiktok");
+        const facebook = App.sessionManager.get("facebook");
+        console.log("hierzo")
+        console.log(instagram, tiktok, facebook)
 
-        this.#loadUserInfo();
+        this.#accountSettingsView.querySelector(".instagram-link").href = instagram;
+        this.#accountSettingsView.querySelector(".tiktok-link").href = tiktok;
+        this.#accountSettingsView.querySelector(".facebook-link").href = facebook;
+
+        // the image URLs
+        this.#accountSettingsView.querySelector(".instagram").src = 'uploads/instagram.png';
+        this.#accountSettingsView.querySelector(".tiktok").src = 'uploads/tik-tok.png';
+        this.#accountSettingsView.querySelector(".facebook").src = 'uploads/facebook.png';
+
+
+        await this.#loadUserInfo();
     }
 
     #handleTextToInput(event) {
@@ -116,7 +131,7 @@ export class AccountSettingsController extends Controller {
     }
 
 
-    async #loadUserInfo(){
+    async #loadUserInfo() {
         const userMail = App.sessionManager.get("email")
 
         try {
@@ -136,7 +151,7 @@ export class AccountSettingsController extends Controller {
             let klopt;
             console.log(isGeverifieerd[0].verificatie)
 
-            if(isGeverifieerd[0].verificatie == 1){
+            if (isGeverifieerd[0].verificatie == 1) {
                 klopt = "geverifieerd"
             } else {
                 klopt = "niet geverifieerd"
@@ -156,23 +171,23 @@ export class AccountSettingsController extends Controller {
 
     }
 
-    #handleEmailUpdate(event) {
-        event.preventDefault();
-
-        const newEmail = this.#accountSettingsView.querySelector("#email").value;
-        const currentEmail = App.sessionManager.get("email");
-
-        this.#accountSettingsRepository
-            .updateEmail(currentEmail, newEmail)
-            .then(() => {
-                this.#accountSettingsView.querySelector(".email-update-message").textContent = "Email updated successfully!";
-                App.sessionManager.set("email", newEmail);
-                this.#accountSettingsView.querySelector("#currentEmail").textContent = newEmail;
-            })
-            .catch(error => {
-                console.error("Error updating email:", error);
-                this.#accountSettingsView.querySelector(".email-update-message").textContent = "Error updating email: " + error.message;
-            });
-    }
+    // #handleEmailUpdate(event) {
+    //     event.preventDefault();
+    //
+    //     const newEmail = this.#accountSettingsView.querySelector("#email").value;
+    //     const currentEmail = App.sessionManager.get("email");
+    //
+    //     this.#accountSettingsRepository
+    //         .updateEmail(currentEmail, newEmail)
+    //         .then(() => {
+    //             this.#accountSettingsView.querySelector(".email-update-message").textContent = "Email updated successfully!";
+    //             App.sessionManager.set("email", newEmail);
+    //             this.#accountSettingsView.querySelector("#currentEmail").textContent = newEmail;
+    //         })
+    //         .catch(error => {
+    //             console.error("Error updating email:", error);
+    //             this.#accountSettingsView.querySelector(".email-update-message").textContent = "Error updating email: " + error.message;
+    //         });
+    // }
 
 }
