@@ -5,7 +5,7 @@ describe("IngelogdUpdatePassword", () => {
     beforeEach(() => {
         // Go to the specified URL or perform necessary login steps
         // cy.visit("http://localhost:8080");
-        cy.visit("http://localhost:8080/#beveiliging")
+        cy.visit("http://localhost:8080/")
 
         cy.get(".login").should("exist");
         cy.get(".login").click();
@@ -17,7 +17,7 @@ describe("IngelogdUpdatePassword", () => {
 
 
         cy.get("#email").type("kkarroch@gmail.com");
-        cy.get("#password").type("Test12#");
+        cy.get("#password").type("Newpassword12#");
         cy.get(".submitbutton").click();
 
         cy.visit("http://localhost:8080/#beveiliging")
@@ -60,9 +60,10 @@ describe("IngelogdUpdatePassword", () => {
         cy.get(".submitbutton").should("exist");
 
 
-        cy.get("#new-password").type("New-password12#");
-        cy.get("#confirm-password").type("New-password12#");
+        cy.get("#new-password").type("New-password12!");
+        cy.get("#confirm-password").type("New-password12!");
         cy.get(".submitbutton").click()
+
 
         // Wait for the @updatePassword stub to be called by the click event
             cy.wait("@updatePassword");
@@ -75,7 +76,7 @@ describe("IngelogdUpdatePassword", () => {
         // The @updatePassword stub is called, check the contents of the incoming request
         cy.get("@updatePassword").should((xhr) => {
             // The new password should match what we typed earlier
-            expect(xhr.request.body.password).equals("New-password12#");
+            expect(xhr.request.body.password).equals("New-password12!");
         });
 
         // After a successful password update, make assertions based on the redirected URL or updated page content
@@ -104,7 +105,7 @@ describe("IngelogdUpdatePassword", () => {
         cy.get(".submitbutton").click();
 
 
-
+        cy.wait(1000);
         cy.get(".error").should("not.be.empty")
 
     })
