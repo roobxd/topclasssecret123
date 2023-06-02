@@ -1,6 +1,6 @@
 /**
- *
  * Controller responsible for all events in Account settings
+ * @author Aaron Agyeman-Prempeh
  */
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
@@ -20,7 +20,10 @@ export class BeveiligingController extends Controller {
         this.#setupView();
     }
 
-    // Set up the view and attach event listeners
+    /**
+     * Set up the view and attach event listeners
+     * @private
+     */
     async #setupView() {
         this.#beveiligingView = await super.loadHtmlIntoContent("html_views/beveiliging.html");
 
@@ -42,7 +45,11 @@ export class BeveiligingController extends Controller {
         this.#beveiligingView.querySelector(".submitbutton").addEventListener("click", (event) => this.#updatePassword(event));
     }
 
-    // Update the user's password
+    /**
+     * Update the user's password
+     * @param {Event} event - The event object
+     * @private
+     */
     async #updatePassword(event) {
         try {
             event.preventDefault();
@@ -96,7 +103,12 @@ export class BeveiligingController extends Controller {
         }
     }
 
-    // Set the error message for the input element
+    /**
+     * Set the error message for the input element
+     * @param {HTMLElement} input - The input element
+     * @param {string} message - The error message
+     * @private
+     */
     #setErrorfor(input, message) {
         try {
             const parentElementInput = input.parentElement; // Get the parent element
@@ -107,16 +119,25 @@ export class BeveiligingController extends Controller {
         }
     }
 
-    // Clear the error message for the input element
+    /**
+     * Clear the error message for the input element
+     * @param {HTMLElement} input - The input element
+     * @private
+     */
     #setSuccessfor(input) {
         const parentElementInput = input.parentElement; // Get the parent element
         const small = parentElementInput.querySelector(".error");
         small.innerHTML = "";
     }
 
-    // Check if the password meets the required pattern
-    // Requires at least 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character,
-    // and a minimum length of 5 characters
+    /**
+     * Check if the password meets the required pattern
+     * Requires at least 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character,
+     * and a minimum length of 5 characters
+     * @param {string} password - The password to check
+     * @returns {boolean} - True if the password meets the pattern, otherwise false
+     * @private
+     */
     #passwordPatternCheck(password) {
         return /[A-Z]/.test(password) &&
             /[a-z]/.test(password) &&

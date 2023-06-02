@@ -1,17 +1,23 @@
-/**
- *
- * Controller responsible for all events in Account settings view
- */
+
 import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { UsersRepository } from "../repositories/usersRepository.js";
-
+/**
+ * Controller responsible for all events in Account Settings Edit view
+ * @extends {Controller}
+ * @author Aaron
+ */
 export class AccountSettingsBewerkenController extends Controller {
     #usersRepository;
     #accountSettingsRepository;
     #accountSettingsBewerkenView;
 
+
+    /**
+     * Constructs an AccountSettingsBewerkenController instance, initializes repositories,
+     * and sets up the view.
+     */
     constructor() {
         super();
         this.#usersRepository = new UsersRepository();
@@ -20,7 +26,11 @@ export class AccountSettingsBewerkenController extends Controller {
         this.#setupView();
     }
 
-    // Set up the view and attach event listeners
+    /**
+     * Sets up the view by loading HTML, attaching event listeners.
+     * @private
+     * @async
+     */
     async #setupView() {
         this.#accountSettingsBewerkenView = await super.loadHtmlIntoContent(
             "html_views/accountSettingsBewerken.html"
@@ -60,7 +70,12 @@ export class AccountSettingsBewerkenController extends Controller {
         console.log(App.sessionManager.get("userId"));
     }
 
-    // Handle the update of the user's name
+    /**
+     * Handles the update of the user's name.
+     * Updates the user's name in the repository and session, and provides feedback in the view.
+     * @param {Event} event - The DOM event triggered by the form submission.
+     * @private
+     */
     #handleNameUpdate(event) {
         event.preventDefault();
 
@@ -94,8 +109,12 @@ export class AccountSettingsBewerkenController extends Controller {
                 ).textContent = "Error updating name: " + error.message;
             });
     }
-
-    // Handle the update of the user's email
+    /**
+     * Handles the update of the user's email.
+     * Updates the user's email in the repository and session, and provides feedback in the view.
+     * @param {Event} event - The DOM event triggered by the form submission.
+     * @private
+     */
     #handleEmailUpdate(event) {
         event.preventDefault();
 

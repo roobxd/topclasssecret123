@@ -1,6 +1,6 @@
 /**
- *
  * Controller responsible for all events in Account settings
+ * @author Aaron Agyeman-Prempeh
  */
 import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
 import { App } from "../app.js";
@@ -20,7 +20,10 @@ export class SocialMediaController extends Controller {
         this.#setupView();
     }
 
-    // Set up the view and attach event listeners
+    /**
+     * Set up the view and attach event listeners
+     * @private
+     */
     async #setupView() {
         this.#socialMediaView = await super.loadHtmlIntoContent("html_views/socialMedia.html");
 
@@ -50,7 +53,11 @@ export class SocialMediaController extends Controller {
         });
     }
 
-    // Handle the social media update event
+    /**
+     * Handle the social media update event
+     * @param {Event} event - The event object
+     * @private
+     */
     #handleSocials(event) {
         event.preventDefault();
 
