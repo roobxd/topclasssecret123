@@ -1,6 +1,6 @@
 /**
- *
  * Controller responsible for all events in Account settings
+ * @author Aaron Agyeman-Prempeh
  */
 import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
 import { App } from "../app.js";
@@ -20,7 +20,10 @@ export class InstantieController extends Controller {
         this.#setupView();
     }
 
-    // Set up the view and attach event listeners
+    /**
+     * Set up the view and attach event listeners
+     * @private
+     */
     async #setupView() {
         // this.#accountSettingsView = await super.loadHtmlIntoContent("html_views/accountSettings.html");
         this.#instantieView = await super.loadHtmlIntoContent("html_views/instantie.html");
@@ -43,7 +46,11 @@ export class InstantieController extends Controller {
         this.#instantieView.querySelector("#confirmIdentity").addEventListener("click", (event) => this.#handleIdentityUpdate(event));
     }
 
-    // Handle the identity update event
+    /**
+     * Handle the identity update event
+     * @param {Event} event - The event object
+     * @private
+     */
     #handleIdentityUpdate(event) {
         event.preventDefault();
 

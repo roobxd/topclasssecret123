@@ -1,19 +1,25 @@
-/**
- *
- * Controller responsible for all events in Account settings view
- */
 import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 import { UsersRepository } from "../repositories/usersRepository.js";
 import { VerificatieRepository } from "../repositories/verificatieRepository.js";
 
+/**
+ * Controller responsible for all events in Account settings view
+ * @extends {Controller}
+ * @author Aaron
+ */
 export class AccountSettingsController extends Controller {
     #usersRepository;
     #geverifierdRepository;
     #accountSettingsRepository;
     #accountSettingsView;
 
+
+    /**
+     * Constructs an AccountSettingsController instance, initializes repositories,
+     * and sets up the view.
+     */
     constructor() {
         super();
         this.#usersRepository = new UsersRepository();
@@ -23,7 +29,12 @@ export class AccountSettingsController extends Controller {
         this.#setupView();
     }
 
-    // Set up the view and attach event listeners
+    /**
+     * Sets up the view by loading HTML, attaching event listeners, fetching user info,
+     * and updating the DOM accordingly.
+     * @private
+     * @async
+     */
     async #setupView() {
         this.#accountSettingsView = await super.loadHtmlIntoContent(
             "html_views/accountSettings.html"
@@ -90,55 +101,13 @@ export class AccountSettingsController extends Controller {
         await this.#loadUserInfo();
     }
 
-    // Handle the conversion of text to input for email update
-    #handleTextToInput(event) {
-        event.preventDefault();
 
-        // Get the paragraph element
-        const emailParagraaf = this.#accountSettingsView.querySelector("#currentEmail");
-
-        // Check if emailParagraaf is null
-        if (!emailParagraaf) {
-            console.log('No element found with id "currentEmail".');
-            return;
-        }
-
-        // Log the found element
-        console.log("Found element:", emailParagraaf);
-
-        // Create a new input element
-        const newInput = document.createElement("input");
-        newInput.type = "text";
-        newInput.value = emailParagraaf.textContent; // set the initial input value to the text of the paragraph
-
-        // Replace the paragraph element with the input element
-        emailParagraaf.parentNode.replaceChild(newInput, emailParagraaf);
-    }
-
-    // Handle the preview of the profile picture
-    #handleProfilePicturePreview(event) {
-        event.preventDefault();
-
-        const profilePicInput = this.#accountSettingsView.querySelector("#profilePic");
-        const profilePicPreview = this.#accountSettingsView.querySelector("#profilePicPreview");
-
-        if (profilePicInput.files.length === 0) {
-            profilePicPreview.style.display = "none";
-            return;
-        }
-
-        const profilePicFile = profilePicInput.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            profilePicPreview.src = e.target.result;
-            profilePicPreview.style.display = "block";
-        };
-
-        reader.readAsDataURL(profilePicFile);
-    }
-
-    // Load user information from the repository and update the view
+    /**
+     * Loads user information from the repository, verifies the user's email,
+     * and updates the view with the user's information.
+     * @private
+     * @async
+     */
     async #loadUserInfo() {
         const userMail = App.sessionManager.get("email");
 
