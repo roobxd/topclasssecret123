@@ -3,7 +3,6 @@
  * @author: Aaron Agyeman-Prempeh
  */
 describe("AccountSettingsController", () => {
-    const endpoint = "/updateUser";
 
     // The beforeEach block runs before each test in the suite.
     // This block logs the user in before running each test.
@@ -42,27 +41,6 @@ describe("AccountSettingsController", () => {
         cy.get("#editName").should("exist");
     });
 
-    // Test a successful account update
-    it("Successful account update", () => {
-        // Set up a server and intercept the updateUser request with a mocked response
-        cy.server();
-        const mockedResponse = {success: true};
-        cy.intercept("POST", "/updateUser", {
-            statusCode: 200,
-            body: mockedResponse,
-        }).as("updateAccount");
-
-        // Test the interaction with the form for updating names
-        cy.get('#voornaam').should('be.visible').type('TestVoornaam');
-        cy.get('#tussenvoegsel').should('be.visible').type('TestTussenvoegsel');
-        cy.get('#achternaam').should('be.visible').type('TestAchternaam');
-        cy.get('#editName').should('be.visible').click();
-
-        // Test the interaction with the form for updating email
-        cy.get('#email').should('be.visible').type('gabriel@hva.nl');
-        cy.get('#editEmail').should('be.visible').click();
-
-    });
 
     // Test that the account updates are loaded successfully on the account settings page
     it("Account updates loaded successfully", () => {
@@ -93,6 +71,28 @@ describe("AccountSettingsController", () => {
 
         // Test the interaction with the form for updating email
         cy.get('#email').invoke('val', '');
+        cy.get('#editEmail').should('be.visible').click();
+
+    });
+
+    // Test a successful account update
+    it("Successful account update", () => {
+        // Set up a server and intercept the updateUser request with a mocked response
+        cy.server();
+        const mockedResponse = {success: true};
+        cy.intercept("POST", "/updateUser", {
+            statusCode: 200,
+            body: mockedResponse,
+        }).as("updateAccount");
+
+        // Test the interaction with the form for updating names
+        cy.get('#voornaam').should('be.visible').type('TestVoornaam');
+        cy.get('#tussenvoegsel').should('be.visible').type('TestTussenvoegsel');
+        cy.get('#achternaam').should('be.visible').type('TestAchternaam');
+        cy.get('#editName').should('be.visible').click();
+
+        // Test the interaction with the form for updating email
+        cy.get('#email').should('be.visible').type('gabriel@hva.nl');
         cy.get('#editEmail').should('be.visible').click();
 
     });
