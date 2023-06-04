@@ -1,25 +1,37 @@
-import {NetworkManager} from "../framework/utils/networkManager.js";
+/**
+ * TijdlijnRepository.js
+ *
+ * This file contains the TijdlijnRepository class for interacting with the timeline endpoint
+ * and communicating with the database.
+ *
+ * Author: Kifleyesus Musgun
+ */
+
+import { NetworkManager } from "../framework/utils/networkManager.js";
 
 /**
- * Deze klas is een repository voor de tijdlijn om endpoint met database te communiceren.
+ * TijdlijnRepository class for interacting with the timeline endpoint and database communication
  */
 export class TijdlijnRepository {
-/* Attributen: route voor einpoints */
+    // Attributes: route for endpoints
     #route;
     #networkManager;
 
     constructor() {
         this.#route = "/tijdlijn";
         this.#networkManager = new NetworkManager();
-
     }
 
-     getStory(beginDatum, eindDatum) {
-        return this.#networkManager.doRequest( `${this.#route}/${beginDatum}/${eindDatum}`, "GET");
+    /**
+     * Method to get story data from the timeline endpoint
+     * @param {string} beginDatum - Begin date for timeline
+     * @param {string} eindDatum - End date for timeline
+     * @returns {Promise} - Promise representing the story data
+     */
+    getStory(beginDatum, eindDatum) {
+        return this.#networkManager.doRequest(
+            `${this.#route}/${beginDatum}/${eindDatum}`,
+            "GET"
+        );
     }
-
-    getUser(){
-        return this.#networkManager.doRequest(`${this.#route}/user`, "GET")
-    }
-
 }
