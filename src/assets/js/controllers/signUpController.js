@@ -39,63 +39,31 @@ export class signUpController extends Controller {
 
     }
 
-
+  // ALI M EN T
+    /**
+     * Deze functie zorgt ervoor dat een gebruiker wordt gevalideerd en opgeslagen
+     * @param event - Het gebeurtenisobject om het normale gedrag van een button te stoppen
+     * @returns {Promise<void>}
+     */
     async #saveUser(event) {
 
         event.preventDefault()
-        // const name = this.#createSingInView.querySelector("#fullname")
+
         const email = this.#createSingInView.querySelector("#email")
         const password = this.#createSingInView.querySelector("#password")
         const confirmPassword = this.#createSingInView.querySelector("#confirm_password")
 
-
-        console.log(email.value + " " + password.value + " " + confirmPassword.value)
-
-
-        //naamcheck--------------------
-        // / mag niet
-        // let namecheck = false;
-        //
-        // if (name.value.length === 0) {
-        //     this.#setErrorfor(name, "Gebruikersnaam mag niet leeg zijn!")
-        // } else if (name.value.length > 10) {
-        //     //show error
-        //     this.#setErrorfor(name, "Gebruikersnaam mag maximaal 10 characters hebben!")
-        //
-        // } else {
-        //     //user data opvragen database
-        //     this.#setSuccesfor(name);
-        //
-        //     try {
-        //         let data = await this.#loadAllUsersRepository.loadUsers(name.value, email.value);
-        //         console.log(data)
-        //
-        //         if (data.length === 0) {
-        //             // als naam niet bestaat
-        //             namecheck = true;
-        //             this.#setSuccesfor(name)
-        //         } else {
-        //             this.#setErrorfor(name, "Gebruikersnaam of email is al in gebruik")
-        //         }
-        //     } catch (e) {
-        //         console.log(e)
-        //     }
-
-        // }
-
-
         //emailcheck----------
-
         let emailcheck = false;
-        // email mag geen / bevatten moet ik nog regelen
+        // Er wordt gecheckt of de email aan de voorwaarden voldoet
         if (email.value.length === 0) {
             this.#setErrorfor(email, "email mag niet leeg zijn!")
         } else if (!this.#isEmail(email.value)) {
             this.#setErrorfor(email, "email moet een mail zijn!")
         } else {
-            // database opvragen gegevens en checken of mail al bestaat
             this.#setSuccesfor(email)
 
+            // database opvragen gegevens en checken of mail al bestaat
             try {
 
                 let data = await this.#loadAllUsersRepository.loadUsers(email.value);
@@ -112,8 +80,6 @@ export class signUpController extends Controller {
 
 
         }
-
-
         //password check
         let passwordCheck = false;
 
@@ -128,8 +94,6 @@ export class signUpController extends Controller {
             this.#setSuccesfor(password)
             passwordCheck = true;
         }
-
-
         //confirm password check
         let confirmPasswordCheck = false;
 
@@ -144,9 +108,8 @@ export class signUpController extends Controller {
             this.#setSuccesfor(confirmPassword)
             confirmPasswordCheck = true;
         }
-
-
-        // checkt of alle checkt true zijn en insert alles in de database
+        // checkt of alle ingevulde velden goed zijn en insert in de database. Ook wordt er een verificatie
+        // en welkom mail gestuurd
         if (emailcheck && passwordCheck && confirmPasswordCheck) {
             alert("aanmelding is gelukt");
             // toevoegen aan database --------------------------
@@ -154,11 +117,12 @@ export class signUpController extends Controller {
             this.#sendMailRepository.sendVerificationMail(email.value);
             this.#sendMailRepository.sendWelkomMail(email.value);
             App.loadController(App.CONTROLLER_LOGIN);
-
         }
 
     }
+      // Ali einde M EN T
 
+    
     //minimaal 1 hoofdletter,1 kleine letter, 1 leesteken en een cijfer
     #paswordPatternCheck(password) {
         return /[A-Z]/.test(password) &&
@@ -172,6 +136,7 @@ export class signUpController extends Controller {
         return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
     }
 
+    // Element wordt gehaald uit de html en er wordt een error bericht geprint
     #setErrorfor(message) {
 
         const small = this.#createSingInView.querySelector(".error");
@@ -180,6 +145,7 @@ export class signUpController extends Controller {
 
     }
 
+    // Element wordt gehaald uit de html en wordt weer leeg gehaald
     #setSuccesfor() {
 
         const small = this.#createSingInView.querySelector(".error");

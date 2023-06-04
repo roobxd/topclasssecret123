@@ -14,7 +14,6 @@ import { NetworkManager } from "../framework/utils/networkManager.js";
 export class PostsController extends Controller {
     #postsRepository;
     #welcomeView;
-    #PostsRepository;
     #networkManager
     #session;
 
