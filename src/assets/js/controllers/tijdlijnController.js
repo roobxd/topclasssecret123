@@ -1,5 +1,6 @@
 /**
- * Controller for the timeline, to integrate the timeline with welcome page and show data from database in the timeline.
+ * Controller for the timeline, to integrate the timeline with the welcome page and show data from the database in the timeline.
+ * @author Kifleyesus Musgun Sium
  */
 import { Controller } from "./controller.js";
 import { TijdlijnRepository } from "../repositories/tijdlijnRepository.js";
@@ -10,7 +11,7 @@ export class TijdlijnController extends Controller {
     #tijdlijnView;
     #tijdlijnRepository;
     #accountSettingsRepository;
-    #app
+    #app;
 
     constructor() {
         super();
@@ -20,15 +21,23 @@ export class TijdlijnController extends Controller {
         this.#initializeView();
     }
 
+    /**
+     * Initializes the timeline view and fetches the stories.
+     * @private
+     */
     async #initializeView() {
         this.#tijdlijnView = await super.loadHtmlIntoContent("html_views/tijdlijn.html");
         this.#getStories();
     }
 
+    /**
+     * Retrieves the stories from the repository.
+     * @private
+     */
     async #getStories() {
-        let session = App.sessionManager.get("id");
         let dates = window.location.hash.replace("#tijdlijn/", "").split("/");
         const data = await this.#tijdlijnRepository.getStory(dates[0], dates[1]);
+        console.log(data)
 
         for (let i = 0; i < data.result.length; i++) {
             let soort = data.result[i].soortBericht;
@@ -36,22 +45,22 @@ export class TijdlijnController extends Controller {
             let storygradient = "verhaal-gradient";
             switch (soort) {
                 case "bulletin":
-                    storygradient = "bulletin-gradient"
+                    storygradient = "bulletin-gradient";
                     break;
 
                 case "instantie":
-                    storygradient = "instantie-gradient"
+                    storygradient = "instantie-gradient";
                     break;
             }
 
-            const likes = data.result[i].aantalLikes
-            const dislikes = data.result[i].aantalDislikes
+            const likes = data.result[i].aantalLikes;
+            const dislikes = data.result[i].aantalDislikes;
             const difference = likes - dislikes;
 
-            const tienProcent = 10 / 100 * (likes + dislikes);
-            const vijftienProcent = 15 / 100 * (likes + dislikes);
-            const twentigProcent = 20 / 100 * (likes + dislikes);
-            const vijftigProcent = 50 / 100 * (likes + dislikes);
+            const tienProcent = (10 / 100) * (likes + dislikes);
+            const vijftienProcent = (15 / 100) * (likes + dislikes);
+            const twentigProcent = (20 / 100) * (likes + dislikes);
+            const vijftigProcent = (50 / 100) * (likes + dislikes);
 
             const postDay = data.result[i].jaartalGebeurtenis;
             const today = new Date();
@@ -77,22 +86,18 @@ export class TijdlijnController extends Controller {
 
             if (data.result[i].persoon === 0) {
                 story.classList.add("instantieStory");
-
             } else {
                 story.classList.add("persoonstory");
             }
-            // if the container is clicked, the user would be directed to read page
+
+            // Redirects the user to the read page when the container is clicked
             story.addEventListener("click", () => {
                 window.location = "http://localhost:3000/#read/" + data.result[i].id;
-            })
-            // story is child of container
+            });
+
             container.appendChild(story);
 
-            story.addEventListener("click", () => {
-                window.location.href = "/#read/" + data.result[0].story_id;
-            })
-
-            // div for the image
+            // Div for the image
             const divImage = document.createElement("div");
             divImage.className = "image";
             story.appendChild(divImage);
@@ -104,60 +109,58 @@ export class TijdlijnController extends Controller {
             image.src = "../assets/img/petje.jpg";
             divImage.appendChild(image);
 
-            // Text-box for stroy
+            // Text-box for story
             const text = document.createElement("div");
             text.className = "text";
             story.appendChild(text);
-            // div for text-info
+
+            // Div for text-info
             const textInfo = document.createElement("div");
             textInfo.className = "text-info";
             text.appendChild(textInfo);
 
-            // h2 for the date
+            // H2 for the date
             const date = document.createElement("h2");
             date.className = "gebeurtenis";
             date.innerHTML = postDay.slice(0, 10);
             textInfo.appendChild(date);
 
-            // title for the story
+            // Title for the story
             const title = document.createElement("p");
             title.className = "story-title";
-            title.innerHTML = data.result[i].onderwerp
+            title.innerHTML = data.result[i].onderwerp;
             textInfo.appendChild(title);
 
-            // story - text
+            // Story text
             const storyText = document.createElement("p");
             storyText.className = "story-text";
             storyText.innerHTML = data.result[i].bericht;
             textInfo.appendChild(storyText);
 
-            // div for the Icons, is child of story div
+            // Div for the Icons, child of story div
             const icons = document.createElement("div");
             icons.className = "icons";
             story.appendChild(icons);
 
-            // div for the type of the icon
+            // Div for the type of the icon
             const iconType = document.createElement("div");
             iconType.className = "trending";
             icons.appendChild(iconType);
 
-            // the type of the icon would be determined depending on the number of likes of the story
+            // The type of the icon depends on the number of likes of the story
             if (difference_in_day <= 7) {
                 if (difference >= 0 && difference <= tienProcent) {
                     const heartIcon = document.createElement("i");
                     heartIcon.className = "bi bi-heart-fill heart";
                     iconType.appendChild(heartIcon);
-
                 } else if (difference > tienProcent && difference <= twentigProcent) {
                     const graphIcon = document.createElement("i");
                     graphIcon.className = "bi bi-graph-up-arrow";
                     iconType.appendChild(graphIcon);
-
                 } else if (difference >= vijftigProcent) {
                     const fireIcon = document.createElement("i");
                     fireIcon.className = "bi bi-fire trending";
                     iconType.appendChild(fireIcon);
-
                 } else if (difference < 0) {
                     story.classList.replace("persoonstory", "unlikedStory");
                     const canIcon = document.createElement("i");
@@ -173,17 +176,14 @@ export class TijdlijnController extends Controller {
                     const heartIcon = document.createElement("i");
                     heartIcon.className = "bi bi-heart-fill heart";
                     iconType.appendChild(heartIcon);
-
                 } else if (difference > tienProcent && difference <= twentigProcent) {
                     const graphIcon = document.createElement("i");
                     graphIcon.className = "bi bi-graph-up-arrow";
                     iconType.appendChild(graphIcon);
-
                 } else if (difference >= vijftigProcent) {
                     const fireIcon = document.createElement("i");
                     fireIcon.className = "bi bi-fire trending";
                     iconType.appendChild(fireIcon);
-
                 } else if (difference < 0) {
                     story.classList.replace("persoonstory", "unlikedStory");
                     const canIcon = document.createElement("i");
@@ -196,27 +196,27 @@ export class TijdlijnController extends Controller {
                 }
             }
 
-            // div for readme icon
-            const readme = document.createElement("div")
+            // Div for readme icon
+            const readme = document.createElement("div");
             readme.className = " readme";
             icons.appendChild(readme);
 
-            // icon of readme
+            // Icon for readme
             const readmeIcon = document.createElement("i");
             readmeIcon.className = "bi bi-arrow-right gonext";
             readme.appendChild(readmeIcon);
 
-            // div for the number of likes/dislikes
+            // Div for the number of likes/dislikes
             const differentialLikes = document.createElement("div");
             differentialLikes.className = "iconsadd";
             story.appendChild(differentialLikes);
 
-            // holder div for differentialLikes
+            // Holder div for differentialLikes
             const iconnumber = document.createElement("div");
             iconnumber.className = "iconnumber";
             differentialLikes.appendChild(iconnumber);
 
-            // p for the real differentialLikes
+            // P for the real differentialLikes
             const likeDifference = document.createElement("p");
             if (difference > 0) {
                 likeDifference.innerHTML = "+" + difference;
@@ -225,7 +225,7 @@ export class TijdlijnController extends Controller {
             }
             iconnumber.appendChild(likeDifference);
 
-            // arrow
+            // Arrow
             const arrow = document.createElement("div");
             if (i % 2 === 0) {
                 arrow.className = "right-container-arrow";
@@ -233,11 +233,12 @@ export class TijdlijnController extends Controller {
                 arrow.className = "left-container-arrow";
             }
             differentialLikes.appendChild(arrow);
-
-
         }
 
         let length = data.result.length;
-        document.styleSheets[0].addRule('div.timeline:after', `animation: moveline ${length}s linear forwards`)
+        document.styleSheets[0].addRule(
+            "div.timeline:after",
+            `animation: moveline ${length}s linear forwards`
+        );
     }
 }
