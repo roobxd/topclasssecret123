@@ -6,25 +6,61 @@ describe("tijdlijn", () => {
         cy.visit("http://localhost:8080");
     });
 
-    // Test to log in successfully
-    it('should login successfully', function () {
-        // Click on login button
+    it('should login successfully', () => {
         cy.get(".login").should("exist");
         cy.get(".login").click();
 
-        // Check the existence of email, password, and submit button
-        cy.get("#email").should("exist");
-        cy.get("#password").should("exist");
-        cy.get(".submitbutton").should("exist");
+        cy.wait(5000);
 
-        // Enter email and password
+        // Start a fake server
+        cy.server();
+
+        // Load the fixture data from login.json
+        cy.fixture('login.json').then((loginData) => {
+            // Add a stub with the URL /users/login as a POST
+            // Respond with the fixture data when requested
+            // Give the stub the alias: @login
+            cy.intercept('POST', '/users/login', loginData).as('login');
+        });
+
+        // Find the field for the username and type the text "test".
         cy.get("#email").type("kiflemisgun15@gmail.com");
+
+        // Find the field for the password and type the text "test".
         cy.get("#password").type("Test15@k");
+
+        // Find the button to login and click it
         cy.get(".submitbutton").click();
+
+        // Wait for the @login-stub to be called by the click-event.
+        cy.wait("@login");
+
+        // The @login-stub is called, check the contents of the incoming request.
+        cy.get("@login").should((xhr) => {
+            // The username should match what we typed earlier
+            const body = xhr.request.body;
+            expect(body.email).equals("kiflemisgun15@gmail.com");
+
+            // The password should match what we typed earlier
+            expect(body.password).equals("Test15@k");
+        });
+
 
         // Check if the URL is as expected after successful login
         cy.url().should('eq', 'http://localhost:8080/#welcome');
     });
+
+
+
+// // Test if welcome page components exist
+    it('should have welcome page components', () => {
+        cy.get('.main-wrapper').should('exist');
+        cy.get('.story-container-welcome').should('exist');
+        cy.get('.filler').should('exist');
+        cy.get('.bulletinboard').should('exist');
+        cy.get('.timelineWelcome').should('exist');
+    });
+
 
     // test if components exits
     it('should test if components exits', function () {
@@ -51,7 +87,8 @@ describe("tijdlijn", () => {
             .and('equal', 'rgb(255, 0, 0)');
 
         cy.get(".timelineContext")
-            .should('have.text', 'Begin en eind datum moet allebei ingevuld worden!');
+            .should('have.text', 'Begin en eind datum moeten allebei ingevuld worden!');
+
 
         // Wait for 1 second
         cy.wait(5000);
@@ -86,6 +123,17 @@ describe("tijdlijn", () => {
         const beginDate = '2020-01-01';
         const endDate = new Date().toISOString().split('T')[0];
 
+        // Start a fake server
+        cy.server();
+
+        // Load the fixture data from tijdlijn.json
+        cy.fixture('tijdlijn.json').then((tijdlijnData) => {
+            // Add a stub with the URL /tijdlijn/${beginDate}/${endDate} as a GET
+            // Respond with the fixture data when requested
+            // Give the stub the alias: @tijdlijn
+            cy.intercept('GET', `/tijdlijn/${beginDate}/${endDate}`, tijdlijnData).as('tijdlijn');
+        });
+
         // Enter the begin date and end date
         cy.get("#beginDatum").clear().type(beginDate);
         cy.get("#eindDatum").clear().type(endDate);
@@ -103,4 +151,5 @@ describe("tijdlijn", () => {
         // Wait for 10 seconds to allow the timeline animation to complete
         cy.wait(10000);
     });
+
 });
