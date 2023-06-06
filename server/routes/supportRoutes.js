@@ -1,54 +1,52 @@
 /**
- * Routes file for  support file
- * @author Kifle
- *
+ * Routes file for the support file.
+ * File description: This file contains the SupportRoutes class, which defines the API endpoints for the support functionality.
+ * @author: Kifleyesus Musgun Sium
  */
-const https = require('https'); // Import the 'https' module;
 
-class SupportRoutes{
-    #app
+const https = require('https'); // Import the 'https' module
+
+class SupportRoutes {
+    #app;
     #databaseHelper = require("../framework/utils/databaseHelper");
     #httpErrorCodes = require("../framework/utils/httpErrorCodes");
 
-
-
     /**
-     * Class constructor
-     * @param app: applicatie
+     * Class constructor.
+     * @param {Object} app - The application.
      */
     constructor(app) {
         this.#app = app;
-
         this.#createSupport();
         this.#sendMail();
-
     }
 
-    #createSupport(){
-
-        this.#app.post("/support", async (req, res) =>{
-            // res.json({"message":"API endpoints called support", "Formulier: " : req.body})
-            try{
-               const data = await this.#databaseHelper.handleQuery({
+    /**
+     * Creates the support endpoint.
+     * @private
+     */
+    #createSupport() {
+        this.#app.post("/support", async (req, res) => {
+            try {
+                const data = await this.#databaseHelper.handleQuery({
                     query: "INSERT INTO faq(name, email, question) VALUES (?,?,?);",
                     values: [req.body.name, req.body.email, req.body.question]
                 });
 
-               if (data.insertId){
-                   res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId});
-                   console.log(res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({id: data.insertId}));
-               }
+                if (data.insertId) {
+                    res.status(this.#httpErrorCodes.HTTP_OK_CODE).json({ id: data.insertId });
+                }
             } catch (e) {
                 console.log(e);
-                res.status(this.#httpErrorCodes.BAD_REQUEST_CODE).json({ reason: e});
-
+                res.status(this.#httpErrorCodes.BAD_REQUEST_CODE).json({ reason: e });
             }
-        })
+        });
     }
 
-
-
-
+    /**
+     * Sends an email.
+     * @private
+     */
     #sendMail() {
         this.#app.post("/sendmail", async (req, res) => {
             const fromEmail = 'buurtposter@hbo-ict.cloud';
@@ -58,7 +56,7 @@ class SupportRoutes{
             const data = JSON.stringify({
                 from: fromEmail,
                 to: email,
-                subject: " Vraag van klant; ",
+                subject: "Vraag van klant",
                 text: question,
                 html: name,
             });
@@ -75,7 +73,6 @@ class SupportRoutes{
             };
 
             const request = https.request(options, (response) => {
-                console.log(`statusCode: ${response.statusCode}`);
                 response.on('data', (d) => {
                     process.stdout.write(d);
                 });
@@ -89,8 +86,6 @@ class SupportRoutes{
             request.end();
         });
     }
-
-
 }
 
 module.exports = SupportRoutes;
