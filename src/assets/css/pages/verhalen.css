@@ -16,6 +16,20 @@ h1 {
     font-family: "Roboto", sans-serif;
 }
 
+.rodin-button {
+    border-radius: 15px;
+    background-color: var(--button-primary);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: center;
+}
+
 input:focus {
     outline: none;
 }
@@ -31,7 +45,7 @@ input:focus {
     margin-top: 12vh;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 0.5fr 1fr;
     background-color: var(--pill-main);
 }
 

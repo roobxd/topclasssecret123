@@ -49,7 +49,7 @@ export class TijdlijnController extends Controller {
             // Create the HTML elements
             const div = document.createElement('div');
                 div.addEventListener("click", () => {
-                    App.loadController(App.CONTROLLER_VERHALEN, {month: date.getMonth() + 1})
+                    App.loadController(App.CONTROLLER_VERHALEN, {date: date})
                 })
 
                 div.classList.add("containertijdlijn", isEven ? "left-container" : "right-container")

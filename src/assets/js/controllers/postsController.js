@@ -35,7 +35,12 @@ export class PostsController extends Controller {
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/posts.html")
 
         // this.#fetchPosts();
-
+        const date = new Date(new URLSearchParams(window.location.hash.slice(1).split('?')[1]).get("date"));
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        this.#welcomeView.querySelector(".dateinput").value = formattedDate
         this.#welcomeView.querySelector(".bold").addEventListener("click", () => document.execCommand("bold", false, null));
         this.#welcomeView.querySelector(".italic").addEventListener("click", () => document.execCommand("italic", false, null));
         this.#welcomeView.querySelector(".underline").addEventListener("click", () => document.execCommand("underline", false, null));

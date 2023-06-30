@@ -13,7 +13,7 @@ export class VerhalenController extends Controller {
     #verhalenView
     isSorted = 0;
 
-    constructor(data) {
+    constructor() {
         super();
         this.#RodinRepository = new TijdlijnRodinRepository();
         this.#PostsRepository = new PostsRepository();
@@ -124,10 +124,14 @@ export class VerhalenController extends Controller {
      */
     async #fetchPosts() {
         try {
-            const month = new URLSearchParams(window.location.hash.slice(1).split('?')[1]).get("month");
+            const date = new Date(new URLSearchParams(window.location.hash.slice(1).split('?')[1]).get("date"));
             let data;
-            if(month !== undefined) {
-                data = await this.#RodinRepository.getStoriesByMonth(month);
+            if(date !== undefined) {
+                console.log(date.getMonth())
+                data = await this.#RodinRepository.getStoriesByMonth(date.getMonth() + 1);
+                this.#verhalenView.querySelector(".rodin-button").addEventListener("click", ( ) => {
+                  App.loadController(App.CONTROLLER_POSTS, { date: date })
+                })
             } else {
                 data = await this.#PostsRepository.getAll();
             }
