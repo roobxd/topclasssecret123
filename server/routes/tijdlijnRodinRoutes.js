@@ -23,7 +23,7 @@ class TijdlijnRoutes {
         this.#app.get("/timelineRodin/get", async(req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT t.* " +
+                    query: "SELECT t.*, (SELECT CONCAT(voornaam, ' ', tussenvoegsel, ' ', achternaam) FROM users WHERE id = t.gebruiker) as gebruikersnaam " +
                         "FROM posts t " +
                         "JOIN (" +
                         "  SELECT EXTRACT(YEAR_MONTH FROM publicatieDatum) AS yearMonth, " +

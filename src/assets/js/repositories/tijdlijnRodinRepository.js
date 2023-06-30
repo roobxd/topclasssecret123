@@ -11,7 +11,7 @@ export class TijdlijnRodinRepository {
     #networkManager;
 
     constructor() {
-        this.#route = "/tijdlijnRodin";
+        this.#route = "/timelineRodin";
         this.#networkManager = new NetworkManager();
     }
 
