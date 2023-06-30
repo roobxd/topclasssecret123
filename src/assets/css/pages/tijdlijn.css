@@ -16,6 +16,7 @@
 .containertijdlijn {
     position: relative;
     width: 50%;
+    cursor: pointer;
 }
 
 .datum {

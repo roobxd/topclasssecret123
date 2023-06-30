@@ -5,14 +5,17 @@
 import { PostsRepository } from "../repositories/postsRepository.js";
 import { Controller } from "./controller.js"
 import { App } from "../app.js";
+import {TijdlijnRodinRepository} from "../repositories/tijdlijnRodinRepository.js";
 
 export class VerhalenController extends Controller {
     #PostsRepository
+    #RodinRepository
     #verhalenView
     isSorted = 0;
 
-    constructor() {
+    constructor(data) {
         super();
+        this.#RodinRepository = new TijdlijnRodinRepository();
         this.#PostsRepository = new PostsRepository();
 
         this.#setupView();
@@ -121,8 +124,13 @@ export class VerhalenController extends Controller {
      */
     async #fetchPosts() {
         try {
-            let data = await this.#PostsRepository.getAll();
-            console.log(data);
+            const month = new URLSearchParams(window.location.hash.slice(1).split('?')[1]).get("month");
+            let data;
+            if(month !== undefined) {
+                data = await this.#RodinRepository.getStoriesByMonth(month);
+            } else {
+                data = await this.#PostsRepository.getAll();
+            }
 
             this.originalData = [...data];
             this.cachedData = [...this.originalData];

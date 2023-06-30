@@ -6,16 +6,19 @@ import { Controller } from "./controller.js";
 import { TijdlijnRepository } from "../repositories/tijdlijnRepository.js";
 import { AccountSettingsRepository } from "../repositories/accountSettingsRepository.js";
 import { App } from "../app.js";
+import {TijdlijnRodinRepository} from "../repositories/tijdlijnRodinRepository.js";
 
 export class TijdlijnController extends Controller {
     #tijdlijnView;
     #tijdlijnRepository;
     #accountSettingsRepository;
+    #rodinTimelineRepository
     #app;
 
     constructor() {
         super();
         this.#tijdlijnRepository = new TijdlijnRepository();
+        this.#rodinTimelineRepository = new TijdlijnRodinRepository();
         this.#accountSettingsRepository = new AccountSettingsRepository();
         this.#app = App;
         this.#initializeView();
@@ -27,8 +30,49 @@ export class TijdlijnController extends Controller {
      */
     async #initializeView() {
         this.#tijdlijnView = await super.loadHtmlIntoContent("html_views/tijdlijn.html");
-        this.#getStories();
+        // this.#getStories();
+        this.#addStoriesPerMonth();
     }
+
+    async #addStoriesPerMonth() {
+        const storiesPerMonth = await this.#rodinTimelineRepository.getStoriesPerMonth();
+        const container = document.querySelector('.timeline');
+
+        for (let i = 0; i < storiesPerMonth.length; i++) {
+            const story = storiesPerMonth[i];
+            const isEven = i % 2 === 0;
+            const date = new Date(story.jaartalGebeurtenis);
+            const monthDate = date.toLocaleString('default', {month: "long"})
+            const monthFormat = monthDate.charAt(0).toUpperCase() + monthDate.slice(1);
+            const month = `${monthFormat}/${date.toLocaleString('default', {year: "numeric"})}`
+
+            // Create the HTML elements
+            const div = document.createElement('div');
+                div.addEventListener("click", () => {
+                    App.loadController(App.CONTROLLER_VERHALEN, {month: date.getMonth() + 1})
+                })
+
+                div.classList.add("containertijdlijn", isEven ? "left-container" : "right-container")
+                div.innerHTML = `
+                <div class="text-box">
+                    <div class="profile-image">
+                        <img src="/assets/images/RoccoStar.png" alt="User Profile Image">
+                    </div>
+                    <div class="content">
+                        <h2>${month}</h2>
+                        <small>${story.gebruikersnaam}, heeft recent een verhaal geplaatst op dit tijdstip</small>
+                        <p><br>Bekijk alle verhalen -></p>
+                    </div>
+                </div>
+            `;
+
+            // Append the element to the container
+            container.appendChild(div);
+        }
+    }
+
+
+
 
     /**
      * Retrieves the stories from the repository.
