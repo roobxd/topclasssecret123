@@ -1,351 +1,84 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
-/*De div die de contentText in tijdlijn houdt*/
-.timeline{
+.timeline {
+    margin-right: 5vw;
+    margin-left: 5vw;
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.containertijdlijn {
     position: relative;
-    max-width: 1200px;
-    /*left: 115px;*/
-    /* margin auto will let the time line be centered horizontally in the page, if necessary, this can be changed
-    to pixels in order to fit the contents of welcome page */
-    margin: auto;
-    top: 75px;
-}
-/* Make the story - card the same as in verhalen page */
-.story-container {
-    width: 100%;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    width: 50%;
 }
 
-.story {
-    display: grid;
-    grid-template-columns: 40% 45.5% 7.5% 4.5%;
-    width: 450px;
-    height: fit-content;
-    border-radius: 25px;
-    margin-bottom: 35px;
-    padding: 10px -1px;
-    justify-self: right;
-}
-
-.persoonstory {
-    background: linear-gradient(97.34deg,
-    rgba(30, 30, 30, 0.95) 0%,
-    rgba(78, 65, 100, 0.95) 51.8%,
-    rgba(129, 95, 185, 0.95) 99.93%);
-}
-
-
-
-/* Instantie */
-.instantieStory{
-    background: linear-gradient(96.64deg, rgba(30, 30, 30, 0.9025) 0%, rgba(98, 78, 78, 0.926398) 50.31%, rgba(255, 151, 151, 0.9025) 100%);
-    border-radius: 25px;
-}
-
-
-.unlikedStory{
-
-    background: linear-gradient(96.98deg, rgba(30, 30, 30, 0.9025) 0%, rgba(187, 103, 43, 0.9025) 39.64%, rgba(171, 84, 47, 0.925409) 100%);
-    border-radius: 25px;
-
-}
-
-.instantieStory{
-    /* Rectangle 4 */
-
-    background: linear-gradient(96.21deg, rgba(30, 30, 30, 0.9025) 1.57%, rgba(98, 78, 78, 0.926398) 19.54%, rgba(255, 151, 151, 0.9025) 51.32%);
-    /*border: 1px solid #F7E8E8;*/
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 19px;
-
-}
-
-
-/* image */
-.story img {
-    object-fit: cover;
-}
-
-.trendingimage {
-    width: 105px;
-    height: 105px;
-    background-position: center;
-    border-radius: 25px;
-}
-
-.image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 175px;
-    height: 150px;
-}
-
-
-.trendingimage {
-    border: solid var(--trending) 4px;
-}
-
-/* text */
-.text {
-    display: flex;
-    align-items: center;
-}
-
-/*Occurrence*/
-.gebeurtenis{
+.datum {
     color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 6vh;
+    border-radius: 5px 0 0 5px;
+    font-size: 20px;
 }
 
-.story p {
-    margin: 0;
-    padding: 0;
-    color: var(--white);
-}
-
-.story-titel {
-    font-size: 18px;
-}
-
-.story-text {
-    font-size: 13px;
-}
-
-/**
-Icon
- */
-.trending {
-    color: var(--trending);
-}
-
-.trending,
-.readme {
-    margin: 0;
-    padding: 0;
-    font-size: 28px;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-/*the icon */
-svg {
-    width: 3vh;
-    height: 3vh;
-    color: white;
-}
-/* Likes */
-.iconnumber {
+.text-box {
     display: flex;
     align-items: center;
-    height: 50%;
-    font-size: 14px;
-    margin-top: 4px;
-    /* margin-left: -2px; */
-}
-/*End of story - card as in verhalen page*/
-/*.container has the story in the .timeline*/
-.container{
-    max-width: 50%;
-    padding: 10px 100px;
-    position: relative;
-    animation: movedown 1s linear forwards;
-    opacity: 0;
-}
-
-/*Animation of moving down*/
-@keyframes movedown {
-    0%{
-        opacity: 1;
-        transform: translateY(-30px);
-    }
-    100%{
-        opacity: 1;
-        transform: translateY(0px);
-    }
-}
-
-/*Drop the contents children one after another using animation-delay*/
-.container:nth-child(1){
-    animation-delay: 0s;
-}
-.container:nth-child(2){
-    animation-delay: 1s;
-}
-.container:nth-child(3){
-    animation-delay: 2s;
-}
-.container:nth-child(4){
-    animation-delay: 3s;
-}
-.container:nth-child(5){
-    animation-delay: 4s;
-}
-.container:nth-child(6){
-    animation-delay: 5s;
-}
-
-
-
-/* .contentText has the text of story in the .container */
-.text-box{
-    /*width: 50%;*/
-    padding: 20px 50px;
-    margin: 0 15px 0 15px;
-    background: #fff;
-    position: relative;
-    border-radius: 15px;
+    padding: 20px 30px;
+    background: white;
+    margin-left: 80px;
+    border-radius: 10px;
     font-size: 15px;
 }
 
-/* The .container will be seperated in left for beter layout */
-.left-container{
-    padding-left: 110px;
-    left: 0;
-}
-
-/* The .container will be seperated in right for beter layout */
-.right-container{
-    padding-left: 40px;
-    left: 50%;
-}
-
-/*
-The profile images should have small size and aligned
- */
-.avatar {
-    vertical-align: middle;
-    width: 50px;
-    height: 50px;
-    }
-
-/* css for Profile images */
-.container .avatar{
-    position: absolute;
+.profile-image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
     border-radius: 50%;
-    right: -20px;
-    top: 32px;
-    z-index: 10;
+    margin-right: 20px;
 }
 
-/* The images from right container should be on the samen side as the images from left container*/
-.right-container .avatar{
-    left: -20px;
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Make line between the containers and also animation of the line */
-.timeline::after{
+.content {
+    flex: 1;
+}
+
+.content h2,
+.content small,
+.content p {
+    margin: 0;
+}
+
+.left-container {
+    left: 0;
+    padding-right: 2vw;
+}
+
+.right-container {
+    left: 48%;
+}
+
+.timeline::before {
     content: '';
     position: absolute;
     width: 6px;
     height: 100%;
-    background: #fff;
+    background-color: white;
     top: 0;
     left: 50%;
     margin-left: -3px;
     z-index: -1;
-
-    background: linear-gradient(180deg, #FFFFFF 0%, #7CFBBE 17.77%, #21CED9 39.64%, #0B12C7 61.52%, #810666 81.83%, #00445E 100%);
-
-    /*animation: moveline 6s linear forwards;*/
-}
-/* More for the animation */
-@keyframes moveline {
-    0%{
-        height: 0;
-    }
-
-    100%{
-        height: 100%;
-    }
-}
-
-/*Titel with font-weight*/
-.text-box h2{
-    font-weight: 6000;
-}
-
-/*Text of the contentText*/
-.text-box small{
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-/**/
-.left-container-arrow{
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 75px;
-    z-index: 1;
-    border-top: 10px solid;
-    border-bottom: 10px solid;
-    border-right: 10px solid;
-    border-left: 10px solid;
-    border-color: var(--button-primary);
-    border-radius: 50%;
-    right: 10px;
-}
-
-.right-container-arrow{
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 75px;
-    z-index: 1;
-    border-top: 10px solid;
-    border-bottom: 10px solid;
-    border-right: 10px solid;
-    border-left: 10px solid;
-    border-color: var(--button-primary);
-    border-radius: 50%;
-    left: 8px;
-
-}
-
-/*Make the timeline responsive*/
-
-@media screen and (max-width: 600px) {
-
-    .timeline{
-        margin: 50px auto;
-    }
-    .timeline::after{
-        left: 31px;
-    }
-    .container{
-        min-width: 100%;
-        padding-left: 80px;
-        padding-right: 25px;
-    }
-
-    .text-box{
-        font-size: 13px;
-    }
-
-    .text-box small{
-        margin-bottom: 10px;
-    }
-
-    .right-container{
-        left: 0;
-    }
-
-    .left-container img, .right-container img{
-        left: 10px;
-    }
-
-    .left-container-arrow, .right-container-arrow{
-        border-right: 15px solid #fff;
-        border-left: 0;
-        left: -15px;
-    }
-
 }

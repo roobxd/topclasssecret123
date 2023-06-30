@@ -124,6 +124,8 @@ export class App {
             new TijdlijnController();
         }
 
+
+
         //Otherwise, load any of the other controllers
         App.setCurrentController(name, controllerData);
 
@@ -185,8 +187,7 @@ export class App {
                 App.isLoggedIn(() => new AccountSettingsBewerkenController(), () => new LoginController());
                 break;
             case App.CONTROLLER_TIJDLIJN:
-                App.setCurrentController(name)
-                App.isLoggedIn(() => new TijdlijnController(), () => new LoginController());
+                App.isLoggedIn(() => new TijdlijnController(), () => new TijdlijnController());
                 break;
             case App.CONTROLLER_READ:
                 App.isLoggedIn(() => new readController(), () => new readController());

@@ -9,6 +9,7 @@ import { Controller } from "./controller.js";
 
 export class NavbarController extends Controller {
     #navbarView
+    #welcomeView
 
     constructor() {
         super();
@@ -23,9 +24,11 @@ export class NavbarController extends Controller {
     async #setupView() {
         //await for when HTML is
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
+        this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
 
         //from here we can safely get elements from the view via the right getter
         const anchors = this.#navbarView.querySelectorAll("div.nav-link");
+
 
         //set click listener on each anchor
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)))

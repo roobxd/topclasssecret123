@@ -33,6 +33,9 @@ export class WelcomeController extends Controller {
     async #setupView() {
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
 
+        const buttonrodin = document.querySelector("button.rodin-button");
+        this.#welcomeView.querySelector("button.rodin-button").addEventListener("click", event => this.#handleRedirect());
+        console.log(buttonrodin)
         try {
             this.#checkVerification;
         } catch (error) {
@@ -63,6 +66,12 @@ export class WelcomeController extends Controller {
 
         this.#fetchPosts();
         this.#fetchBulletinPosts();
+    }
+
+    #handleRedirect() {
+        event.preventDefault();
+        App.loadController("tijdlijn");
+        console.log("gelukt")
     }
 
     /**
