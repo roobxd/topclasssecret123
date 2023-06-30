@@ -120,9 +120,6 @@ export class App {
             new EditController();
         }
 
-        if (window.location.href.includes("tijdlijn")) {
-            new TijdlijnController();
-        }
 
 
 
@@ -150,6 +147,7 @@ export class App {
                 break;
             case App.CONTROLLER_EDIT:
                 App.isLoggedIn(() => new EditController(), () => new LoginController());
+                break;
             case App.CONTROLLER_VERIFIEERACCOUNT:
                 App.isLoggedIn(() => new VerifieerAccountController(), () => new LoginController())
                 break;

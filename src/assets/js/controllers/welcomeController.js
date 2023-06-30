@@ -70,7 +70,7 @@ export class WelcomeController extends Controller {
 
     #handleRedirect() {
         event.preventDefault();
-        App.loadController("tijdlijn");
+        App.loadController(App.CONTROLLER_TIJDLIJN);
         console.log("gelukt")
     }
 

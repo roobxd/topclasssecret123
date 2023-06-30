@@ -128,7 +128,7 @@ export class VerhalenController extends Controller {
             let data;
             if(date !== undefined) {
                 console.log(date.getMonth())
-                data = await this.#RodinRepository.getStoriesByMonth(date.getMonth() + 1);
+                data = await this.#RodinRepository.getStoriesByMonth(date.getMonth() + 1, date.getFullYear());
                 this.#verhalenView.querySelector(".rodin-button").addEventListener("click", ( ) => {
                   App.loadController(App.CONTROLLER_POSTS, { date: date })
                 })

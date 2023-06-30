@@ -56,7 +56,7 @@ export class TijdlijnController extends Controller {
                 div.innerHTML = `
                 <div class="text-box">
                     <div class="profile-image">
-                        <img src="/assets/images/RoccoStar.png" alt="User Profile Image">
+                        <img src=${story.plaatje} alt="User Profile Image">
                     </div>
                     <div class="content">
                         <h2>${month}</h2>

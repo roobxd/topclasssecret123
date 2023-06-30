@@ -23,19 +23,19 @@ class TijdlijnRoutes {
         this.#app.get("/timelineRodin/get", async(req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT t.*, (SELECT CONCAT(voornaam, ' ', tussenvoegsel, ' ', achternaam) FROM users WHERE id = t.gebruiker) as gebruikersnaam " +
-                        "FROM posts t " +
-                        "JOIN (" +
-                        "  SELECT EXTRACT(YEAR_MONTH FROM publicatieDatum) AS yearMonth, " +
-                        "         MAX(publicatieDatum) AS recentPost " +
+                    query: "SELECT *, (SELECT CONCAT(voornaam, ' ', tussenvoegsel, ' ', achternaam) FROM users WHERE id = subquery.gebruiker) as gebruikersnaam " +
+                        "FROM ( " +
+                        "  SELECT * " +
                         "  FROM posts " +
-                        "  WHERE soortBericht = 'verhaal' " +
-                        "  GROUP BY yearMonth " +
+                        "  WHERE EXTRACT(YEAR_MONTH FROM jaartalGebeurtenis) IN ( " +
+                        "    SELECT EXTRACT(YEAR_MONTH FROM jaartalGebeurtenis) AS yearMonth " +
+                        "    FROM posts " +
+                        "    GROUP BY yearMonth " +
+                        "  ) " +
+                        "  ORDER BY publicatieDatum DESC " +
                         ") AS subquery " +
-                        "ON EXTRACT(YEAR_MONTH FROM t.publicatieDatum) = subquery.yearMonth " +
-                        "   AND t.publicatieDatum = subquery.recentPost " +
-                        "WHERE t.soortBericht = 'verhaal' " +
-                        "ORDER BY t.jaartalGebeurtenis;",
+                        "GROUP BY EXTRACT(YEAR_MONTH FROM jaartalGebeurtenis) " +
+                        "ORDER BY jaartalGebeurtenis DESC;",
                     values: []
                 })
 
@@ -47,16 +47,18 @@ class TijdlijnRoutes {
     }
 
     #getStoriesByMonth() {
-        this.#app.get("/timelineRodin/getByMonth/:month", async(req, res) => {
+        this.#app.get("/timelineRodin/getByMonth/:month/:year", async(req, res) => {
             const month = req.params.month;
+            const year = req.params.year;
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
                     query: "SELECT * " +
                         "FROM posts " +
                         "WHERE soortBericht = 'verhaal' " +
-                        "AND EXTRACT(MONTH FROM jaartalGebeurtenis) = ?;",
-                    values: [month]
+                        "AND EXTRACT(MONTH FROM jaartalGebeurtenis) = ? " +
+                        "AND EXTRACT(YEAR FROM jaartalGebeurtenis) = ?;",
+                    values: [month, year]
                 })
                 res.status(this.#httpErrorCodes.HTTP_OK_CODE).json(data)
             } catch (e) {

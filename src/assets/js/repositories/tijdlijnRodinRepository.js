@@ -28,7 +28,7 @@ export class TijdlijnRodinRepository {
      * @param month
      * @returns {Promise<*>}
      */
-    async getStoriesByMonth(month) {
-        return await this.#networkManager.doRequest(`${this.#route}/getByMonth/${month}`, "GET")
+    async getStoriesByMonth(month, year) {
+        return await this.#networkManager.doRequest(`${this.#route}/getByMonth/${month}/${year}`, "GET")
     }
 }
